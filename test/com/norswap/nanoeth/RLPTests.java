@@ -15,7 +15,6 @@ import static org.testng.Assert.assertEquals;
 
 public final class RLPTests {
 
-
     // ---------------------------------------------------------------------------------------------
 
     private static byte[] encodeBytesSize (int size) {

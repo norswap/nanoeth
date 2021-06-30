@@ -1,5 +1,8 @@
 # TODO
 
-- look at RLP tests in other places (quilt, tuwani, nodes?)
-- add a README.md in rlp package  
-- RLP offsets for numbers? & sequence class instead of arrays?
+- implement address/key generation
+- implement transaction signing
+- implement encoding transaction to RLP
+
+- implement Merkle tree
+- implement Verkle tree

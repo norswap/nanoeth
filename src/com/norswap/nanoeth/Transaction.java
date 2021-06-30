@@ -1,6 +1,7 @@
 package com.norswap.nanoeth;
 
 import com.norswap.nanoeth.data.Address;
+import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.data.Natural;
 
 public final class Transaction {
@@ -12,14 +13,14 @@ public final class Transaction {
     private final Natural gasLimit;
     private final Address to;
     private final Natural value;
-    private final byte[] data;
+    private final Bytes data;
 
     private final Object v, r, s; // TODO: signature of the transaction
 
     // ---------------------------------------------------------------------------------------------
 
     public Transaction (Natural nonce, Natural gasPrice, Natural gasLimit, Address to,
-        Natural value, byte[] data, Object v, Object r, Object s)
+        Natural value, Bytes data, Object v, Object r, Object s)
     {
         this.nonce = nonce;
         this.gasPrice = gasPrice;
@@ -95,7 +96,7 @@ public final class Transaction {
      * Returns the data attached to the message call, or the initialization code in case of
      * contract creation.
      */
-    public byte[] data() {
+    public Bytes data() {
         return data;
     }
 
