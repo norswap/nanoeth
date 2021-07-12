@@ -122,7 +122,14 @@ public final class Bytes {
 
     /** Returns a {@link Bytes} object for the range [index, index+length[. */
     public Bytes slice (int index, int length) {
-        return Bytes.from(Arrays.copyOfRange(storage, index, index + length));
+        return Bytes.from(arraySlice(index, length));
+    }
+
+    // --------------------------------------------------------------------------------------------
+
+    /** Returns a byte array object for the range [index, index+length[. */
+    public byte[] arraySlice (int index, int length) {
+        return Arrays.copyOfRange(storage, index, index + length);
     }
 
     // ---------------------------------------------------------------------------------------------

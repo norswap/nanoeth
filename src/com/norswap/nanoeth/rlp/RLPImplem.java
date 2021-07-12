@@ -197,7 +197,7 @@ class RLPImplem
     private static int toInt (Bytes bytes, int offset, int size) {
         checkRemaining(bytes, offset, size);
         if (size <= 4) {
-            int out = ByteUtils.toInt(bytes.slice(offset, size));
+            int out = ByteUtils.toInt(bytes.arraySlice(offset, size));
             if (out <= MAX_ARRAY_SIZE)
                 return out;
         }
