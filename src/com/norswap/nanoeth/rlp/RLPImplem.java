@@ -1,7 +1,7 @@
 package com.norswap.nanoeth.rlp;
 
-import com.norswap.nanoeth.data.ByteUtils;
 import com.norswap.nanoeth.data.Bytes;
+import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -84,7 +84,9 @@ class RLPImplem
         if (size <= MAX_SHORT_SEQUENCE_SIZE)
             return ByteUtils.array(BYTES_SIZE_SUMMAND + size);
         else
-            return ByteUtils.concat(ByteUtils.array(BYTES_SIZE_SIZE_SUMMAND + ByteUtils.byteSize(size)), ByteUtils.bytes(size));
+            return ByteUtils.concat(
+                ByteUtils.array(BYTES_SIZE_SIZE_SUMMAND + ByteUtils.byteSize(size)),
+                ByteUtils.bytes(size));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -93,7 +95,9 @@ class RLPImplem
         if (size <= MAX_SHORT_SEQUENCE_SIZE)
             return ByteUtils.array(ITEMS_SIZE_SUMMAND + size);
         else
-            return ByteUtils.concat(ByteUtils.array(ITEMS_SIZE_SIZE_SUMMAND + ByteUtils.byteSize(size)), ByteUtils.bytes(size));
+            return ByteUtils.concat(
+                ByteUtils.array(ITEMS_SIZE_SIZE_SUMMAND + ByteUtils.byteSize(size)),
+                ByteUtils.bytes(size));
     }
 
     // ---------------------------------------------------------------------------------------------

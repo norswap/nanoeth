@@ -1,16 +1,34 @@
-package com.norswap.nanoeth.data;
+package com.norswap.nanoeth.utils;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
-import static java.lang.String.format;
-
 /**
- * Utility dealing with byte values.
+ * Utilities dealing with {@code byte} values, the byte-array encoding of larger numbers, as well
+ * as byte arrays in general.
  */
 public final class ByteUtils {
     private ByteUtils () {}
 
-    // ---------------------------------------------------------------------------------------------
+    // =============================================================================================
+    // BYTE ARRRAYS
+
+    /**
+     * Returns the concatenation of the byte arrays.
+     */
+    public static byte[] concat (byte[]... bytes) {
+        int size = Arrays.stream(bytes).map(d -> d.length).reduce(0, Integer::sum);
+        byte[] out = new byte[size];
+        int pos = 0;
+        for (byte[] d: bytes) {
+            System.arraycopy(d, 0, out, pos, d.length);
+            pos += d.length;
+        }
+        return out;
+    }
+
+    // =============================================================================================
+    // BYTE VALUES
 
     /**
      * True if the value is in the signed byte range [-128, 127] or if it is in [128, 255]
@@ -43,22 +61,6 @@ public final class ByteUtils {
      */
     public static int uint (byte b) {
         return ((int) b) & 0xff;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Returns the concatenation of the byte arrays.
-     */
-    public static byte[] concat (byte[]... bytes) {
-        int size = Arrays.stream(bytes).map(d -> d.length).reduce(0, Integer::sum);
-        byte[] out = new byte[size];
-        int pos = 0;
-        for (byte[] d: bytes) {
-            System.arraycopy(d, 0, out, pos, d.length);
-            pos += d.length;
-        }
-        return out;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -125,24 +127,44 @@ public final class ByteUtils {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns a byte sequence of size {@code byteSize(value)} encoding {@code value} in big-endian.
+     * Returns the integer encoded by the big-endian {@code bytes} array, whose size should be in
+     * {@code ]0,4]}.
      */
-    public static Bytes byteSequence (int value) {
-        return Bytes.from(bytes(value));
+    public static int toInt (byte[] bytes) {
+        assert 0 < bytes.length && bytes.length <= 4;
+        int out = 0;
+        for (int i = 0; i < bytes.length; i++)
+            out |= uint(bytes[i]) << (8 * (bytes.length - 1 - i));
+        return out;
     }
+
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns the integer encoded by the big-endian {@code bytes} array, whose size should be in
-     * {@code ]0,4]}.
+     * Returns the big-endian encoding of {@code value} in bytes padded (at the start) with zeroes
+     * so that the length of the output is at least {@code length}.
+     *
+     * <p>{@code length} should be bigger or equal than the length unpadded encoding of {@code
+     * value}, excluding the sign bit.
+     *
+     * <p>This method does not require a sign bit to be included in the result, and should only
+     * be called with positive values.
      */
-    public static int toInt (Bytes bytes) {
-        assert 0 < bytes.size() && bytes.size() <= 4;
-        int out = 0;
-        for (int i = 0; i < bytes.size(); i++)
-            out |= uint(bytes.get(i)) << (8 * (bytes.size() - 1 - i));
-        return out;
+    public static byte[] bytesPadded (BigInteger value, int length) {
+        Assert.that(value.compareTo(BigInteger.ZERO) >= 0, "Negative value");
+
+        byte[] result = new byte[length];
+        byte[] unpadded = value.toByteArray();
+        int srcOffset = unpadded[0] == 0 ? 1 : 0; // exlude byte included only for sign bit
+        int unpaddedLenth = unpadded.length - srcOffset;
+        int dstOffset = length - unpaddedLenth;
+
+        Assert.that(length >= unpaddedLenth,
+            "Input is too large to put in byte array of size %s", length);
+
+        System.arraycopy(unpadded, srcOffset, result, dstOffset, unpaddedLenth);
+        return result;
     }
 
     // ---------------------------------------------------------------------------------------------

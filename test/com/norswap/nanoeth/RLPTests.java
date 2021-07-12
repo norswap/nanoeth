@@ -9,8 +9,8 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-import static com.norswap.nanoeth.data.ByteUtils.array;
-import static com.norswap.nanoeth.data.ByteUtils.concat;
+import static com.norswap.nanoeth.utils.ByteUtils.array;
+import static com.norswap.nanoeth.utils.ByteUtils.concat;
 import static org.testng.Assert.assertEquals;
 
 public final class RLPTests {

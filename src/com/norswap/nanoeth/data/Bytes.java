@@ -1,6 +1,7 @@
 package com.norswap.nanoeth.data;
 
 import com.norswap.nanoeth.annotations.Retained;
+import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
 
 /**
