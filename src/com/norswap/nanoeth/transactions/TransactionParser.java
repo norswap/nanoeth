@@ -5,6 +5,7 @@ import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLPBytes;
 import com.norswap.nanoeth.rlp.RLPSequence;
+import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.utils.ByteUtils;
 
@@ -66,7 +67,7 @@ final class TransactionParser {
 
         var r = getNatural(seq, 7);
         var s = getNatural(seq, 8);
-        var signature = new Signature(recoveryId, r, s); // unverified!
+        var signature = makeSignature(recoveryId, r, s); // legal, but unverified!
 
         return new Transaction(format, chainId, nonce, gasPrice, gasPrice, gasLimit, to, value,
             payload, AccessList.EMPTY, signature);
@@ -88,7 +89,7 @@ final class TransactionParser {
         var recoveryId = getInt(seq, 8);
         var r = getNatural(seq, 9);
         var s = getNatural(seq, 10);
-        var signature = new Signature(recoveryId, r, s);
+        var signature = makeSignature(recoveryId, r, s); // legal, but unverified!
 
         return new Transaction(TX_EIP_2930, chainId, nonce, gasPrice, gasPrice, gasLimit, to, value,
             payload, accessList, signature);
@@ -111,10 +112,21 @@ final class TransactionParser {
         int recoveryId = getInt(seq, 9);
         var r = getNatural(seq, 10);
         var s = getNatural(seq, 11);
-        var signature = new Signature(recoveryId, r, s);
+        var signature = makeSignature(recoveryId, r, s); // legal, but unverified!
 
         return new Transaction(TX_EIP_1559, chainId, nonce, maxFeePerGas, maxPriorityFeePerGas,
             gasLimit, to, value, payload, accessList, signature);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private static Signature makeSignature (int recoveryId, Natural r, Natural s)
+            throws IllegalTransactionFormatException {
+        try {
+            return new Signature(recoveryId, r, s);
+        } catch (IllegalSignature e) {
+            throw new IllegalTransactionFormatException("illegal signature", e);
+        }
     }
 
     // ---------------------------------------------------------------------------------------------

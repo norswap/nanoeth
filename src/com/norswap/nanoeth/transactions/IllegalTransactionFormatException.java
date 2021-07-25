@@ -9,7 +9,18 @@ import com.norswap.nanoeth.rlp.RLPSequence;
  * @see Transaction#from(int, RLPSequence) 
  */
 public final class IllegalTransactionFormatException extends Exception {
+
+    // ---------------------------------------------------------------------------------------------
+
     public IllegalTransactionFormatException (String message) {
         super(message);
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public IllegalTransactionFormatException (String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    // ---------------------------------------------------------------------------------------------
 }

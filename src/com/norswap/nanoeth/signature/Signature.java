@@ -34,22 +34,20 @@ public final class Signature
 
     // ---------------------------------------------------------------------------------------------
 
-    // TODO: When used to validate new transactions, must reject signatures instead of
-    //       canonicalizing them.
-
     /**
-     * Creates a new signature with the given r and s values. Note that s might be canonicalized
-     * before being stored into the {@link #s} field.
-     *
-     * <p>Canonicalization occurs because for every signature (r,s) the signature (r, -s (mod n)) is
-     * a valid signature of the same message. See signature package README for more information.
+     * Creates a new signature with the given {@code r} and {@code s} values. {@code s} must be in
+     * its canonical form (see {@link #createCanonical(int, Natural, Natural)}).
      */
-    public Signature (int recoveryId, Natural r, Natural s) {
-        if (s.compareTo(HALF_N) > 0)
-            s = new Natural(SECP256K1.n.subtract(s));
-        Assert.that(r.signum() >= 0, "r must be positive");
-        Assert.that(s.signum() >= 0, "s must be positive");
-        Assert.that(0 <= recoveryId && recoveryId < 4, "recovery ID (v) must be in [0,3]");
+    public Signature (int recoveryId, Natural r, Natural s) throws IllegalSignature {
+        if (r.signum() < 0)
+            throw new IllegalSignature("r must be positive");
+        if (s.signum() < 0)
+            throw new IllegalSignature("s must be positive");
+         if (s.compareTo(HALF_N) > 0)
+             throw new IllegalSignature("s must be <= n/2 to avoid signature malleability");
+        if (recoveryId < 0 || 3 < recoveryId)
+            throw new IllegalSignature("recovery ID (v) must be in [0,3]");
+
         this.recoveryId = (byte) recoveryId;
         this.r = r;
         this.s = s;
@@ -58,19 +56,16 @@ public final class Signature
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Create a signature from the v, r and s values published on the blockchain. Compared to the
-     * usual constructor, this involves parsing the v value to obtain the recovery ID.
+     * Creates a new signature with the given {@code r} and {@code s} values, canonicalizing {@code
+     * s} if needed.
+     *
+     * <p>Canonicalization occurs because for every signature (r,s) the signature (r, -s (mod n)) is
+     * a valid signature of the same message. See signature package README for more information.
      */
-    public static Signature fromVRS (BigInteger v, Natural r, Natural s) {
-        int vi = v.intValue();
-        int recoveryId;
-        // check signature package README for details
-        if (vi == 27 || vi == 28)
-            recoveryId =  vi - 27;
-        else if (vi > 37)
-            recoveryId = (vi - 35) / 2;
-        else
-            throw new AssertionError("invalid v value: " + vi);
+    public static Signature createCanonical (int recoveryId, Natural r, Natural s)
+            throws IllegalSignature {
+        if (s.compareTo(HALF_N) > 0)
+            s = new Natural(SECP256K1.n.subtract(s));
         return new Signature(recoveryId, r, s);
     }
 

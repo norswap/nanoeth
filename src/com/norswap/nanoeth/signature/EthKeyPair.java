@@ -112,9 +112,14 @@ public final class EthKeyPair {
         var r = new Natural(components[0]);
         var s = new Natural(components[1]);
         int recoveryId = findRecoveryId(message, r, s);
-        return recoveryId >= 0
-            ? new Signature(recoveryId, r, s)
-            : signWithoutHashingWithRandomK(message);
+
+        try {
+            return recoveryId >= 0
+                ? Signature.createCanonical(recoveryId, r, s)
+                : signWithoutHashingWithRandomK(message);
+        } catch (IllegalSignature e) {
+            throw new Error("implementation bug", e);
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -135,14 +140,14 @@ public final class EthKeyPair {
      * Same as {@link #signWithoutHashing} but uses a random k in the signature scheme, to handle
      * the 1/10^36 probability case where (r, s) is rejected (see signature package README).
      */
-    private Signature signWithoutHashingWithRandomK (byte[] message) {
+    private Signature signWithoutHashingWithRandomK (byte[] message) throws IllegalSignature {
         while (true) {
             BigInteger[] components = SECP256K1.signWithRandomK(privateKey, message);
             var r = new Natural(components[0]);
             var s = new Natural(components[1]);
             int recoveryId = findRecoveryId(message, r, s);
             if (recoveryId >= 0)
-                return new Signature(recoveryId, r, s);
+                return Signature.createCanonical(recoveryId, r, s);
         }
     }
 
