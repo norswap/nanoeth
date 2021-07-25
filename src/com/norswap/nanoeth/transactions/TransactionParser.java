@@ -51,15 +51,15 @@ final class TransactionParser {
         // See signature package README.
         TransactionFormat format;
         Natural chainId;
-        int recoveryId;
+        int yParity;
         var v = getNatural(seq, 6);
         if (v.same(27) || v.same(28)) {
             format     = TX_LEGACY;
             chainId    = new Natural(1);
-            recoveryId = v.intValue() - 27;
+            yParity    = v.intValue() - 27;
         } else if (v.greaterSame(37)) {
             format     = TX_EIP_155;
-            recoveryId = v.sub(35).mod(2).intValue();
+            yParity    = v.sub(35).mod(2).intValue();
             chainId    = v.sub(35).div(2);
         } else {
             throw new IllegalTransactionFormatException("invalid v signature value");
@@ -67,7 +67,7 @@ final class TransactionParser {
 
         var r = getNatural(seq, 7);
         var s = getNatural(seq, 8);
-        var signature = makeSignature(recoveryId, r, s); // legal, but unverified!
+        var signature = makeSignature(yParity, r, s); // legal, but unverified!
 
         return new Transaction(format, chainId, nonce, gasPrice, gasPrice, gasLimit, to, value,
             payload, AccessList.EMPTY, signature);
@@ -86,10 +86,10 @@ final class TransactionParser {
         var value = getNatural(seq, 5);
         var payload = getBytes(seq, 6);
         var accessList = getAccessList(seq, 7);
-        var recoveryId = getInt(seq, 8);
+        var yParity = getInt(seq, 8);
         var r = getNatural(seq, 9);
         var s = getNatural(seq, 10);
-        var signature = makeSignature(recoveryId, r, s); // legal, but unverified!
+        var signature = makeSignature(yParity, r, s); // legal, but unverified!
 
         return new Transaction(TX_EIP_2930, chainId, nonce, gasPrice, gasPrice, gasLimit, to, value,
             payload, accessList, signature);
@@ -109,10 +109,10 @@ final class TransactionParser {
         var value = getNatural(seq, 6);
         var payload = getBytes(seq, 7);
         var accessList = getAccessList(seq, 8);
-        int recoveryId = getInt(seq, 9);
+        int yParity = getInt(seq, 9);
         var r = getNatural(seq, 10);
         var s = getNatural(seq, 11);
-        var signature = makeSignature(recoveryId, r, s); // legal, but unverified!
+        var signature = makeSignature(yParity, r, s); // legal, but unverified!
 
         return new Transaction(TX_EIP_1559, chainId, nonce, maxFeePerGas, maxPriorityFeePerGas,
             gasLimit, to, value, payload, accessList, signature);
@@ -120,10 +120,10 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Signature makeSignature (int recoveryId, Natural r, Natural s)
+    private static Signature makeSignature (int yParity, Natural r, Natural s)
             throws IllegalTransactionFormatException {
         try {
-            return new Signature(recoveryId, r, s);
+            return new Signature(yParity, r, s);
         } catch (IllegalSignature e) {
             throw new IllegalTransactionFormatException("illegal signature", e);
         }

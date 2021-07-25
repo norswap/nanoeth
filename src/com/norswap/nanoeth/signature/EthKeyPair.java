@@ -111,7 +111,9 @@ public final class EthKeyPair {
         BigInteger[] components = SECP256K1.sign(privateKey, message);
         var r = new Natural(components[0]);
         var s = new Natural(components[1]);
-        int recoveryId = findRecoveryId(message, r, s);
+        // See signature package README to understand what the recovery ID is and its relationship
+        // to "y parity".
+        int recoveryId = findYParity(message, r, s);
 
         try {
             return recoveryId >= 0
@@ -124,10 +126,13 @@ public final class EthKeyPair {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** See signature package README to understand what the recovery ID is. */
-    private int findRecoveryId (byte[] message, Natural r, Natural s) {
-        // Ethereum reject super rare cases where n <= x < q.
-        // See signature package README.
+    /**
+     * Given that {@code (x,y)} is the public key (elliptic curve point) associated with the
+     * signature, this method returns the found y parity (0 or 1 for even or odd, respectively) for
+     * the message with the given {@code r} and {@code s} value; or -1 in the very rare case where
+     * {@code n <= x < q}. See signature package README for more information.
+     */
+    private int findYParity (byte[] message, Natural r, Natural s) {
         for (int recoveryId = 0; recoveryId < 4; ++recoveryId)
             if (publicKey.equals(recoverPublicKey(recoveryId, message, r, s)))
                 return recoveryId < 2 ? recoveryId : -1;
@@ -145,7 +150,7 @@ public final class EthKeyPair {
             BigInteger[] components = SECP256K1.signWithRandomK(privateKey, message);
             var r = new Natural(components[0]);
             var s = new Natural(components[1]);
-            int recoveryId = findRecoveryId(message, r, s);
+            int recoveryId = findYParity(message, r, s);
             if (recoveryId >= 0)
                 return Signature.createCanonical(recoveryId, r, s);
         }

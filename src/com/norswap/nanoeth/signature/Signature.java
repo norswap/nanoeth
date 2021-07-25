@@ -1,7 +1,6 @@
 package com.norswap.nanoeth.signature;
 
 import com.norswap.nanoeth.data.Natural;
-import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.Hashing;
 import org.bouncycastle.math.ec.ECAlgorithms;
 import org.bouncycastle.math.ec.ECPoint;
@@ -23,11 +22,13 @@ public final class Signature
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * The recovery ID that specifies which key generated this signature (as there are two possible
-     * keys). Called "recovery ID" as it allows recovering the public key from the signature. See
-     * the signature package README for more information.
+     * The y Parity that specifies which key generated this signature (as there are two possible
+     * keys). This is also sometimes called "recovery ID" as it allows recovering the public key
+     * from the signature. See the signature package README for more information.
+     *
+     * <p>Will be 1 if y is odd, 0 if even.
      */
-    public final byte recoveryId;
+    public final byte yParity;
 
     public final Natural r;
     public final Natural s;
@@ -35,20 +36,21 @@ public final class Signature
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new signature with the given {@code r} and {@code s} values. {@code s} must be in
-     * its canonical form (see {@link #createCanonical(int, Natural, Natural)}).
+     * Creates a new signature with the given {@code yParity}, {@code r} and {@code s} values.
+     * {@code s} must be in its canonical form (see {@link #createCanonical(int, Natural,
+     * Natural)}).
      */
-    public Signature (int recoveryId, Natural r, Natural s) throws IllegalSignature {
+    public Signature (int yParity, Natural r, Natural s) throws IllegalSignature {
         if (r.signum() < 0)
             throw new IllegalSignature("r must be positive");
         if (s.signum() < 0)
             throw new IllegalSignature("s must be positive");
          if (s.compareTo(HALF_N) > 0)
              throw new IllegalSignature("s must be <= n/2 to avoid signature malleability");
-        if (recoveryId < 0 || 3 < recoveryId)
-            throw new IllegalSignature("recovery ID (v) must be in [0,3]");
+        if (yParity != 0 && yParity != 1)
+            throw new IllegalSignature("y Parity (used to build v) must be in [0,1]");
 
-        this.recoveryId = (byte) recoveryId;
+        this.yParity = (byte) yParity;
         this.r = r;
         this.s = s;
     }
@@ -56,17 +58,17 @@ public final class Signature
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new signature with the given {@code r} and {@code s} values, canonicalizing {@code
-     * s} if needed.
+     * Creates a new signature with the given {@code yParity}, {@code r} and {@code s} values,
+     * canonicalizing {@code s} if needed.
      *
      * <p>Canonicalization occurs because for every signature (r,s) the signature (r, -s (mod n)) is
      * a valid signature of the same message. See signature package README for more information.
      */
-    public static Signature createCanonical (int recoveryId, Natural r, Natural s)
+    public static Signature createCanonical (int yParity, Natural r, Natural s)
             throws IllegalSignature {
         if (s.compareTo(HALF_N) > 0)
             s = new Natural(SECP256K1.n.subtract(s));
-        return new Signature(recoveryId, r, s);
+        return new Signature(yParity, r, s);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -77,7 +79,7 @@ public final class Signature
      */
     public boolean verify (byte[] message) {
         byte[] hash = Hashing.keccak(message).bytes;
-        ECPoint publicKey = recoverPublicKey(recoveryId, hash, r, s);
+        ECPoint publicKey = recoverPublicKey(yParity, hash, r, s);
         return publicKey != null && verifyWithoutHashing(publicKey, hash);
     }
 
@@ -104,6 +106,8 @@ public final class Signature
     public static ECPoint recoverPublicKey
             (int recoveryId, byte[] message, BigInteger r, BigInteger s) {
 
+        // Note that we must handle recoveryId in [0, 3] and not just [0, 1]!
+
         // r could have been generated both by x, or by x + n (mod q).
         // See signature package README.
         BigInteger i = BigInteger.valueOf(recoveryId / 2); // 0 or 1
@@ -114,7 +118,7 @@ public final class Signature
             return null;
 
         // Compressed keys require you to know an extra bit of data about the y-coordinate (as there
-        // are two possibilities), which is encoded in the recovery id as the oddness of y.
+        // are two possibilities), which is encoded as the parity of y.
         boolean yOdd = (recoveryId & 1) == 1;
         // R is called P in the README and in the intro articles.
         ECPoint R = SECP256K1.point(x, yOdd);
@@ -143,15 +147,15 @@ public final class Signature
         if (this == o) return true;
         if (!(o instanceof Signature)) return false;
         Signature signature = (Signature) o;
-        return recoveryId == signature.recoveryId && r.equals(signature.r) && s.equals(signature.s);
+        return yParity == signature.yParity && r.equals(signature.r) && s.equals(signature.s);
     }
 
     @Override public int hashCode () {
-        return Objects.hash(recoveryId, r, s);
+        return Objects.hash(yParity, r, s);
     }
 
     @Override public String toString() {
-        return String.format("recoveryId: %d, r: %s, d: %s", recoveryId, r, s);
+        return String.format("yParity: %d, r: %s, d: %s", yParity, r, s);
     }
 
     // ---------------------------------------------------------------------------------------------

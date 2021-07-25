@@ -10,7 +10,6 @@ import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.utils.ByteUtils;
 import org.bouncycastle.math.ec.ECPoint;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -74,7 +73,7 @@ public final class Transaction extends UnsignedTransaction {
      */
     public Address recoverSender() {
         ECPoint publicKey = Signature.recoverPublicKey(
-            signature.recoveryId, binary(), signature.r, signature.s);
+            signature.yParity, binary(), signature.r, signature.s);
         if (publicKey == null)
             throw new IllegalStateException("The transaction's signature is invalid.");
         return EthKeyPair.address(publicKey);
@@ -90,16 +89,16 @@ public final class Transaction extends UnsignedTransaction {
         return switch (format) {
             case TX_LEGACY -> RLPSequence.from(
                 nonce, maxFeePerGas, gasLimit, to, value, payload,
-                27 + signature.recoveryId, signature.r, signature.s);
+                27 + signature.yParity, signature.r, signature.s);
             case TX_EIP_155 -> RLPSequence.from(
                 nonce, maxFeePerGas, gasLimit, to, value, payload,
-                chainId.mult(2).add(35).add(signature.recoveryId), signature.r, signature.s);
+                chainId.mult(2).add(35).add(signature.yParity), signature.r, signature.s);
             case TX_EIP_2930 -> RLPSequence.from(
                 chainId, nonce, maxFeePerGas, gasLimit, to, value, payload,
-                accessList.rlp(), signature.recoveryId, signature.r, signature.s);
+                accessList.rlp(), signature.yParity, signature.r, signature.s);
             case TX_EIP_1559 -> RLPSequence.from(
                 chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, payload,
-                accessList.rlp(), signature.recoveryId, signature.r, signature.s);
+                accessList.rlp(), signature.yParity, signature.r, signature.s);
         };
     }
 

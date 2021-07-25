@@ -28,7 +28,7 @@ of the most restrictive (see section 10 of the ECDSA document for more details).
 RFC 6979 discussed how the signature secret (`k`) can be derived deterministically using HMAC
 instead of picked randomly. See discussion in the "Selecting `k`" section below.
     
-## Signature Verification & Recovery IDs (`v`)
+## Signature Verification & y Parity / Recovery ID (`v`)
 
 An important point to understand the code is that **the same `(r, s)` signature could have been
 generated from up to four different private keys.**
@@ -50,22 +50,16 @@ So, for a given `r`, the four elliptic curve points `(x, y)`, `(x, -y)`, `(x + n
 because the probability of `n <= x + n < q` is exceedingly small (< 1/10^36). It's so rare that
 Ethereum decides to not consider them, see below.
 
-There are two equivalent ways of verifying a signature. The first one involves reconstructing `P` using
-`(r, s)` and the public key (an elliptic curve point `Q`). The second one is to recover the public
-key `Q` from `(r, s)` and check that against the public key whose signature we want to verify.
-Ethereum clients tend to use this second way because an address is composed of the 160 rightmost
-bits of the public key. So to verify a signature, we just recover the public key and compare its 160
-rightmost bits to the sender's address.
+There are two equivalent ways of verifying a signature. The first one involves reconstructing `P`
+using `(r, s)` and the public key (an elliptic curve point `Q`). The second one is to recover the
+public key `Q` from `(r, s)` and check that against the public key whose signature we want to
+verify. Ethereum clients tend to use this second way because an address is composed of the 160
+rightmost bits of the public key. So to verify a signature, we just recover the public key and
+compare its 160 rightmost bits to the sender's address.
 
 However, because multiple `P` are possible, multiple `Q` are also possible. We either need to check
 the four possible keys, or be given a specific recovery ID (sometimes written `recId`) to tell us
 which key to recover.
-
-To verify a signature, we recover the public key that would have generated the signature from the
-signature, then compare that it conforms to the public key we want to check. However, because
-multiple public keys are possible, we either need to the check the four possible keys, or to be
-given a specific recovery ID (sometimes written `recId`) to tell us which `P` point is the correct
-one, and consequently, which public key to recover.
 
 The recovery ID has a value in `[0, 3]`:
 - 0 = `(x < n,  even y)`
@@ -81,6 +75,9 @@ would be problematic, because which one is the "real" `y`? We could settle on `y
 For similar reasons, we use `x < n` and `x >= n` instead of `x` and `x + n`.  As we said, Ethereum
 disallows the `x >= n` case altogether. In the yellowpaper this difference is called "finitess", `x
 < n` being "finite".
+
+Because of them, EIPs tend to call the recovery ID "y parity". In the code, I use `recoveryId` as a
+name where values in `[0, 3]` are possible, and `yParity` when only `0` or `1` are allowed.
 
 What would happen if by extreme lack of luck we were to generate a `x >= n` signature for a
 transaction? Assuming the wallet or contract does not crash, the signature would be rejected, and
