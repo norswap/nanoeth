@@ -92,7 +92,7 @@ public final class RLP {
     /**
      * Encodes a byte sequence in RLP format.
      */
-    private static Bytes encode (Bytes bytes) {
+    static Bytes encode (Bytes bytes) {
         assert bytes.frozen();
 
         if (bytes.size() == 1 && ByteUtils.uint(bytes.get(0)) < SINGLE_BYTE_ENCODING_LIMIT)
@@ -238,6 +238,7 @@ public final class RLP {
             int size = decodeItemSequenceSize(marker, bytes, offset);
             var list = new ArrayList<RLPItem>();
             int end = offset.x + size;
+            checkRemaining(bytes, offset.x, end - offset.x);
             while (offset.x < end)
                 list.add(decode(bytes, offset));
             if (offset.x != end)

@@ -11,7 +11,7 @@ public final class RLPBytes extends RLPItem {
 
     // ---------------------------------------------------------------------------------------------
 
-    private final Bytes bytes;
+    public final Bytes bytes;
 
     // ---------------------------------------------------------------------------------------------
 
@@ -37,16 +37,13 @@ public final class RLPBytes extends RLPItem {
     // ---------------------------------------------------------------------------------------------
 
     @Override public Bytes encode() {
-        return RLPImplem.encode(bytes);
+        return RLP.encode(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public boolean equals (Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RLPBytes rlpBytes = (RLPBytes) o;
-        return bytes.equals(rlpBytes.bytes);
+        return this == o || o instanceof RLPBytes && bytes.equals(((RLPBytes) o).bytes);
     }
 
     @Override public int hashCode () {

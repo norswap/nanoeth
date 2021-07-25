@@ -43,3 +43,13 @@ change in encoding. We repreent them in the implementation as constants whose na
 The values 128, 183, 192 and 247 (note the occasional off-by-one) are similarly special, as
 they represent a base that is added to a size to encode it. We represent them in the
 implementation as constants whose name ends with `SUMMAND`.
+
+## Zero Length Sequences
+
+Something that might not be immediately obvious from the above is that a zero-length byte sequence
+is encoded as the single byte 128, while a zero-length item sequence aris encoded as the single byte
+192.
+
+Something even less obvious, and not actually related to the RLP format itself, is that Ethereum
+encodes the number 0 as a zero-length byte sequence (instead of encoding it as a single 0 byte
+value). This happens for contract calls with zero transferred value, for instance.

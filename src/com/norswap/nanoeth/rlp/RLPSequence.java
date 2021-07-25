@@ -1,7 +1,13 @@
 package com.norswap.nanoeth.rlp;
 
 import com.norswap.nanoeth.annotations.Retained;
+import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Bytes;
+import com.norswap.nanoeth.data.Hash;
+import com.norswap.nanoeth.data.Natural;
+import com.norswap.nanoeth.data.StorageKey;
+import com.norswap.nanoeth.utils.ByteUtils;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -22,6 +28,44 @@ public final class RLPSequence extends RLPItem {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Creates a sequence from the given items, automatically translating them according to their
+     * types. Supported types are:
+     * <ul>
+     * <li>{@link RLPItem}</li>
+     * <li>{@link Integer} (can pass an {@code int}</li>
+     * <li>{@link Natural}</li>
+     * <li>{@link Bytes}</li>
+     * <li>{@link Address}</li>
+     * <li>{@link Hash}</li>
+     * <li>{@link StorageKey}</li>
+     * </ul>
+     */
+    public static RLPSequence from (Object... items) {
+        var converted = new ArrayList<RLPItem>();
+        for (var item: items) {
+            if (item instanceof RLPItem)
+                converted.add((RLPItem) item);
+            else if (item instanceof Integer)
+                converted.add(RLPBytes.from(ByteUtils.bytes((Integer) item)));
+            else if (item instanceof Natural)
+                converted.add(RLPBytes.from(ByteUtils.bytesWithoutSign((Natural) item)));
+            else if (item instanceof Bytes)
+                converted.add(RLPBytes.from(((Bytes) item)));
+            else if (item instanceof Address)
+                converted.add(RLPBytes.from(((Address) item).bytes));
+            else if (item instanceof Hash)
+                converted.add(RLPBytes.from(((Hash) item).bytes));
+            else if (item instanceof StorageKey)
+                converted.add(RLPBytes.from(((StorageKey) item).bytes));
+            else throw new IllegalArgumentException(
+                "unhandled conversion from type: " + item.getClass());
+        }
+        return from(converted.toArray(new RLPItem[items.length]));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /** Create a sequence from the given items. */
     public static RLPSequence from (@Retained RLPItem... items) {
         return new RLPSequence(items);
@@ -36,8 +80,14 @@ public final class RLPSequence extends RLPItem {
 
     // ---------------------------------------------------------------------------------------------
 
+    public RLPItem get (int i) {
+        return items[i];
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     @Override public Bytes encode() {
-        return RLPImplem.encode(this);
+        return RLP.encode(this);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -48,12 +98,8 @@ public final class RLPSequence extends RLPItem {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public boolean equals (Object o)
-    {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RLPSequence that = (RLPSequence) o;
-        return Arrays.equals(items, that.items);
+    @Override public boolean equals (Object o) {
+        return this == o || o instanceof RLPSequence && Arrays.equals(items, ((RLPSequence) o).items);
     }
 
     @Override public int hashCode () {
