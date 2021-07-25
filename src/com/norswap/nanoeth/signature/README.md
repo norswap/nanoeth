@@ -190,5 +190,3 @@ and fallback to random `k` if we ever encounter a rejected signature.
 
 Please note that when using multisignatures, `k` values **must be** picked randomly, or your
 co-signers wil be able to guess your private key.
-
-TODO inverse vs complement

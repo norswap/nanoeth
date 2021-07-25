@@ -1,11 +1,13 @@
 # Transactions
 
-TODO talk about normalized transactions
-
 The transaction format underwent multiple changes as Ethereum evolved.
 The `TransactionFormat` enum lists all possible format for a transaction.
 
-These include:
+These include the various kind of [EIP-2718] envelope types (explicitly listed in
+`TransactionEnvelopeType`), as well as the original and [EIP-155] transactions, which predate the
+introduction of envelope types.
+
+The non-envelope formats:
 
 - The original format, notable by the absence of a chain identifier. This enabled replay attack on
   forks of Ethereum (most notably Ethereum Classic after the DAO fork).
@@ -15,6 +17,8 @@ These include:
   should use a format that includes a chain ID (all excepted the legacy format), but that isn't
   enforced. As of March 2021, the Geth team [has announced][chainid-enforcement] they would
   gradually start enforcing the presence of a chain ID.
+  
+The envelope formats:
 
 - The [EIP-2930] format (Berlin hard fork) which adds access lists to transaction, allowing to
   specify in advance addresses and storage keys that the transaction will access. This is an optional
@@ -31,13 +35,13 @@ These include:
 [EIP-2718]: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2718.md
 [chainid-enforcement]: https://blog.ethereum.org/2021/03/03/geth-v1-10-0/#chainid-enforcement
 
-As noted, there are currently two "typed transactions", introduced by [EIP-2930] and [EIP-1559]. The
-pain was felt in EIP-155, where the chain ID is packed into the v signature (in the transaction's
-serialization in a block). The answer was [EIP-2718]'s '"typed transaction envelopes" which
-designate the transaction type <= 127 (0x7F) by prepending a byte to the (RLP-encoded) transaction
-payload. This works because transaction are sequences, and their [RLP-encoding](../rlp/README.md)
-therefore always starts with a byte that is > 192 (0xC0).
+A note regarding the introduction of typed transaction envelopes: The pain was felt in EIP-155,
+where the chain ID is packed into the v signature (in the transaction's serialization in a block).
+The answer was [EIP-2718]'s "typed transaction envelopes" which designates new transaction types by
+prepending a byte (<= 127 (0x7F)) to the (RLP-encoded) transaction payload. This works because
+transaction are sequences, and their [RLP-encoding](../rlp/README.md) therefore always starts with a
+byte that is > 192 (0xC0).
 
 I chose to use the term "format" to englobe both typed transactions, and the two "formats" that
-precede them. Beyond the data fields making up a transaction, different format also entail signing
+precede them. Beyond the data fields making up a transaction, different formats also entail signing
 differences, and difference in the format of receipts.
