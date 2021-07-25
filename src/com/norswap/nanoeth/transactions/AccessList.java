@@ -5,7 +5,6 @@ import com.norswap.nanoeth.data.StorageKey;
 import com.norswap.nanoeth.rlp.RLPBytes;
 import com.norswap.nanoeth.rlp.RLPSequence;
 import norswap.utils.NArrays;
-import norswap.utils.exceptions.NoStackException;
 import java.util.Arrays;
 
 public final class AccessList {
@@ -52,50 +51,36 @@ public final class AccessList {
      * @throws IllegalTransactionFormatException if the RLP sequence does not properly encode an access list
      */
     public static AccessList from (RLPSequence rlp) throws IllegalTransactionFormatException {
-        // TODO improve this mess - using streams?
-        var addressKeys = new AddressKeys[rlp.size()];
-        for (int i = 0; i < addressKeys.length; ++i) {
-            var addressKeySeq = ((RLPSequence) rlp.get(i));
-            try {
-                if (addressKeySeq.size() != 2)
-                    throw new NoStackException();
-                var address = new Address(((RLPBytes) addressKeySeq.get(0)).bytes.storage);
-                var storageKeysSeq = (RLPSequence) addressKeySeq.get(1);
-                var storageKeys = new StorageKey[storageKeysSeq.size()];
-                for (int j = 0; j < storageKeys.length; ++j)
-                    storageKeys[j] = new StorageKey(((RLPBytes) storageKeysSeq.get(j)).bytes.storage);
-                addressKeys[i] = new AddressKeys(address, storageKeys);
-            } catch (ClassCastException | NoStackException e) {
-                throw new IllegalTransactionFormatException(
-                    "Access list items must have format [address, [key, ...]]");
-            }
+        try {
+            return new AccessList(rlp.stream()
+                .map(it -> {
+                    var seq = (RLPSequence) it;
+                    var address = new Address(((RLPBytes) seq.get(0)).bytes.storage);
+                    var storageKeys = ((RLPSequence) seq.get(1)).stream()
+                        .map(k -> new StorageKey(((RLPBytes) k).bytes.storage))
+                        .toArray(StorageKey[]::new);
+                    return new AddressKeys(address, storageKeys);
+                })
+                .toArray(AddressKeys[]::new));
+        } catch (ArrayIndexOutOfBoundsException | ClassCastException e) {
+            throw new IllegalTransactionFormatException(
+                "Access list items must have format [address, [key, ...]]");
         }
-        return new AccessList(addressKeys);
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    // TODO use norswap-utils
-
-    /**
-     * TODO document
-     * @return
-     */
+    /** Returns the RLP encoding of this access list. */
     public RLPSequence rlp() {
-        var addressKeysSeqs = new RLPSequence[addressKeys.length];
-        for (int i = 0; i < addressKeys.length; ++i) {
-            var address = addressKeys[i].address;
-            var keys    = addressKeys[i].keys;
-
-            var keysBytes = new RLPBytes[keys.length];
-            for (int j = 0; j < keys.length; ++j)
-                keysBytes[j] = RLPBytes.from(keys[j].bytes);
-
-            addressKeysSeqs[i] = RLPSequence.from(
-                RLPBytes.from(address.bytes),
-                RLPSequence.from(keysBytes));
-        }
-        return RLPSequence.from(addressKeysSeqs);
+        return RLPSequence.from(Arrays.stream(addressKeys)
+            .map(it -> {
+                var keysBytes = Arrays.stream(it.keys)
+                    .map(k -> RLPBytes.from(k.bytes))
+                    .toArray(RLPBytes[]::new);
+                return RLPSequence.from(
+                    RLPBytes.from(it.address.bytes),
+                    RLPSequence.from(keysBytes));
+            }));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -124,7 +109,7 @@ public final class AccessList {
     @Override public String toString () {
         return Arrays.toString(
             Arrays.stream(addressKeys)
-                .map(it -> it.address.toString() + " :: [" + Arrays.toString(it.keys) + "]")
+                .map(it -> it.address.toString() + " :: " + Arrays.toString(it.keys))
                 .toArray(String[]::new));
     }
 
