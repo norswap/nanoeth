@@ -1,12 +1,12 @@
 package com.norswap.nanoeth.signature;
 
-import com.norswap.nanoeth.TestUtils;
+import com.norswap.nanoeth.utils.ReflectionUtils;
 import org.bouncycastle.math.ec.ECPoint;
 import org.testng.annotations.Test;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 
-import static com.norswap.nanoeth.TestUtils.invokeCast;
+import static com.norswap.nanoeth.utils.ReflectionUtils.invokeCast;
 import static org.testng.Assert.assertTrue;
 
 public final class SignatureTests {
@@ -14,14 +14,14 @@ public final class SignatureTests {
     // ---------------------------------------------------------------------------------------------
 
     private final EthKeyPair keys       = new EthKeyPair();
-    private final BigInteger privateKey = TestUtils.getField(keys, "privateKey");
-    private final ECPoint    publicKey  = TestUtils.getField(keys, "publicKey");
+    private final BigInteger privateKey = ReflectionUtils.getField(keys, "privateKey");
+    private final ECPoint    publicKey  = ReflectionUtils.getField(keys, "publicKey");
 
     private final Method signWithoutHashing =
-        TestUtils.getMethod(EthKeyPair.class, "signWithoutHashing", byte[].class);
+        ReflectionUtils.getMethod(EthKeyPair.class, "signWithoutHashing", byte[].class);
 
     private final Method verifyWithoutHashing =
-        TestUtils.getMethod(Signature.class, "verifyWithoutHashing", ECPoint.class, byte[].class);
+        ReflectionUtils.getMethod(Signature.class, "verifyWithoutHashing", ECPoint.class, byte[].class);
 
     // ---------------------------------------------------------------------------------------------
 

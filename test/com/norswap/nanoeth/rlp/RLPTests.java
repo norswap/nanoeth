@@ -1,9 +1,6 @@
-package com.norswap.nanoeth;
+package com.norswap.nanoeth.rlp;
 
 import com.norswap.nanoeth.data.Bytes;
-import com.norswap.nanoeth.rlp.RLP;
-import com.norswap.nanoeth.rlp.RLPBytes;
-import com.norswap.nanoeth.rlp.RLPSequence;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -68,6 +65,7 @@ public final class RLPTests {
     private static final byte[] INDIRECT_255   = decodedBytes(255);
     private static final byte[] INDIRECT_256   = decodedBytes(256);
     private static final byte[] INDIRECT_500   = decodedBytes(500);
+    private static final byte[] EMPTY_BYTES    = array();
 
     private static final byte[] E_SINGLE_0     = array(0);
     private static final byte[] E_SINGLE_127   = array(127);
@@ -81,6 +79,9 @@ public final class RLPTests {
     private static final byte[] E_INDIRECT_256 = encodedBytes(256);
     private static final byte[] E_INDIRECT_500 = encodedBytes(500);
 
+    private static final byte[] E_EMPTY_BYTES  = array(128);
+    private static final byte[] E_EMPTY_SEQ    = array(192);
+
     private static final byte[][] BYTES_DECODED = new byte[][]{
         SINGLE_0, SINGLE_127, SINGLE_128, SINGLE_255, DIRECT_0, DIRECT_2, DIRECT_55,
         INDIRECT_56, INDIRECT_255, INDIRECT_256, INDIRECT_500};
@@ -91,7 +92,7 @@ public final class RLPTests {
 
     // ---------------------------------------------------------------------------------------------
 
-    private void assertDecodeEncodeBytes (byte[] encoded, byte[] decoded) {
+    private void assertDecodeEncodeBytes (byte[] decoded, byte[] encoded) {
         var decodedBytes = RLPBytes.from(decoded);
         var encodedBytes = Bytes.from(encoded);
         assertEquals(RLP.decode(encodedBytes), decodedBytes);
@@ -101,15 +102,15 @@ public final class RLPTests {
     @Test public void testEncodeDecodeBytes() {
         assertDecodeEncodeBytes(SINGLE_0,       SINGLE_0);
         assertDecodeEncodeBytes(SINGLE_127,     SINGLE_127);
-        assertDecodeEncodeBytes(E_SINGLE_128,   SINGLE_128);
-        assertDecodeEncodeBytes(E_SINGLE_255,   SINGLE_255);
-        assertDecodeEncodeBytes(E_DIRECT_0,     DIRECT_0);
-        assertDecodeEncodeBytes(E_DIRECT_2,     DIRECT_2);
-        assertDecodeEncodeBytes(E_DIRECT_55,    DIRECT_55);
-        assertDecodeEncodeBytes(E_INDIRECT_56,  INDIRECT_56);
-        assertDecodeEncodeBytes(E_INDIRECT_255, INDIRECT_255);
-        assertDecodeEncodeBytes(E_INDIRECT_256, INDIRECT_256);
-        assertDecodeEncodeBytes(E_INDIRECT_500, INDIRECT_500);
+        assertDecodeEncodeBytes(SINGLE_128,     E_SINGLE_128);
+        assertDecodeEncodeBytes(SINGLE_255,     E_SINGLE_255);
+        assertDecodeEncodeBytes(DIRECT_0,       E_DIRECT_0);
+        assertDecodeEncodeBytes(DIRECT_2,       E_DIRECT_2);
+        assertDecodeEncodeBytes(DIRECT_55,      E_DIRECT_55);
+        assertDecodeEncodeBytes(INDIRECT_56,    E_INDIRECT_56);
+        assertDecodeEncodeBytes(INDIRECT_255,   E_INDIRECT_255);
+        assertDecodeEncodeBytes(INDIRECT_256,   E_INDIRECT_256);
+        assertDecodeEncodeBytes(INDIRECT_500,   E_INDIRECT_500);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -128,6 +129,13 @@ public final class RLPTests {
         var bytes = Bytes.from(encoded);
         assertEquals(seq.encode(), bytes);
         assertEquals(RLP.decode(bytes), seq);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Test public void testEncodeDecodeEmpty() {
+        assertDecodeEncodeBytes(EMPTY_BYTES, E_EMPTY_BYTES);
+        assertEncodeDecodeSequence(RLPSequence.from(), E_EMPTY_SEQ);
     }
 
     // ---------------------------------------------------------------------------------------------

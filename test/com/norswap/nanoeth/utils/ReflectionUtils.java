@@ -1,10 +1,12 @@
-package com.norswap.nanoeth;
+package com.norswap.nanoeth.utils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-public final class TestUtils {
-    private TestUtils () {}
+/**
+ * Utilities dealing with reflection.
+ */
+public final class ReflectionUtils {
+    private ReflectionUtils () {}
 
     // ---------------------------------------------------------------------------------------------
 

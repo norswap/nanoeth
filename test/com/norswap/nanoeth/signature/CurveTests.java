@@ -1,6 +1,6 @@
 package com.norswap.nanoeth.signature;
 
-import com.norswap.nanoeth.TestUtils;
+import com.norswap.nanoeth.utils.ReflectionUtils;
 import org.bouncycastle.math.ec.ECPoint;
 import org.testng.annotations.Test;
 import java.math.BigInteger;
@@ -17,8 +17,8 @@ public final class CurveTests {
     // ---------------------------------------------------------------------------------------------
 
     private final EthKeyPair keys       = new EthKeyPair();
-    private final BigInteger privateKey = TestUtils.getField(keys, "privateKey");
-    private final ECPoint    publicKey  = TestUtils.getField(keys, "publicKey");
+    private final BigInteger privateKey = ReflectionUtils.getField(keys, "privateKey");
+    private final ECPoint    publicKey  = ReflectionUtils.getField(keys, "publicKey");
 
     // ---------------------------------------------------------------------------------------------
 
