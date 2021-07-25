@@ -1,6 +1,5 @@
 package com.norswap.nanoeth.rlp;
 
-import com.norswap.nanoeth.data.Bytes;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -93,10 +92,9 @@ public final class RLPTests {
     // ---------------------------------------------------------------------------------------------
 
     private void assertDecodeEncodeBytes (byte[] decoded, byte[] encoded) {
-        var decodedBytes = RLPBytes.from(decoded);
-        var encodedBytes = Bytes.from(encoded);
-        assertEquals(RLP.decode(encodedBytes), decodedBytes);
-        assertEquals(RLP.encode(decodedBytes), encodedBytes);
+        var decodedBytes = new RLPBytes(decoded);
+        assertEquals(RLP.decode(encoded), decodedBytes);
+        assertEquals(RLP.encode(decodedBytes), encoded);
     }
 
     @Test public void testEncodeDecodeBytes() {
@@ -121,14 +119,13 @@ public final class RLPTests {
     }
 
     private void assertEncodeDecodeSequence(byte[] decoded, byte[] encoded) {
-        var seq = RLPSequence.from(RLPBytes.from(decoded));
+        var seq = RLPSequence.from(new RLPBytes(decoded));
         assertEncodeDecodeSequence(seq, concat(encodeSequenceSize(encoded.length), encoded));
     }
 
     private void assertEncodeDecodeSequence(RLPSequence seq, byte[] encoded) {
-        var bytes = Bytes.from(encoded);
-        assertEquals(seq.encode(), bytes);
-        assertEquals(RLP.decode(bytes), seq);
+        assertEquals(seq.encode(), encoded);
+        assertEquals(RLP.decode(encoded), seq);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -158,8 +155,8 @@ public final class RLPTests {
     @Test public void testEncodeDecodeTwoItemSequences() {
         for (int i = 0; i < BYTES_DECODED.length - 1; ++i) {
             var seq = RLPSequence.from(
-                RLPBytes.from(BYTES_DECODED[i]),
-                RLPBytes.from(BYTES_DECODED[i+1]));
+                new RLPBytes(BYTES_DECODED[i]),
+                new RLPBytes(BYTES_DECODED[i+1]));
             var encoded = encodeSequence(BYTES_ENCODED[i], BYTES_ENCODED[i + 1]);
             assertEncodeDecodeSequence(seq, encoded);
         }
@@ -171,11 +168,11 @@ public final class RLPTests {
         for (int i = 0; i < BYTES_DECODED.length - 3; ++i) {
             var seq = RLPSequence.from(
                 RLPSequence.from(
-                    RLPBytes.from(BYTES_DECODED[i]),
-                    RLPBytes.from(BYTES_DECODED[i + 1])),
+                    new RLPBytes(BYTES_DECODED[i]),
+                    new RLPBytes(BYTES_DECODED[i + 1])),
                 RLPSequence.from(
-                    RLPBytes.from(BYTES_DECODED[i + 2]),
-                    RLPBytes.from(BYTES_DECODED[i + 3])));
+                    new RLPBytes(BYTES_DECODED[i + 2]),
+                    new RLPBytes(BYTES_DECODED[i + 3])));
             var encoded = encodeSequence(
                 encodeSequence(
                     BYTES_ENCODED[i],

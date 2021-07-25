@@ -1,7 +1,6 @@
 package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.data.Address;
-import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.history.EthereumVersion;
 import com.norswap.nanoeth.rlp.RLPSequence;
@@ -40,7 +39,7 @@ public final class Transaction extends UnsignedTransaction {
         Natural gasLimit,
         Address to,
         Natural value,
-        Bytes payload,
+        byte[] payload,
         AccessList accessList,
         Signature signature)
     {
@@ -108,7 +107,7 @@ public final class Transaction extends UnsignedTransaction {
      * Returns the binary encoding of the transaction (which is byte-encoding of its RLP encoding).
      */
     public byte[] binary () {
-        return rlp().encode().storage;
+        return rlp().encode();
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -130,7 +129,7 @@ public final class Transaction extends UnsignedTransaction {
      * encoding of the unsigned version of this transaction (which avoids recomputing it).
      */
     public boolean verifySignature() {
-        return signature.verify(signingRLP().encode().storage);
+        return signature.verify(signingRLP().encode());
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -143,7 +142,7 @@ public final class Transaction extends UnsignedTransaction {
      * <p>Use {@link #verifySignature()} if you do not know the encoding of the unsigned version.
      */
     public boolean verifySignature (byte[] encodedUnsignedTransaction) {
-        assert Arrays.equals(signingRLP().encode().storage, encodedUnsignedTransaction);
+        assert Arrays.equals(signingRLP().encode(), encodedUnsignedTransaction);
         return signature.verify(encodedUnsignedTransaction);
     }
 
@@ -168,7 +167,7 @@ public final class Transaction extends UnsignedTransaction {
             ", gasLimit = " + gasLimit +
             ", to = " + to +
             ", value = " + value +
-            ", payload = " + payload +
+            ", payload = " + Arrays.toString(payload) +
             ", accessList = " + accessList +
             ", signature = " + signature +
             '}';

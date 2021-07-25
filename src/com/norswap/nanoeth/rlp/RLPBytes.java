@@ -1,7 +1,7 @@
 package com.norswap.nanoeth.rlp;
 
 import com.norswap.nanoeth.annotations.Retained;
-import com.norswap.nanoeth.data.Bytes;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -11,47 +11,34 @@ public final class RLPBytes extends RLPItem {
 
     // ---------------------------------------------------------------------------------------------
 
-    public final Bytes bytes;
+    public final byte[] bytes;
 
     // ---------------------------------------------------------------------------------------------
 
-    private RLPBytes (Bytes bytes) {
-        assert bytes.frozen();
+    /** Create a RLP byte sequence form the given bytes. */
+    public RLPBytes (@Retained byte... bytes) {
         this.bytes = bytes;
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Create a RLP byte sequence form the given bytes. */
-    public static RLPBytes from (Bytes bytes) {
-        return new RLPBytes(bytes);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /** Create a RLP byte sequence form the given bytes. */
-    public static RLPBytes from (@Retained byte... bytes) {
-        return new RLPBytes(Bytes.from(bytes));
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public Bytes encode() {
+    @Override public byte[] encode() {
         return RLP.encode(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public boolean equals (Object o) {
-        return this == o || o instanceof RLPBytes && bytes.equals(((RLPBytes) o).bytes);
+        return this == o || o instanceof RLPBytes && Arrays.equals(bytes, ((RLPBytes) o).bytes);
     }
 
     @Override public int hashCode () {
+        Object bytes = this.bytes; // avoid spurious variadic arg warnings
         return Objects.hash(bytes);
     }
 
     @Override public String toString () {
-        return bytes.toString();
+        return Arrays.toString(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -1,7 +1,6 @@
 package com.norswap.nanoeth.signature;
 
 import com.norswap.nanoeth.data.Address;
-import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.utils.Crypto;
 import com.norswap.nanoeth.utils.Hashing;
@@ -82,16 +81,6 @@ public final class EthKeyPair {
         if (privateKey.bitLength() > SECP256K1.n.bitLength())
             privateKey = privateKey.mod(SECP256K1.n);
         return new FixedPointCombMultiplier().multiply(SECP256K1.G, privateKey);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Sign the Keccak hash of the given message (an arbitrary byte sequence) using the private key.
-     */
-    public Signature sign (Bytes message) {
-        byte[] hash = Hashing.keccak(message).bytes;
-        return signWithoutHashing(hash);
     }
 
     // ---------------------------------------------------------------------------------------------

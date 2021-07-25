@@ -1,7 +1,5 @@
 package com.norswap.nanoeth.rlp;
 
-import com.norswap.nanoeth.data.Bytes;
-
 /**
  * An item that can be RLP-encoded.
  *
@@ -13,7 +11,7 @@ public abstract class RLPItem {
     // ---------------------------------------------------------------------------------------------
 
     /** Encodes the RLP item to a byte sequence. */
-    public abstract Bytes encode();
+    public abstract byte[] encode();
 
     // ---------------------------------------------------------------------------------------------
 }

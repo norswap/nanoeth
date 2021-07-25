@@ -11,7 +11,8 @@ public final class ByteUtils {
     private ByteUtils () {}
 
     // =============================================================================================
-    // BYTE ARRRAYS
+    // region BYTE ARRRAYS
+    // =============================================================================================
 
     /**
      * Returns the concatenation of the byte arrays.
@@ -27,8 +28,10 @@ public final class ByteUtils {
         return out;
     }
 
+    // endregion
     // =============================================================================================
-    // BYTE VALUES
+    // region BYTE VALUES
+    // =============================================================================================
 
     /**
      * True if the value is in the signed byte range [-128, 127] or if it is in [128, 255]
@@ -185,6 +188,28 @@ public final class ByteUtils {
 
     // ---------------------------------------------------------------------------------------------
 
+    /** Sets {@code dst[index, index + src.length]} to {@code src}. */
+    public static byte[] setRangeAt (byte[] dst, int index, byte[] src) {
+        assert 0 <= index && index + src.length <= dst.length;
+        System.arraycopy(src, 0, dst, index, src.length);
+        return dst;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Just like {@link Arrays#copyOfRange(byte[], int, int)}, but allows passing a size instead
+     * of an end index.
+     */
+    public static byte[] copyOfSizedRange (byte[] array, int index, int size) {
+        return Arrays.copyOfRange(array, index, index + size);
+    }
+
+    // endregion
+    // =============================================================================================
+    // region HEX STRINGS
+    // =============================================================================================
+
     /**
      * Converts a hex digit (in 0-9, a-f or A-F) to its numeric value.
      */
@@ -293,5 +318,6 @@ public final class ByteUtils {
         return builder.toString();
     }
 
-    // ---------------------------------------------------------------------------------------------
+    // endregion
+    // =============================================================================================
 }

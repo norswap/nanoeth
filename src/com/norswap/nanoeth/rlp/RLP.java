@@ -1,6 +1,5 @@
 package com.norswap.nanoeth.rlp;
 
-import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -82,8 +81,8 @@ public final class RLP {
      *
      * @see RLPItem#encode()
      */
-    public static Bytes encode (RLPItem item) {
-        // dispatches between #encode(Bytes) and #encode(RLPSequence)
+    public static byte[] encode (RLPItem item) {
+        // dispatches between #encode(byte[]) and #encode(RLPSequence)
         return item.encode();
     }
 
@@ -92,19 +91,18 @@ public final class RLP {
     /**
      * Encodes a byte sequence in RLP format.
      */
-    static Bytes encode (Bytes bytes) {
-        assert bytes.frozen();
+    static byte[] encode (byte[] bytes) {
 
-        if (bytes.size() == 1 && ByteUtils.uint(bytes.get(0)) < SINGLE_BYTE_ENCODING_LIMIT)
+        if (bytes.length == 1 && ByteUtils.uint(bytes[0]) < SINGLE_BYTE_ENCODING_LIMIT)
             return bytes;
 
-        int size = bytes.size();
+        int size = bytes.length;
         byte[] encodedSize = encodeByteSequenceSize(size);
         int sizeSize = encodedSize.length;
-        Bytes out = Bytes.ofSize(sizeSize + size);
-        out.setRange(0, encodedSize);
-        out.setRange(encodedSize.length, bytes);
-        return out.freeze();
+        byte[] out = new byte[sizeSize + size];
+        ByteUtils.setRangeAt(out, 0, encodedSize);
+        ByteUtils.setRangeAt(out, encodedSize.length, bytes);
+        return out;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -112,23 +110,23 @@ public final class RLP {
     /**
      * Encodes a sequence of items (byte arrays or nested sequences) to RLP format.
      */
-    static Bytes encode (RLPSequence sequence) {
-        Bytes[] encodedItems = sequence.stream()
+    static byte[] encode (RLPSequence sequence) {
+        byte[][] encodedItems = sequence.stream()
             .map(RLPItem::encode)
-            .toArray(Bytes[]::new);
+            .toArray(byte[][]::new);
         int serializedSize = Arrays.stream(encodedItems)
-            .map(Bytes::size)
+            .map(it -> it.length)
             .reduce(0, Integer::sum);
         byte[] encodedSize = encodeItemSequenceSize(serializedSize);
         int sizeSize = encodedSize.length;
-        Bytes out = Bytes.ofSize(sizeSize + serializedSize);
-        out.setRange(0, encodedSize);
+        byte[] out = new byte[sizeSize + serializedSize];
+        ByteUtils.setRangeAt(out, 0, encodedSize);
         int pos = sizeSize;
-        for (Bytes item: encodedItems) {
-            out.setRange(pos, item);
-            pos += item.size();
+        for (byte[] item: encodedItems) {
+            ByteUtils.setRangeAt(out, pos, item);
+            pos += item.length;
         }
-        return out.freeze();
+        return out;
     }
 
     // endregion
@@ -147,10 +145,10 @@ public final class RLP {
      *
      * @throws IllegalArgumentException if the given byte sequence is not well-formed RLP.
      */
-    public static RLPItem decode (Bytes bytes) {
+    public static RLPItem decode (byte[] bytes) {
         var offset = new Offset();
         var out = decode(bytes, offset);
-        int left = bytes.size() - offset.x;
+        int left = bytes.length - offset.x;
         assert left >= 0;
         if (left > 0)
             throw new IllegalArgumentException(left + " bytes left at the end of decoded array.");
@@ -168,15 +166,15 @@ public final class RLP {
     /**
      * @throws IllegalArgumentException if {@code bytes.length < offset + amount}
      */
-    private static void checkRemaining (Bytes bytes, int offset, int amount) {
-        if (bytes.size() < offset)
+    private static void checkRemaining (byte[] bytes, int offset, int amount) {
+        if (bytes.length < offset)
             throw new IllegalArgumentException(format(
                 "Trying to fetch %d bytes at offset %d but size is only %d.",
-                amount, offset, bytes.size()));
-        if (bytes.size() < offset + amount)
+                amount, offset, bytes.length));
+        if (bytes.length < offset + amount)
             throw new IllegalArgumentException(format(
                 "Trying to fetch %d bytes at offset %d but only %d bytes are available.",
-                amount, offset, bytes.size() - offset));
+                amount, offset, bytes.length - offset));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -185,10 +183,10 @@ public final class RLP {
      * Converts the big-endian {@code bytes} sequence to an integer, verifying it satisfies the
      * constraint the Java (and the model) put on array sizes.
      */
-    private static int toInt (Bytes bytes, int offset, int size) {
+    private static int toInt (byte[] bytes, int offset, int size) {
         checkRemaining(bytes, offset, size);
         if (size <= 4) {
-            int out = ByteUtils.toInt(bytes.arraySlice(offset, size));
+            int out = ByteUtils.toInt(ByteUtils.copyOfSizedRange(bytes, offset, size));
             if (out <= MAX_ARRAY_SIZE)
                 return out;
         }
@@ -198,7 +196,7 @@ public final class RLP {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static int decodeByteSequenceSize (int marker, Bytes bytes, Offset offset) {
+    private static int decodeByteSequenceSize (int marker, byte[] bytes, Offset offset) {
         if (marker < DIRECT_BYTES_SIZE_ENCODING_LIMIT)
             return marker - BYTES_SIZE_SUMMAND;
 
@@ -211,7 +209,7 @@ public final class RLP {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static int decodeItemSequenceSize (int marker, Bytes bytes, Offset offset) {
+    private static int decodeItemSequenceSize (int marker, byte[] bytes, Offset offset) {
         if (marker < DIRECT_ITEMS_SIZE_ENCODING_LIMIT)
             return marker - ITEMS_SIZE_SUMMAND;
 
@@ -224,14 +222,14 @@ public final class RLP {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static RLPItem decode (Bytes bytes, Offset offset) {
-        int marker = ByteUtils.uint(bytes.get(offset.x++));
+    private static RLPItem decode (byte[] bytes, Offset offset) {
+        int marker = ByteUtils.uint(bytes[offset.x++]);
         if (isByteSequence(marker)) {
             if (marker < BYTES_SIZE_SUMMAND)
-                return RLPBytes.from((byte) marker);
+                return new RLPBytes((byte) marker);
             int size = decodeByteSequenceSize(marker, bytes, offset);
             checkRemaining(bytes, offset.x, size);
-            var out = RLPBytes.from(bytes.slice(offset.x, size));
+            var out = new RLPBytes(ByteUtils.copyOfSizedRange(bytes, offset.x, size));
             offset.x += size;
             return out;
         } else {

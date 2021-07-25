@@ -1,12 +1,12 @@
 package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.data.Address;
-import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.history.EthereumVersion;
 import com.norswap.nanoeth.rlp.RLPSequence;
 import com.norswap.nanoeth.signature.EthKeyPair;
 import com.norswap.nanoeth.utils.Assert;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -103,7 +103,7 @@ public class UnsignedTransaction {
      * <p>When making a simple transfer to an EOA (externally owned account), the payload is
      * typically empty, but does not have to be. This is considered to be a message call.
      */
-    public final Bytes payload;
+    public final byte[] payload;
 
     // ---------------------------------------------------------------------------------------------
 
@@ -120,7 +120,7 @@ public class UnsignedTransaction {
         Natural gasLimit,
         Address to,
         Natural value,
-        Bytes payload,
+        byte[] payload,
         AccessList accessList)
     {
         Assert.that(maxFeePerGas.compareTo(maxPriorityFeePerGas) >= 0,
@@ -182,13 +182,13 @@ public class UnsignedTransaction {
             && gasLimit.equals(that.gasLimit)
             && to.equals(that.to)
             && value.equals(that.value)
-            && payload.equals(that.payload)
+            && Arrays.equals(payload, that.payload)
             && accessList.equals(that.accessList);
     }
 
     @Override public int hashCode () {
         return Objects.hash(format, chainId, nonce, maxFeePerGas, maxPriorityFeePerGas, gasLimit,
-            to, value, payload, accessList);
+            to, value, Arrays.hashCode(payload), accessList);
     }
 
     @Override public String toString () {
@@ -201,7 +201,7 @@ public class UnsignedTransaction {
             ", gasLimit = " + gasLimit +
             ", to = " + to +
             ", value = " + value +
-            ", payload = " + payload +
+            ", payload = " + Arrays.toString(payload) +
             ", accessList = " + accessList +
             '}';
     }

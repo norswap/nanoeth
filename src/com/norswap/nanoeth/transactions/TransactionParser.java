@@ -1,7 +1,6 @@
 package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.data.Address;
-import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLPBytes;
 import com.norswap.nanoeth.rlp.RLPSequence;
@@ -82,7 +81,7 @@ final class TransactionParser {
         var nonce = getNatural(seq, 1);
         var gasPrice = getNatural(seq, 2);
         var gasLimit = getNatural(seq, 3);
-        var to = new Address(getBytes(seq, 4).storage);
+        var to = new Address(getBytes(seq, 4));
         var value = getNatural(seq, 5);
         var payload = getBytes(seq, 6);
         var accessList = getAccessList(seq, 7);
@@ -105,7 +104,7 @@ final class TransactionParser {
         var maxPriorityFeePerGas = getNatural(seq, 2);
         var maxFeePerGas = getNatural(seq, 3);
         var gasLimit = getNatural(seq, 4);
-        var to = new Address(getBytes(seq, 5).storage);
+        var to = new Address(getBytes(seq, 5));
         var value = getNatural(seq, 6);
         var payload = getBytes(seq, 7);
         var accessList = getAccessList(seq, 8);
@@ -135,7 +134,7 @@ final class TransactionParser {
     private static Natural getNatural (RLPSequence seq, int i)
         throws IllegalTransactionFormatException {
 
-        return new Natural(getBytes(seq, i).storage);
+        return new Natural(getBytes(seq, i));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -144,7 +143,7 @@ final class TransactionParser {
     private static int getInt (RLPSequence seq, int i)
         throws IllegalTransactionFormatException {
 
-        return ByteUtils.toInt(getBytes(seq, i).storage);
+        return ByteUtils.toInt(getBytes(seq, i));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -154,16 +153,16 @@ final class TransactionParser {
             throws IllegalTransactionFormatException {
 
         var bytes = getBytes(seq, i);
-        if (bytes.size() != 20)
+        if (bytes.length != 20)
             throw new IllegalTransactionFormatException("Address should be 20 bytes long");
-        return new Address(bytes.storage);
+        return new Address(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /** Retrieves the i-th item of the sequence, and verifies that it is a byte array with a valid
      * size. */
-    private static Bytes getBytes (RLPSequence seq, int i)
+    private static byte[] getBytes (RLPSequence seq, int i)
             throws IllegalTransactionFormatException {
 
         if (i >= seq.size())

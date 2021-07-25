@@ -13,11 +13,10 @@ nanoeth is a small code model for Ethereum. You could describe it as:
   navigate
 
 **Non-Goals**
-- ability to handle the real blockchain (i.e. the model will have limitations for the sake of
-  convenience and clarity)
 - efficiency
 
 **Limitations**
-- RLP encoding is limited to data that can be serialized in less than `2^31 - 8` bytes (a
-  conservative approximation of the max Java array size. Managing the true limit would require
-  careful managing disk storage.
+- Limited to handling byte sequences of less than `2^31 - 8` (a conservative approximation of the
+  max Java array size). In theory, Ethereum should handle byte arrays up to size 2^64. In pratice,
+  real clients don't do much better, and it would be too costly to pay for storage greater than the
+  max Java array size.

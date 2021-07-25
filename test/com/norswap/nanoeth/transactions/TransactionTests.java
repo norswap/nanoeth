@@ -1,6 +1,5 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPSequence;
 import com.norswap.nanoeth.utils.ByteUtils;
@@ -22,8 +21,8 @@ public final class TransactionTests {
 
             // extra tests for RLP: encode(decode(bytes)) == bytes
             byte[] bytesFromHex = ByteUtils.hexStringToBytes(hex, 0);
-            var rlpFromHex = RLP.decode(Bytes.from(bytesFromHex));
-            byte[] bytesReencodedFromHex = rlpFromHex.encode().storage;
+            var rlpFromHex = RLP.decode(bytesFromHex);
+            byte[] bytesReencodedFromHex = rlpFromHex.encode();
             assertEquals(bytesReencodedFromHex, bytesFromHex);
 
             // TODO handle other transactions types (first param of Transaction.from)
@@ -42,7 +41,7 @@ public final class TransactionTests {
 
             // test signature
             assertTrue(tx.verifySignature());
-            assertTrue(tx.verifySignature(tx.signingRLP().encode().storage));
+            assertTrue(tx.verifySignature(tx.signingRLP().encode()));
         }
     }
 

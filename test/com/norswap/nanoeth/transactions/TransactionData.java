@@ -1,6 +1,5 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.data.Bytes;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPSequence;
 import com.norswap.nanoeth.utils.ByteUtils;
@@ -41,7 +40,7 @@ public final class TransactionData
     private static Transaction parseTransaction (String s) {
 
         return Exceptions.suppress(() -> {
-           var bytes = Bytes.from(ByteUtils.hexStringToBytes(s, 0));
+           byte[] bytes = ByteUtils.hexStringToBytes(s, 0);
            // TODO handle more transaction types
            return Transaction.from(0, (RLPSequence) RLP.decode(bytes));
         });

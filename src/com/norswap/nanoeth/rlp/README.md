@@ -5,14 +5,14 @@ Implementation of the Recursive Length Prefix (RLP) format, as specified in appe
 
 [yellow]: https://ethereum.github.io/yellowpaper/paper.pdf
 
-Encoding goes from an `RLPItem` to a `Bytes` object (from `com.norswap.nanoeth.data`), and
+Encoding goes from an `RLPItem` to a `byte[]` object, and
 decoding goes in the reverse direction.
 
 - Encoding is performed via `RLPItem.encode()` or `RLP.encode(RLPItem)`
-- Decoding is performed via `RLP.decode(Bytes)`
+- Decoding is performed via `RLP.decode(byte[])`
 
 `RLPItem` has two forms:
-- `RLPBytes` - wraps a `Bytes` object
+- `RLPBytes` - wraps a `byte[]` array
 - `RLPSequence` - a sequence of other `RLPItem`
 
 ## Understanding the value of the first byte of an RLP-encoded item

@@ -55,9 +55,9 @@ public final class AccessList {
             return new AccessList(rlp.stream()
                 .map(it -> {
                     var seq = (RLPSequence) it;
-                    var address = new Address(((RLPBytes) seq.get(0)).bytes.storage);
+                    var address = new Address(((RLPBytes) seq.get(0)).bytes);
                     var storageKeys = ((RLPSequence) seq.get(1)).stream()
-                        .map(k -> new StorageKey(((RLPBytes) k).bytes.storage))
+                        .map(k -> new StorageKey(((RLPBytes) k).bytes))
                         .toArray(StorageKey[]::new);
                     return new AddressKeys(address, storageKeys);
                 })
@@ -75,10 +75,10 @@ public final class AccessList {
         return RLPSequence.from(Arrays.stream(addressKeys)
             .map(it -> {
                 var keysBytes = Arrays.stream(it.keys)
-                    .map(k -> RLPBytes.from(k.bytes))
+                    .map(k -> new RLPBytes(k.bytes))
                     .toArray(RLPBytes[]::new);
                 return RLPSequence.from(
-                    RLPBytes.from(it.address.bytes),
+                    new RLPBytes(it.address.bytes),
                     RLPSequence.from(keysBytes));
             }));
     }
