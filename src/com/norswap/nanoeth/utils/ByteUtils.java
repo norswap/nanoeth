@@ -102,6 +102,7 @@ public final class ByteUtils {
 
     /**
      * Returns the minimum number of bytes needed to store the integer.
+     * This returns 1 if the value is 0.
      */
     public static int byteSize (int value) {
         if (value == (value & 0xFF))        return 1;
@@ -138,7 +139,6 @@ public final class ByteUtils {
         return out;
     }
 
-
     // ---------------------------------------------------------------------------------------------
 
     /**
@@ -165,6 +165,132 @@ public final class ByteUtils {
 
         System.arraycopy(unpadded, srcOffset, result, dstOffset, unpaddedLenth);
         return result;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the big-endian encoding of {@code value} in bytes, excluding any byte that would
+     * be included solely to signify the sign of the value.
+     *
+     * <p><b>Attention:</b> This means that the 0 big integer encodes as 0-length byte array. This
+     * is intended behaviour, as this is how Ethereum encodes such values.
+     */
+    public static byte[] bytesWithoutSign (BigInteger value) {
+        byte[] unpadded = value.toByteArray();
+        return unpadded[0] != 0
+            ? unpadded
+            : Arrays.copyOfRange(unpadded, 1, unpadded.length);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Converts a hex digit (in 0-9, a-f or A-F) to its numeric value.
+     */
+    public static byte hexDigitToByte (char hex) {
+        if ('0' <= hex && hex <= '9')
+            return (byte) (hex - '0');
+        if ('a' <= hex && hex <= 'f')
+            return (byte) (10 + hex - 'a');
+        if ('A' <= hex && hex <= 'F')
+            return (byte) (10 + hex - 'A');
+        throw new IllegalArgumentException("Not an hex digit: '" + hex + "'");
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Converts an integer in [0, 15] into an hex digit (0..9 a..f).
+     */
+    public static char intToHexDigit (int b) {
+        if (0 <= b && b <= 9)
+            return (char) ('0' + b);
+        if (10 <= b && b <= 15)
+            return (char) ('a' + b - 10);
+        throw new IllegalArgumentException("Byte not in hex digit range: " + b);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Converts a hex-string (e.g. "0x123") to a byte array, with the first digits occupying the
+     * first array slots. If there is odd number of digit, the first byte matches the first digit
+     * (its higher-order nibble (4 bits) will be 0).
+     */
+    public static byte[] hexStringToBytes (String hexString) {
+        return hexStringToBytes(hexString, 0);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Converts a hex-string (e.g. "0x123") in the same way as {@link #hexStringToBytes(String)},
+     * but ensure the returned array will have at least the given minimum length.
+     *
+     * <p>If the minimum size is larger than the natural size, the low-index bytes are left zeroed.
+     *
+     * <p>This accepts the empty hex string ("0x"), for which an empty array is returned.
+     */
+    public static byte[] hexStringToBytes (String hexString, int minLen) {
+        Assert.arg(hexString.startsWith("0x"), "Hex string does not start with 0x: %s", hexString);
+
+        int strLen = hexString.length() - 2; // for "0x"
+        int natLen = (strLen - 1) / 2 + 1; // strLen/2, rounded up
+        int len = Math.max(natLen, minLen);
+        byte[] array = new byte[len];
+        int odd = 0;
+        int strIndex = 2;
+        int arrIndex = Math.max(0, minLen - natLen);
+
+        try {
+            // align pairs of hex digits with full bytes
+            if (strLen % 2 == 1) {
+                array[arrIndex++] = hexDigitToByte(hexString.charAt(strIndex++));
+                odd = 1;
+            }
+
+            // iterate on every character
+            while (strIndex < hexString.length()) {
+                byte b = hexDigitToByte(hexString.charAt(strIndex));
+                // alternate filling the high and low order nibble (4 bits)
+                if ((strIndex + odd) % 2 == 0)
+                    array[arrIndex] |= b << 4;
+                else
+                    array[arrIndex++] |= b;
+                ++strIndex;
+            }
+            return array;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("not a valid hex string: " + hexString, e);
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Converts a byte array into a hex string (e.g. "0x123"). This hex string does not preserve
+     * the length of the byte array if it starts with 0s: the returned string never has leading 0s
+     * after the "0x" prefix.
+     *
+     * <p>This returns "0x" for empty byte arrays.
+     */
+    public static String bytesToHexString (byte[] bytes) {
+        var builder = new StringBuilder(bytes.length * 2);
+        builder.append("0x");
+        var leading0 = true;
+        for (byte b: bytes) {
+            if (leading0) {
+                if (b == 0) continue;
+                leading0 = false;
+                if (b >>> 4 != 0) builder.append(intToHexDigit((b & 0xF0) >>> 4));
+                builder.append(intToHexDigit(b & 0xF));
+                continue;
+            }
+            builder.append(intToHexDigit((b & 0xF0) >>> 4));
+            builder.append(intToHexDigit(b & 0xF));
+        }
+        return builder.toString();
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -18,4 +18,15 @@ public final class Assert {
     }
 
     // ---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–-
+
+    /**
+     * @throws IllegalArgumentException if the condition does not hold, with a message created by
+     * {@link String#format(String, Object...)}
+     */
+    public static void arg (boolean condition, String format, Object... args) {
+        if (!condition)
+            throw new IllegalArgumentException(String.format(format, args));
+    }
+
+    // ---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–---–-
 }
