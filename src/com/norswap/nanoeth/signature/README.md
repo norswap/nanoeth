@@ -116,7 +116,7 @@ historical transactions). These transactions are [not yet][geth110] rejected how
 
 For every signature `(r,s)` the signature `(r, -s (mod n))` is a valid signature of the same
 message (1). It is undesirable to be able to have two identical signed transactions with different
-signatures, which is a limited form o [malleability]. In particular, bad things can happen when a
+signatures, which is a limited form of [malleability]. In particular, bad things can happen when a
 signature is used as a unique identifier for the purpose of replay protection (e.g. [Bitcoin
 malleability attack][bit-mal]). Therefore, `s` values higher than half of the subgroup's order
 (`n/2`) are canonicalized to their modular complement `-s = n - s (mod n)`.
@@ -163,11 +163,14 @@ Here's [proposed replacement].
 
 [proposed replacement]: https://tools.ietf.org/id/draft-jivsov-ecc-compact-05.html#rfc.section.3
 
-## Signature: Selecting `k`
+## Signature: Selecting Nonces (`k`)
 
-When generating a signature, a signature secret `k` in [1, n-1] must be selected. `k` can be
-selected randomly, or deterministically from the message being signed, for instance by using a hash
-function.
+When generating a signature, a signature secret or "nonce" `k` in [1, n-1] must be selected. `k` can
+be selected randomly, or deterministically from the message being signed, for instance by using a
+hash function. The nonce must be kept secret and not reused, otherwise the private key [can be
+recovered][key-recovery].
+
+[key-recovery]: https://github.com/tintinweb/ecdsa-private-key-recovery
 
 Ethereum and other blockchain clients typically compute `k` using HMAC over the message, as proposed
 in IETF RFC6979 §3.2. The arguments in favour of HMAC are (1) signature determinism and (2) avoiding
@@ -184,5 +187,8 @@ the generated signature will be rejected by Ethereum.  In nanoeth, we use the HM
 and fallback to random `k` if we ever encounter a rejected signature.
 
 [faults]: https://crypto.stackexchange.com/questions/50228
+
+Please note that when using multisignatures, `k` values **must be** picked randomly, or your
+co-signers wil be able to guess your private key.
 
 TODO inverse vs complement
