@@ -27,7 +27,7 @@ RLP representation, while we "decode" the RLP representation from the RLP-encode
   the `[0, 55]` range
   
 - Indirect bytes size encoding (`[184, 191]`): 8 items representing the size of a byte sequence
-  in the `[1, 8]` range, encoding other byte sequences whose size is in the [55, 2^64[ range
+  in the `[1, 8]` range, encoding other byte sequences whose size is in the `[55, 2^64[` range
   
 - Direct items size encoding (`[192, 247]`): 56 items representing the serialized size of an item
   sequence in the `[0, 55]` range
