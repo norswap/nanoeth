@@ -1,12 +1,12 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.rlp.RLPSequence;
+import com.norswap.nanoeth.rlp.RLPItem;
 
 /**
  * Thrown when attempting to parse a RLP sequence into a transaction (or one of its components), but
  * the format of the sequence does not match what is expected.
  * 
- * @see Transaction#from(int, RLPSequence) 
+ * @see Transaction#from(int, RLPItem)
  */
 public final class IllegalTransactionFormatException extends Exception {
 

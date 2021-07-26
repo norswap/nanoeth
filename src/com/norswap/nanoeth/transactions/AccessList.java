@@ -2,8 +2,8 @@ package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.StorageKey;
-import com.norswap.nanoeth.rlp.RLPBytes;
-import com.norswap.nanoeth.rlp.RLPSequence;
+import com.norswap.nanoeth.rlp.IllegalRLPAccess;
+import com.norswap.nanoeth.rlp.RLPItem;
 import norswap.utils.NArrays;
 import java.util.Arrays;
 
@@ -50,19 +50,16 @@ public final class AccessList {
      *
      * @throws IllegalTransactionFormatException if the RLP sequence does not properly encode an access list
      */
-    public static AccessList from (RLPSequence rlp) throws IllegalTransactionFormatException {
+    public static AccessList from (RLPItem rlp) throws IllegalTransactionFormatException {
         try {
             return new AccessList(rlp.stream()
-                .map(it -> {
-                    var seq = (RLPSequence) it;
-                    var address = new Address(((RLPBytes) seq.get(0)).bytes);
-                    var storageKeys = ((RLPSequence) seq.get(1)).stream()
-                        .map(k -> new StorageKey(((RLPBytes) k).bytes))
-                        .toArray(StorageKey[]::new);
-                    return new AddressKeys(address, storageKeys);
-                })
+                .map(it -> new AddressKeys(
+                    new Address(it.itemAt(0).bytes()),
+                    it.itemAt(1).stream()
+                        .map(k -> new StorageKey(k.bytes()))
+                        .toArray(StorageKey[]::new)))
                 .toArray(AddressKeys[]::new));
-        } catch (ArrayIndexOutOfBoundsException | ClassCastException e) {
+        } catch (ArrayIndexOutOfBoundsException | IllegalRLPAccess e) {
             throw new IllegalTransactionFormatException(
                 "Access list items must have format [address, [key, ...]]");
         }
@@ -71,16 +68,14 @@ public final class AccessList {
     // ---------------------------------------------------------------------------------------------
 
     /** Returns the RLP encoding of this access list. */
-    public RLPSequence rlp() {
-        return RLPSequence.from(Arrays.stream(addressKeys)
-            .map(it -> {
-                var keysBytes = Arrays.stream(it.keys)
-                    .map(k -> new RLPBytes(k.bytes))
-                    .toArray(RLPBytes[]::new);
-                return RLPSequence.from(
-                    new RLPBytes(it.address.bytes),
-                    RLPSequence.from(keysBytes));
-            }));
+    public RLPItem rlp() {
+        return RLPItem.sequence(Arrays.stream(addressKeys)
+            .map(it ->
+                RLPItem.sequence(
+                    RLPItem.bytes(it.address.bytes),
+                    RLPItem.sequence(Arrays.stream(it.keys)
+                        .map(k -> RLPItem.bytes(k.bytes))
+                        .toArray(RLPItem[]::new)))));
     }
 
     // ---------------------------------------------------------------------------------------------
