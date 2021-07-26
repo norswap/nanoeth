@@ -48,11 +48,16 @@ public final class AccessList {
     /**
      * Parses the given RLP sequence into the access list.
      *
-     * @throws IllegalTransactionFormatException if the RLP sequence does not properly encode an access list
+     * @throws IllegalTransactionFormatException if the RLP sequence does not properly encode an
+     * access list
      */
-    public static AccessList from (RLP rlp) throws IllegalTransactionFormatException {
+    public static AccessList from (RLP seq) throws IllegalTransactionFormatException {
+
+        if (!seq.isSequence()) throw new IllegalTransactionFormatException(
+            "access list requires a sequence, but a byte array was provided instead");
+
         try {
-            return new AccessList(rlp.stream()
+            return new AccessList(seq.stream()
                 .map(it -> new AddressKeys(
                     new Address(it.itemAt(0).bytes()),
                     it.itemAt(1).stream()

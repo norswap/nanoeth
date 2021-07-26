@@ -183,9 +183,7 @@ final class TransactionParser {
     /** Parses the i-th item of the sequence, which should be an RLP sequence, into an access list. */
     private static AccessList getAccessList (RLP seq, int i)
             throws IllegalTransactionFormatException {
-
-        if (!seq.isSequence()) throw new IllegalTransactionFormatException(
-                "decoded RLP for transaction has illegal format: expected sequence at index " + i);
+        // all validations are done in the `from` method
         return AccessList.from(seq.itemAt(8));
     }
 
