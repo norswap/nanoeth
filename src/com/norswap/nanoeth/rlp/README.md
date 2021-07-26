@@ -14,6 +14,11 @@ The encoding & coding logic proper is in the package-local `RLPEncoding` class.
 
 An `RLP` object represents either a byte array (`byte[]`) or a sequence of sub-items (`RLP[]`).
 
+There are in reality three layers of representations: the actual objects we care about (e.g. a
+transaction, `Transaction` in the `transactions` package), their RLP **representations** (`RLP`)
+and the RLP encoding (`byte[]`). We say that we "parse" an object (e.g. a transaction) from its
+RLP representation, while we "decode" the RLP representation from the RLP-encoded byte array.
+
 ## Understanding the value of the first byte of an RLP-encoded item
 
 - Single byte encoding (`[0, 127]`): 128 items which are encoded as themselves (single byte)

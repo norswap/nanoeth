@@ -56,7 +56,7 @@ public final class Transaction extends UnsignedTransaction {
      * TransactionFormat} for more information.
      *
      * @throws IllegalTransactionFormatException
-     * if the RLP sequence does not properly encode a transaction
+     * if the RLP sequence does not properly parse to a transaction
      */
     public static Transaction from (int type, RLP seq)
             throws IllegalTransactionFormatException {
@@ -67,7 +67,7 @@ public final class Transaction extends UnsignedTransaction {
 
     /**
      * Returns the address of the transaction sender.
-     * <p>The address is recomputed from the binary encoded transaction and the signature
+     * <p>The address is recomputed from the RLP-encoded transaction and the signature
      * each time this method is called.
      */
     public Address recoverSender() {
@@ -81,8 +81,9 @@ public final class Transaction extends UnsignedTransaction {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns the RLP form of this transaction. The byte encoding of this is what is stored in the
-     * blocks, potentially prefixed by a one-byte {@link TransactionFormat#type type identifier}.
+     * Returns the RLP representation of this transaction, the encoding of which is what is stored
+     * in the blocks, potentially prefixed by a one-byte {@link TransactionFormat#type type
+     * identifier}.
      */
     public RLP rlp() {
         return switch (format) {
@@ -104,7 +105,8 @@ public final class Transaction extends UnsignedTransaction {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns the binary encoding of the transaction (which is byte-encoding of its RLP encoding).
+     * Returns the RLP encoding of the transaction (which is binary encoding of its {@link #rlp()
+     * RLP representation}).
      */
     public byte[] binary () {
         return rlp().encode();
@@ -113,8 +115,8 @@ public final class Transaction extends UnsignedTransaction {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns an hex string (e.g. "0x123") corresponding to the {@link #binary()} encoding of this
-     * transaction.
+     * Returns an hex string (e.g. "0x123") corresponding to the {@link #binary() RLP encoding} of
+     * this transaction.
      */
     public String toHexString() {
         return ByteUtils.bytesToHexString(binary());
@@ -125,8 +127,8 @@ public final class Transaction extends UnsignedTransaction {
     /**
      * Returns true if the transaction's signature is valid.
      *
-     * <p>Use {@link #verifySignature(byte[])} for faster verification if you know the byte
-     * encoding of the unsigned version of this transaction (which avoids recomputing it).
+     * <p>Use {@link #verifySignature(byte[])} for faster verification if you know the RLP encoding
+     * of the unsigned version of this transaction (which avoids recomputing it).
      */
     public boolean verifySignature() {
         return signature.verify(signingRLP().encode());
@@ -136,10 +138,11 @@ public final class Transaction extends UnsignedTransaction {
 
     /**
      * Returns true if the transaction's includes a valid signature of {@code
-     * encodedUnsignedTransaction} which should be the encoding of the unsigned version of this
+     * encodedUnsignedTransaction} which should be the RLP encoding of the unsigned version of this
      * transaction.
      *
-     * <p>Use {@link #verifySignature()} if you do not know the encoding of the unsigned version.
+     * <p>Use {@link #verifySignature()} if you do not know the RLP encoding of the unsigned
+     * version.
      */
     public boolean verifySignature (byte[] encodedUnsignedTransaction) {
         assert Arrays.equals(signingRLP().encode(), encodedUnsignedTransaction);

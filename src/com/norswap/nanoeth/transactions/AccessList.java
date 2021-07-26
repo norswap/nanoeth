@@ -72,7 +72,7 @@ public final class AccessList {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Returns the RLP encoding of this access list. */
+    /** Returns the RLP representation of this access list. */
     public RLP rlp() {
         return RLP.sequence(Arrays.stream(addressKeys)
             .map(it ->
