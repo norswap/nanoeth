@@ -1,6 +1,6 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.rlp.RLPItem;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.utils.ByteUtils;
 import org.testng.annotations.Test;
 
@@ -20,7 +20,7 @@ public final class TransactionTests {
 
             // extra tests for RLP: encode(decode(bytes)) == bytes
             byte[] bytesFromHex = ByteUtils.hexStringToBytes(hex, 0);
-            var rlpFromHex = RLPItem.decode(bytesFromHex);
+            var rlpFromHex = RLP.decode(bytesFromHex);
             byte[] bytesReencodedFromHex = rlpFromHex.encode();
             assertEquals(bytesReencodedFromHex, bytesFromHex);
 

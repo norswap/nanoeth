@@ -92,8 +92,8 @@ public final class RLPTests {
     // ---------------------------------------------------------------------------------------------
 
     private void assertDecodeEncodeBytes (byte[] decoded, byte[] encoded) {
-        var decodedBytes = RLPItem.bytes(decoded);
-        assertEquals(RLPItem.decode(encoded), decodedBytes);
+        var decodedBytes = RLP.bytes(decoded);
+        assertEquals(RLP.decode(encoded), decodedBytes);
         assertEquals(decodedBytes.encode(), encoded);
     }
 
@@ -119,20 +119,20 @@ public final class RLPTests {
     }
 
     private void assertEncodeDecodeSequence(byte[] decoded, byte[] encoded) {
-        var seq = RLPItem.sequence(decoded);
+        var seq = RLP.sequence(decoded);
         assertEncodeDecodeSequence(seq, concat(encodeSequenceSize(encoded.length), encoded));
     }
 
-    private void assertEncodeDecodeSequence(RLPItem seq, byte[] encoded) {
+    private void assertEncodeDecodeSequence(RLP seq, byte[] encoded) {
         assertEquals(seq.encode(), encoded);
-        assertEquals(RLPItem.decode(encoded), seq);
+        assertEquals(RLP.decode(encoded), seq);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Test public void testEncodeDecodeEmpty() {
         assertDecodeEncodeBytes(EMPTY_BYTES, E_EMPTY_BYTES);
-        assertEncodeDecodeSequence(RLPItem.sequence(), E_EMPTY_SEQ);
+        assertEncodeDecodeSequence(RLP.sequence(), E_EMPTY_SEQ);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -154,7 +154,7 @@ public final class RLPTests {
 
     @Test public void testEncodeDecodeTwoItemSequences() {
         for (int i = 0; i < BYTES_DECODED.length - 1; ++i) {
-            var seq = RLPItem.sequence(
+            var seq = RLP.sequence(
                 BYTES_DECODED[i],
                 BYTES_DECODED[i+1]);
             var encoded = encodeSequence(BYTES_ENCODED[i], BYTES_ENCODED[i + 1]);
@@ -166,11 +166,11 @@ public final class RLPTests {
 
     @Test public void testEncodeDecodeNestedSequences() {
         for (int i = 0; i < BYTES_DECODED.length - 3; ++i) {
-            var seq = RLPItem.sequence(
-                RLPItem.sequence(
+            var seq = RLP.sequence(
+                RLP.sequence(
                     BYTES_DECODED[i],
                     BYTES_DECODED[i + 1]),
-                RLPItem.sequence(
+                RLP.sequence(
                     BYTES_DECODED[i + 2],
                     BYTES_DECODED[i + 3]));
             var encoded = encodeSequence(

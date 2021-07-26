@@ -3,7 +3,7 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.StorageKey;
 import com.norswap.nanoeth.rlp.IllegalRLPAccess;
-import com.norswap.nanoeth.rlp.RLPItem;
+import com.norswap.nanoeth.rlp.RLP;
 import norswap.utils.NArrays;
 import java.util.Arrays;
 
@@ -50,7 +50,7 @@ public final class AccessList {
      *
      * @throws IllegalTransactionFormatException if the RLP sequence does not properly encode an access list
      */
-    public static AccessList from (RLPItem rlp) throws IllegalTransactionFormatException {
+    public static AccessList from (RLP rlp) throws IllegalTransactionFormatException {
         try {
             return new AccessList(rlp.stream()
                 .map(it -> new AddressKeys(
@@ -68,14 +68,14 @@ public final class AccessList {
     // ---------------------------------------------------------------------------------------------
 
     /** Returns the RLP encoding of this access list. */
-    public RLPItem rlp() {
-        return RLPItem.sequence(Arrays.stream(addressKeys)
+    public RLP rlp() {
+        return RLP.sequence(Arrays.stream(addressKeys)
             .map(it ->
-                RLPItem.sequence(
-                    RLPItem.bytes(it.address.bytes),
-                    RLPItem.sequence(Arrays.stream(it.keys)
-                        .map(k -> RLPItem.bytes(k.bytes))
-                        .toArray(RLPItem[]::new)))));
+                RLP.sequence(
+                    RLP.bytes(it.address.bytes),
+                    RLP.sequence(Arrays.stream(it.keys)
+                        .map(k -> RLP.bytes(k.bytes))
+                        .toArray(RLP[]::new)))));
     }
 
     // ---------------------------------------------------------------------------------------------

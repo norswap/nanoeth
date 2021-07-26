@@ -101,9 +101,9 @@ final class RLPEncoding {
     /**
      * Encodes a sequence of items (byte arrays or nested sequences) to RLP format.
      */
-    static byte[] encode (RLPItem... sequence) {
+    static byte[] encode (RLP... sequence) {
         byte[][] encodedItems = Arrays.stream(sequence)
-            .map(RLPItem::encode)
+            .map(RLP::encode)
             .toArray(byte[][]::new);
         int serializedSize = Arrays.stream(encodedItems)
             .map(it -> it.length)
@@ -132,11 +132,11 @@ final class RLPEncoding {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Decodes the given byte sequence to an {@link RLPItem}.
+     * Decodes the given byte sequence to an {@link RLP}.
      *
      * @throws IllegalArgumentException if the given byte sequence is not well-formed RLP.
      */
-    static RLPItem decode (byte[] bytes) {
+    static RLP decode (byte[] bytes) {
         var offset = new Offset();
         var out = decode(bytes, offset);
         int left = bytes.length - offset.x;
@@ -213,26 +213,26 @@ final class RLPEncoding {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static RLPItem decode (byte[] bytes, Offset offset) {
+    private static RLP decode (byte[] bytes, Offset offset) {
         int marker = ByteUtils.uint(bytes[offset.x++]);
         if (isByteSequence(marker)) {
             if (marker < BYTES_SIZE_SUMMAND)
-                return RLPItem.bytes((byte) marker);
+                return RLP.bytes((byte) marker);
             int size = decodeByteSequenceSize(marker, bytes, offset);
             checkRemaining(bytes, offset.x, size);
-            var out = RLPItem.bytes(ByteUtils.copyOfSizedRange(bytes, offset.x, size));
+            var out = RLP.bytes(ByteUtils.copyOfSizedRange(bytes, offset.x, size));
             offset.x += size;
             return out;
         } else {
             int size = decodeItemSequenceSize(marker, bytes, offset);
-            var list = new ArrayList<RLPItem>();
+            var list = new ArrayList<RLP>();
             int end = offset.x + size;
             checkRemaining(bytes, offset.x, end - offset.x);
             while (offset.x < end)
                 list.add(decode(bytes, offset));
             if (offset.x != end)
                 throw new IllegalArgumentException("End offset of last item did not match sequence size.");
-            return RLPItem.sequence(list.toArray(RLPItem[]::new));
+            return RLP.sequence(list.toArray(RLP[]::new));
         }
     }
 

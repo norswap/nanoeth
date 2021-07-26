@@ -3,7 +3,7 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.history.EthereumVersion;
-import com.norswap.nanoeth.rlp.RLPItem;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.signature.EthKeyPair;
 import com.norswap.nanoeth.utils.Assert;
 import java.util.Arrays;
@@ -141,19 +141,19 @@ public class UnsignedTransaction {
     // ---------------------------------------------------------------------------------------------
 
     /** The RLP sequence to sign when signing the transaction. */
-    RLPItem signingRLP() {
+    RLP signingRLP() {
         return switch (format) {
             case TX_LEGACY   ->
-                RLPItem.sequence(nonce, maxFeePerGas, gasLimit, to, value, payload);
-            case TX_EIP_155  -> RLPItem.sequence(
+                RLP.sequence(nonce, maxFeePerGas, gasLimit, to, value, payload);
+            case TX_EIP_155  -> RLP.sequence(
                 // These confusing zero at the end were supposed to make it so that every field of
                 // the transaction at the time was "virtually represented", with (chainId, 0, 0)
                 // standing in for (v, r, s). The "why" is beyond me.
                 // (inferred from https://github.com/ethereum/EIPs/commit/2cb94cc48b4466497d82f5207c84e05f8e1cf4bd)
                 nonce, maxFeePerGas, gasLimit, to, value, payload, chainId, 0, 0);
-            case TX_EIP_2930 -> RLPItem.sequence(
+            case TX_EIP_2930 -> RLP.sequence(
                 chainId, nonce, maxFeePerGas, gasLimit, to, value, payload, accessList.rlp());
-            case TX_EIP_1559 -> RLPItem.sequence(
+            case TX_EIP_1559 -> RLP.sequence(
                 nonce, maxFeePerGas, gasLimit, to, value, payload, accessList.rlp());
         };
     }

@@ -1,6 +1,6 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.rlp.RLPItem;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.utils.ByteUtils;
 import norswap.utils.exceptions.Exceptions;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public final class TransactionData
         return Exceptions.suppress(() -> {
            byte[] bytes = ByteUtils.hexStringToBytes(s, 0);
            // TODO handle more transaction types
-           return Transaction.from(0, RLPItem.decode(bytes));
+           return Transaction.from(0, RLP.decode(bytes));
         });
     }
 

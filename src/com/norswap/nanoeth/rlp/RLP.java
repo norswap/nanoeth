@@ -16,16 +16,16 @@ import java.util.stream.Stream;
  *
  * <p>This represents either a sequence of sub-items, or a byte array.
  */
-public final class RLPItem {
+public final class RLP {
 
     // ---------------------------------------------------------------------------------------------
 
-    private final RLPItem[] items;
+    private final RLP[] items;
     private final byte[] bytes;
 
     // ---------------------------------------------------------------------------------------------
 
-    private RLPItem (@Retained RLPItem[] items, @Retained byte[] bytes) {
+    private RLP (@Retained RLP[] items, @Retained byte[] bytes) {
         this.items = items;
         this.bytes = bytes;
     }
@@ -33,15 +33,15 @@ public final class RLPItem {
     // ---------------------------------------------------------------------------------------------
 
     /** Creates a new RLP object representing the given byte array.*/
-    public static RLPItem bytes (byte... bytes) {
-        return new RLPItem(null, bytes);
+    public static RLP bytes (byte... bytes) {
+        return new RLP(null, bytes);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /** Creates a new RLP object representing a sequence of the given sub-items. */
-    public static RLPItem sequence (RLPItem... items) {
-        return new RLPItem(items, null);
+    public static RLP sequence (RLP... items) {
+        return new RLP(items, null);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ public final class RLPItem {
      * types. Supported types are:
      * <ul>
      * <li>{@code byte[]}</li>
-     * <li>{@link RLPItem}</li>
+     * <li>{@link RLP}</li>
      * <li>{@link Integer} (can pass an {@code int}</li>
      * <li>{@link Natural}</li>
      * <li>{@link Address}</li>
@@ -59,37 +59,37 @@ public final class RLPItem {
      * <li>{@link StorageKey}</li>
      * </ul>
      */
-    public static RLPItem sequence (Object... items) {
-        var converted = new ArrayList<RLPItem>();
+    public static RLP sequence (Object... items) {
+        var converted = new ArrayList<RLP>();
         for (var item: items) {
-            if (item instanceof RLPItem)
-                converted.add((RLPItem) item);
+            if (item instanceof RLP)
+                converted.add((RLP) item);
             else if (item instanceof Integer)
-                converted.add(RLPItem.bytes(ByteUtils.bytes((Integer) item)));
+                converted.add(RLP.bytes(ByteUtils.bytes((Integer) item)));
             else if (item instanceof Natural)
-                converted.add(RLPItem.bytes(ByteUtils.bytesWithoutSign((Natural) item)));
+                converted.add(RLP.bytes(ByteUtils.bytesWithoutSign((Natural) item)));
             else if (item instanceof byte[])
-                converted.add(RLPItem.bytes((byte[]) item));
+                converted.add(RLP.bytes((byte[]) item));
             else if (item instanceof Address)
-                converted.add(RLPItem.bytes(((Address) item).bytes));
+                converted.add(RLP.bytes(((Address) item).bytes));
             else if (item instanceof Hash)
-                converted.add(RLPItem.bytes(((Hash) item).bytes));
+                converted.add(RLP.bytes(((Hash) item).bytes));
             else if (item instanceof StorageKey)
-                converted.add(RLPItem.bytes(((StorageKey) item).bytes));
+                converted.add(RLP.bytes(((StorageKey) item).bytes));
             else throw new IllegalArgumentException(
                         "unhandled conversion from type: " + item.getClass());
         }
-        return sequence(converted.toArray(new RLPItem[items.length]));
+        return sequence(converted.toArray(new RLP[items.length]));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Decodes the given byte sequence to an {@link RLPItem}.
+     * Decodes the given byte sequence to an {@link RLP}.
      *
      * @throws IllegalArgumentException if the given byte sequence is not well-formed RLP.
      */
-    public static RLPItem decode (byte[] bytes) {
+    public static RLP decode (byte[] bytes) {
         return RLPEncoding.decode(bytes);
     }
 
@@ -138,7 +138,7 @@ public final class RLPItem {
      *
      * @throws IllegalRLPAccess if this object does not represent a sequence of sub-items.
      */
-    public RLPItem[] items() {
+    public RLP[] items() {
         checkSequence();
         return items;
     }
@@ -166,7 +166,7 @@ public final class RLPItem {
      * @throws IllegalRLPAccess if this object does not represent a sequence of sub-items, or the
      * index is out of bounds.
      */
-    public RLPItem itemAt (int i) {
+    public RLP itemAt (int i) {
         checkSequence();
         if (i < 0 || items.length <= i)
             throw new IllegalRLPAccess("sequence index out of bounds: " + i);
@@ -189,7 +189,7 @@ public final class RLPItem {
      *
      * @throws IllegalRLPAccess if this object does not represent a sequence of sub-items.
      */
-    public Stream<RLPItem> stream() {
+    public Stream<RLP> stream() {
         checkSequence();
         return Arrays.stream(items);
     }
@@ -198,8 +198,8 @@ public final class RLPItem {
 
     @Override public boolean equals (Object o) {
         if (this == o) return true;
-        if (!(o instanceof RLPItem)) return false;
-        var rlp = (RLPItem) o;
+        if (!(o instanceof RLP)) return false;
+        var rlp = (RLP) o;
         return Arrays.equals(items, rlp.items) && Arrays.equals(bytes, rlp.bytes);
     }
 

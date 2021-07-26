@@ -3,7 +3,7 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.history.EthereumVersion;
-import com.norswap.nanoeth.rlp.RLPItem;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.signature.EthKeyPair;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.utils.ByteUtils;
@@ -58,7 +58,7 @@ public final class Transaction extends UnsignedTransaction {
      * @throws IllegalTransactionFormatException
      * if the RLP sequence does not properly encode a transaction
      */
-    public static Transaction from (int type, RLPItem seq)
+    public static Transaction from (int type, RLP seq)
             throws IllegalTransactionFormatException {
         return TransactionParser.parse(type, seq);
     }
@@ -84,18 +84,18 @@ public final class Transaction extends UnsignedTransaction {
      * Returns the RLP form of this transaction. The byte encoding of this is what is stored in the
      * blocks, potentially prefixed by a one-byte {@link TransactionFormat#type type identifier}.
      */
-    public RLPItem rlp() {
+    public RLP rlp() {
         return switch (format) {
-            case TX_LEGACY -> RLPItem.sequence(
+            case TX_LEGACY -> RLP.sequence(
                 nonce, maxFeePerGas, gasLimit, to, value, payload,
                 27 + signature.yParity, signature.r, signature.s);
-            case TX_EIP_155 -> RLPItem.sequence(
+            case TX_EIP_155 -> RLP.sequence(
                 nonce, maxFeePerGas, gasLimit, to, value, payload,
                 chainId.mult(2).add(35).add(signature.yParity), signature.r, signature.s);
-            case TX_EIP_2930 -> RLPItem.sequence(
+            case TX_EIP_2930 -> RLP.sequence(
                 chainId, nonce, maxFeePerGas, gasLimit, to, value, payload,
                 accessList.rlp(), signature.yParity, signature.r, signature.s);
-            case TX_EIP_1559 -> RLPItem.sequence(
+            case TX_EIP_1559 -> RLP.sequence(
                 chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, payload,
                 accessList.rlp(), signature.yParity, signature.r, signature.s);
         };

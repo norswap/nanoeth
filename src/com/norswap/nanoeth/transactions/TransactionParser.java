@@ -2,7 +2,7 @@ package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Natural;
-import com.norswap.nanoeth.rlp.RLPItem;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.utils.ByteUtils;
@@ -23,7 +23,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Implements {@link Transaction#from} */
-    static Transaction parse (int type, RLPItem seq)
+    static Transaction parse (int type, RLP seq)
             throws IllegalTransactionFormatException {
 
         if (!seq.isSequence()) throw new IllegalTransactionFormatException(
@@ -39,7 +39,7 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Transaction parseTransactionWithoutEnvelope (RLPItem seq)
+    private static Transaction parseTransactionWithoutEnvelope (RLP seq)
             throws IllegalTransactionFormatException  {
 
         var nonce = getNatural(seq, 0);
@@ -76,7 +76,7 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Transaction parseEIP2930Transaction (RLPItem seq)
+    private static Transaction parseEIP2930Transaction (RLP seq)
             throws IllegalTransactionFormatException {
 
         var chainId = getNatural(seq, 0);
@@ -98,7 +98,7 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Transaction parseEIP1559Transaction (RLPItem seq)
+    private static Transaction parseEIP1559Transaction (RLP seq)
             throws IllegalTransactionFormatException {
 
         var chainId = getNatural(seq, 0);
@@ -133,7 +133,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Parses the i-th item of the sequence, which should be a byte array, into a natural number. */
-    private static Natural getNatural (RLPItem seq, int i)
+    private static Natural getNatural (RLP seq, int i)
             throws IllegalTransactionFormatException {
 
         return new Natural(getBytes(seq, i));
@@ -142,7 +142,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Parses the i-th item of the sequence, which should be a byte array, into a 32-bit integer. */
-    private static int getInt (RLPItem seq, int i)
+    private static int getInt (RLP seq, int i)
             throws IllegalTransactionFormatException {
 
         return ByteUtils.toInt(getBytes(seq, i));
@@ -151,7 +151,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Parses the i-th item of the sequence, which should be a byte array, into an address. */
-    private static Address getAddress (RLPItem seq, int i)
+    private static Address getAddress (RLP seq, int i)
             throws IllegalTransactionFormatException {
 
         var bytes = getBytes(seq, i);
@@ -164,7 +164,7 @@ final class TransactionParser {
 
     /** Retrieves the i-th item of the sequence, and verifies that it is a byte array with a valid
      * size. */
-    private static byte[] getBytes (RLPItem seq, int i)
+    private static byte[] getBytes (RLP seq, int i)
             throws IllegalTransactionFormatException {
 
         if (i >= seq.items().length) throw new IllegalTransactionFormatException(
@@ -181,7 +181,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Parses the i-th item of the sequence, which should be an RLP sequence, into an access list. */
-    private static AccessList getAccessList (RLPItem seq, int i)
+    private static AccessList getAccessList (RLP seq, int i)
             throws IllegalTransactionFormatException {
 
         if (!seq.isSequence()) throw new IllegalTransactionFormatException(
