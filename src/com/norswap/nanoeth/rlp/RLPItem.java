@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 /**
- * An object that can be {@link #encode() encoded} in RLP format, or {@link RLP#decode(byte[])
+ * An object that can be {@link #encode() encoded} in RLP format, or {@link RLPEncoding#decode(byte[])
  * decoded} from a byte array in RLP format.
  *
  * <p>This represents either a sequence of sub-items, or a byte array.
@@ -90,7 +90,7 @@ public final class RLPItem {
      * @throws IllegalArgumentException if the given byte sequence is not well-formed RLP.
      */
     public static RLPItem decode (byte[] bytes) {
-        return RLP.decode(bytes);
+        return RLPEncoding.decode(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -178,8 +178,8 @@ public final class RLPItem {
     /** Returns the binary RLP encoding of this object. */
     public byte[] encode() {
         return bytes == null
-            ? RLP.encode(items)
-            : RLP.encode(bytes);
+            ? RLPEncoding.encode(items)
+            : RLPEncoding.encode(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

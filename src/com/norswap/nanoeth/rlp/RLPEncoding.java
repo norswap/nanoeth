@@ -13,8 +13,8 @@ import static java.lang.String.format;
  * allowed by Java, which is slightly under 2^31. Ethereum allows byte and item sequences of length
  * up to 2^64.
  */
-final class RLP {
-    private RLP () {}
+final class RLPEncoding {
+    private RLPEncoding () {}
 
     // =============================================================================================
     // region CONSTANTS

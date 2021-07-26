@@ -10,6 +10,8 @@ Encoding goes from an `RLPItem` to a `byte[]` object, and  decoding goes in the 
 - Encoding is performed via `RLPItem.encode()`.
 - Decoding is performed via `RLPItem.decode(byte[])`
 
+The encoding & coding logic proper is in the package-local `RLPEncoding` class.
+
 `RLPItem` represents either a byte array (`byte[]`) or a sequence of sub-items (`RLPItem[]`).
 
 ## Understanding the value of the first byte of an RLP-encoded item
