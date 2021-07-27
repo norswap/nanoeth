@@ -1,6 +1,9 @@
 package com.norswap.nanoeth.history;
 
+import com.norswap.nanoeth.Context;
 import java.time.LocalDate;
+
+import static com.norswap.nanoeth.Context.CONTEXT;
 
 /**
  * Enumeration of Ethereum's "versions": the hard forks that were rolled out during the chain's
@@ -24,14 +27,40 @@ public enum EthereumVersion {
     BERLIN              (12_244_000,    LocalDate.of(2021,  4, 15)),
     LONDON              (12_965_000,    LocalDate.of(2021,  8,  4));
 
+    // ---------------------------------------------------------------------------------------------
+
     /** Block height where the fork took effect. */
     public final int startBlock;
 
     /** Date on which the fork took effect. */
     public final LocalDate startDate;
 
+    // ---------------------------------------------------------------------------------------------
+
     EthereumVersion (int startBlock, LocalDate startDate) {
         this.startBlock = startBlock;
         this.startDate = startDate;
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns true iff the current block height ({@link Context#blockHeight}) is lower than
+     * the initial block height ({@link #startBlock}) of this version.
+     */
+    public boolean isFuture () {
+        return CONTEXT.blockHeight < startBlock;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns true iff the current block height ({@link Context#blockHeight}) is higher or equal
+     * than the initial block height ({@link #startBlock}) of this version.
+     */
+    public boolean isPast() {
+        return CONTEXT.blockHeight >= startBlock;
+    }
+
+    // ---------------------------------------------------------------------------------------------
 }
