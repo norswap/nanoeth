@@ -1,12 +1,14 @@
 package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.data.Address;
+import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.history.EthereumVersion;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.signature.EthKeyPair;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.utils.ByteUtils;
+import com.norswap.nanoeth.utils.Hashing;
 import org.bouncycastle.math.ec.ECPoint;
 
 import java.util.Arrays;
@@ -147,6 +149,13 @@ public final class Transaction extends UnsignedTransaction {
     public boolean verifySignature (byte[] encodedUnsignedTransaction) {
         assert Arrays.equals(signingRLP().encode(), encodedUnsignedTransaction);
         return signature.verify(encodedUnsignedTransaction);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Returns the transaction hash. This is recomputed anew each time it is requested. */
+    public Hash hash() {
+        return Hashing.keccak(binary());
     }
 
     // ---------------------------------------------------------------------------------------------
