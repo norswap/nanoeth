@@ -155,9 +155,9 @@ final class TransactionParser {
             throws IllegalTransactionFormatException {
 
         var bytes = getBytes(seq, i);
-        if (bytes.length != 20)
-            throw new IllegalTransactionFormatException("Address should be 20 bytes long");
-        return new Address(bytes);
+        if (bytes.length == 0)  return Address.EMPTY;
+        if (bytes.length == 20) return new Address(bytes);
+        throw new IllegalTransactionFormatException("Address should be 20 bytes long");
     }
 
     // ---------------------------------------------------------------------------------------------

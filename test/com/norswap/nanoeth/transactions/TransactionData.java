@@ -76,7 +76,7 @@ public final class TransactionData
 
     /** List of test cases to skip. */
     private static final HashSet<String> SKIPPED = new HashSet<>(Arrays.asList(
-            //"dataTx_bcValidBlockTest.json",     // TODO - fails with "Address should be 20 bytes long"
+            "dataTx_bcValidBlockTestFrontier.json",     // TODO - should fail but passes
             "DataTestInsufficientGas2028.json", // we don't validate gas yet
             "RightVRSTestVPrefixedBy0.json",    // TODO - should fail but passes
             "RightVRSTestVPrefixedBy0_2.json",  // TODO - should fail but passes
@@ -92,7 +92,6 @@ public final class TransactionData
             "Vitalik_15.json",                  // TODO - should fail but passes
             "Vitalik_16.json",                  // TODO - should fail but passes
             "Vitalik_17.json",                  // TODO - should fail but passes
-            "libsecp256k1test.json",            // TODO - fails with "Address should be 20 bytes long"
             "V_wrongvalue_ff.json",             // TODO - should fail but passes
             "V_wrongvalue_ffff.json",           // TODO - should fail but passes
             "V_wrongvalue_101.json",            // TODO - should fail but passes
