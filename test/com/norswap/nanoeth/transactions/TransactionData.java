@@ -76,8 +76,9 @@ public final class TransactionData
 
     /** List of test cases to skip. */
     private static final HashSet<String> SKIPPED = new HashSet<>(Arrays.asList(
-            "dataTx_bcValidBlockTestFrontier.json",     // TODO - should fail but passes
-            "DataTestInsufficientGas2028.json", // we don't validate gas yet
+            "dataTx_bcValidBlockTestFrontier.json", // we don't validate gas yet (this has 50k gas, which is insufficient except on frontier)
+            "DataTestInsufficientGas2028.json",     // we don't validate gas yet
+
             "RightVRSTestVPrefixedBy0.json",    // TODO - should fail but passes
             "RightVRSTestVPrefixedBy0_2.json",  // TODO - should fail but passes
             "RightVRSTestVPrefixedBy0_3.json",  // TODO - should fail but passes
@@ -87,11 +88,13 @@ public final class TransactionData
             "RightVRSTestF0000000d.json",       // TODO - should fail but passes
             "RightVRSTestF0000000e.json",       // TODO - should fail but passes
             "RightVRSTestF0000000f.json",       // TODO - should fail but passes
+
             "Vitalik_12.json",                  // TODO - should fail but passes
             "Vitalik_14.json",                  // TODO - should fail but passes
             "Vitalik_15.json",                  // TODO - should fail but passes
             "Vitalik_16.json",                  // TODO - should fail but passes
             "Vitalik_17.json",                  // TODO - should fail but passes
+
             "V_wrongvalue_ff.json",             // TODO - should fail but passes
             "V_wrongvalue_ffff.json",           // TODO - should fail but passes
             "V_wrongvalue_101.json",            // TODO - should fail but passes
@@ -101,6 +104,7 @@ public final class TransactionData
             "V_wrongvalue_124.json",            // TODO - should fail but passes
             "WrongVRSTestVEqual39.json",        // TODO - should fail but passes
             "WrongVRSTestVEqual41.json",        // TODO - should fail but passes
+
             "tr201506052141PYTHON.json",        // TODO - should fail but passes
             "end"
         ));
