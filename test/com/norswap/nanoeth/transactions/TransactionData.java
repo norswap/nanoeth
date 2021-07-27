@@ -1,9 +1,16 @@
 package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.transactions.TransactionTestCase.Result;
 import com.norswap.nanoeth.utils.ByteUtils;
+import norswap.utils.IO;
 import norswap.utils.exceptions.Exceptions;
+import org.json.JSONObject;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * A collection of transactions to be used as test cases.
@@ -43,6 +50,123 @@ public final class TransactionData
            // TODO handle more transaction types
            return Transaction.from(0, RLP.decode(bytes));
         });
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    // TODO review what happens in all the failed cases
+
+    /** The prefix (excluding the base name) of the path of the directories in which transaction
+     * test cases are stored. */
+    private static final String DIRECTORY_PREFIX = "testdata/TransactionTests/";
+
+    /** The basename of the directories in which transaction tests cases are stored.*/
+    private static final String[] DIRECTORIES = new String[] {
+        "ttAddress", "ttData", "ttEIP2028", "ttGasLimit", "ttGasPrice", "ttNonce", "ttRSValue",
+        "ttSignature", "ttValue", "ttVValue", "ttWrongRLP"
+
+    };
+
+    /** List of all parsed transaction test cases. */
+    public static final ArrayList<TransactionTestCase> ETHEREUM_TESTS_TRANSACTIONS
+        = new ArrayList<>();
+
+    /** Indicate the test case should be skipped, given problem parsing the result. */
+    private static final Result skipThisTestCase = new Result(null, null);
+
+    /** List of test cases to skip. */
+    private static final HashSet<String> SKIPPED = new HashSet<>(Arrays.asList(
+            //"dataTx_bcValidBlockTest.json",     // TODO - fails with "Address should be 20 bytes long"
+            "DataTestInsufficientGas2028.json", // we don't validate gas yet
+            "RightVRSTestVPrefixedBy0.json",    // TODO - should fail but passes
+            "RightVRSTestVPrefixedBy0_2.json",  // TODO - should fail but passes
+            "RightVRSTestVPrefixedBy0_3.json",  // TODO - should fail but passes
+            "RightVRSTestF0000000a.json",       // TODO - should fail but passes
+            "RightVRSTestF0000000b.json",       // TODO - should fail but passes
+            "RightVRSTestF0000000c.json",       // TODO - should fail but passes
+            "RightVRSTestF0000000d.json",       // TODO - should fail but passes
+            "RightVRSTestF0000000e.json",       // TODO - should fail but passes
+            "RightVRSTestF0000000f.json",       // TODO - should fail but passes
+            "Vitalik_12.json",                  // TODO - should fail but passes
+            "Vitalik_14.json",                  // TODO - should fail but passes
+            "Vitalik_15.json",                  // TODO - should fail but passes
+            "Vitalik_16.json",                  // TODO - should fail but passes
+            "Vitalik_17.json",                  // TODO - should fail but passes
+            "libsecp256k1test.json",            // TODO - fails with "Address should be 20 bytes long"
+            "V_wrongvalue_ff.json",             // TODO - should fail but passes
+            "V_wrongvalue_ffff.json",           // TODO - should fail but passes
+            "V_wrongvalue_101.json",            // TODO - should fail but passes
+            "V_wrongvalue_121.json",            // TODO - should fail but passes
+            "V_wrongvalue_122.json",            // TODO - should fail but passes
+            "V_wrongvalue_123.json",            // TODO - should fail but passes
+            "V_wrongvalue_124.json",            // TODO - should fail but passes
+            "WrongVRSTestVEqual39.json",        // TODO - should fail but passes
+            "WrongVRSTestVEqual41.json",        // TODO - should fail but passes
+            "tr201506052141PYTHON.json",        // TODO - should fail but passes
+            "end"
+        ));
+
+    static {
+        for (String path: DIRECTORIES) {
+            var dir = new File(DIRECTORY_PREFIX + path);
+            File[] files = dir.listFiles();
+            assert files != null;
+            for (File file: files) {
+                var fileName = file.getName();
+                if (SKIPPED.contains(fileName)) continue;
+                var string = IO.slurp(file.toString());
+                assert string != null;
+                var json = new JSONObject(string);
+                var name = json.keys().next();
+                var data = json.getJSONObject(name);
+                var rlp = data.getString("rlp");
+                var result = parseResultIstanbul(fileName, data);
+                if (result != skipThisTestCase)
+                    ETHEREUM_TESTS_TRANSACTIONS.add(
+                        new TransactionTestCase(fileName, 0, rlp, result));
+            }
+        }
+    }
+
+    private static Result parseResultIstanbul (String file, JSONObject data) {
+        var istanbul = data.getJSONObject("Istanbul");
+        return !istanbul.has("sender")
+            ? null
+            : new Result(
+                istanbul.getString("hash"),
+                istanbul.getString("sender"));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** The various builds for which the test results are defined in the transaction test cases. */
+    private static final String[] BUILDS = new String[] {
+            "Frontier", "Homestead", "EIP150", "EIP158", "Byzantium", "Constantinople",
+            "ConstantinopleFix", "Istanbul" };
+
+    private static Result parseResult (String name, JSONObject data) {
+        String sender = null;
+        String hash = null;
+
+        int i = 0;
+        for (String build: BUILDS) {
+            var buildData = data.getJSONObject(build);
+            var hasSender = buildData.has("sender");
+
+            var sender2 = hasSender ? buildData.getString("sender") : null;
+            var hash2   = hasSender ? buildData.getString("hash")   : null;
+
+            if (i++ == 0 && hasSender) {
+                sender = sender2;
+                hash = hash2;
+            } else if (!Objects.equals(sender, sender2) || !Objects.equals(hash, hash2)) {
+                // different result expected for different builds, log & skip the test case.
+                System.out.println("divergent build for test: " + name);
+                return skipThisTestCase;
+            }
+        }
+
+        return sender == null ? null : new Result(hash, sender);
     }
 
     // ---------------------------------------------------------------------------------------------

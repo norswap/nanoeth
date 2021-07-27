@@ -64,6 +64,7 @@ dependencies {
     implementation("com.norswap:utils:2.1.8")
     implementation("org.bouncycastle:bcprov-jdk15on:1.69")
     testImplementation("org.testng:testng:7.4.0")
+    testImplementation("org.json:json:20210307")
 }
 
 // =================================================================================================
