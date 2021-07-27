@@ -121,8 +121,9 @@ malleability attack][bit-mal]). Therefore, `s` values higher than half of the su
 (1) Proving this is outside the scope of this document, but if you want to be convinced, try playing
 with the equation in the "Correctness of the algorithm" section in [this article][ecdsa-intro].
 
-This was added in [EIP-2]. The `ECDSARECOVER` precompiled contract still accepts values of `s >
-n/2`, which allows recovering old Ethereum/Bitcoin signatures.
+This was added in [EIP-2] (Homestead hard fork), so we still need to validate malleable signatures
+prior to the fork. The `ECDSARECOVER` precompiled contract still accepts values of `s > n/2`, which
+allows recovering old Ethereum/Bitcoin signatures.
 
 [malleability]: https://en.wikipedia.org/wiki/Malleability_(cryptography)
 [bit-mal]: https://eklitzke.org/bitcoin-transaction-malleability

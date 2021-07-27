@@ -1,12 +1,16 @@
 package com.norswap.nanoeth.signature;
 
+import com.norswap.nanoeth.Context;
 import com.norswap.nanoeth.data.Natural;
+import com.norswap.nanoeth.history.EthereumVersion;
 import com.norswap.nanoeth.utils.Hashing;
 import org.bouncycastle.math.ec.ECAlgorithms;
 import org.bouncycastle.math.ec.ECPoint;
 import java.math.BigInteger;
 import java.util.Objects;
 
+import static com.norswap.nanoeth.Context.CONTEXT;
+import static com.norswap.nanoeth.history.EthereumVersion.HOMESTEAD;
 import static com.norswap.nanoeth.signature.Curve.SECP256K1;
 
 /**
@@ -45,7 +49,7 @@ public final class Signature
             throw new IllegalSignature("r must be positive");
         if (s.signum() < 0)
             throw new IllegalSignature("s must be positive");
-         if (s.compareTo(HALF_N) > 0)
+         if (HOMESTEAD.isPast() && s.compareTo(HALF_N) > 0)
              throw new IllegalSignature("s must be <= n/2 to avoid signature malleability");
         if (yParity != 0 && yParity != 1)
             throw new IllegalSignature("y Parity (used to build v) must be in [0,1]");
@@ -63,6 +67,9 @@ public final class Signature
      *
      * <p>Canonicalization occurs because for every signature (r,s) the signature (r, -s (mod n)) is
      * a valid signature of the same message. See signature package README for more information.
+     *
+     * <p>This change was introduced in EIP-2 (Homestead). We apply it to all transactions, since
+     * canonicalized transactions are valid before Homestead as well.
      */
     public static Signature createCanonical (int yParity, Natural r, Natural s)
             throws IllegalSignature {
@@ -155,7 +162,7 @@ public final class Signature
     }
 
     @Override public String toString() {
-        return String.format("yParity: %d, r: %s, d: %s", yParity, r, s);
+        return String.format("Signature{yParity: %d, r: %s, s: %s}", yParity, r, s);
     }
 
     // ---------------------------------------------------------------------------------------------
