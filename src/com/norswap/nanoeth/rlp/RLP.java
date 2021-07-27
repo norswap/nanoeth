@@ -85,12 +85,23 @@ public final class RLP {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Decodes the given byte sequence to an {@link RLP}.
+     * Decodes the given byte sequence to an {@link RLP} object.
      *
      * @throws IllegalArgumentException if the given byte sequence is not well-formed RLP.
      */
     public static RLP decode (byte[] bytes) {
         return RLPEncoding.decode(bytes);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Decodes the given hex string (e.g. 0x123) to an {@link RLP} object.
+     *
+     * @throws IllegalArgumentException if the given hex string is not well-formed RLP.
+     */
+    public static RLP decode (String hexString) {
+        return decode(ByteUtils.hexStringToBytes(hexString));
     }
 
     // ---------------------------------------------------------------------------------------------
