@@ -26,7 +26,14 @@ public final class Context {
      * <li>EIP-2 forces signature s values to be < secp256k1n/2</li>
      * </ul>
      */
-    public long blockHeight = 0;
+    public long blockHeight = EthereumVersion.LONDON.startBlock;
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Resets the context to default values. */
+    public void reset () {
+        blockHeight = EthereumVersion.LONDON.startBlock;
+    }
 
     // ---------------------------------------------------------------------------------------------
 }
