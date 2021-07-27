@@ -1,48 +1,49 @@
 package com.norswap.nanoeth.transactions;
 
+import com.norswap.nanoeth.history.EthereumVersion;
 import com.norswap.nanoeth.utils.ByteUtils;
 
-/**
- * A transaction test case built from https://github.com/ethereum/tests test cases.
- */
-public final class TransactionTestCase {
-
+public abstract class TransactionTestCase {
     // ---------------------------------------------------------------------------------------------
 
-    public static class Result {
-        public final String hash;
-        public final String sender;
+    /** The test case's name. */
+    public final String name;
 
-        public Result (String hash, String sender) {
-            this.hash = hash;
-            this.sender = sender;
-        }
-    }
+    /** The block height at which to evaluate the transaction.
+     * Realistically, should always be a value of {@link EthereumVersion#startBlock}.
+     */
+    public final int blockHeight;
 
-    // ---------------------------------------------------------------------------------------------
-
-    /** The test case's file name -- we do not use the key inside the file as it is not unique. */
-    public final String file;
+    /** ID for the chain the transaction belongs to. */
+    public final int chainId;
 
     /** The {@link TransactionEnvelopeType transaction envelope type}. */
-    public final int transactionEnvelopeType;
+    public final int envelopeType;
 
     /** RLP-encoding of the transaction as a {@link ByteUtils#bytesToHexString(byte[]) hex string}. */
-    public final String rlp;
+    public final String hexRLP;
 
-    /** Expected result, or null if expected to fail. */
-    public final Result result;
+    /** Whether the transaction is valid or should be rejected. */
+    public final boolean valid;
 
     // ---------------------------------------------------------------------------------------------
 
-    public TransactionTestCase (
-            String file, int transactionEnvelopeType, String rlp,Result result) {
-
-        this.file = file;
-        this.transactionEnvelopeType = transactionEnvelopeType;
-        this.rlp = rlp;
-        this.result = result;
+    protected TransactionTestCase (String name, int blockHeight, int chainId, int envelopeType,
+            String hexRLP, boolean valid) {
+        this.name = name;
+        this.blockHeight = blockHeight;
+        this.chainId = chainId;
+        this.envelopeType = envelopeType;
+        this.hexRLP = hexRLP;
+        this.valid = valid;
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public String toString () {
+        return name;
+    }
+
 
     // ---------------------------------------------------------------------------------------------
 }
