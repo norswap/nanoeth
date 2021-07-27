@@ -66,6 +66,9 @@ public final class TransactionTests {
         // test signature
         assertTrue(tx.verifySignature());
         assertTrue(tx.verifySignature(tx.signingRLP().encode()));
+
+        // accomodate the ethereum/tests cases that want to fail when chain id !=
+        assertTrue(tx.chainId.same(1));
     }
 
     // ---------------------------------------------------------------------------------------------
