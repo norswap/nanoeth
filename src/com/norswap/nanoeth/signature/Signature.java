@@ -162,7 +162,8 @@ public final class Signature
     }
 
     @Override public String toString() {
-        return String.format("Signature{yParity: %d, r: %s, s: %s}", yParity, r, s);
+        return String.format("Signature{yParity: %d, r: %s, s: %s}",
+            yParity, r.toHexString(), s.toHexString());
     }
 
     // ---------------------------------------------------------------------------------------------

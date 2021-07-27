@@ -1,5 +1,6 @@
 package com.norswap.nanoeth.data;
 
+import com.norswap.nanoeth.utils.ByteUtils;
 import java.math.BigInteger;
 
 /**
@@ -79,6 +80,12 @@ public final class Natural extends BigInteger
 
     public Natural mod (long value) {
         return new Natural(mod(BigInteger.valueOf(value)));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public String toHexString() {
+        return ByteUtils.bytesToHexString(ByteUtils.bytesWithoutSign(this));
     }
 
     // ---------------------------------------------------------------------------------------------

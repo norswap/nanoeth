@@ -179,7 +179,7 @@ public final class Transaction extends UnsignedTransaction {
             ", gasLimit = " + gasLimit +
             ", to = " + to +
             ", value = " + value +
-            ", payload = " + Arrays.toString(payload) +
+            ", payload = " + ByteUtils.bytesToHexString(payload) +
             ", accessList = " + accessList +
             ", signature = " + signature +
             '}';
