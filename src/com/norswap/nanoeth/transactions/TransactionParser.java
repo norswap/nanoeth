@@ -42,12 +42,12 @@ final class TransactionParser {
     private static Transaction parseTransactionWithoutEnvelope (RLP seq)
             throws IllegalTransactionFormatException  {
 
-        var nonce = getNatural(seq, 0);
-        var gasPrice = getNatural(seq, 1);
-        var gasLimit = getNatural(seq, 2);
-        var to = getAddress(seq, 3);
-        var value = getNatural(seq, 4);
-        var payload = getBytes(seq, 5);
+        var nonce       = getNatural(seq, 0);
+        var gasPrice    = getNatural(seq, 1);
+        var gasLimit    = getNatural(seq, 2);
+        var to          = getAddress(seq, 3);
+        var value       = getNatural(seq, 4);
+        var payload     = getBytes(seq, 5);
 
         // See signature package README.
         TransactionFormat format;
@@ -79,18 +79,18 @@ final class TransactionParser {
     private static Transaction parseEIP2930Transaction (RLP seq)
             throws IllegalTransactionFormatException {
 
-        var chainId = getNatural(seq, 0);
-        var nonce = getNatural(seq, 1);
-        var gasPrice = getNatural(seq, 2);
-        var gasLimit = getNatural(seq, 3);
-        var to = new Address(getBytes(seq, 4));
-        var value = getNatural(seq, 5);
-        var payload = getBytes(seq, 6);
-        var accessList = getAccessList(seq, 7);
-        var yParity = getInt(seq, 8);
-        var r = getNatural(seq, 9);
-        var s = getNatural(seq, 10);
-        var signature = makeSignature(yParity, r, s); // legal, but unverified!
+        var chainId     = getNatural(seq, 0);
+        var nonce       = getNatural(seq, 1);
+        var gasPrice    = getNatural(seq, 2);
+        var gasLimit    = getNatural(seq, 3);
+        var to          = getAddress(seq, 4);
+        var value       = getNatural(seq, 5);
+        var payload     = getBytes(seq, 6);
+        var accessList  = getAccessList(seq, 7);
+        var yParity     = getInt(seq, 8);
+        var r           = getNatural(seq, 9);
+        var s           = getNatural(seq, 10);
+        var signature   = makeSignature(yParity, r, s); // legal, but unverified!
 
         return new Transaction(TX_EIP_2930, chainId, nonce, gasPrice, gasPrice, gasLimit, to, value,
             payload, accessList, signature);
@@ -101,19 +101,19 @@ final class TransactionParser {
     private static Transaction parseEIP1559Transaction (RLP seq)
             throws IllegalTransactionFormatException {
 
-        var chainId = getNatural(seq, 0);
-        var nonce = getNatural(seq, 1);
-        var maxPriorityFeePerGas = getNatural(seq, 2);
-        var maxFeePerGas = getNatural(seq, 3);
-        var gasLimit = getNatural(seq, 4);
-        var to = new Address(getBytes(seq, 5));
-        var value = getNatural(seq, 6);
-        var payload = getBytes(seq, 7);
-        var accessList = getAccessList(seq, 8);
-        int yParity = getInt(seq, 9);
-        var r = getNatural(seq, 10);
-        var s = getNatural(seq, 11);
-        var signature = makeSignature(yParity, r, s); // legal, but unverified!
+        var chainId                 = getNatural(seq, 0);
+        var nonce                   = getNatural(seq, 1);
+        var maxPriorityFeePerGas    = getNatural(seq, 2);
+        var maxFeePerGas            = getNatural(seq, 3);
+        var gasLimit                = getNatural(seq, 4);
+        var to                      = getAddress(seq, 5);
+        var value                   = getNatural(seq, 6);
+        var payload                 = getBytes(seq, 7);
+        var accessList              = getAccessList(seq, 8);
+        int yParity                 = getInt(seq, 9);
+        var r                       = getNatural(seq, 10);
+        var s                       = getNatural(seq, 11);
+        var signature               = makeSignature(yParity, r, s); // legal, but unverified!
 
         return new Transaction(TX_EIP_1559, chainId, nonce, maxFeePerGas, maxPriorityFeePerGas,
             gasLimit, to, value, payload, accessList, signature);
