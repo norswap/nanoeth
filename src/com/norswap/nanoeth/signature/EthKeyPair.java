@@ -17,7 +17,7 @@ import java.security.spec.ECGenParameterSpec;
 import java.util.Arrays;
 
 import static com.norswap.nanoeth.signature.Curve.SECP256K1;
-import static com.norswap.nanoeth.signature.Signature.recoverPublicKey;
+import static com.norswap.nanoeth.signature.Signature.recoverPublicKeyWithoutHashing;
 
 /**
  * A SECP-256k1 key pair that can be used to sign transactions.
@@ -39,7 +39,7 @@ public final class EthKeyPair {
     // ---------------------------------------------------------------------------------------------
 
     private final BigInteger privateKey;
-    private final ECPoint publicKey;
+    public final ECPoint publicKey;
 
     // ---------------------------------------------------------------------------------------------
 
@@ -86,7 +86,8 @@ public final class EthKeyPair {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Sign the Keccak hash of the given message (an arbitrary byte sequence) using the private key.
+     * Sign the Keccak hash of the given message (an arbitrary byte sequence) with ECDSA using the
+     * private key.
      */
     public Signature sign (byte[] message) {
         byte[] hash = Hashing.keccak(message).bytes;
@@ -95,7 +96,7 @@ public final class EthKeyPair {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Sign a byte sequence with ECDSA without hasing the given message. */
+    /** In Ethereum, the {@code message} will always be a hash. */
     private Signature signWithoutHashing (byte[] message) {
         BigInteger[] components = SECP256K1.sign(privateKey, message);
         var r = new Natural(components[0]);
@@ -123,7 +124,7 @@ public final class EthKeyPair {
      */
     private int findYParity (byte[] message, Natural r, Natural s) {
         for (int recoveryId = 0; recoveryId < 4; ++recoveryId)
-            if (publicKey.equals(recoverPublicKey(recoveryId, message, r, s)))
+            if (publicKey.equals(recoverPublicKeyWithoutHashing(recoveryId, message, r, s)))
                 return recoveryId < 2 ? recoveryId : -1;
         throw new Error("implementation error: invalid (r,s) signature for message");
     }

@@ -15,7 +15,7 @@ public final class SignatureTests {
 
     private final EthKeyPair keys       = new EthKeyPair();
     private final BigInteger privateKey = ReflectionUtils.getField(keys, "privateKey");
-    private final ECPoint    publicKey  = ReflectionUtils.getField(keys, "publicKey");
+    private final ECPoint    publicKey  = keys.publicKey;
 
     private final Method signWithoutHashing =
         ReflectionUtils.getMethod(EthKeyPair.class, "signWithoutHashing", byte[].class);

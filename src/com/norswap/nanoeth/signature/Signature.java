@@ -83,7 +83,7 @@ public final class Signature
      */
     public boolean verify (byte[] message) {
         byte[] hash = Hashing.keccak(message).bytes;
-        ECPoint publicKey = recoverPublicKey(yParity, hash, r, s);
+        ECPoint publicKey = recoverPublicKeyWithoutHashing(yParity, hash, r, s);
         return publicKey != null && verifyWithoutHashing(publicKey, hash);
     }
 
@@ -96,6 +96,7 @@ public final class Signature
 
     // ---------------------------------------------------------------------------------------------
 
+    /** In Ethereum, the message will always be a hash. */
     private boolean verifyWithoutHashing (ECPoint publicKey, byte[] message) {
         return SECP256K1.verify(publicKey, r, s, message);
     }
@@ -103,11 +104,19 @@ public final class Signature
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Recover the public key from the signature, as specified in SEC1 §4.1.6.
+     * Recover the public key from the signature of the hash of the given message, as specified in
+     * SEC1 §4.1.6.
      * <p>This is static because we need to call this to find the recovery ID, which is needed
      * to create an instance of {@link Signature}.
      */
-    public static ECPoint recoverPublicKey
+    public static ECPoint recoverPublicKey (int recoveryId, byte[] message, BigInteger r, BigInteger s) {
+        return recoverPublicKeyWithoutHashing(recoveryId, Hashing.keccak(message).bytes, r, s);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** In Ethereum, the {@code message} will always be a hash. */
+    static ECPoint recoverPublicKeyWithoutHashing
             (int recoveryId, byte[] message, BigInteger r, BigInteger s) {
 
         // Note that we must handle recoveryId in [0, 3] and not just [0, 1]!
