@@ -145,6 +145,23 @@ public final class ByteUtils {
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Pads the given byte array to the given {@code length} by adding zeroes
+     * at the start.
+     *
+     * <p>{@code length} should be bigger or equal to the array size.
+     */
+    public static byte[] bytesPadded (byte[] bytes, int length) {
+        Assert.that(length >= bytes.length,
+            "Byte array of size %d is larger than the target padding size %d", bytes.length, length);
+        byte[] result = new byte[length];
+        int dstOffset = length - bytes.length;
+        System.arraycopy(bytes, 0, result, dstOffset, bytes.length);
+        return result;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
      * Returns the big-endian encoding of {@code value} in bytes padded (at the start) with zeroes
      * so that the length of the output is at least {@code length}.
      *
