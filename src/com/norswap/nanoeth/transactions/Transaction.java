@@ -3,7 +3,7 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.Natural;
-import com.norswap.nanoeth.history.EthereumVersion;
+import com.norswap.nanoeth.versions.EthereumVersion;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.signature.EthKeyPair;
 import com.norswap.nanoeth.signature.Signature;

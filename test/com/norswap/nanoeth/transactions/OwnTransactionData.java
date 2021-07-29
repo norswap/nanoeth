@@ -1,10 +1,10 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.history.EthereumVersion;
+import com.norswap.nanoeth.versions.EthereumVersion;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.norswap.nanoeth.history.EthereumVersion.*;
+import static com.norswap.nanoeth.versions.EthereumVersion.*;
 
 /**
  * A collection of transactions to be used as test cases.

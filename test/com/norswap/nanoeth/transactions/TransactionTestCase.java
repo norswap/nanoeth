@@ -1,6 +1,6 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.history.EthereumVersion;
+import com.norswap.nanoeth.versions.EthereumVersion;
 import com.norswap.nanoeth.utils.ByteUtils;
 
 public abstract class TransactionTestCase {

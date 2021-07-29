@@ -1,16 +1,13 @@
 package com.norswap.nanoeth.signature;
 
-import com.norswap.nanoeth.Context;
 import com.norswap.nanoeth.data.Natural;
-import com.norswap.nanoeth.history.EthereumVersion;
 import com.norswap.nanoeth.utils.Hashing;
 import org.bouncycastle.math.ec.ECAlgorithms;
 import org.bouncycastle.math.ec.ECPoint;
 import java.math.BigInteger;
 import java.util.Objects;
 
-import static com.norswap.nanoeth.Context.CONTEXT;
-import static com.norswap.nanoeth.history.EthereumVersion.HOMESTEAD;
+import static com.norswap.nanoeth.versions.EthereumVersion.HOMESTEAD;
 import static com.norswap.nanoeth.signature.Curve.SECP256K1;
 
 /**

@@ -1,4 +1,4 @@
-package com.norswap.nanoeth.history;
+package com.norswap.nanoeth.versions;
 
 import com.norswap.nanoeth.Context;
 import java.time.LocalDate;

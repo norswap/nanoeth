@@ -1,6 +1,6 @@
 package com.norswap.nanoeth;
 
-import com.norswap.nanoeth.history.EthereumVersion;
+import com.norswap.nanoeth.versions.EthereumVersion;
 
 /**
  * A holder for values that may change during execution, but we don't want to be constantly

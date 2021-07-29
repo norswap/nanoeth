@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import static com.norswap.nanoeth.history.EthereumVersion.*;
+import static com.norswap.nanoeth.versions.EthereumVersion.*;
 
 /**
  * Transaction data from the test cases hosted at https://github.com/ethereum/tests.
