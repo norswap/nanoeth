@@ -38,8 +38,7 @@ public final class Signature
 
     /**
      * Creates a new signature with the given {@code yParity}, {@code r} and {@code s} values.
-     * {@code s} must be in its canonical form (see {@link #createCanonical(int, Natural,
-     * Natural)}).
+     * {@code s} must be in its canonical form (see {@link #canonicalizeS(Natural)}).
      */
     public Signature (int yParity, Natural r, Natural s) throws IllegalSignature {
         if (r.signum() < 0)
@@ -59,20 +58,19 @@ public final class Signature
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new signature with the given {@code yParity}, {@code r} and {@code s} values,
-     * canonicalizing {@code s} if needed.
+     * Canonicalizes the {@code s} signature value if needed.
      *
-     * <p>Canonicalization occurs because for every signature (r,s) the signature (r, -s (mod n)) is
-     * a valid signature of the same message. See signature package README for more information.
+     * <p>Canonicalization is required because for every signature (r,s) the signature (r, -s (mod
+     * n)) is a valid signature of the same message. See signature package README for more
+     * information.
      *
      * <p>This change was introduced in EIP-2 (Homestead). We apply it to all transactions, since
      * canonicalized transactions are valid before Homestead as well.
      */
-    public static Signature createCanonical (int yParity, Natural r, Natural s)
-            throws IllegalSignature {
-        if (s.compareTo(HALF_N) > 0)
-            s = new Natural(SECP256K1.n.subtract(s));
-        return new Signature(yParity, r, s);
+    static Natural canonicalizeS (Natural s) {
+        return s.compareTo(HALF_N) > 0
+            ? new Natural(SECP256K1.n.subtract(s))
+            : s;
     }
 
     // ---------------------------------------------------------------------------------------------

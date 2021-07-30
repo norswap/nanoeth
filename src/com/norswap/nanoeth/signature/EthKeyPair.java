@@ -100,14 +100,15 @@ public final class EthKeyPair {
     private Signature signWithoutHashing (byte[] message) {
         BigInteger[] components = SECP256K1.sign(privateKey, message);
         var r = new Natural(components[0]);
-        var s = new Natural(components[1]);
+        var s = Signature.canonicalizeS(new Natural(components[1]));
+
         // See signature package README to understand what the recovery ID is and its relationship
         // to "y parity".
         int recoveryId = findYParity(message, r, s);
 
         try {
             return recoveryId >= 0
-                ? Signature.createCanonical(recoveryId, r, s)
+                ? new Signature(recoveryId, r, s)
                 : signWithoutHashingWithRandomK(message);
         } catch (IllegalSignature e) {
             throw new Error("implementation bug", e);
@@ -136,13 +137,17 @@ public final class EthKeyPair {
      * the 1/10^36 probability case where (r, s) is rejected (see signature package README).
      */
     private Signature signWithoutHashingWithRandomK (byte[] message) throws IllegalSignature {
+
+        System.err.println("This event should only happen with 1/10^36 probability. " +
+                "In all likelihood, something went wrong in the implementation.");
+
         while (true) {
             BigInteger[] components = SECP256K1.signWithRandomK(privateKey, message);
             var r = new Natural(components[0]);
             var s = new Natural(components[1]);
             int recoveryId = findYParity(message, r, s);
             if (recoveryId >= 0)
-                return Signature.createCanonical(recoveryId, r, s);
+                return new Signature(recoveryId, r, s);
         }
     }
 
