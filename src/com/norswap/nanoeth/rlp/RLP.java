@@ -65,7 +65,9 @@ public final class RLP {
             if (item instanceof RLP)
                 converted.add((RLP) item);
             else if (item instanceof Integer)
-                converted.add(RLP.bytes(ByteUtils.bytes((Integer) item)));
+                converted.add(RLP.bytes(ByteUtils.bytesWithoutSign(new Natural((int) item))));
+            else if (item instanceof Long)
+                converted.add(RLP.bytes(ByteUtils.bytesWithoutSign(new Natural((long) item))));
             else if (item instanceof Natural)
                 converted.add(RLP.bytes(ByteUtils.bytesWithoutSign((Natural) item)));
             else if (item instanceof byte[])
