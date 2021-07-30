@@ -27,13 +27,15 @@ public final class EthKeyPair {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns the address of the Ethereum account associated with the key pair, which is formed
-     * by the 20 rightmost byte of the public key's encoding.
+     * Returns the address of the Ethereum account associated with the public key, which is formed
+     * by the 20 rightmost byte of the hash of the public key's encoding.
      */
     public static Address address (ECPoint publicKey) {
         byte[] bytes = publicKey.getEncoded(false);
-        // +1 because of the first byte which signifies that the representation is uncompressed
-        return new Address(Arrays.copyOfRange(bytes, 13, 33));
+        // stirp header byte that indicates that the representation is uncompressed
+        bytes = Arrays.copyOfRange(bytes, 1, bytes.length);
+        byte[] hash = Hashing.keccak(bytes).bytes;
+        return new Address(Arrays.copyOfRange(hash, 12, 32));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -71,6 +73,14 @@ public final class EthKeyPair {
     public EthKeyPair (BigInteger privateKey) {
         this.publicKey = publicKeyFromPrivateKey(privateKey);
         this.privateKey = privateKey;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Create a key pair from the hex string representation (e.g. 0x123) of the private key. */
+    public EthKeyPair (String privateKey) {
+        this.privateKey = new Natural(privateKey);
+        this.publicKey = publicKeyFromPrivateKey(this.privateKey);
     }
 
     // ---------------------------------------------------------------------------------------------

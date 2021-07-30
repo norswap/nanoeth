@@ -110,4 +110,9 @@ public final class OfficialTransactionData {
     }
 
     // ---------------------------------------------------------------------------------------------
+    // Some notes from playing with the official tests
+    //
+    // - ttSignature/Vitalik_1.json - the r & s signatures are identical
+    //
+    // ---------------------------------------------------------------------------------------------
 }
