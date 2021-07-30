@@ -18,7 +18,8 @@ public final class TransactionTests {
 
     // ---------------------------------------------------------------------------------------------
 
-    @DataProvider public static Object[][] transactions () {
+    @DataProvider
+    public static Object[][] transactions () {
         return Stream.concat(
             OfficialTransactionData .TEST_CASES.stream().map(t -> new Object[] { t }),
             OwnTransactionData      .TEST_CASES.stream().map(t -> new Object[] { t })
@@ -28,7 +29,7 @@ public final class TransactionTests {
     // ---------------------------------------------------------------------------------------------
 
     @Test(dataProvider = "transactions")
-    public void testOfficialTransaction (TransactionTestCase testCase)
+    public void testTransaction (TransactionTestCase testCase)
             throws IllegalTransactionFormatException {
 
         CONTEXT.blockHeight = testCase.blockHeight;
@@ -60,14 +61,20 @@ public final class TransactionTests {
         assertEquals(txReconstructedFromRlp, tx); // test transaction parsing
 
         // test dumping hex string: toHexString(tx) == hexString
-        assertEquals(tx.toHexString().toLowerCase(), hex.toLowerCase());
+        assertEquals(tx.toHexString(), hex);
 
         // test signature
         assertTrue(tx.verifySignature());
         assertTrue(tx.verifySignature(tx.signingRLP().encode()));
 
-        // accomodate the ethereum/tests cases that want to fail when chain id != 1
-        assertTrue(tx.chainId.same(1));
+        if (testCase instanceof OfficialTransactionTestCase) {
+            // official tests are supposed to fail when chain id != 1
+            assertTrue(tx.chainId.same(1));
+
+            var oCase = (OfficialTransactionTestCase) testCase;
+            assertEquals(tx.hash().toString(), "0x" + oCase.result.hash);
+            assertEquals(tx.recoverSender().toString(), "0x" + oCase.result.sender);
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
