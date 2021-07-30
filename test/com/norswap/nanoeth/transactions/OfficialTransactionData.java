@@ -27,18 +27,11 @@ public final class OfficialTransactionData {
     private static final HashSet<String> SKIPPED = new HashSet<>(Arrays.asList(
             "dataTx_bcValidBlockTestFrontier.json",  // we don't validate gas yet (this has 50k gas, which is insufficient except on frontier)
             "DataTestInsufficientGas2028.json",      // we don't validate gas yet
+            "DataTestNotEnoughGAS.json"              // we don't validate gas yet
 
-            // TODO must validate nonce size! & why does it fail currently? (malleability)
-            // "TransactionWithNonceOverflow.json",
-
-            // TODO must valid gas price! & why does it fail currently? (malleability)
-            // "TransactionWithGasPriceOverflow.json",
-
-            // NOTE: This actually passes because it is rejected for being malleable.
-            //   It should be rejected for lack of gas instead.
-            //   Might be an issue in the test suite.
-            //   Leave it here as a reminder.
-            "DataTestNotEnoughGAS.json"
+            // NOTE: There may be some test cases that are supposed to fail, but fail because
+            // the transaction is malleable (using a high s value, pre-EIP-2) instead of failing
+            // for the reason that we want them to fail for. Ideally, this should be investigated.
     ));
 
     // ---------------------------------------------------------------------------------------------
