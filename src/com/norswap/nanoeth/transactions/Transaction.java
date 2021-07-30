@@ -3,9 +3,9 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.Natural;
+import com.norswap.nanoeth.signature.SignatureUtils;
 import com.norswap.nanoeth.versions.EthereumVersion;
 import com.norswap.nanoeth.rlp.RLP;
-import com.norswap.nanoeth.signature.EthKeyPair;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Hashing;
@@ -77,7 +77,7 @@ public final class Transaction extends UnsignedTransaction {
             signature.yParity, signingRLP().encode(), signature.r, signature.s);
         if (publicKey == null)
             throw new IllegalStateException("The transaction's signature is invalid.");
-        return EthKeyPair.address(publicKey);
+        return SignatureUtils.address(publicKey);
     }
 
     // ---------------------------------------------------------------------------------------------

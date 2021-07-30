@@ -17,11 +17,6 @@ public final class Signature
 {
     // ---------------------------------------------------------------------------------------------
 
-    private static final BigInteger HALF_N =
-        SECP256K1.n.shiftRight(1); // n/2
-
-    // ---------------------------------------------------------------------------------------------
-
     /**
      * The y Parity that specifies which key generated this signature (as there are two possible
      * keys). This is also sometimes called "recovery ID" as it allows recovering the public key
@@ -38,14 +33,14 @@ public final class Signature
 
     /**
      * Creates a new signature with the given {@code yParity}, {@code r} and {@code s} values.
-     * {@code s} must be in its canonical form (see {@link #canonicalizeS(Natural)}).
+     * {@code s} must be in its canonical form (see {@link SignatureUtils#canonicalizeS(Natural)}).
      */
     public Signature (int yParity, Natural r, Natural s) throws IllegalSignature {
         if (r.signum() < 0)
             throw new IllegalSignature("r must be positive");
         if (s.signum() < 0)
             throw new IllegalSignature("s must be positive");
-         if (HOMESTEAD.isPast() && s.compareTo(HALF_N) > 0)
+         if (HOMESTEAD.isPast() && s.compareTo(SignatureUtils.SECP256K1_HALF_N) > 0)
              throw new IllegalSignature("s must be <= n/2 to avoid signature malleability");
         if (yParity != 0 && yParity != 1)
             throw new IllegalSignature("y Parity (used to build v) must be in [0,1]");
@@ -53,24 +48,6 @@ public final class Signature
         this.yParity = (byte) yParity;
         this.r = r;
         this.s = s;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Canonicalizes the {@code s} signature value if needed.
-     *
-     * <p>Canonicalization is required because for every signature (r,s) the signature (r, -s (mod
-     * n)) is a valid signature of the same message. See signature package README for more
-     * information.
-     *
-     * <p>This change was introduced in EIP-2 (Homestead). We apply it to all transactions, since
-     * canonicalized transactions are valid before Homestead as well.
-     */
-    static Natural canonicalizeS (Natural s) {
-        return s.compareTo(HALF_N) > 0
-            ? new Natural(SECP256K1.n.subtract(s))
-            : s;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -94,8 +71,11 @@ public final class Signature
 
     // ---------------------------------------------------------------------------------------------
 
-    /** In Ethereum, the message will always be a hash. */
-    private boolean verifyWithoutHashing (ECPoint publicKey, byte[] message) {
+    /**
+     * Returns true only if this is a valid signature for the given message.
+     * <p>In Ethereum, the message will always be a hash.
+     */
+    public boolean verifyWithoutHashing (ECPoint publicKey, byte[] message) {
         return SECP256K1.verify(publicKey, r, s, message);
     }
 

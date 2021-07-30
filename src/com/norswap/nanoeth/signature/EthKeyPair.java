@@ -14,7 +14,6 @@ import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.spec.ECGenParameterSpec;
-import java.util.Arrays;
 
 import static com.norswap.nanoeth.signature.Curve.SECP256K1;
 import static com.norswap.nanoeth.signature.Signature.recoverPublicKeyWithoutHashing;
@@ -23,20 +22,6 @@ import static com.norswap.nanoeth.signature.Signature.recoverPublicKeyWithoutHas
  * A SECP-256k1 key pair that can be used to sign transactions.
  */
 public final class EthKeyPair {
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Returns the address of the Ethereum account associated with the public key, which is formed
-     * by the 20 rightmost byte of the hash of the public key's encoding.
-     */
-    public static Address address (ECPoint publicKey) {
-        byte[] bytes = publicKey.getEncoded(false);
-        // stirp header byte that indicates that the representation is uncompressed
-        bytes = Arrays.copyOfRange(bytes, 1, bytes.length);
-        byte[] hash = Hashing.keccak(bytes).bytes;
-        return new Address(Arrays.copyOfRange(hash, 12, 32));
-    }
 
     // ---------------------------------------------------------------------------------------------
 
@@ -107,10 +92,10 @@ public final class EthKeyPair {
     // ---------------------------------------------------------------------------------------------
 
     /** In Ethereum, the {@code message} will always be a hash. */
-    private Signature signWithoutHashing (byte[] message) {
+    public Signature signWithoutHashing (byte[] message) {
         BigInteger[] components = SECP256K1.sign(privateKey, message);
         var r = new Natural(components[0]);
-        var s = Signature.canonicalizeS(new Natural(components[1]));
+        var s = SignatureUtils.canonicalizeS(new Natural(components[1]));
 
         // See signature package README to understand what the recovery ID is and its relationship
         // to "y parity".
@@ -168,7 +153,7 @@ public final class EthKeyPair {
      * by the 20 rightmost byte of the public key's encoding.
      */
     public Address address() {
-        return address(publicKey);
+        return SignatureUtils.address(publicKey);
     }
 
     // ---------------------------------------------------------------------------------------------

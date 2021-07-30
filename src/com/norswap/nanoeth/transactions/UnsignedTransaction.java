@@ -141,7 +141,7 @@ public class UnsignedTransaction {
     // ---------------------------------------------------------------------------------------------
 
     /** The RLP sequence to sign when signing the transaction. */
-    RLP signingRLP() {
+    public RLP signingRLP() {
         return switch (format) {
             case TX_LEGACY   ->
                 RLP.sequence(nonce, maxFeePerGas, gasLimit, to, value, payload);
