@@ -57,13 +57,13 @@ public final class OfficialTransactionData {
     /** Returns the starting block height for the given version. */
     private static int blockHeight (String version) {
         return switch (version) {
+            case "Frontier"             -> FRONTIER.startBlock;
+            case "Homestead"            -> HOMESTEAD.startBlock;
+            case "EIP150"               -> TANGERINE_WHISTLE.startBlock;
+            case "EIP158"               -> SPURIOUS_DRAGON.startBlock; // (*)
             case "Byzantium"            -> BYZANTIUM.startBlock;
             case "Constantinople"       -> CONSTANTINOPLE.startBlock;
             case "ConstantinopleFix"    -> CONSTANTINOPLE.startBlock;
-            case "EIP150"               -> TANGERINE_WHISTLE.startBlock;
-            case "EIP158"               -> SPURIOUS_DRAGON.startBlock; // (*)
-            case "Frontier"             -> FRONTIER.startBlock;
-            case "Homestead"            -> HOMESTEAD.startBlock;
             case "Istanbul"             -> ISTANBUL.startBlock;
             default -> throw new AssertionError("unreachable");
 
