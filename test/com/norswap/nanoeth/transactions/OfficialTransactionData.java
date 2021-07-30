@@ -105,8 +105,8 @@ public final class OfficialTransactionData {
         return !istanbul.has("sender")
             ? null
             : new Result(
-                istanbul.getString("hash"),
-                istanbul.getString("sender"));
+                "0x" + istanbul.getString("hash"),
+                "0x" + istanbul.getString("sender"));
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -29,7 +29,9 @@ public final class OfficialTransactionTestCase extends TransactionTestCase {
      */
     public OfficialTransactionTestCase (
             String file, int blockHeight, String rlp, Result result) {
-        super(file, blockHeight, /* chainId */ 1, /* envelopeType */ 0, rlp, result != null);
+        super(file, blockHeight, /* chainId */ 1, /* envelopeType */ 0, rlp, result != null,
+            result == null ? null : result.hash,
+            result == null ? null : result.sender);
         this.result = result;
     }
 
