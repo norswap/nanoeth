@@ -132,13 +132,19 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Parses the i-th item of the sequence, which should be a byte array, into a natural number. */
+    /**
+     * Parses the i-th item of the sequence, which should be a byte array of size no greater than
+     * 32, into a natural number.
+     */
     private static Natural getNatural (RLP seq, int i)
             throws IllegalTransactionFormatException {
 
-        return new Natural(getBytes(seq, i));
+        byte[] bytes = getBytes(seq, i);
+        if (bytes.length > 32)
+            throw new IllegalTransactionFormatException(
+                "Natural should not be more than 32 bytes long.");
+        return new Natural(bytes);
     }
-
     // ---------------------------------------------------------------------------------------------
 
     /** Parses the i-th item of the sequence, which should be a byte array, into a 32-bit integer. */
