@@ -82,6 +82,10 @@ public final class Natural extends BigInteger
         return new Natural(mod(BigInteger.valueOf(value)));
     }
 
+    public Natural pow (int value) {
+        return new Natural(super.pow(value));
+    }
+
     // ---------------------------------------------------------------------------------------------
 
     public String toHexString() {
