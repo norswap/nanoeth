@@ -311,13 +311,35 @@ public final class ByteUtils {
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Converts a byte array into a hex string (e.g. "0x123"). This hex string does display
+     * all bytes in the byte array, even if it starts with 0s.
+     *
+     * <p>This returns "0x" for empty byte arrays.
+     *
+     * @see #toCompressedHexString(byte[])
+     */
+    public static String toFullHexString (byte[] bytes) {
+        var builder = new StringBuilder(bytes.length * 2);
+        builder.append("0x");
+        for (byte b: bytes) {
+            builder.append(intToHexDigit((b & 0xF0) >>> 4));
+            builder.append(intToHexDigit(b & 0xF));
+        }
+        return builder.toString();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
      * Converts a byte array into a hex string (e.g. "0x123"). This hex string does not preserve
      * the length of the byte array if it starts with 0s: the returned string never has leading 0s
      * after the "0x" prefix.
      *
-     * <p>This returns "0x" for empty byte arrays.
+     * <p>This returns "0x" for empty byte arrays, or arrays comprising only 0s.
+     *
+     * @see #toFullHexString(byte[])
      */
-    public static String bytesToHexString (byte[] bytes) {
+    public static String toCompressedHexString (byte[] bytes) {
         var builder = new StringBuilder(bytes.length * 2);
         builder.append("0x");
         var leading0 = true;

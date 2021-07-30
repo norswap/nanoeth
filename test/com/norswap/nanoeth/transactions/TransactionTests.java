@@ -72,7 +72,7 @@ public final class TransactionTests {
             assertTrue(tx.chainId.same(1));
 
             var oCase = (OfficialTransactionTestCase) testCase;
-            assertEquals(tx.hash().toString(), "0x" + oCase.result.hash);
+            assertEquals(tx.hash().toFullHexString(), "0x" + oCase.result.hash);
             assertEquals(tx.recoverSender().toString(), "0x" + oCase.result.sender);
         }
     }

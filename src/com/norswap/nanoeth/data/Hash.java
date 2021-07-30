@@ -40,6 +40,16 @@ public final class Hash {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * The hex-string representation of this hash, including leading 0 if any, as per {@link
+     * ByteUtils#toFullHexString(byte[])}.
+     */
+    public String toFullHexString() {
+        return ByteUtils.toFullHexString(bytes);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     @Override public boolean equals (Object o) {
         return this == o || o instanceof Hash && Arrays.equals(bytes, ((Hash) o).bytes);
     }
@@ -49,7 +59,7 @@ public final class Hash {
     }
 
     @Override public String toString() {
-        return ByteUtils.bytesToHexString(bytes);
+        return toFullHexString();
     }
 
     // ---------------------------------------------------------------------------------------------

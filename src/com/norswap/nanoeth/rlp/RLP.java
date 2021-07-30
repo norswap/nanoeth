@@ -223,7 +223,7 @@ public final class RLP {
     @Override public String toString () {
         return bytes == null
             ? "RLP (sequence) " + Arrays.toString(items)
-            : "RLP (bytes) " + ByteUtils.bytesToHexString(bytes);
+            : "RLP (bytes) " + ByteUtils.toCompressedHexString(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

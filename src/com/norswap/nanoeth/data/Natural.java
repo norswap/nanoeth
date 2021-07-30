@@ -89,7 +89,7 @@ public final class Natural extends BigInteger
     // ---------------------------------------------------------------------------------------------
 
     public String toHexString() {
-        return ByteUtils.bytesToHexString(ByteUtils.bytesWithoutSign(this));
+        return ByteUtils.toCompressedHexString(ByteUtils.bytesWithoutSign(this));
     }
 
     // ---------------------------------------------------------------------------------------------

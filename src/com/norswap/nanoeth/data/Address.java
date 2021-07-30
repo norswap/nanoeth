@@ -67,7 +67,7 @@ public final class Address {
     }
 
     @Override public String toString() {
-        return ByteUtils.bytesToHexString(bytes);
+        return ByteUtils.toCompressedHexString(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

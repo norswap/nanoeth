@@ -121,7 +121,7 @@ public final class Transaction extends UnsignedTransaction {
      * this transaction.
      */
     public String toHexString() {
-        return ByteUtils.bytesToHexString(binary());
+        return ByteUtils.toCompressedHexString(binary());
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -179,7 +179,7 @@ public final class Transaction extends UnsignedTransaction {
             ", gasLimit = " + gasLimit +
             ", to = " + to +
             ", value = " + value +
-            ", payload = " + ByteUtils.bytesToHexString(payload) +
+            ", payload = " + ByteUtils.toCompressedHexString(payload) +
             ", accessList = " + accessList +
             ", signature = " + signature +
             '}';

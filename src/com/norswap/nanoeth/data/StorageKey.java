@@ -47,7 +47,7 @@ public final class StorageKey {
     }
 
     @Override public String toString() {
-        return ByteUtils.bytesToHexString(bytes);
+        return ByteUtils.toCompressedHexString(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

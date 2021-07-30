@@ -20,7 +20,7 @@ public abstract class TransactionTestCase {
     /** The {@link TransactionEnvelopeType transaction envelope type}. */
     public final int envelopeType;
 
-    /** RLP-encoding of the transaction as a {@link ByteUtils#bytesToHexString(byte[]) hex string}. */
+    /** RLP-encoding of the transaction as a {@link ByteUtils#toFullHexString(byte[]) hex string}. */
     public final String hexRLP;
 
     /** Whether the transaction is valid or should be rejected. */
