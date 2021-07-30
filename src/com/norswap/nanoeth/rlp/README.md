@@ -21,20 +21,22 @@ RLP representation, while we "decode" the RLP representation from the RLP-encode
 
 ## Understanding the value of the first byte of an RLP-encoded item
 
-- Single byte encoding (`[0, 127]`): 128 items which are encoded as themselves (single byte)
-  
-- Direct bytes size encoding (`[128, 183]`): 56 items representing the size of a byte sequence in
-  the `[0, 55]` range
-  
-- Indirect bytes size encoding (`[184, 191]`): 8 items representing the size of a byte sequence
-  in the `[1, 8]` range, encoding other byte sequences whose size is in the `[55, 2^64[` range
-  
-- Direct items size encoding (`[192, 247]`): 56 items representing the serialized size of an item
-  sequence in the `[0, 55]` range
-  
-- Indirect items size encoding (`[248, 255]`): 8 items representing the size of a byte sequence
-  in the `[1, 8]` range, encoding item sequences whose serialized size is in the `[55, 2^64]`
-  range.
+- Single byte encoding (`[0, 127]` aka `[0x0, 0x7f]`): 128 items which are encoded as themselves (
+  single byte).
+
+- Direct bytes size encoding (`[128, 183]` aka `[0x80, 0xb7]`): 56 items representing the size of a
+  byte sequence in the `[0, 55]` range.
+
+- Indirect bytes size encoding (`[184, 191]` aka `[0xb8, 0xbf]`): 8 items representing the size of a
+  byte sequence in the `[1, 8]` range, encoding other byte sequences whose size is in
+  the `[55, 2^64[` range.
+
+- Direct items size encoding (`[192, 247]` aka `[0xc0, 0xf7]`): 56 items representing the serialized
+  size of an item sequence in the `[0, 55]` range.
+
+- Indirect items size encoding (`[248, 255]` aka `[0xf8, 0xff]`): 8 items representing the size of a
+  byte sequence in the `[1, 8]` range, encoding item sequences whose serialized size is in
+  the `[55, 2^64]` range.
 
 Note that the "serialized size" of an item sequence matches s(x) in the yellowpaper. It is the
 sum of the RLP-encoded size of every item in the sequence, and hence exclude the space needed to
