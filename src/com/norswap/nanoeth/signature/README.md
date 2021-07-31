@@ -33,8 +33,8 @@ instead of picked randomly. See discussion in the "Selecting `k`" section below.
 An important point to understand the code is that **the same `(r, s)` signature could have been
 generated from up to four different private keys.**
 
-Recall the private key is an integer `d` in `[1, n-1]` and the associated public key is `P = dG`, 
-an elliptic curve point.
+Recall the private key is an integer `d` in `[1, n-1]` and the associated public key is `Q = dG`, an
+elliptic curve point.
 
 `r` is defined as `r = P.x mod n`, where `P = kG` and `k` is the signature's secret. Since `r`
 derives from `P.x` but not `P.y`, for any valid `x`, both `(x, y)` and `(x, -y)` are valid `P`
@@ -51,15 +51,17 @@ because the probability of `n <= x + n < q` is exceedingly small (< 1/10^36). It
 Ethereum decides to not consider them, see below.
 
 There are two equivalent ways of verifying a signature. The first one involves reconstructing `P`
-using `(r, s)` and the public key (an elliptic curve point `Q`). The second one is to recover the
+using `(r, s)` and the public key (the elliptic curve point `Q`). The second one is to recover the
 public key `Q` from `(r, s)` and check that against the public key whose signature we want to
-verify. Ethereum clients tend to use this second way because an address is composed of the 160
-rightmost bits of the public key. So to verify a signature, we just recover the public key and
-compare its 160 rightmost bits to the sender's address.
+verify. Since the sender's address is not included as part of the transaction, Ethereum clients tend
+to use the first method (typically implemented by an underlying cryptography library).
 
-However, because multiple `P` are possible, multiple `Q` are also possible. We either need to check
-the four possible keys, or be given a specific recovery ID (sometimes written `recId`) to tell us
-which key to recover.
+Nevertheless, the two methods are strictly equivalent, so let's consider for a minute that we need
+to recover the public key (`Q`) in order to verify the signature.
+
+The issue is that, because multiple `P` are possible, multiple `Q` are also possible. We either need
+to check the four possible keys, or be given a specific recovery ID (sometimes written `recId`) to
+tell us which key to recover.
 
 The recovery ID has a value in `[0, 3]`:
 - 0 = `(x < n,  even y)`
@@ -67,7 +69,7 @@ The recovery ID has a value in `[0, 3]`:
 - 2 = `(x >= n, even y)`
 - 3 = `(x >= n, odd  y)`
 
-Notice that instead of `y` and `-y` we now say `even y` or `odd y`. This is because since `q` is and
+Notice that instead of `y` and `-y` we now say `even y` or `odd y`. This is because since `q` is an
 odd prime, if `y` is even, then `-y` is necessary odd, and vice versa. Speaking of `y` and `-y`
 would be problematic, because which one is the "real" `y`? We could settle on `y < q/2` being the
 "real" `y`, but ultimately it's easier to compute eveness through `mod 2`.
@@ -76,8 +78,8 @@ For similar reasons, we use `x < n` and `x >= n` instead of `x` and `x + n`.  As
 disallows the `x >= n` case altogether. In the yellowpaper this difference is called "finitess", `x
 < n` being "finite".
 
-Because of them, EIPs tend to call the recovery ID "y parity". In the code, I use `recoveryId` as a
-name where values in `[0, 3]` are possible, and `yParity` when only `0` or `1` are allowed.
+For these reasons, EIPs tend to call the recovery ID "y parity". In the code, I use `recoveryId` as
+a name where values in `[0, 3]` are possible, and `yParity` when only `0` or `1` are allowed.
 
 What would happen if by extreme lack of luck we were to generate a `x >= n` signature for a
 transaction? Assuming the wallet or contract does not crash, the signature would be rejected, and
@@ -97,11 +99,12 @@ The 27-based version is the legacy version. Why is 27 added? I couldn't find an 
 excepted that it was copied from Bitcoin.
 
 The 35-based version was [added] because transactions from Ethereum could be [replayed] on Ethereum
-Classic (a fork of Ethereum where the DAO theft was not reversed). By adding a chain ID and signing
-it along with the transaction, transactions can no longer be replayed cross-chain.
+Classic (a fork of Ethereum where the [DAO theft] was not reversed). By adding a chain ID and
+signing it along with the transaction, transactions can no longer be replayed cross-chain.
 
 [added]: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md
 [replayed]: https://en.wikipedia.org/wiki/Replay_attack
+[DAO theft]: https://en.wikipedia.org/wiki/The_DAO_(organization)
 
 These days clients should sign transactions using the 35-based protocol, and should probably
 reject new transactions using the 27-based protocol (though they should be able to process
@@ -152,11 +155,10 @@ Possible header bytes are:
 - 0x03 — compressed with odd `y`
 - 0x04 — uncompressed
 
-I've seen at least one implementation stripping the header byte and storing only some point
-uncompressed, but I haven't gotten to the point where I needed this, so I don't know if this is an
-implementation choice, or a consequence of some Ethereum requirement.
+The only reason this matters is that in Ethereum, the account address is the rightmost 20 bytes of
+the hash (Keccak) of the uncompressed encoding of the public key (excluding the header byte).
 
-Note there are some issue with the compression scheme (most notably it breaks power-of-2) alignment.
+Note there are some issue with the compression scheme (most notably it breaks power-of-2 alignment).
 Here's [proposed replacement].
 
 [proposed replacement]: https://tools.ietf.org/id/draft-jivsov-ecc-compact-05.html#rfc.section.3
@@ -186,5 +188,7 @@ and fallback to random `k` if we ever encounter a rejected signature.
 
 [faults]: https://crypto.stackexchange.com/questions/50228
 
-Please note that when using multisignatures, `k` values **must be** picked randomly, or your
+Please note that when using [multisignatures], `k` values **must be** picked randomly, or your
 co-signers wil be able to guess your private key.
+
+[multisignatures]: https://en.wikipedia.org/wiki/Multisignature
