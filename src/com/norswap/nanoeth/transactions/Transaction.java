@@ -73,8 +73,7 @@ public final class Transaction extends UnsignedTransaction {
      * each time this method is called.
      */
     public Address recoverSender() {
-        ECPoint publicKey = Signature.recoverPublicKey(
-            signature.yParity, signingRLP().encode(), signature.r, signature.s);
+        ECPoint publicKey = signature.recoverPublicKey(signingRLP().encode());
         if (publicKey == null)
             throw new IllegalStateException("The transaction's signature is invalid.");
         return SignatureUtils.address(publicKey);

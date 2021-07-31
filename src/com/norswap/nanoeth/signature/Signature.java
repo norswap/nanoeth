@@ -58,7 +58,7 @@ public final class Signature
      */
     public boolean verify (byte[] message) {
         byte[] hash = Hashing.keccak(message).bytes;
-        ECPoint publicKey = recoverPublicKeyWithoutHashing(yParity, hash, r, s);
+        ECPoint publicKey = recoverPublicKeyWithoutHashing(hash);
         return publicKey != null && verifyWithoutHashing(publicKey, hash);
     }
 
@@ -84,16 +84,29 @@ public final class Signature
     /**
      * Recover the public key from the signature of the hash of the given message, as specified in
      * SEC1 §4.1.6.
-     * <p>This is static because we need to call this to find the recovery ID, which is needed
-     * to create an instance of {@link Signature}.
      */
-    public static ECPoint recoverPublicKey (int recoveryId, byte[] message, BigInteger r, BigInteger s) {
-        return recoverPublicKeyWithoutHashing(recoveryId, Hashing.keccak(message).bytes, r, s);
+    public ECPoint recoverPublicKey (byte[] message) {
+        return recoverPublicKeyWithoutHashing(Hashing.keccak(message).bytes);
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    /** In Ethereum, the {@code message} will always be a hash. */
+    /**
+     * Recover the public key from the signature of the given message, as specified in
+     * SEC1 §4.1.6.
+     * <p>In Ethereum, the {@code message} will always be a hash.
+     */
+    public ECPoint recoverPublicKeyWithoutHashing (byte[] message) {
+        return recoverPublicKeyWithoutHashing(yParity, message, r, s);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * See {@link #recoverPublicKeyWithoutHashing(byte[])}.
+     * <p>This method must be static because it is used in {@link EthKeyPair} to find the proper
+     * recoveryId for the signature.
+     */
     static ECPoint recoverPublicKeyWithoutHashing
             (int recoveryId, byte[] message, BigInteger r, BigInteger s) {
 

@@ -36,8 +36,7 @@ public final class DebugUtils {
         System.out.println("computed hash: " + tx.hash());
 
         System.out.println();
-        var pub = Signature.recoverPublicKey(
-                tx.signature.yParity, tx.signingRLP().encode(), tx.signature.r, tx.signature.s);
+        var pub = tx.signature.recoverPublicKey(tx.signingRLP().encode());
         System.out.println("recovered public key: " + pub);
         return tx;
     }
