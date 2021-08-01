@@ -1,7 +1,7 @@
 package com.norswap.nanoeth.versions;
 
+import com.norswap.nanoeth.Config;
 import com.norswap.nanoeth.Context;
-import java.time.LocalDate;
 
 import static com.norswap.nanoeth.Context.CONTEXT;
 
@@ -14,32 +14,29 @@ import static com.norswap.nanoeth.Context.CONTEXT;
  */
 public enum EthereumVersion {
 
-    FRONTIER            (0,             LocalDate.of(2015,  7, 30)),
-    ICE_AGE             (200_000,       LocalDate.of(2015,  9,  8)),
-    HOMESTEAD           (1_150_000,     LocalDate.of(2016,  3, 15)),
-    DAO_FORK            (1_920_000,     LocalDate.of(2016,  7, 20)),
-    TANGERINE_WHISTLE   (2_463_000,     LocalDate.of(2016, 10, 18)),
-    SPURIOUS_DRAGON     (2_675_000,     LocalDate.of(2016, 11, 23)),
-    BYZANTIUM           (4_370_000,     LocalDate.of(2017, 10, 16)),
-    CONSTANTINOPLE      (7_280_000,     LocalDate.of(2019,  2, 28)),
-    ISTANBUL            (9_069_000,     LocalDate.of(2019, 12,  8)),
-    MUIR_GLACIER        (9_200_000,     LocalDate.of(2020,  1,  1)),
-    BERLIN              (12_244_000,    LocalDate.of(2021,  4, 15)),
-    LONDON              (12_965_000,    LocalDate.of(2021,  8,  4));
+    FRONTIER            (Config.FRONTIER_START          ),
+    ICE_AGE             (Config.ICE_AGE_START           ),
+    HOMESTEAD           (Config.HOMESTEAD_START         ),
+    DAO_FORK            (Config.DAO_FORK_START          ),
+    TANGERINE_WHISTLE   (Config.TANGERINE_WHISTLE_START ),
+    SPURIOUS_DRAGON     (Config.SPURIOUS_DRAGON_START   ),
+    BYZANTIUM           (Config.BYZANTIUM_START         ),
+    CONSTANTINOPLE      (Config.CONSTANTINOPLE_START    ),
+    PETERSBURG          (Config.PETERSBURG_START        ),
+    ISTANBUL            (Config.ISTANBUL_START          ),
+    MUIR_GLACIER        (Config.MUIR_GLACIER_START      ),
+    BERLIN              (Config.BERLIN_START            ),
+    LONDON              (Config.LONDON_START            );
 
     // ---------------------------------------------------------------------------------------------
 
     /** Block height where the fork took effect. */
     public final int startBlock;
 
-    /** Date on which the fork took effect. */
-    public final LocalDate startDate;
-
     // ---------------------------------------------------------------------------------------------
 
-    EthereumVersion (int startBlock, LocalDate startDate) {
+    EthereumVersion (int startBlock) {
         this.startBlock = startBlock;
-        this.startDate = startDate;
     }
 
     // ---------------------------------------------------------------------------------------------
