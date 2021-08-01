@@ -1,6 +1,5 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.transactions.OfficialTransactionTestCase.Result;
 import norswap.utils.IO;
 import org.json.JSONObject;
 import java.io.File;
@@ -19,7 +18,7 @@ public final class OfficialTransactionData {
     // ---------------------------------------------------------------------------------------------
 
     /** List of all parsed transaction test cases. */
-    public static final ArrayList<OfficialTransactionTestCase> TEST_CASES;
+    public static final ArrayList<TransactionTestCase> TEST_CASES;
 
     // ---------------------------------------------------------------------------------------------
 
@@ -47,6 +46,12 @@ public final class OfficialTransactionData {
             // , "ttGasLimit" // we don't valid the gas limit yet
     };
 
+    /** All the versions (hard forks) for which results are supplied in the test cases. */
+    private static final String[] VERSIONS = new String[]{
+            "Frontier", "Homestead", "EIP150", "EIP158", "Byzantium", "Constantinople",
+            "ConstantinopleFix", "Istanbul"
+    };
+
     /** Returns the starting block height for the given version. */
     private static int blockHeight (String version) {
         return switch (version) {
@@ -70,8 +75,8 @@ public final class OfficialTransactionData {
         TEST_CASES = loadTestCases();
     }
 
-    private static ArrayList<OfficialTransactionTestCase> loadTestCases() {
-        var testCases = new ArrayList<OfficialTransactionTestCase>();
+    private static ArrayList<TransactionTestCase> loadTestCases() {
+        var testCases = new ArrayList<TransactionTestCase>();
         for (String path: DIRECTORIES) {
             var dir = new File(DIRECTORY_PREFIX + path);
             File[] files = dir.listFiles();
@@ -85,21 +90,19 @@ public final class OfficialTransactionData {
                 var name = json.keys().next();
                 var data = json.getJSONObject(name);
                 var rlp = data.getString("rlp");
-                var result = parseResultIstanbul(fileName, data);
-                testCases.add(new OfficialTransactionTestCase(
-                    fileName, blockHeight("Istanbul"), rlp, result));
+
+                for (String version: VERSIONS) {
+                    var versionResult = data.getJSONObject(version);
+                    var valid = versionResult.has("sender");
+                    testCases.add(new TransactionTestCase(
+                        String.format("%s (%s))", fileName, version),
+                        blockHeight(version), /* chainId */ 1, /* envelopeType */ 0, rlp, valid,
+                        valid ? "0x" + versionResult.getString("hash")   : null,
+                        valid ? "0x" + versionResult.getString("sender") : null));
+                }
             }
         }
         return testCases;
-    }
-
-    private static Result parseResultIstanbul (String file, JSONObject data) {
-        var istanbul = data.getJSONObject("Istanbul");
-        return !istanbul.has("sender")
-            ? null
-            : new Result(
-                "0x" + istanbul.getString("hash"),
-                "0x" + istanbul.getString("sender"));
     }
 
     // ---------------------------------------------------------------------------------------------

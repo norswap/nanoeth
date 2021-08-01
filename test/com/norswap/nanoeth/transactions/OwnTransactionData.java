@@ -17,7 +17,7 @@ public final class OwnTransactionData {
 
     // ---------------------------------------------------------------------------------------------
 
-    public static final List<OwnTransactionTestCase> TEST_CASES = Arrays.asList(
+    public static final List<TransactionTestCase> TEST_CASES = Arrays.asList(
 
         // https://etherscan.io/tx/0x125c789ab4e200beccc32105d08f9460dec3c248244642a9c6f3d9abfdf1b7d5
         testCase("random EIP-155 transaction", BERLIN, true, 0,
@@ -49,11 +49,11 @@ public final class OwnTransactionData {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static OwnTransactionTestCase testCase (
+    private static TransactionTestCase testCase (
             String name, EthereumVersion version, boolean valid, int envelopeType,
             String hash, String sender, String rlpHex) {
 
-        return new OwnTransactionTestCase(
+        return new TransactionTestCase(
                 name, version.startBlock, /* chainId */ 1, envelopeType, rlpHex, valid, hash, sender);
     }
 

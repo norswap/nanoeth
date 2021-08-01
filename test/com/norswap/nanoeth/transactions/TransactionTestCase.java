@@ -3,7 +3,7 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.versions.EthereumVersion;
 import com.norswap.nanoeth.utils.ByteUtils;
 
-public abstract class TransactionTestCase {
+public final class TransactionTestCase {
     // ---------------------------------------------------------------------------------------------
 
     /** The test case's name. */

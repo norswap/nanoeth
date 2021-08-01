@@ -67,15 +67,13 @@ public final class TransactionTests {
         assertTrue(tx.verifySignature());
         assertTrue(tx.verifySignature(tx.signingRLP().encode()));
 
+        assertTrue(tx.chainId.same(testCase.chainId));
+
         // test hash & sender computation
         if (testCase.valid) { // check because official tests don't include these for invalid transactions
             assertEquals(tx.hash().toFullHexString(), testCase.hash);
             assertEquals(tx.recoverSender().toString(), testCase.sender);
         }
-
-        if (testCase instanceof OfficialTransactionTestCase)
-            // official tests are supposed to fail when chain id != 1
-            assertTrue(tx.chainId.same(1));
     }
 
     // ---------------------------------------------------------------------------------------------
