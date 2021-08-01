@@ -6,6 +6,7 @@ import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.utils.ByteUtils;
+import com.norswap.nanoeth.versions.EthereumVersion;
 
 import static com.norswap.nanoeth.transactions.TransactionFormat.*;
 import static com.norswap.nanoeth.transactions.TransactionEnvelopeType.*;
@@ -59,6 +60,9 @@ final class TransactionParser {
             chainId    = new Natural(1);
             yParity    = v.intValue() - 27;
         } else if (v.greaterSame(37)) {
+            if (EthereumVersion.SPURIOUS_DRAGON.isFuture())
+                throw new IllegalTransactionFormatException("EIP-155 transaction before Spurious Dragon");
+
             format     = TX_EIP_155;
             yParity    = v.sub(35).mod(2).intValue();
             chainId    = v.sub(35).div(2);
@@ -78,6 +82,9 @@ final class TransactionParser {
 
     private static Transaction parseEIP2930Transaction (RLP seq)
             throws IllegalTransactionFormatException {
+
+        if (EthereumVersion.BERLIN.isFuture())
+            throw new IllegalTransactionFormatException("EIP-2930 transaction before Berlin");
 
         var chainId     = getNatural(seq, 0);
         var nonce       = getNatural(seq, 1);
@@ -100,6 +107,9 @@ final class TransactionParser {
 
     private static Transaction parseEIP1559Transaction (RLP seq)
             throws IllegalTransactionFormatException {
+
+        if (EthereumVersion.BERLIN.isFuture())
+            throw new IllegalTransactionFormatException("EIP-1559 transaction before London");
 
         var chainId                 = getNatural(seq, 0);
         var nonce                   = getNatural(seq, 1);
