@@ -4,7 +4,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import java.security.Security;
 
 /**
- * Cryptography-related utilities & constants.
+ * Cryptography-related utilities and constants.
  */
 public final class Crypto {
     private Crypto() {}

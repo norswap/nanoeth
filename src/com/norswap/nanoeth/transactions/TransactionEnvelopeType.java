@@ -21,6 +21,6 @@ public final class TransactionEnvelopeType {
     /** EIP-2718 envelope type introduced in EIP-2930 (access lists). */
     public static final int ENVELOPE_TYPE_EIP_2930 = 1;
 
-    /** EIP-2718 envelope type introduced in EIP-1559 (replaces gas price by gas fee & gas tips). */
+    /** EIP-2718 envelope type introduced in EIP-1559 (replaces gas price by gas fee and gas tips). */
     public static final int ENVELOPE_TYPE_EIP_1559 = 2;
 }

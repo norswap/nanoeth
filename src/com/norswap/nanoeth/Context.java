@@ -23,7 +23,7 @@ public final class Context {
      * The current block height. Some operations whose behaviour was changed in a {@link
      * EthereumVersion hard fork} depend on this value. In particular:
      * <ul>
-     * <li>EIP-2 forces signature s values to be < secp256k1n/2</li>
+     * <li>EIP-2 forces signature s values to be {@code <} secp256k1n/2</li>
      * </ul>
      */
     public long blockHeight = EthereumVersion.LONDON.startBlock;

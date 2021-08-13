@@ -24,7 +24,7 @@ public enum TransactionFormat {
     /** Includes chain ID (EIP-155), access list (EIP-2930). Optional alternative. */
     TX_EIP_2930 (ENVELOPE_TYPE_EIP_2930),
 
-    /** Includes chain ID (EIP-155), access list (EIP-2930). Replaces gas price by gas fee &
+    /** Includes chain ID (EIP-155), access list (EIP-2930). Replaces gas price by gas fee and
      * tips (EIP-1559). Optional alternative. */
     TX_EIP_1559 (ENVELOPE_TYPE_EIP_1559);
 
