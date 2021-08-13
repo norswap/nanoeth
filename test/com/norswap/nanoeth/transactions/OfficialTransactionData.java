@@ -26,11 +26,9 @@ public final class OfficialTransactionData {
     private static final HashSet<String> SKIPPED = new HashSet<>(Arrays.asList(
             "dataTx_bcValidBlockTestFrontier.json",  // we don't validate gas yet (this has 50k gas, which is insufficient except on frontier)
             "DataTestInsufficientGas2028.json",      // we don't validate gas yet
-            "DataTestNotEnoughGAS.json"              // we don't validate gas yet
-
-            // NOTE: There may be some test cases that are supposed to fail, but fail because
-            // the transaction is malleable (using a high s value, pre-EIP-2) instead of failing
-            // for the reason that we want them to fail for. Ideally, this should be investigated.
+            "DataTestSufficientGas2028.json",        // we don't validate gas yet
+            "DataTestNotEnoughGAS.json",             // we don't validate gas yet
+            "EmptyTransaction.json"                  // we don't validate gas yet (TODO: also has an invalid > n/2 signature)
     ));
 
     // ---------------------------------------------------------------------------------------------
