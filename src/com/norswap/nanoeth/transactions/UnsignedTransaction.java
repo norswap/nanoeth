@@ -140,6 +140,13 @@ public class UnsignedTransaction {
 
     // ---------------------------------------------------------------------------------------------
 
+    /** A transaction is a contract creation if its destination address is empty. */
+    public boolean isContractCreation() {
+        return to == Address.EMPTY;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /** The RLP sequence to sign when signing the transaction. */
     public RLP signingRLP() {
         return switch (format) {
