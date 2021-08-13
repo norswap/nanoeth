@@ -8,4 +8,3 @@
  */
 
 rootProject.name = "nanoeth"
-include("app")
