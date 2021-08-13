@@ -95,8 +95,10 @@ A signed transaction has an additional value `v`. This can be defined as either:
 Since Ethereum's mainnet chain ID is 1, that makes the common values 27, 28, 37 and 38 (beware that
 testnets have different chain IDs).
 
-The 27-based version is the legacy version. Why is 27 added? I couldn't find an explanation,
-excepted that it was copied from Bitcoin.
+The 27-based version is the legacy version. Why is 27 added? It was [copied from Bitcoin][v27]. Why
+was it 27 in Bitcoin? No clue, and couldn't find the answer.œ
+
+[v27]: https://ethereum-magicians.org/t/increasing-address-size-from-20-to-32-bytes/5485/29
 
 The 35-based version was [added] because transactions from Ethereum could be [replayed] on Ethereum
 Classic (a fork of Ethereum where the [DAO theft] was not reversed). By adding a chain ID and
