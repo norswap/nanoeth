@@ -134,7 +134,7 @@ public final class ByteUtils {
      * Returns the integer encoded by the big-endian {@code bytes} array, whose size should be in
      * {@code ]0,4]}.
      */
-    public static int toInt (byte[] bytes) {
+    public static int toInt (byte... bytes) {
         assert 0 < bytes.length && bytes.length <= 4;
         int out = 0;
         for (int i = 0; i < bytes.length; i++)

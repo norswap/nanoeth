@@ -10,6 +10,7 @@ nanoeth is a small code model for Ethereum. You could describe it as:
 - [RLP Package](/src/com/norswap/nanoeth/rlp/)
 - [Signature Package](/src/com/norswap/nanoeth/signature/)
 - [Transaction Package](/src/com/norswap/nanoeth/transactions/)
+- [Receipts Package](/src/com/norswap/nanoeth/receipts/) (including logs & bloom filters)
 
 [Javadoc]: https://javadoc.io/doc/com.norswap/nanoeth/
 [Mirror]: https://jitpack.io/com/github/norswap/nanoeth/-SNAPSHOT/javadoc/

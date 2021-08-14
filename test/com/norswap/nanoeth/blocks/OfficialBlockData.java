@@ -1,6 +1,6 @@
 package com.norswap.nanoeth.blocks;
 
-import com.norswap.nanoeth.BloomFilter;
+import com.norswap.nanoeth.receipts.BloomFilter;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.MerkleRoot;
@@ -57,7 +57,7 @@ public final class OfficialBlockData {
                             new MerkleRoot(h.getString("stateRoot")),
                             new MerkleRoot(h.getString("transactionsTrie")),
                             new MerkleRoot(h.getString("receiptTrie")),
-                            new BloomFilter(), // TODO
+                            new BloomFilter(h.getString("bloom")),
                             new Natural(h.getString("difficulty")),
                             new Natural(h.getString("number")),
                             new Natural(h.getString("gasLimit")),
