@@ -67,8 +67,6 @@ public final class OfficialTransactionData {
         };
     }
 
-    // TODO test at more than just the istanbul block height!
-
     static {
         TEST_CASES = loadTestCases();
     }

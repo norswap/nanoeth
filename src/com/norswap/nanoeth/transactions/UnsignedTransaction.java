@@ -30,7 +30,7 @@ public class UnsignedTransaction {
     /**
      * The ID of the chain on which this transaction was sent (1 for Ethereum mainnet for instance).
      *
-     * <p>White paper notation: β (beta)
+     * <p>Yellowaper notation: β (beta)
      */
     public final Natural chainId;
 
@@ -40,7 +40,7 @@ public class UnsignedTransaction {
      * Sender nonce at the time the transaction was sent -- which is equal to the number of
      * transaction the sender sent before that point.
      *
-     * <p>Yellow paper notation: Tn.
+     * <p>Yellowpaper notation: Tn
      */
     public final Natural nonce;
 
@@ -49,7 +49,7 @@ public class UnsignedTransaction {
     /**
      * Max <b>total</b> amount of Wei the sender is ready to pay per unit of gas consumed.
      *
-     * <p>No yellow paper notation (not updated for {@link EthereumVersion#LONDON}).
+     * <p>No yellowpaper notation (not updated for {@link EthereumVersion#LONDON}).
      * Replacement for the gas price (notation: Tp).
      */
     public final Natural maxFeePerGas;
@@ -60,7 +60,7 @@ public class UnsignedTransaction {
      * Max amount of Wei the sender is ready to pay as a priority fee ("tip") to the miner, per unit
      * of gas consumed. This amount is included in {@link #maxFeePerGas}.
      *
-     * <p>No yellow paper notation (not updated for {@link EthereumVersion#LONDON}).
+     * <p>No yellowpaper notation (not updated for {@link EthereumVersion#LONDON}).
      * Replacement for the gas price (notation: Tp).
      */
     public final Natural maxPriorityFeePerGas;
@@ -70,7 +70,7 @@ public class UnsignedTransaction {
     /**
      * Maximum amount of gas the sender is willing to spend on this transaction.
      *
-     * <p>Yellow paper notation: Tg
+     * <p>Yellowpaper notation: Tg
      */
     public final Natural gasLimit;
 
@@ -80,7 +80,7 @@ public class UnsignedTransaction {
      * The address of the recipient of the transaction, or, for contract creation transaction,
      * the empty address.
      *
-     * <p>Yellow paper notation: Tt
+     * <p>Yellowpaper notation: Tt
      */
     public final Address to;
 
@@ -90,15 +90,15 @@ public class UnsignedTransaction {
      * The value in Wei to be transferred to the transaction's recipient, or as an endowment for the
      * newly created contract in the case of contract creation.
      *
-     * <p>Yellow Paper notation: Tv
+     * <p>yellowpaper notation: Tv
      */
     public final Natural value;
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Either the EVM code for account initialisation when deploying a contract (yellow paper: Ti),
-     * or the input data when sending a message call (yellow paper: Td).
+     * Either the EVM code for account initialisation when deploying a contract (yellowpaper: Ti),
+     * or the input data when sending a message call (yellowpaper: Td).
      *
      * <p>When making a simple transfer to an EOA (externally owned account), the payload is
      * typically empty, but does not have to be. This is considered to be a message call.

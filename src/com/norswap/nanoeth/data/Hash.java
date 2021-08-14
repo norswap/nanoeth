@@ -28,7 +28,7 @@ public final class Hash {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Creates a natural from a hex string (e.g. 0x123).
+     * Creates a hash from a hex string (e.g. 0x123).
      *
      * <p>If the post-0x part of the hex string is not 64 characters long, the hash will be padded
      * with zeroes at the start so that it is 32 bytes long.
