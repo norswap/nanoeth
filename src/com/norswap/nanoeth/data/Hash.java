@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @see com.norswap.nanoeth.utils.Hashing
  */
 @Wrapper
-public final class Hash {
+public class Hash {
     // ---------------------------------------------------------------------------------------------
 
     /** The bytes making up the hash. */
