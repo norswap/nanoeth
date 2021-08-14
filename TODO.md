@@ -3,7 +3,9 @@
 - file issues on ethereum/tests with the updated versions
 
 - main roadmap
-  - parse blocks 
+  - parse test blocks
+    - implement bloom filters
+    - implement serialization + parsing (+ adjust types?)
   - implement Merkle tree
   - validate Merkle tree against parsed blocks
   - implement EVM
