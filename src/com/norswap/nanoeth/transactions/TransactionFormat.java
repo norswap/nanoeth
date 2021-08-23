@@ -1,5 +1,7 @@
 package com.norswap.nanoeth.transactions;
 
+import com.norswap.nanoeth.data.Natural;
+
 import static com.norswap.nanoeth.transactions.TransactionEnvelopeType.*;
 
 /**
@@ -28,6 +30,8 @@ public enum TransactionFormat {
      * tips (EIP-1559). Optional alternative. */
     TX_EIP_1559 (ENVELOPE_TYPE_EIP_1559);
 
+    // ---------------------------------------------------------------------------------------------
+
     /**
      * A number representing the envelope type of the transaction, or 0 if the transaction format
      * precedes the introduction of envelop types by EIP-2718.
@@ -36,9 +40,39 @@ public enum TransactionFormat {
      */
     public final byte type;
 
+    // ---------------------------------------------------------------------------------------------
+
     TransactionFormat (int type) {
         assert type <= 0x7F;
         this.type = (byte) type;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Determines the transaction format from the envelope type (use {@link
+     * TransactionEnvelopeType#ENVELOPE_TYPE_NONE} if there is envelope type) and the signature
+
+     * @throws IllegalTransactionFormatException if either the envelope type or the {@code v} value
+     * are illegal.
+     */
+    public static TransactionFormat findFormat (int type, Natural v)
+            throws IllegalTransactionFormatException {
+        switch (type) {
+            case ENVELOPE_TYPE_NONE:
+                if (v.same(27) || v.same(28))
+                    return TX_LEGACY;
+                if (v.greaterSame(37))
+                    return TX_EIP_155;
+                else
+                    throw new IllegalTransactionFormatException("illegal v value: " + v);
+            case ENVELOPE_TYPE_EIP_2930:
+                return TX_EIP_2930;
+            case ENVELOPE_TYPE_EIP_1559:
+                return TX_EIP_1559;
+            default:
+                throw new IllegalTransactionFormatException("illegal envelope type: " + type);
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
