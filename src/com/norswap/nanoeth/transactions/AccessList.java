@@ -74,13 +74,14 @@ public final class AccessList {
 
     /** Returns the RLP representation of this access list. */
     public RLP rlp() {
-        return RLP.sequence(Arrays.stream(addressKeys)
+        return RLP.sequence((Object[]) Arrays.stream(addressKeys)
             .map(it ->
                 RLP.sequence(
                     RLP.bytes(it.address.bytes),
                     RLP.sequence(Arrays.stream(it.keys)
                         .map(k -> RLP.bytes(k.bytes))
-                        .toArray(RLP[]::new)))));
+                        .toArray(RLP[]::new))))
+            .toArray(RLP[]::new));
     }
 
     // ---------------------------------------------------------------------------------------------
