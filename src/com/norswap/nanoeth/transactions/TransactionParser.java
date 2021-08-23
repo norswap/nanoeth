@@ -64,8 +64,8 @@ final class TransactionParser {
                 throw new IllegalTransactionFormatException("EIP-155 transaction before Spurious Dragon");
 
             format     = TX_EIP_155;
-            yParity    = v.sub(35).mod(2).intValue();
-            chainId    = v.sub(35).div(2);
+            yParity    = v.subtract(35).mod(2).intValue();
+            chainId    = v.subtract(35).divide(2);
         } else {
             throw new IllegalTransactionFormatException("invalid v signature value");
         }

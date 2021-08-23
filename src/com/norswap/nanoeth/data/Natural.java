@@ -66,15 +66,15 @@ public final class Natural extends BigInteger
         return new Natural(add(BigInteger.valueOf(value)));
     }
 
-    public Natural sub (long value) {
+    public Natural subtract (long value) {
         return new Natural(subtract(BigInteger.valueOf(value)));
     }
 
-    public Natural mult (long value) {
+    public Natural multiply (long value) {
         return new Natural(multiply(BigInteger.valueOf(value)));
     }
 
-    public Natural div (long value) {
+    public Natural divide (long value) {
         return new Natural(divide(BigInteger.valueOf(value)));
     }
 

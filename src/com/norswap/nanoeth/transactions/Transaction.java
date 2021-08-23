@@ -90,10 +90,10 @@ public final class Transaction extends UnsignedTransaction {
         return switch (format) {
             case TX_LEGACY -> RLP.sequence(
                 nonce, maxFeePerGas, gasLimit, to, value, payload,
-                27 + signature.yParity, signature.r, signature.s);
+                (byte) (27 + signature.yParity), signature.r, signature.s);
             case TX_EIP_155 -> RLP.sequence(
                 nonce, maxFeePerGas, gasLimit, to, value, payload,
-                chainId.mult(2).add(35).add(signature.yParity), signature.r, signature.s);
+                chainId.multiply(2).add(35).add(signature.yParity), signature.r, signature.s);
             case TX_EIP_2930 -> RLP.sequence(
                 chainId, nonce, maxFeePerGas, gasLimit, to, value, payload,
                 accessList.rlp(), signature.yParity, signature.r, signature.s);
