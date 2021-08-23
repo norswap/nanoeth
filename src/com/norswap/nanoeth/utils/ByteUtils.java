@@ -132,13 +132,35 @@ public final class ByteUtils {
 
     /**
      * Returns the integer encoded by the big-endian {@code bytes} array, whose size should be in
-     * {@code ]0,4]}.
+     * {@code [0,4]}.
+     *
+     * <p>Returns 0 if the byte array is of length 0, making this compatible with RLP-encoding of
+     * byte arrays.
      */
     public static int toInt (byte... bytes) {
-        assert 0 < bytes.length && bytes.length <= 4;
+        if (bytes.length == 0) return 0;
+        assert bytes.length <= 4;
         int out = 0;
         for (int i = 0; i < bytes.length; i++)
             out |= uint(bytes[i]) << (8 * (bytes.length - 1 - i));
+        return out;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the integer encoded by the big-endian {@code bytes} array, whose size should be in
+     * {@code [0,8]}.
+     *
+     * <p>Returns 0 if the byte array is of length 0, making this compatible with RLP-encoding of
+     * byte arrays.
+     */
+    public static long toLong (byte... bytes) {
+        if (bytes.length == 0) return 0;
+        assert bytes.length <= 8;
+        long out = 0;
+        for (int i = 0; i < bytes.length; i++)
+            out |= (long) uint(bytes[i]) << (8 * (bytes.length - 1 - i));
         return out;
     }
 
@@ -176,6 +198,7 @@ public final class ByteUtils {
 
         byte[] result = new byte[length];
         byte[] unpadded = value.toByteArray();
+        Assert.that(unpadded.length <= length, "Length smaller than unpadded encoding");
         int srcOffset = unpadded[0] == 0 ? 1 : 0; // exlude byte included only for sign bit
         int unpaddedLenth = unpadded.length - srcOffset;
         int dstOffset = length - unpaddedLenth;
