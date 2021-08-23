@@ -2,6 +2,7 @@ package com.norswap.nanoeth.versions;
 
 import com.norswap.nanoeth.Config;
 import com.norswap.nanoeth.Context;
+import com.norswap.nanoeth.data.Natural;
 
 import static com.norswap.nanoeth.Context.CONTEXT;
 
@@ -27,6 +28,10 @@ public enum EthereumVersion {
     MUIR_GLACIER        (Config.MUIR_GLACIER_START      ),
     BERLIN              (Config.BERLIN_START            ),
     LONDON              (Config.LONDON_START            );
+
+    // ---------------------------------------------------------------------------------------------
+
+    private static final EthereumVersion[] VERSIONS = values();
 
     // ---------------------------------------------------------------------------------------------
 
@@ -57,6 +62,46 @@ public enum EthereumVersion {
      */
     public boolean isPast() {
         return CONTEXT.blockHeight >= startBlock;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns true iff the start block of this version is before the given block height.
+     */
+    public boolean startsBefore (int blockHeight) {
+        return startBlock < blockHeight;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns true iff the start block of this version is before the given block height.
+     */
+    public boolean startsBefore (Natural blockHeight) {
+        return startsBefore(blockHeight.intValue());
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns true iff the given block height is "within" this version: after or on its start block,
+     * but before the start block of the next version.
+     */
+    public boolean contains (int blockHeight) {
+        return ordinal() < VERSIONS.length - 1
+            ? startBlock <= blockHeight && blockHeight < VERSIONS[ordinal() + 1].startBlock
+            : startBlock <= blockHeight;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns true if the given block height is "within" this version: after or on its start block,
+     * but before the start block of the next version.
+     */
+    public boolean contains (Natural blockHeight) {
+        return contains(blockHeight.intValue());
     }
 
     // ---------------------------------------------------------------------------------------------
