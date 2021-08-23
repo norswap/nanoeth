@@ -1,5 +1,7 @@
 package com.norswap.nanoeth;
 
+import com.norswap.nanoeth.data.Natural;
+
 /**
  * Configurable values. Hardcoded for now.
  */
@@ -19,4 +21,10 @@ public final class Config {
     public static final int MUIR_GLACIER_START        =  9_200_000;
     public static final int BERLIN_START              = 12_244_000;
     public static final int LONDON_START              = 12_965_000;
+
+    /* Difficulty for the initial block. */
+    public static Natural GENESIS_DIFFICULTY = new Natural(131072); // 0x20000
+
+    /* Whether the node should validate the difficulty & the proof-of-work. */
+    public static boolean VALIDATE_POW = true;
 }
