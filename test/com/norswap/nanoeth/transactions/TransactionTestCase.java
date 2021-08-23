@@ -34,7 +34,7 @@ public final class TransactionTestCase {
 
     // ---------------------------------------------------------------------------------------------
 
-    protected TransactionTestCase (String name, int blockHeight, int chainId, int envelopeType,
+    public TransactionTestCase (String name, int blockHeight, int chainId, int envelopeType,
             String hexRLP, boolean valid, String hash, String sender) {
         this.name = name;
         this.blockHeight = blockHeight;
@@ -51,7 +51,6 @@ public final class TransactionTestCase {
     @Override public String toString () {
         return name;
     }
-
 
     // ---------------------------------------------------------------------------------------------
 }
