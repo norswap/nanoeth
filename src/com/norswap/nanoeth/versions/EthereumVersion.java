@@ -15,7 +15,7 @@ import static com.norswap.nanoeth.Context.CONTEXT;
 public enum EthereumVersion {
 
     FRONTIER            (Config.FRONTIER_START          ),
-    ICE_AGE             (Config.ICE_AGE_START           ),
+    FRONTIER_THAWING    (Config.FRONTIER_THAWING_START  ),
     HOMESTEAD           (Config.HOMESTEAD_START         ),
     DAO_FORK            (Config.DAO_FORK_START          ),
     TANGERINE_WHISTLE   (Config.TANGERINE_WHISTLE_START ),

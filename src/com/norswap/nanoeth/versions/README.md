@@ -19,10 +19,12 @@ and some historical context in documentation files such as this one.
 Top link is the blog post announcing the version, sub-links include the hard-fork meta EIP and/or
 specification, and the list of included EIPs.
 
+Also check the [similar page on the ethereum/execution-specs repo](https://github.com/ethereum/execution-specs/blob/master/README.md)
+
 - [Frontier](https://blog.ethereum.org/2015/07/22/frontier-is-coming-what-to-expect-and-how-to-prepare/)
     - mainnet: 30 July 2015
 
-- [Ice Age](https://blog.ethereum.org/2015/08/04/the-thawing-frontier/)
+- [Frontier Thawing](https://blog.ethereum.org/2015/08/04/the-thawing-frontier/)
     - mainnet: 08 September 2015
 
 - [Homestead](https://blog.ethereum.org/2016/02/29/homestead-release/)

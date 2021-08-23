@@ -7,7 +7,7 @@ public final class Config {
     private Config() {}
 
     public static final int FRONTIER_START            =          0;
-    public static final int ICE_AGE_START             =    200_000;
+    public static final int FRONTIER_THAWING_START    =    200_000;
     public static final int HOMESTEAD_START           =  1_150_000;
     public static final int DAO_FORK_START            =  1_920_000;
     public static final int TANGERINE_WHISTLE_START   =  2_463_000;
