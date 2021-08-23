@@ -46,14 +46,25 @@ public final class Address {
 
     // ---------------------------------------------------------------------------------------------
 
+
+    public Address (String hexString) {
+        this(ByteUtils.hexStringToBytes(hexString, 20));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /**
      * Creates a natural from a hex-string (e.g. "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce").
+     *
+     * <p>If the hex string is empty or simply "0x", then the {@link #EMPTY} address is returned.
      *
      * <p>If the post-0x part of the hex string is not 40 characters long, the address will be
      * padded with zeroes at the start so that it is 20 bytes long.
      */
-    public Address (String hexString) {
-        this(ByteUtils.hexStringToBytes(hexString, 20));
+    public static Address from (String hexString) {
+        return hexString.length() == 0 || hexString.equals("0x")
+            ? EMPTY
+            : new Address(ByteUtils.hexStringToBytes(hexString, 20));
     }
 
     // ---------------------------------------------------------------------------------------------
