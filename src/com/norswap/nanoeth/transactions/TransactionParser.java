@@ -1,13 +1,16 @@
 package com.norswap.nanoeth.transactions;
 
-import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
-import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.versions.EthereumVersion;
 
+import static com.norswap.nanoeth.rlp.RLPParsing.getNatural;
+import static com.norswap.nanoeth.rlp.RLPParsing.getAddress;
+import static com.norswap.nanoeth.rlp.RLPParsing.getInt;
+import static com.norswap.nanoeth.rlp.RLPParsing.getBytes;
 import static com.norswap.nanoeth.transactions.TransactionFormat.*;
 import static com.norswap.nanoeth.transactions.TransactionEnvelopeType.*;
 
@@ -30,18 +33,24 @@ final class TransactionParser {
         if (!seq.isSequence()) throw new IllegalTransactionFormatException(
             "top level RLP object is a byte array and not a sequence");
 
-        return switch (type) {
-            case ENVELOPE_TYPE_NONE     -> parseTransactionWithoutEnvelope(seq);
-            case ENVELOPE_TYPE_EIP_2930 -> parseEIP2930Transaction(seq);
-            case ENVELOPE_TYPE_EIP_1559 -> parseEIP1559Transaction(seq);
-            default -> throw new IllegalArgumentException("invalid transaction envelope type: " + type);
-        };
+        try {
+            return switch (type) {
+                case ENVELOPE_TYPE_NONE     -> parseTransactionWithoutEnvelope(seq);
+                case ENVELOPE_TYPE_EIP_2930 -> parseEIP2930Transaction(seq);
+                case ENVELOPE_TYPE_EIP_1559 -> parseEIP1559Transaction(seq);
+                default -> throw new IllegalTransactionFormatException(
+                            "invalid transaction envelope type: " + type);
+            };
+        } catch (RLPParsingException e) {
+            // TODO is a bit janky -- should unify exceptions? and ensure context is always full?
+            throw new IllegalTransactionFormatException(e.getMessage(), e);
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
 
     private static Transaction parseTransactionWithoutEnvelope (RLP seq)
-            throws IllegalTransactionFormatException  {
+            throws IllegalTransactionFormatException, RLPParsingException  {
 
         var nonce       = getNatural(seq, 0);
         var gasPrice    = getNatural(seq, 1);
@@ -81,7 +90,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     private static Transaction parseEIP2930Transaction (RLP seq)
-            throws IllegalTransactionFormatException {
+            throws IllegalTransactionFormatException, RLPParsingException {
 
         if (EthereumVersion.BERLIN.isFuture())
             throw new IllegalTransactionFormatException("EIP-2930 transaction before Berlin");
@@ -106,7 +115,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     private static Transaction parseEIP1559Transaction (RLP seq)
-            throws IllegalTransactionFormatException {
+            throws IllegalTransactionFormatException, RLPParsingException {
 
         if (EthereumVersion.BERLIN.isFuture())
             throw new IllegalTransactionFormatException("EIP-1559 transaction before London");
@@ -142,65 +151,11 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    /**
-     * Parses the i-th item of the sequence, which should be a byte array of size no greater than
-     * 32, into a natural number.
-     */
-    private static Natural getNatural (RLP seq, int i)
-            throws IllegalTransactionFormatException {
-
-        byte[] bytes = getBytes(seq, i);
-        if (bytes.length > 32)
-            throw new IllegalTransactionFormatException(
-                "Natural should not be more than 32 bytes long.");
-        return new Natural(bytes);
-    }
-    // ---------------------------------------------------------------------------------------------
-
-    /** Parses the i-th item of the sequence, which should be a byte array, into a 32-bit integer. */
-    private static int getInt (RLP seq, int i)
-            throws IllegalTransactionFormatException {
-
-        return ByteUtils.toInt(getBytes(seq, i));
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /** Parses the i-th item of the sequence, which should be a byte array, into an address. */
-    private static Address getAddress (RLP seq, int i)
-            throws IllegalTransactionFormatException {
-
-        var bytes = getBytes(seq, i);
-        if (bytes.length == 0)  return Address.EMPTY;
-        if (bytes.length == 20) return new Address(bytes);
-        throw new IllegalTransactionFormatException("Address should be 20 bytes long");
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /** Retrieves the i-th item of the sequence, and verifies that it is a byte array with a valid
-     * size. */
-    private static byte[] getBytes (RLP seq, int i)
-            throws IllegalTransactionFormatException {
-
-        if (i >= seq.items().length) throw new IllegalTransactionFormatException(
-            "decoded RLP for transaction is too short");
-
-        var item = seq.itemAt(i);
-
-        if (!item.isBytes()) throw new IllegalTransactionFormatException(
-            "decoded RLP for transaction has illegal format: expected byte array at index " + i);
-
-        return item.bytes();
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
     /** Parses the i-th item of the sequence, which should be an RLP sequence, into an access list. */
     private static AccessList getAccessList (RLP seq, int i)
             throws IllegalTransactionFormatException {
         // all validations are done in the `from` method
-        return AccessList.from(seq.itemAt(8));
+        return AccessList.from(seq.itemAt(i));
     }
 
     // ---------------------------------------------------------------------------------------------
