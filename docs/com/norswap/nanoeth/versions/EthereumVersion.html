@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":9};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":9,"i7":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -140,11 +140,11 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color">
-<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#HOMESTEAD">HOMESTEAD</a></span></code></th>
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#FRONTIER_THAWING">FRONTIER_THAWING</a></span></code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color">
-<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#ICE_AGE">ICE_AGE</a></span></code></th>
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#HOMESTEAD">HOMESTEAD</a></span></code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color">
@@ -221,13 +221,29 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <tbody>
 <tr class="alt-color" id="i0">
 <td class="col-first"><code>boolean</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#contains(int)">contains</a></span>&#8203;(int&nbsp;blockHeight)</code></th>
+<td class="col-last">
+<div class="block">Returns true iff the given block height is "within" this version: after or on its start block,
+ but before the start block of the next version.</div>
+</td>
+</tr>
+<tr class="row-color" id="i1">
+<td class="col-first"><code>boolean</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#contains(com.norswap.nanoeth.data.Natural)">contains</a></span>&#8203;(<a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a>&nbsp;blockHeight)</code></th>
+<td class="col-last">
+<div class="block">Returns true if the given block height is "within" this version: after or on its start block,
+ but before the start block of the next version.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i2">
+<td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#isFuture()">isFuture</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns true iff the current block height (<a href="../Context.html#blockHeight"><code>Context.blockHeight</code></a>) is lower than
  the initial block height (<a href="#startBlock"><code>startBlock</code></a>) of this version.</div>
 </td>
 </tr>
-<tr class="row-color" id="i1">
+<tr class="row-color" id="i3">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#isPast()">isPast</a></span>()</code></th>
 <td class="col-last">
@@ -235,14 +251,28 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  than the initial block height (<a href="#startBlock"><code>startBlock</code></a>) of this version.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i2">
+<tr class="alt-color" id="i4">
+<td class="col-first"><code>boolean</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#startsBefore(int)">startsBefore</a></span>&#8203;(int&nbsp;blockHeight)</code></th>
+<td class="col-last">
+<div class="block">Returns true iff the start block of this version is before the given block height.</div>
+</td>
+</tr>
+<tr class="row-color" id="i5">
+<td class="col-first"><code>boolean</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#startsBefore(com.norswap.nanoeth.data.Natural)">startsBefore</a></span>&#8203;(<a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a>&nbsp;blockHeight)</code></th>
+<td class="col-last">
+<div class="block">Returns true iff the start block of this version is before the given block height.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i6">
 <td class="col-first"><code>static <a href="EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#valueOf(java.lang.String)">valueOf</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;name)</code></th>
 <td class="col-last">
 <div class="block">Returns the enum constant of this type with the specified name.</div>
 </td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="row-color" id="i7">
 <td class="col-first"><code>static <a href="EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a>[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#values()">values</a></span>()</code></th>
 <td class="col-last">
@@ -278,9 +308,9 @@ the order they are declared.</div>
 </section>
 </li>
 <li>
-<section class="detail" id="ICE_AGE">
-<h3>ICE_AGE</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></span>&nbsp;<span class="member-name">ICE_AGE</span></div>
+<section class="detail" id="FRONTIER_THAWING">
+<h3>FRONTIER_THAWING</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></span>&nbsp;<span class="member-name">FRONTIER_THAWING</span></div>
 </section>
 </li>
 <li>
@@ -417,6 +447,36 @@ not permitted.)</div>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">isPast</span>()</div>
 <div class="block">Returns true iff the current block height (<a href="../Context.html#blockHeight"><code>Context.blockHeight</code></a>) is higher or equal
  than the initial block height (<a href="#startBlock"><code>startBlock</code></a>) of this version.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="startsBefore(int)">
+<h3>startsBefore</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">startsBefore</span>&#8203;(<span class="parameters">int&nbsp;blockHeight)</span></div>
+<div class="block">Returns true iff the start block of this version is before the given block height.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="startsBefore(com.norswap.nanoeth.data.Natural)">
+<h3>startsBefore</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">startsBefore</span>&#8203;(<span class="parameters"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a>&nbsp;blockHeight)</span></div>
+<div class="block">Returns true iff the start block of this version is before the given block height.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="contains(int)">
+<h3>contains</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">contains</span>&#8203;(<span class="parameters">int&nbsp;blockHeight)</span></div>
+<div class="block">Returns true iff the given block height is "within" this version: after or on its start block,
+ but before the start block of the next version.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="contains(com.norswap.nanoeth.data.Natural)">
+<h3>contains</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">contains</span>&#8203;(<span class="parameters"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a>&nbsp;blockHeight)</span></div>
+<div class="block">Returns true if the given block height is "within" this version: after or on its start block,
+ but before the start block of the next version.</div>
 </section>
 </li>
 </ul>

@@ -79,9 +79,13 @@ loadScripts(document, 'script');</script>
 <div class="inheritance">com.norswap.nanoeth.data.Hash</div>
 </div>
 <section class="description">
+<dl class="notes">
+<dt>Direct Known Subclasses:</dt>
+<dd><code><a href="MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></dd>
+</dl>
 <hr>
 <pre><a href="../annotations/Wrapper.html" title="annotation in com.norswap.nanoeth.annotations">@Wrapper</a>
-public final class <span class="type-name-label">Hash</span>
+public class <span class="type-name-label">Hash</span>
 extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></pre>
 <div class="block">Represents a 256-bit (32 bytes) Keccak hash.</div>
 <dl class="notes">
@@ -139,7 +143,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <tr class="row-color">
 <th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.lang.String)">Hash</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;hexString)</code></th>
 <td class="col-last">
-<div class="block">Creates a natural from a hex string (e.g.</div>
+<div class="block">Creates a hash from a hex string (e.g.</div>
 </td>
 </tr>
 </tbody>
@@ -229,7 +233,7 @@ byte[]&nbsp;bytes)</span></div>
 <section class="detail" id="&lt;init&gt;(java.lang.String)">
 <h3>Hash</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">Hash</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;hexString)</span></div>
-<div class="block">Creates a natural from a hex string (e.g. 0x123).
+<div class="block">Creates a hash from a hex string (e.g. 0x123).
 
  <p>If the post-0x part of the hex string is not 64 characters long, the hash will be padded
  with zeroes at the start so that it is 32 bytes long.</div>

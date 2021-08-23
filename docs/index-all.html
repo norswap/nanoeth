@@ -90,9 +90,7 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#%3Cinit%3E(byte%5B%5D)">Address(byte[])</a></span> - Constructor for class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#%3Cinit%3E(java.lang.String)">Address(String)</a></span> - Constructor for class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
-<dd>
-<div class="block">Creates a natural from a hex-string (e.g.</div>
-</dd>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#addressKeys">addressKeys</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
 <dd>
 <div class="block">A collection of addresses along with associated storage keys within that account's storage
@@ -100,6 +98,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.AddressKeys.html#%3Cinit%3E(com.norswap.nanoeth.data.Address,com.norswap.nanoeth.data.StorageKey%5B%5D)">AddressKeys(Address, StorageKey[])</a></span> - Constructor for class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.AddressKeys.html" title="class in com.norswap.nanoeth.transactions">AccessList.AddressKeys</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogEntry.html#addToBloomFilter(com.norswap.nanoeth.receipts.BloomFilter)">addToBloomFilter(BloomFilter)</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogEntry.html" title="class in com.norswap.nanoeth.receipts">LogEntry</a></dt>
+<dd>
+<div class="block">Adds the address and the topics for this entry into the given log filter.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/Assert.html#arg(boolean,java.lang.String,java.lang.Object...)">arg(boolean, String, Object...)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/Assert.html" title="class in com.norswap.nanoeth.utils">Assert</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#array(int...)">array(int...)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
@@ -121,13 +123,51 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the RLP encoding of the transaction (which is binary encoding of its <a href="com/norswap/nanoeth/transactions/Transaction.html#rlp()"><code>RLP representation</code></a>).</div>
 </dd>
-<dt><a href="com/norswap/nanoeth/BlockHeader.html" title="class in com.norswap.nanoeth"><span class="type-name-link">BlockHeader</span></a> - Class in <a href="com/norswap/nanoeth/package-summary.html">com.norswap.nanoeth</a></dt>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#bits">bits</a></span> - Variable in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>
+<div class="block">The bytes making up the hash.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">Block</span></a> - Class in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
+<dd>
+<div class="block">Where even to begin? The block in blockchain, the one that holds transactions.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#%3Cinit%3E(com.norswap.nanoeth.blocks.BlockHeader,com.norswap.nanoeth.transactions.Transaction%5B%5D,com.norswap.nanoeth.blocks.BlockHeader%5B%5D)">Block(BlockHeader, Transaction[], BlockHeader[])</a></span> - Constructor for class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/BlockHeader.html#%3Cinit%3E()">BlockHeader()</a></span> - Constructor for class com.norswap.nanoeth.<a href="com/norswap/nanoeth/BlockHeader.html" title="class in com.norswap.nanoeth">BlockHeader</a></dt>
+<dt><a href="com/norswap/nanoeth/chain/Blockchain.html" title="class in com.norswap.nanoeth.chain"><span class="type-name-link">Blockchain</span></a> - Class in <a href="com/norswap/nanoeth/chain/package-summary.html">com.norswap.nanoeth.chain</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/chain/Blockchain.html#%3Cinit%3E()">Blockchain()</a></span> - Constructor for class com.norswap.nanoeth.chain.<a href="com/norswap/nanoeth/chain/Blockchain.html" title="class in com.norswap.nanoeth.chain">Blockchain</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">BlockHeader</span></a> - Class in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#%3Cinit%3E(com.norswap.nanoeth.data.Hash,com.norswap.nanoeth.data.Hash,com.norswap.nanoeth.data.Address,com.norswap.nanoeth.data.MerkleRoot,com.norswap.nanoeth.data.MerkleRoot,com.norswap.nanoeth.data.MerkleRoot,com.norswap.nanoeth.receipts.BloomFilter,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,byte%5B%5D,com.norswap.nanoeth.data.Hash,long)">BlockHeader(Hash, Hash, Address, MerkleRoot, MerkleRoot, MerkleRoot, BloomFilter, Natural, Natural, Natural, Natural, Natural, byte[], Hash, long)</a></span> - Constructor for class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Constructs a header from header data, and computes the header hash from this data.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Context.html#blockHeight">blockHeight</a></span> - Variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Context.html" title="class in com.norswap.nanoeth">Context</a></dt>
 <dd>
 <div class="block">The current block height.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/blocks/Blocks.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">Blocks</span></a> - Class in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
+<dd>
+<div class="block">A database that enables retrieving blocks by <a href="com/norswap/nanoeth/blocks/BlockHeader.html#hash()"><code>hash</code></a>.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks"><span class="type-name-link">BlockValidity</span></a> - Enum in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
+<dd>
+<div class="block">TODO</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts"><span class="type-name-link">BloomFilter</span></a> - Class in <a href="com/norswap/nanoeth/receipts/package-summary.html">com.norswap.nanoeth.receipts</a></dt>
+<dd>
+<div class="block">A bloom filter associated with one or multiple <a href="com/norswap/nanoeth/receipts/LogEntry.html" title="class in com.norswap.nanoeth.receipts"><code>LogEntry</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#%3Cinit%3E()">BloomFilter()</a></span> - Constructor for class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>
+<div class="block">Creates a new empty bloom filter.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#%3Cinit%3E(byte%5B%5D)">BloomFilter(byte[])</a></span> - Constructor for class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#%3Cinit%3E(java.lang.String)">BloomFilter(String)</a></span> - Constructor for class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>
+<div class="block">Creates a bloom filter from a hex string (e.g.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/Crypto.html#BOUNCY_CASTLE_KEY_PROVIDER">BOUNCY_CASTLE_KEY_PROVIDER</a></span> - Static variable in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/Crypto.html" title="class in com.norswap.nanoeth.utils">Crypto</a></dt>
 <dd>&nbsp;</dd>
@@ -146,6 +186,10 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/StorageKey.html#bytes">bytes</a></span> - Variable in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/StorageKey.html" title="class in com.norswap.nanoeth.data">StorageKey</a></dt>
 <dd>
 <div class="block">The 32-bytes big-endian representation of the storage key.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#bytes">bytes</a></span> - Variable in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
+<dd>
+<div class="block">The bytes making up the hash.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#bytes()">bytes()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
@@ -198,11 +242,25 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The ID of the chain on which this transaction was sent (1 for Ethereum mainnet for instance).</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Blocks.html#clear()">clear()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Blocks.html" title="class in com.norswap.nanoeth.blocks">Blocks</a></dt>
+<dd>
+<div class="block">Empties the database.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#coinbase">coinbase</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Address that will receive the block reward (aka "beneficiary", aka "miner's address").</div>
+</dd>
 <dt><a href="com/norswap/nanoeth/package-summary.html">com.norswap.nanoeth</a> - package com.norswap.nanoeth</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/norswap/nanoeth/annotations/package-summary.html">com.norswap.nanoeth.annotations</a> - package com.norswap.nanoeth.annotations</dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a> - package com.norswap.nanoeth.blocks</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/norswap/nanoeth/chain/package-summary.html">com.norswap.nanoeth.chain</a> - package com.norswap.nanoeth.chain</dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/norswap/nanoeth/data/package-summary.html">com.norswap.nanoeth.data</a> - package com.norswap.nanoeth.data</dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/norswap/nanoeth/receipts/package-summary.html">com.norswap.nanoeth.receipts</a> - package com.norswap.nanoeth.receipts</dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a> - package com.norswap.nanoeth.rlp</dt>
 <dd>&nbsp;</dd>
@@ -214,6 +272,11 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/norswap/nanoeth/versions/package-summary.html">com.norswap.nanoeth.versions</a> - package com.norswap.nanoeth.versions</dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Difficulty.html#computeDifficulty(com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.blocks.BlockHeader)">computeDifficulty(Natural, BlockHeader)</a></span> - Static method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Difficulty.html" title="class in com.norswap.nanoeth.blocks">Difficulty</a></dt>
+<dd>
+<div class="block">Compute the canonical difficulty of a block arriving at the given timestamp, with the given
+ parent block header.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#concat(byte%5B%5D...)">concat(byte[]...)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
 <dd>
 <div class="block">Returns the concatenation of the byte arrays.</div>
@@ -226,6 +289,16 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#CONSTANTINOPLE_START">CONSTANTINOPLE_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#contains(int)">contains(int)</a></span> - Method in enum com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
+<dd>
+<div class="block">Returns true iff the given block height is "within" this version: after or on its start block,
+ but before the start block of the next version.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#contains(com.norswap.nanoeth.data.Natural)">contains(Natural)</a></span> - Method in enum com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
+<dd>
+<div class="block">Returns true if the given block height is "within" this version: after or on its start block,
+ but before the start block of the next version.</div>
+</dd>
 <dt><a href="com/norswap/nanoeth/Context.html" title="class in com.norswap.nanoeth"><span class="type-name-link">Context</span></a> - Class in <a href="com/norswap/nanoeth/package-summary.html">com.norswap.nanoeth</a></dt>
 <dd>
 <div class="block">A holder for values that may change during execution, but we don't want to be constantly
@@ -252,6 +325,14 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#DAO_FORK_START">DAO_FORK_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogEntry.html#data">data</a></span> - Variable in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogEntry.html" title="class in com.norswap.nanoeth.receipts">LogEntry</a></dt>
+<dd>
+<div class="block">Arbitrary data attached to the entry.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Blocks.html#DB">DB</a></span> - Static variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Blocks.html" title="class in com.norswap.nanoeth.blocks">Blocks</a></dt>
+<dd>
+<div class="block">Singleton blocks DB instance.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#decode(byte%5B%5D)">decode(byte[])</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
 <div class="block">Decodes the given byte sequence to an <a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object.</div>
@@ -260,7 +341,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Decodes the given hex string (e.g.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#div(long)">div(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#difficulty">difficulty</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The difficult level of the block, calculated from the previous' block difficulty level and
+ the <a href="com/norswap/nanoeth/blocks/BlockHeader.html#timestamp"><code>BlockHeader.timestamp</code></a>.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/blocks/Difficulty.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">Difficulty</span></a> - Class in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#divide(long)">divide(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
@@ -273,6 +361,11 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#EMPTY">EMPTY</a></span> - Static variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
 <dd>
 <div class="block">An empty access list.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#EMPTY_SEQ_HASH">EMPTY_SEQ_HASH</a></span> - Static variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Hash of the empty RLP sequence, which can be compared against the uncle hash to see if the
+ block has any uncles.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#encode()">encode()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
@@ -290,11 +383,19 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Used to signify that a transaction does not have an EIP-2718 envelope type.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Hash.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/StorageKey.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/StorageKey.html" title="class in com.norswap.nanoeth.data">StorageKey</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>&nbsp;</dd>
@@ -331,9 +432,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Create a key pair from an existing public and private key.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#extraData">extraData</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">An arbitrary byte array containing data relevant to this block.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/TransactionFormat.html#findFormat(int,com.norswap.nanoeth.data.Natural)">findFormat(int, Natural)</a></span> - Static method in enum com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/TransactionFormat.html" title="enum in com.norswap.nanoeth.transactions">TransactionFormat</a></dt>
+<dd>
+<div class="block">Determines the transaction format from the envelope type (use <a href="com/norswap/nanoeth/transactions/TransactionEnvelopeType.html#ENVELOPE_TYPE_NONE"><code>TransactionEnvelopeType.ENVELOPE_TYPE_NONE</code></a> if there is envelope type) and the signature</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#format">format</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">The original format of the transaction before normalization.</div>
@@ -342,20 +451,86 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Parses a RLP sequence into a transaction.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#from(com.norswap.nanoeth.rlp.RLP)">from(RLP)</a></span> - Static method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>
+<div class="block">Parses a RLP sequence into a block.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#from(com.norswap.nanoeth.rlp.RLP)">from(RLP)</a></span> - Static method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Parses a RLP sequence into a block header.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#from(com.norswap.nanoeth.rlp.RLP)">from(RLP)</a></span> - Static method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
 <dd>
 <div class="block">Parses the given RLP sequence into the access list.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#from(java.lang.String)">from(String)</a></span> - Static method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
+<dd>
+<div class="block">Creates a natural from a hex-string (e.g.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#FRONTIER">FRONTIER</a></span> - com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#FRONTIER_START">FRONTIER_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#FRONTIER_THAWING">FRONTIER_THAWING</a></span> - com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#FRONTIER_THAWING_START">FRONTIER_THAWING_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#gasLimit">gasLimit</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Current maximum amount of gas usable per block.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#gasLimit">gasLimit</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">Maximum amount of gas the sender is willing to spend on this transaction.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#gasUsed">gasUsed</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The amount of gas used in this block.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#GENESIS_DIFFICULTY">GENESIS_DIFFICULTY</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Blocks.html#get(com.norswap.nanoeth.data.Hash)">get(Hash)</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Blocks.html" title="class in com.norswap.nanoeth.blocks">Blocks</a></dt>
+<dd>
+<div class="block">Returns the block with the given hash, or null if no such block is known.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getAddress(com.norswap.nanoeth.rlp.RLP,int)">getAddress(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array, into an address.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getBloomFilter(com.norswap.nanoeth.rlp.RLP,int)">getBloomFilter(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a bloom filter.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getBytes(com.norswap.nanoeth.rlp.RLP,int)">getBytes(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Retrieves the i-th item of the sequence, and verifies that it is a byte array with a valid
+ size.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getHash(com.norswap.nanoeth.rlp.RLP,int)">getHash(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Blocks.html#getHeader(com.norswap.nanoeth.data.Hash)">getHeader(Hash)</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Blocks.html" title="class in com.norswap.nanoeth.blocks">Blocks</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getInt(com.norswap.nanoeth.rlp.RLP,int)">getInt(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a 32-bit integer.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getInt64(com.norswap.nanoeth.rlp.RLP,int)">getInt64(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Parses the i-th item of the sequence, which should be a 8-byte array, into a 64-bit integer.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getMerkleRoot(com.norswap.nanoeth.rlp.RLP,int)">getMerkleRoot(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getNatural(com.norswap.nanoeth.rlp.RLP,int)">getNatural(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
+<dd>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array of size no greater than
+ 32, into a natural number.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#greater(long)">greater(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
@@ -364,6 +539,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:H">H</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#hash()">hash()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Hash of all the other data in the header.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/Transaction.html#hash()">hash()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></dt>
 <dd>
 <div class="block">Returns the transaction hash.</div>
@@ -376,13 +555,21 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Hash.html#%3Cinit%3E(java.lang.String)">Hash(String)</a></span> - Constructor for class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></dt>
 <dd>
-<div class="block">Creates a natural from a hex string (e.g.</div>
+<div class="block">Creates a hash from a hex string (e.g.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Hash.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/StorageKey.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/StorageKey.html" title="class in com.norswap.nanoeth.data">StorageKey</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>&nbsp;</dd>
@@ -398,6 +585,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Utilities to calculate hash values.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#header">header</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#hexDigitToByte(char)">hexDigitToByte(char)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
 <dd>
 <div class="block">Converts a hex digit (in 0-9, a-f or A-F) to its numeric value.</div>
@@ -417,9 +606,16 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:I">I</h2>
 <dl class="index">
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#ICE_AGE">ICE_AGE</a></span> - com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
+<dt><a href="com/norswap/nanoeth/blocks/IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">IllegalBlockFormatException</span></a> - Exception in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
+<dd>
+<div class="block">Thrown when attempting to parse a RLP sequence into a block (or one of its components), but
+ the format of the sequence does not match what is expected.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/IllegalBlockFormatException.html#%3Cinit%3E(java.lang.String)">IllegalBlockFormatException(String)</a></span> - Constructor for exception com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#ICE_AGE_START">ICE_AGE_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/IllegalBlockFormatException.html#%3Cinit%3E(java.lang.String,java.lang.Throwable)">IllegalBlockFormatException(String, Throwable)</a></span> - Constructor for exception com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/IllegalBlockFormatException.html#%3Cinit%3E(java.lang.Throwable)">IllegalBlockFormatException(Throwable)</a></span> - Constructor for exception com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="com/norswap/nanoeth/rlp/IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp"><span class="type-name-link">IllegalRLPAccess</span></a> - Exception in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
 <dd>
@@ -501,6 +697,31 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:L">L</h2>
 <dl class="index">
+<dt><a href="com/norswap/nanoeth/receipts/LogEntry.html" title="class in com.norswap.nanoeth.receipts"><span class="type-name-link">LogEntry</span></a> - Class in <a href="com/norswap/nanoeth/receipts/package-summary.html">com.norswap.nanoeth.receipts</a></dt>
+<dd>
+<div class="block">A log entry generated during contract execution.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogEntry.html#%3Cinit%3E(com.norswap.nanoeth.data.Address,com.norswap.nanoeth.receipts.LogTopic%5B%5D,byte%5B%5D)">LogEntry(Address, LogTopic[], byte[])</a></span> - Constructor for class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogEntry.html" title="class in com.norswap.nanoeth.receipts">LogEntry</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogEntry.html#logger">logger</a></span> - Variable in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogEntry.html" title="class in com.norswap.nanoeth.receipts">LogEntry</a></dt>
+<dd>
+<div class="block">Address that generated this log.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#logsBloom">logsBloom</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The Bloom filter composed from indexable information (logger address and log topics)
+ contained in each log entry from the receipt of each transaction in the transactions list.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts"><span class="type-name-link">LogTopic</span></a> - Class in <a href="com/norswap/nanoeth/receipts/package-summary.html">com.norswap.nanoeth.receipts</a></dt>
+<dd>
+<div class="block">Represents a 256-bit (32 bytes) log topic.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#%3Cinit%3E(byte%5B%5D)">LogTopic(byte[])</a></span> - Constructor for class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#%3Cinit%3E(java.lang.String)">LogTopic(String)</a></span> - Constructor for class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
+<dd>
+<div class="block">Creates a log topic from a hex string (e.g.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#LONDON">LONDON</a></span> - com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#LONDON_START">LONDON_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
@@ -512,6 +733,10 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#MAX_UNCLES">MAX_UNCLES</a></span> - Static variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>
+<div class="block">Maximum number of uncle that can be included in the block.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#maxFeePerGas">maxFeePerGas</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">Max <b>total</b> amount of Wei the sender is ready to pay per unit of gas consumed.</div>
@@ -521,13 +746,40 @@ loadScripts(document, 'script');</script>
 <div class="block">Max amount of Wei the sender is ready to pay as a priority fee ("tip") to the miner, per unit
  of gas consumed.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#mayContain(com.norswap.nanoeth.data.Address)">mayContain(Address)</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>
+<div class="block">Indicates if the log entries associated to this bloom filter <b>may</b> have been been logged
+ by the given address.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#mayContain(com.norswap.nanoeth.receipts.LogTopic)">mayContain(LogTopic)</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>
+<div class="block">Indicates if some of the log entries associated to this bloom filter <b>may</b> contain the
+ given topic.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/data/MerkleRoot.html" title="class in com.norswap.nanoeth.data"><span class="type-name-link">MerkleRoot</span></a> - Class in <a href="com/norswap/nanoeth/data/package-summary.html">com.norswap.nanoeth.data</a></dt>
+<dd>
+<div class="block">A <a href="com/norswap/nanoeth/data/Hash.html" title="class in com.norswap.nanoeth.data"><code>Hash</code></a> that is marked as being a Merkle root.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/MerkleRoot.html#%3Cinit%3E(byte%5B%5D)">MerkleRoot(byte[])</a></span> - Constructor for class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/MerkleRoot.html#%3Cinit%3E(com.norswap.nanoeth.data.Hash)">MerkleRoot(Hash)</a></span> - Constructor for class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/MerkleRoot.html#%3Cinit%3E(java.lang.String)">MerkleRoot(String)</a></span> - Constructor for class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></dt>
+<dd>
+<div class="block">Creates a merkle root from a hex string (e.g.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#mixHash">mixHash</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">A hash which, combined with the <a href="com/norswap/nanoeth/blocks/BlockHeader.html#nonce"><code>BlockHeader.nonce</code></a>, proves that a sufficient amount of
+ computation has been carried out on this block.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#mod(long)">mod(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#MUIR_GLACIER">MUIR_GLACIER</a></span> - com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#MUIR_GLACIER_START">MUIR_GLACIER_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#mult(long)">mult(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#multiply(long)">multiply(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:N">N</h2>
@@ -549,24 +801,39 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#%3Cinit%3E(java.math.BigInteger)">Natural(BigInteger)</a></span> - Constructor for class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#nonce">nonce</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">A 64-bit scalar value which, combined with the <a href="com/norswap/nanoeth/blocks/BlockHeader.html#mixHash"><code>BlockHeader.mixHash</code></a>, proves that a sufficient
+ amount of computation has been carried out on this block.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#nonce">nonce</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">Sender nonce at the time the transaction was sent -- which is equal to the number of
  transaction the sender sent before that point.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#number">number</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The number of ancestor blocks (aka "height").</div>
+</dd>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#parentHash">parentHash</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The <code>BlockHeader.hash</code> of the parent block.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#payload">payload</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
-<div class="block">Either the EVM code for account initialisation when deploying a contract (yellow paper: Ti),
- or the input data when sending a message call (yellow paper: Td).</div>
+<div class="block">Either the EVM code for account initialisation when deploying a contract (yellowpaper: Ti),
+ or the input data when sending a message call (yellowpaper: Td).</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#PETERSBURG">PETERSBURG</a></span> - com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#PETERSBURG_START">PETERSBURG_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#pow(int)">pow(int)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="com/norswap/nanoeth/blocks/ProofOfWork.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">ProofOfWork</span></a> - Class in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/signature/EthKeyPair.html#publicKey">publicKey</a></span> - Variable in class com.norswap.nanoeth.signature.<a href="com/norswap/nanoeth/signature/EthKeyPair.html" title="class in com.norswap.nanoeth.signature">EthKeyPair</a></dt>
 <dd>&nbsp;</dd>
@@ -578,6 +845,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/norswap/nanoeth/utils/Randomness.html" title="class in com.norswap.nanoeth.utils"><span class="type-name-link">Randomness</span></a> - Class in <a href="com/norswap/nanoeth/utils/package-summary.html">com.norswap.nanoeth.utils</a></dt>
 <dd>
 <div class="block">Utilities related to random number generation.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#receiptsRoot">receiptsRoot</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The Merkle root of the receipts list of the block.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/signature/Signature.html#recoverPublicKey(byte%5B%5D)">recoverPublicKey(byte[])</a></span> - Method in class com.norswap.nanoeth.signature.<a href="com/norswap/nanoeth/signature/Signature.html" title="class in com.norswap.nanoeth.signature">Signature</a></dt>
 <dd>
@@ -593,6 +864,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the address of the transaction sender.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Blocks.html#register(com.norswap.nanoeth.blocks.Block)">register(Block)</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Blocks.html" title="class in com.norswap.nanoeth.blocks">Blocks</a></dt>
+<dd>
+<div class="block">Registers the given block in the block DB.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Context.html#reset()">reset()</a></span> - Method in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Context.html" title="class in com.norswap.nanoeth">Context</a></dt>
 <dd>
 <div class="block">Resets the context to default values.</div>
@@ -601,6 +876,16 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Indicates that the parameter is a mutable object, and that it is potentially stored somewhere as
  a result of calling the function, and that care should thus be taken when mutating that object.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#rlp()">rlp()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>
+<div class="block">Returns the RLP representation of this block, whose binary encoding is used to transmit the
+ block over the network.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#rlp()">rlp()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Returns the RLP representation of this block header, which is stored in the block (itself
+ RLP-encoded) when circulated over the network.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#rlp()">rlp()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
 <dd>
@@ -616,6 +901,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">An object that can be <a href="com/norswap/nanoeth/rlp/RLP.html#encode()"><code>encoded</code></a> in RLP format, or <code>decoded</code> from a byte array in RLP format.</div>
 </dd>
+<dt><a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp"><span class="type-name-link">RLPParsing</span></a> - Class in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
+<dd>
+<div class="block">Utilities to help parse protocol objects from RLP input.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp"><span class="type-name-link">RLPParsingException</span></a> - Exception in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsingException.html#%3Cinit%3E(java.lang.String)">RLPParsingException(String)</a></span> - Constructor for exception com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
@@ -681,6 +974,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Block height where the fork took effect.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#startsBefore(int)">startsBefore(int)</a></span> - Method in enum com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
+<dd>
+<div class="block">Returns true iff the start block of this version is before the given block height.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#startsBefore(com.norswap.nanoeth.data.Natural)">startsBefore(Natural)</a></span> - Method in enum com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
+<dd>
+<div class="block">Returns true iff the start block of this version is before the given block height.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#stateRoot">stateRoot</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The Merkle root of the state tree.</div>
+</dd>
 <dt><a href="com/norswap/nanoeth/data/StorageKey.html" title="class in com.norswap.nanoeth.data"><span class="type-name-link">StorageKey</span></a> - Class in <a href="com/norswap/nanoeth/data/package-summary.html">com.norswap.nanoeth.data</a></dt>
 <dd>
 <div class="block">Represents a 256-bit (32 bytes) Ethereum storage key within an account's storage tree.</div>
@@ -695,7 +1000,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns a stream over the sequence of sub-items.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#sub(long)">sub(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#subtract(long)">subtract(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
@@ -706,6 +1011,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/Assert.html#that(boolean,java.lang.String,java.lang.Object...)">that(boolean, String, Object...)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/Assert.html" title="class in com.norswap.nanoeth.utils">Assert</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#timestamp">timestamp</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">A value equal to the reasonable output of Unix’s time() at this block’s inception.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#to">to</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">The address of the recipient of the transaction, or, for contract creation transaction,
@@ -719,26 +1028,56 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The hex-string representation of this hash, including leading 0 if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#toFullHexString()">toFullHexString()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>
+<div class="block">The hex-string representation of this hash, including leading 0 if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#toFullHexString()">toFullHexString()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
+<dd>
+<div class="block">The hex-string representation of this hash, including leading 0 if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)">toFullHexString(byte[])</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
 <dd>
 <div class="block">Converts a byte array into a hex string (e.g.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#toHexString()">toHexString()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#toHexString()">toHexString()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
+<dd>
+<div class="block">The hex-string representation of the binary encoding of this RLP item, including leading 0 if
+ any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/Transaction.html#toHexString()">toHexString()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></dt>
 <dd>
 <div class="block">Returns an hex string (e.g.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#toInt(byte%5B%5D)">toInt(byte[])</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#toInt(byte...)">toInt(byte...)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
 <dd>
 <div class="block">Returns the integer encoded by the big-endian <code>bytes</code> array, whose size should be in
- <code>]0,4]</code>.</div>
+ <code>[0,4]</code>.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#toLong(byte...)">toLong(byte...)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
+<dd>
+<div class="block">Returns the integer encoded by the big-endian <code>bytes</code> array, whose size should be in
+ <code>[0,8]</code>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogEntry.html#topics">topics</a></span> - Variable in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogEntry.html" title="class in com.norswap.nanoeth.receipts">LogEntry</a></dt>
+<dd>
+<div class="block">Topics for this entry.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Hash.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/StorageKey.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/StorageKey.html" title="class in com.norswap.nanoeth.data">StorageKey</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>&nbsp;</dd>
@@ -765,6 +1104,12 @@ loadScripts(document, 'script');</script>
 <dt><a href="com/norswap/nanoeth/transactions/TransactionFormat.html" title="enum in com.norswap.nanoeth.transactions"><span class="type-name-link">TransactionFormat</span></a> - Enum in <a href="com/norswap/nanoeth/transactions/package-summary.html">com.norswap.nanoeth.transactions</a></dt>
 <dd>
 <div class="block">List the different possible kind of transaction that can be sent.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#transactions">transactions</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#transactionsRoot">transactionsRoot</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">The Merkle root of the transactions list of the block.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/TransactionFormat.html#TX_EIP_155">TX_EIP_155</a></span> - com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/TransactionFormat.html" title="enum in com.norswap.nanoeth.transactions">TransactionFormat</a></dt>
 <dd>
@@ -800,6 +1145,15 @@ loadScripts(document, 'script');</script>
 <div class="block">Converts the byte to an <code>int</code> by reinterpreting its bit pattern as that of an unsigned
  number.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#uncleHash">uncleHash</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Hash of the the uncles (aka "ommers") list of the block.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#uncles">uncles</a></span> - Variable in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>
+<div class="block">Uncle (aka ommer) blocks are children of ancestors of this block that are not themselves
+ ancestor of these block, and have not been included as uncles in ancestors.</div>
+</dd>
 <dt><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions"><span class="type-name-link">UnsignedTransaction</span></a> - Class in <a href="com/norswap/nanoeth/transactions/package-summary.html">com.norswap.nanoeth.transactions</a></dt>
 <dd>
 <div class="block">A "normalized transaction", as defined in EIP-1559 (part of the <a href="com/norswap/nanoeth/versions/EthereumVersion.html#LONDON"><code>London</code></a> hard fork), which does not include a signature.</div>
@@ -809,10 +1163,68 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_BAD_DIFFICULTY">VAL_BAD_DIFFICULTY</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The difficulty does not match the canonical difficulty calculation.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_BAD_NUMBER">VAL_BAD_NUMBER</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The number is not the parent number + 1.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_EXTRA_DATA_TOO_LONG">VAL_EXTRA_DATA_TOO_LONG</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The extra data section is longer than 32 bytes.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_GAS_LIMIT_TOO_HIGH">VAL_GAS_LIMIT_TOO_HIGH</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The gas limit is too high compared to the parent.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_GAS_LIMIT_TOO_LOW">VAL_GAS_LIMIT_TOO_LOW</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The gas limit is too low compared to the parent, or under the minimum.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_GAS_USED_TOO_HIGH">VAL_GAS_USED_TOO_HIGH</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The gas usage is higher than the gas limit.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_INVALID_POW">VAL_INVALID_POW</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The nonce and the mix hash are not consistent with regard to the proof of work calculation.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_NONCE_TOO_HIGH">VAL_NONCE_TOO_HIGH</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The nonce does not match the difficulty.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_OUTDATED_TIMESTAMP">VAL_OUTDATED_TIMESTAMP</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The timestamp is older than the parent's timestamp.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_UNKNOWN_PARENT">VAL_UNKNOWN_PARENT</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">We don't know of a block with the given parent hash.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#VAL_VALID">VAL_VALID</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">The block is valid.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#validate()">validate()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>
+<div class="block">Validates the block.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#validate(com.norswap.nanoeth.blocks.BlockHeader)">validate(BlockHeader)</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Validates the block header against its parent.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#VALIDATE_POW">VALIDATE_POW</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#value">value</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">The value in Wei to be transferred to the transaction's recipient, or as an endowment for the
  newly created contract in the case of contract creation.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">Returns the enum constant of this type with the specified name.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/TransactionFormat.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/TransactionFormat.html" title="enum in com.norswap.nanoeth.transactions">TransactionFormat</a></dt>
 <dd>
@@ -821,6 +1233,11 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidity.html#values()">values()</a></span> - Static method in enum com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></dt>
+<dd>
+<div class="block">Returns an array containing the constants of this enum type, in
+the order they are declared.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/TransactionFormat.html#values()">values()</a></span> - Static method in enum com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/TransactionFormat.html" title="enum in com.norswap.nanoeth.transactions">TransactionFormat</a></dt>
 <dd>
@@ -839,6 +1256,10 @@ the order they are declared.</div>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/signature/Signature.html#verify(org.bouncycastle.math.ec.ECPoint,byte%5B%5D)">verify(ECPoint, byte[])</a></span> - Method in class com.norswap.nanoeth.signature.<a href="com/norswap/nanoeth/signature/Signature.html" title="class in com.norswap.nanoeth.signature">Signature</a></dt>
 <dd>
 <div class="block">Returns true only if this is a valid signature for Keccak hash of the given message.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/ProofOfWork.html#verifyPoW(com.norswap.nanoeth.blocks.BlockHeader)">verifyPoW(BlockHeader)</a></span> - Static method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/ProofOfWork.html" title="class in com.norswap.nanoeth.blocks">ProofOfWork</a></dt>
+<dd>
+<div class="block">Verifies the proof of work computation for the given header, i.e.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/Transaction.html#verifySignature()">verifySignature()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></dt>
 <dd>

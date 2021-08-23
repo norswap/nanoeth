@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":9,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":9,"i13":9,"i14":10,"i15":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":9,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":9,"i13":9,"i14":10,"i15":10,"i16":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -208,6 +208,14 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </tr>
 <tr class="row-color" id="i15">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toHexString()">toHexString</a></span>()</code></th>
+<td class="col-last">
+<div class="block">The hex-string representation of the binary encoding of this RLP item, including leading 0 if
+ any, as per <a href="../utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i16">
+<td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
@@ -252,11 +260,17 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  <ul>
  <li><code>byte[]</code></li>
  <li><a href="RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a></li>
- <li><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link"><code>Integer</code></a> (can pass an <code>int</code></li>
- <li><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data"><code>Natural</code></a></li>
+ <li>{@link Byte] (can pass a <code>byte</code></li>
+ <li><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link"><code>Integer</code></a> (encoded on 4 bytes, can pass an <code>int</code></li>
+ <li><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link"><code>Long</code></a> (encoded on 8 bytes, can pass a <code>long</code></li>
+ <li><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data"><code>Natural</code></a> (encoded using only as many bytes as necessary, no leading 0)</li>
  <li><a href="../data/Address.html" title="class in com.norswap.nanoeth.data"><code>Address</code></a></li>
- <li><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data"><code>Hash</code></a></li>
+ <li><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data"><code>Hash</code></a> (and <a href="../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data"><code>MerkleRoot</code></a>)</li>
  <li><a href="../data/StorageKey.html" title="class in com.norswap.nanoeth.data"><code>StorageKey</code></a></li>
+ <li><a href="../receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts"><code>BloomFilter</code></a></li>
+ <li><a href="../transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions"><code>Transaction</code></a></li>
+ <li><a href="../blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks"><code>BlockHeader</code></a></li>
+ <li><code>Object[]</code></li>
  </ul></div>
 </section>
 </li>
@@ -358,6 +372,14 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <dt>Throws:</dt>
 <dd><code><a href="IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp">IllegalRLPAccess</a></code> - if this object does not represent a sequence of sub-items.</dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="toHexString()">
+<h3>toHexString</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="member-name">toHexString</span>()</div>
+<div class="block">The hex-string representation of the binary encoding of this RLP item, including leading 0 if
+ any, as per <a href="../utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
 </section>
 </li>
 <li>

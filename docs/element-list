@@ -1,6 +1,9 @@
 com.norswap.nanoeth
 com.norswap.nanoeth.annotations
+com.norswap.nanoeth.blocks
+com.norswap.nanoeth.chain
 com.norswap.nanoeth.data
+com.norswap.nanoeth.receipts
 com.norswap.nanoeth.rlp
 com.norswap.nanoeth.signature
 com.norswap.nanoeth.transactions

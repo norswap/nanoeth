@@ -160,8 +160,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <td class="col-first"><code>byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#payload">payload</a></span></code></th>
 <td class="col-last">
-<div class="block">Either the EVM code for account initialisation when deploying a contract (yellow paper: Ti),
- or the input data when sending a message call (yellow paper: Td).</div>
+<div class="block">Either the EVM code for account initialisation when deploying a contract (yellowpaper: Ti),
+ or the input data when sending a message call (yellowpaper: Td).</div>
 </td>
 </tr>
 <tr class="alt-color">
@@ -301,7 +301,7 @@ byte[]&nbsp;payload,
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></span>&nbsp;<span class="member-name">chainId</span></div>
 <div class="block">The ID of the chain on which this transaction was sent (1 for Ethereum mainnet for instance).
 
- <p>White paper notation: β (beta)</div>
+ <p>Yellowaper notation: β (beta)</div>
 </section>
 </li>
 <li>
@@ -311,7 +311,7 @@ byte[]&nbsp;payload,
 <div class="block">Sender nonce at the time the transaction was sent -- which is equal to the number of
  transaction the sender sent before that point.
 
- <p>Yellow paper notation: Tn.</div>
+ <p>Yellowpaper notation: Tn</div>
 </section>
 </li>
 <li>
@@ -320,7 +320,7 @@ byte[]&nbsp;payload,
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></span>&nbsp;<span class="member-name">maxFeePerGas</span></div>
 <div class="block">Max <b>total</b> amount of Wei the sender is ready to pay per unit of gas consumed.
 
- <p>No yellow paper notation (not updated for <a href="../versions/EthereumVersion.html#LONDON"><code>EthereumVersion.LONDON</code></a>).
+ <p>No yellowpaper notation (not updated for <a href="../versions/EthereumVersion.html#LONDON"><code>EthereumVersion.LONDON</code></a>).
  Replacement for the gas price (notation: Tp).</div>
 </section>
 </li>
@@ -331,7 +331,7 @@ byte[]&nbsp;payload,
 <div class="block">Max amount of Wei the sender is ready to pay as a priority fee ("tip") to the miner, per unit
  of gas consumed. This amount is included in <a href="#maxFeePerGas"><code>maxFeePerGas</code></a>.
 
- <p>No yellow paper notation (not updated for <a href="../versions/EthereumVersion.html#LONDON"><code>EthereumVersion.LONDON</code></a>).
+ <p>No yellowpaper notation (not updated for <a href="../versions/EthereumVersion.html#LONDON"><code>EthereumVersion.LONDON</code></a>).
  Replacement for the gas price (notation: Tp).</div>
 </section>
 </li>
@@ -341,7 +341,7 @@ byte[]&nbsp;payload,
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></span>&nbsp;<span class="member-name">gasLimit</span></div>
 <div class="block">Maximum amount of gas the sender is willing to spend on this transaction.
 
- <p>Yellow paper notation: Tg</div>
+ <p>Yellowpaper notation: Tg</div>
 </section>
 </li>
 <li>
@@ -351,7 +351,7 @@ byte[]&nbsp;payload,
 <div class="block">The address of the recipient of the transaction, or, for contract creation transaction,
  the empty address.
 
- <p>Yellow paper notation: Tt</div>
+ <p>Yellowpaper notation: Tt</div>
 </section>
 </li>
 <li>
@@ -361,15 +361,15 @@ byte[]&nbsp;payload,
 <div class="block">The value in Wei to be transferred to the transaction's recipient, or as an endowment for the
  newly created contract in the case of contract creation.
 
- <p>Yellow Paper notation: Tv</div>
+ <p>yellowpaper notation: Tv</div>
 </section>
 </li>
 <li>
 <section class="detail" id="payload">
 <h3>payload</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">payload</span></div>
-<div class="block">Either the EVM code for account initialisation when deploying a contract (yellow paper: Ti),
- or the input data when sending a message call (yellow paper: Td).
+<div class="block">Either the EVM code for account initialisation when deploying a contract (yellowpaper: Ti),
+ or the input data when sending a message call (yellowpaper: Td).
 
  <p>When making a simple transfer to an EOA (externally owned account), the payload is
  typically empty, but does not have to be. This is considered to be a message call.</div>
