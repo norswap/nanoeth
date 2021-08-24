@@ -2,6 +2,7 @@ package com.norswap.nanoeth.data;
 
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
+import com.norswap.nanoeth.blocks.BlockHeader;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
@@ -17,8 +18,19 @@ public final class Address {
     /**
      * The address the yellow paper denotes as "∅" and is represent by a zero-length byte sequence,
      * unlike all other addresses which are 20-bytes long.
+     * <p>Not to be confused with {@link #ZERO}.
+     * <p>Used as destination for contract creation.
      */
     public static Address EMPTY = new Address();
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * An address composed of 20 zero bytes.
+     * <p>Not to be confused with {@link #EMPTY}.
+     * <p>Used as coinbase for the {@link BlockHeader#GENESIS_HEADER genesis block}.
+     */
+    public static Address ZERO = new Address(new byte[20]);
 
     // ---------------------------------------------------------------------------------------------
 

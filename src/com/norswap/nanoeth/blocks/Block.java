@@ -1,5 +1,6 @@
 package com.norswap.nanoeth.blocks;
 
+import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.transactions.Transaction;
@@ -26,6 +27,13 @@ public final class Block {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Maximum uncle degree (e.g. degree 1 = sibling of parent, degree 2 = sibling of grandparent).
+     */
+    public static final int MAX_UNCLE_DEGREE = 6;
+
+    // ---------------------------------------------------------------------------------------------
+
     public final BlockHeader header;
 
     // ---------------------------------------------------------------------------------------------
@@ -49,7 +57,10 @@ public final class Block {
 
     // ---------------------------------------------------------------------------------------------
 
-    public Block (BlockHeader header, Transaction[] transactions, BlockHeader[] uncles) {
+    public Block (
+            BlockHeader header,
+            @Retained Transaction[] transactions,
+            @Retained BlockHeader[] uncles) {
         this.header = header;
         this.transactions = transactions;
         this.uncles = uncles;
@@ -102,7 +113,7 @@ public final class Block {
                 return BlockValidity.of(VAL_BAD_UNCLE, uncle);
             if (uncle.number.compareTo(header.number) >= 0)
                 return BlockValidity.of(VAL_UNCLE_TOO_OLD, uncle);
-            if (uncle.number.compareTo(header.number.subtract(new Natural(6))) < 0)
+            if (uncle.number.compareTo(header.number.subtract(new Natural(MAX_UNCLE_DEGREE))) < 0)
                 return BlockValidity.of(VAL_FUTURE_UNCLE, uncle);
 
             // NOTE: This surprisingly doesn't seem to specified in the yellowpaper.
@@ -124,17 +135,18 @@ public final class Block {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Checks that (1) {@code uncle} really is an uncle (the sibling of an ancestor of degree <= 6)
-     * and (2) that the uncle hasn't been previously included as an uncle or main chain block.
+     * Checks that (1) {@code uncle} really is an uncle (the sibling of an ancestor of degree <=
+     * {@link #MAX_UNCLE_DEGREE}) and (2) that the uncle hasn't been previously included as an uncle
+     * or main chain block.
      */
     private BlockValidity validateUncleLineage (BlockHeader uncle) {
         boolean isUncle = false;
         var uncleParentHeader = Blocks.DB.getHeader(uncle.parentHash);
         var current = this;
 
-        // We need to go to the 7th ancestor to check if it's not a 6th generation uncle.
-        // The logic stays valid at i == 7.
-        for (int i = 1; i <= 7; ++i) {
+        // We need to go to the (max_degree + 1)th ancestor to check if it's not a (max_degree)th
+        // generation uncle. The logic stays valid.
+        for (int i = 1; i <= MAX_UNCLE_DEGREE + 1; ++i) {
             current = Blocks.DB.get(current.header.parentHash);
 
             if (current == null) { // genesis

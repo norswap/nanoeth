@@ -1,5 +1,7 @@
 package com.norswap.nanoeth.blocks;
 
+import norswap.utils.Vanilla;
+
 public final class BlockTestCase {
 
     // ---------------------------------------------------------------------------------------------
@@ -18,6 +20,7 @@ public final class BlockTestCase {
 
     // ---------------------------------------------------------------------------------------------
 
+    @SuppressWarnings("SuspiciousToArrayCall")
     public BlockTestCase (
             String name, long blockHeight, String genesisRLP, Block genesis, Block[] blocks,
             boolean validatePoW) {
@@ -25,7 +28,7 @@ public final class BlockTestCase {
         this.blockHeight = blockHeight;
         this.genesisRLP = genesisRLP;
         this.genesis = genesis;
-        this.blocks = blocks;
+        this.blocks = Vanilla.concat(genesis, blocks).toArray(Block[]::new);
         this.validatePoW = validatePoW;
     }
 

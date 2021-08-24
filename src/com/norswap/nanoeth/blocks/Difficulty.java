@@ -17,7 +17,7 @@ public final class Difficulty {
     public static Natural computeDifficulty (Natural timestamp, BlockHeader parent) {
 
         // Initial difficulty, D0 in yellowpaper.
-        final var genesisDifficulty = Config.GENESIS_DIFFICULTY;
+        final var genesisDifficulty = Config.GENESIS.header.difficulty;
         if (parent == null) // genesis
             return genesisDifficulty;
 
@@ -63,8 +63,7 @@ public final class Difficulty {
             // This formula was explicitly picked over using the number of uncles because it can be
             // checked agains the uncles hash in the header without requiring the whole block to be
             // available.
-            var unclesFactor = parent.uncleHash.equals(BlockHeader.EMPTY_SEQ_HASH)
-                ? BigInteger.ONE : BigInteger.TWO;
+            var unclesFactor = parent.hasUncles() ? BigInteger.TWO : BigInteger.ONE;
             S2 = new Natural(unclesFactor).subtract(timeDiff.divide(new Natural(9)));
 
             // Some scenarios:
@@ -82,13 +81,13 @@ public final class Difficulty {
         // The factor was introduced/changed in the versions listed in the if statement.
         final int k;
         if (LONDON.contains(number))
-            k = 666; // todo
-        else if (MUIR_GLACIER.contains(number)) // EIP-2384
-            k = 9000000;
-        else if (CONSTANTINOPLE.contains(number)) // EIP-1234
-            k = 5000000;
-        else if (BYZANTIUM.contains(number)) // EIP-649
-            k = 3000000;
+            k = 9_700_000; // EIP-3554
+        else if (MUIR_GLACIER.contains(number))
+            k = 9_000_000; // EIP-2384
+        else if (CONSTANTINOPLE.contains(number))
+            k = 5_000_000; // EIP-1234
+        else if (BYZANTIUM.contains(number))
+            k = 3_000_000; // EIP-649
         else
             k = 0;
 

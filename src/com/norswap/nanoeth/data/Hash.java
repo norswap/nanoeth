@@ -2,8 +2,10 @@ package com.norswap.nanoeth.data;
 
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
+import com.norswap.nanoeth.utils.Hashing;
 import java.util.Arrays;
 
 /**
@@ -13,6 +15,21 @@ import java.util.Arrays;
  */
 @Wrapper
 public class Hash {
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** A hash composed of only zero bytes. */
+    public static final Hash ZERO = new Hash(new byte[32]);
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Hash of the empty RLP sequence.
+     * <p>Can notably be compared against the uncle hash of a block header to see if the
+     * block has any uncles.
+     */
+    public static final Hash EMPTY_SEQ_HASH = Hashing.keccak(RLP.sequence(new Object[0]).encode());
+
     // ---------------------------------------------------------------------------------------------
 
     /** The bytes making up the hash. */

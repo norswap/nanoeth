@@ -13,13 +13,27 @@ import com.norswap.nanoeth.annotations.Wrapper;
 @Wrapper
 public final class MerkleRoot extends Hash {
 
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * A merkle root composed of only zero bytes, which happens to be the merkle root of empty
+     * trees.
+     */
+    public static final MerkleRoot ZERO = new MerkleRoot(new byte[32]);
+
+    // ---------------------------------------------------------------------------------------------
+
     public MerkleRoot (byte[] bytes) {
         super(bytes);
     }
 
+    // ---------------------------------------------------------------------------------------------
+
     public MerkleRoot (Hash hash) {
         super(hash.bytes);
     }
+
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Creates a merkle root from a hex string (e.g. 0x123).
@@ -30,4 +44,6 @@ public final class MerkleRoot extends Hash {
     public MerkleRoot (String hexString) {
         super(hexString);
     }
+
+    // ---------------------------------------------------------------------------------------------
 }

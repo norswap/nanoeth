@@ -7,6 +7,9 @@ package com.norswap.nanoeth.blocks;
  * @see BlockValidity
  */
 public enum BlockValidityStatus {
+
+    // ---------------------------------------------------------------------------------------------
+
     /** The block is valid. */
     VAL_VALID,
     /** We don't know of a block with the given parent hash. */
@@ -48,7 +51,11 @@ public enum BlockValidityStatus {
     /** An included uncle isn't really an uncle (the sibling of an ancestor of degree <= 6. */
     VAL_UNRELATED_UNCLE;
 
+    // ---------------------------------------------------------------------------------------------
+
     public boolean valid() {
         return this == VAL_VALID;
     }
+
+    // ---------------------------------------------------------------------------------------------
 }

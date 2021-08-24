@@ -20,14 +20,6 @@ public final class BlockHeader {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Hash of the empty RLP sequence, which can be compared against the uncle hash to see if the
-     * block has any uncles.
-     */
-    public static final Hash EMPTY_SEQ_HASH = Hashing.keccak(RLP.sequence(new Object[0]).encode());
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
      * The {@link #hash} of the parent block.
      * <p>Yellowpaper notation: Hp
      */
@@ -84,10 +76,9 @@ public final class BlockHeader {
 
     // ---------------------------------------------------------------------------------------------
 
-    // TODO timestamp, is that so?
     /**
      * The difficult level of the block, calculated from the previous' block difficulty level and
-     * the {@link #timestamp}.
+     * the {@link #timestamp} (cf. {@link Difficulty}).
      */
     public final Natural difficulty;
 
@@ -101,10 +92,11 @@ public final class BlockHeader {
 
     // ---------------------------------------------------------------------------------------------
 
-    // TODO how is this set?
     /**
      * Current maximum amount of gas usable per block.
      * <p>Yellowpaper notation: Hl
+     * <p>A block's miner can choose to update the gas limit incrementally (up or down) within the
+     * limit set by the protocol (cf. {@link #validate(BlockHeader)}).
      */
     public final Natural gasLimit;
 
@@ -118,11 +110,10 @@ public final class BlockHeader {
 
     // ---------------------------------------------------------------------------------------------
 
-    // TODO whitepaper: N256? serialized as such???
-
     /**
      * A value equal to the reasonable output of Unix’s time() at this block’s inception.
      * <p>Yellowpaper notation: Hs
+     * <p>The yellowpaper puts a 256 bytes limit on this, but it doesn't seem to affect serialization.
      */
     public final Natural timestamp;
 
@@ -255,11 +246,10 @@ public final class BlockHeader {
      */
     public BlockValidityStatus validate (@Nullable BlockHeader parent) {
 
-        if (parent == null) {
-            if (number.equals(BigInteger.ZERO))
-                return VAL_VALID; // TODO validate genesis
-            return VAL_UNKNOWN_PARENT;
-        }
+        if (parent == null)
+            return this.equals(Config.GENESIS.header)
+                ? VAL_VALID
+                : VAL_UNKNOWN_PARENT;
 
         // We assume that this is correct, as we use the hash in the header to retrieve the parent.
         assert parentHash.equals(parent.hash());
@@ -301,6 +291,13 @@ public final class BlockHeader {
         }
 
         return VAL_VALID;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Return true iff the {@link #uncleHash} is not the hash of the empty sequence. */
+    public boolean hasUncles() {
+        return !uncleHash.equals(Hash.EMPTY_SEQ_HASH);
     }
 
     // ---------------------------------------------------------------------------------------------

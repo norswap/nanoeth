@@ -10,6 +10,11 @@ public final class Natural extends BigInteger
 {
     // ---------------------------------------------------------------------------------------------
 
+    /** Zero, as a natural, to avoid holding duplicated copies. */
+    public static final Natural ZERO = new Natural(0);
+
+    // ---------------------------------------------------------------------------------------------
+
     public Natural (long nat) {
         this(BigInteger.valueOf(nat));
     }
