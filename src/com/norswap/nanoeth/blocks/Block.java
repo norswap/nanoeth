@@ -1,10 +1,15 @@
 package com.norswap.nanoeth.blocks;
 
+import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.transactions.TransactionEnvelopeType;
+import com.norswap.nanoeth.utils.Utils;
 import java.util.Arrays;
 import java.util.Objects;
+
+import static com.norswap.nanoeth.blocks.BlockValidity.BLOCK_VALID;
+import static com.norswap.nanoeth.blocks.BlockValidityStatus.*;
 
 /**
  * Where even to begin? The block in blockchain, the one that holds transactions.
@@ -14,8 +19,8 @@ public final class Block {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Maximum number of uncle that can be included in the block.
-     * TODO: specified where?
+     * Maximum number of uncle that can be included in the block, which is 2, as per section 11.1
+     * of the yellowpaper.
      */
     public static final int MAX_UNCLES = 2;
 
@@ -65,21 +70,90 @@ public final class Block {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Validates the block.
-     *
-     * @return {@link BlockValidity#VAL_VALID} if the block is valid, or a {@link BlockValidity}
-     *      value that indicates the reason for the failure.
+     * Validates the block, returning a {@link BlockValidity} object to indicate if the block
+     * valid or invalid (and why).
      */
     public BlockValidity validate() {
-        // TODO hash uncles & compare to uncleHash from header
-        // TODO build transactions Merkle tree and check transactionRoot from header
-        // TODO run transactions
-        //  & check stateRoot from header
-        //  & check receiptsRoot from header
-        //  & check logsBloom from header
 
-        // The header validation will handle the case where we don't know the parent hash.
-        return header.validate(Blocks.DB.getHeader(header.parentHash));
+        var uncleValidity = validateUncles();
+        if (!uncleValidity.valid())
+            return uncleValidity;
+
+        return BlockValidity.of(header.validate());
+
+        // TODO
+        //   - build transactions Merkle tree and check transactionRoot from header
+        //   - run transactions
+        //   & check stateRoot from header
+        //   & check receiptsRoot from header
+        //   & check logsBloom from header
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Validate uncles, as per section 11.1 of the yellowpaper. */
+    private BlockValidity validateUncles() {
+
+        if (uncles.length > MAX_UNCLES)
+            return BlockValidity.of(VAL_TOO_MANY_UNCLES);
+
+        for (var uncle: uncles) {
+            if (uncle.validate() != VAL_VALID)
+                return BlockValidity.of(VAL_BAD_UNCLE, uncle);
+            if (uncle.number.compareTo(header.number) >= 0)
+                return BlockValidity.of(VAL_UNCLE_TOO_OLD, uncle);
+            if (uncle.number.compareTo(header.number.subtract(new Natural(6))) < 0)
+                return BlockValidity.of(VAL_FUTURE_UNCLE, uncle);
+
+            // NOTE: This surprisingly doesn't seem to specified in the yellowpaper.
+            var lineageValidity = validateUncleLineage(uncle);
+            if (!lineageValidity.valid())
+                return lineageValidity;
+        }
+
+        // NOTE: This surprisingly doesn't seem to specified in the yellowpaper.
+        if (uncles.length > 1 && !Utils.allDistinct(uncles))
+            return BlockValidity.of(VAL_DUPLICATE_UNCLE);
+
+        if (!RLP.sequence((Object[]) uncles).hash().equals(header.uncleHash))
+            return BlockValidity.of(VAL_BAD_UNCLE_HASH);
+
+        return BLOCK_VALID;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Checks that (1) {@code uncle} really is an uncle (the sibling of an ancestor of degree <= 6)
+     * and (2) that the uncle hasn't been previously included as an uncle or main chain block.
+     */
+    private BlockValidity validateUncleLineage (BlockHeader uncle) {
+        boolean isUncle = false;
+        var uncleParentHeader = Blocks.DB.getHeader(uncle.parentHash);
+        var current = this;
+
+        // We need to go to the 7th ancestor to check if it's not a 6th generation uncle.
+        // The logic stays valid at i == 7.
+        for (int i = 1; i <= 7; ++i) {
+            current = Blocks.DB.get(current.header.parentHash);
+
+            if (current == null) { // genesis
+                isUncle |= uncleParentHeader == null;
+                break;
+            }
+
+            if (current.header.number.equals(uncle.number)
+                    && current.header.equals(uncle))
+                return BlockValidity.of(VAL_UNCLE_IS_ANCESTOR, uncle);
+
+            if (uncleParentHeader != null && current.header.number.equals(uncleParentHeader.number))
+                isUncle |= current.header.equals(uncleParentHeader);
+
+            if (Arrays.asList(current.uncles).contains(uncle))
+                return BlockValidity.of(VAL_UNCLE_ALREADY_INCLUDED, uncle); 
+        }
+
+        return isUncle ? BLOCK_VALID : BlockValidity.of(VAL_UNRELATED_UNCLE, uncle);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -101,31 +175,28 @@ public final class Block {
 
     @Override public String toString () {
         return "Block{" +
-                "header=" + header +
-                ", transactions=" + Arrays.toString(transactions) +
-                ", uncles=" + Arrays.toString(uncles) +
-                '}';
+            "header=" + header +
+            ", transactions=" + Arrays.toString(transactions) +
+            ", uncles=" + Arrays.toString(uncles) +
+            '}';
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public boolean equals (Object o) {
-
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Block)) return false;
         Block block = (Block) o;
         return header.equals(block.header) && Arrays.equals(transactions,
-                block.transactions) && Arrays.equals(uncles, block.uncles);
+            block.transactions) && Arrays.equals(uncles, block.uncles);
     }
 
-    @Override
-    public int hashCode () {
+    @Override public int hashCode () {
         int result = Objects.hash(header);
         result = 31 * result + Arrays.hashCode(transactions);
         result = 31 * result + Arrays.hashCode(uncles);
         return result;
     }
-
 
     // ---------------------------------------------------------------------------------------------
 }

@@ -24,21 +24,13 @@ public final class BlockTests {
     // ---------------------------------------------------------------------------------------------
 
     @Test(dataProvider = "blocks")
-    public void testBlock (BlockTestCase testCase)
+    public void testBlocks (BlockTestCase testCase)
             throws IllegalBlockFormatException {
 
         Config.VALIDATE_POW = testCase.validatePoW;
         CONTEXT.blockHeight = testCase.blockHeight;
         testValidBlock(testCase);
         CONTEXT.reset();
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    private void testBlockParsingSerialization (BlockTestCase testCase)
-            throws IllegalBlockFormatException {
-
-        assertEquals(testCase.genesis.rlp().toHexString(), testCase.genesisRLP);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -60,7 +52,7 @@ public final class BlockTests {
 
                 assertEquals(block.header.difficulty, computedDifficulty);
             }
-            assertEquals(block.validate(), BlockValidity.VAL_VALID);
+            assertEquals(block.validate(), BlockValidity.BLOCK_VALID);
         }
         Blocks.DB.clear();
 
@@ -84,7 +76,7 @@ public final class BlockTests {
 
                 assertEquals(block.header.difficulty, computedDifficulty);
             }
-            assertEquals(block.validate(), BlockValidity.VAL_VALID);
+            assertEquals(block.validate(), BlockValidity.BLOCK_VALID);
         }
         Blocks.DB.clear();
     }
