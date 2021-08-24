@@ -1,6 +1,7 @@
 package com.norswap.nanoeth.blocks;
 
 import com.norswap.nanoeth.Config;
+import com.norswap.nanoeth.annotations.Nullable;
 import com.norswap.nanoeth.receipts.BloomFilter;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Hash;
@@ -231,15 +232,29 @@ public final class BlockHeader {
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Validates the block header against its parent (automatically retrieved from {@link Blocks#DB}).
+     *
+     * @return {@link BlockValidity#VAL_VALID} if the header is valid, or a {@link BlockValidity}
+     * value that indicates the reason for the failure.
+     *
+     * @see Block#validate() for full block validation, including running the transactions.
+     */
+    public BlockValidity validate() {
+        return validate(Blocks.DB.getHeader(parentHash));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
      * Validates the block header against its parent. The parent is expected to have been
-     * retrieve from this header's {@link #parentHash}.
+     * retrieve from this header's {@link #parentHash} (can be null for the genesis block).
      *
      * @return {@link BlockValidity#VAL_VALID} if the header is valid, or a {@link BlockValidity}
      *      value that indicates the reason for the failure.
      *
      * @see Block#validate() for full block validation, including running the transactions.
      */
-    public BlockValidity validate (BlockHeader parent) {
+    public BlockValidity validate (@Nullable BlockHeader parent) {
 
         // NOTE(norswap): In a real client, a number of these things should already be checked
         //  upstream (in the networking layer) to avoid DoS via huge blocks. Nevertheless it's good
