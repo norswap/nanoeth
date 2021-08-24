@@ -52,12 +52,12 @@ public final class TransactionTests {
         assertEquals(bytesReencodedFromHex, bytesFromHex);
 
         // test transaction parsing + serialization: toRlp(txFromRlp(rlp)) == rlp
-        var tx = Transaction.from(testCase.envelopeType, rlpFromHex);
+        var tx = Transaction.from(rlpFromHex);
         var rlpFromTx = tx.rlp();
         assertEquals(rlpFromTx, rlpFromHex);
 
         // test transaction parsing + serialization: txFromRlp(toRlp(tx)) == tx
-        var txReconstructedFromRlp = Transaction.from(testCase.envelopeType, rlpFromTx);
+        var txReconstructedFromRlp = Transaction.from(rlpFromTx);
         assertEquals(txReconstructedFromRlp, tx); // test transaction parsing
 
         // test dumping hex string: toHexString(tx) == hexString

@@ -92,7 +92,7 @@ public final class OfficialTransactionData {
                     var valid = versionResult.has("sender");
                     testCases.add(new TransactionTestCase(
                         String.format("%s (%s))", fileName, version),
-                        blockHeight(version), /* chainId */ 1, /* envelopeType */ 0, rlp, valid,
+                        blockHeight(version), /* chainId */ 1, rlp, valid,
                         valid ? "0x" + versionResult.getString("hash")   : null,
                         valid ? "0x" + versionResult.getString("sender") : null));
                 }

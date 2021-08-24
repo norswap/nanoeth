@@ -17,9 +17,6 @@ public final class TransactionTestCase {
     /** ID for the chain the transaction belongs to. */
     public final int chainId;
 
-    /** The {@link TransactionEnvelopeType transaction envelope type}. */
-    public final int envelopeType;
-
     /** RLP-encoding of the transaction as a {@link ByteUtils#toFullHexString(byte[]) hex string}. */
     public final String hexRLP;
 
@@ -34,12 +31,11 @@ public final class TransactionTestCase {
 
     // ---------------------------------------------------------------------------------------------
 
-    public TransactionTestCase (String name, int blockHeight, int chainId, int envelopeType,
+    public TransactionTestCase (String name, int blockHeight, int chainId,
             String hexRLP, boolean valid, String hash, String sender) {
         this.name = name;
         this.blockHeight = blockHeight;
         this.chainId = chainId;
-        this.envelopeType = envelopeType;
         this.hexRLP = hexRLP;
         this.valid = valid;
         this.hash = hash;

@@ -4,7 +4,6 @@ import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.transactions.Transaction;
-import com.norswap.nanoeth.transactions.TransactionEnvelopeType;
 import com.norswap.nanoeth.utils.Utils;
 import java.util.Arrays;
 import java.util.Objects;
@@ -170,16 +169,12 @@ public final class Block {
 
     // ---------------------------------------------------------------------------------------------
 
-    // TODO speculative, not an execution/consensus concern, only a JSON-RPC concern
     /**
      * Returns the RLP representation of this block, whose binary encoding is used to transmit the
      * block over the network.
      */
     public RLP rlp() {
-        var txs = Arrays.stream(transactions).map(tx ->
-            tx.format.type == TransactionEnvelopeType.ENVELOPE_TYPE_NONE
-                ? tx.rlp()
-                : RLP.sequence(tx.format.type, tx.rlp())).toArray();
+        var txs = Arrays.stream(transactions).map(Transaction::rlp).toArray();
         return RLP.sequence(header.rlp(), txs, uncles);
     }
 

@@ -5,7 +5,10 @@ import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
+import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.versions.EthereumVersion;
+
+import java.util.Arrays;
 
 import static com.norswap.nanoeth.rlp.RLPParsing.*;
 import static com.norswap.nanoeth.transactions.TransactionFormat.*;
@@ -24,19 +27,24 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Implements {@link Transaction#from} */
-    static Transaction parse (int type, RLP seq)
+    static Transaction parse (RLP rlp)
             throws IllegalTransactionFormatException {
 
-        if (!seq.isSequence()) throw new IllegalTransactionFormatException(
-            "top level RLP object is a byte array and not a sequence");
+        // The transaction can either be a RLP-encoded sequence (no envelope type), or a
+        // RLP-encoded byte array whose first byte is the type, and the rest is
+        // (for all currently existing types) a RLP-encoded sequence.
+
+        final int type = rlp.isSequence()
+            ? ENVELOPE_TYPE_NONE
+            : ByteUtils.uint(rlp.byteAt(0));
 
         try {
             return switch (type) {
-                case ENVELOPE_TYPE_NONE     -> parseTransactionWithoutEnvelope(seq);
-                case ENVELOPE_TYPE_EIP_2930 -> parseEIP2930Transaction(seq);
-                case ENVELOPE_TYPE_EIP_1559 -> parseEIP1559Transaction(seq);
+                case ENVELOPE_TYPE_NONE     -> parseTransactionWithoutEnvelope(rlp);
+                case ENVELOPE_TYPE_EIP_2930 -> parseEIP2930Transaction(rlp);
+                case ENVELOPE_TYPE_EIP_1559 -> parseEIP1559Transaction(rlp);
                 default -> throw new IllegalTransactionFormatException(
-                            "invalid transaction envelope type: " + type);
+                        "invalid transaction envelope type: " + type);
             };
         } catch (RLPParsingException e) {
             // TODO is a bit janky -- should unify exceptions? and ensure context is always full?
@@ -86,11 +94,17 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Transaction parseEIP2930Transaction (RLP seq)
+    private static Transaction parseEIP2930Transaction (RLP rlp)
             throws IllegalTransactionFormatException, RLPParsingException {
 
         if (EthereumVersion.BERLIN.isFuture())
             throw new IllegalTransactionFormatException("EIP-2930 transaction before Berlin");
+
+        // cf. comment in parse(RLP)
+        byte[] bytes = rlp.bytes();
+        assert bytes[0] == ENVELOPE_TYPE_EIP_2930;
+        bytes = Arrays.copyOfRange(bytes, 1, bytes.length);
+        RLP seq = RLP.decode(bytes);
 
         var chainId     = getNatural(seq, 0);
         var nonce       = getNatural(seq, 1);
@@ -111,11 +125,17 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Transaction parseEIP1559Transaction (RLP seq)
+    private static Transaction parseEIP1559Transaction (RLP rlp)
             throws IllegalTransactionFormatException, RLPParsingException {
 
         if (EthereumVersion.BERLIN.isFuture())
             throw new IllegalTransactionFormatException("EIP-1559 transaction before London");
+
+        // cf. comment in parse(RLP)
+        byte[] bytes = rlp.bytes();
+        assert bytes[0] == ENVELOPE_TYPE_EIP_2930;
+        bytes = Arrays.copyOfRange(bytes, 1, bytes.length);
+        RLP seq = RLP.decode(bytes);
 
         var chainId                 = getNatural(seq, 0);
         var nonce                   = getNatural(seq, 1);

@@ -44,7 +44,7 @@ public class FixBadSignature {
         "ttData/DataTestNotEnoughGAS",
     };
 
-    public static void main (String[] args) throws IOException, IllegalTransactionFormatException {
+    public static void main (String[] args) throws IllegalTransactionFormatException {
         for (String testPathStr: badSignatureTestsPaths) {
             var testPath
                 = TEST_REPO + "TransactionTests/" + testPathStr + ".json";
@@ -63,7 +63,7 @@ public class FixBadSignature {
             testJson = testJson.getJSONObject(name);
             var hexRLP = testJson.getString("rlp");
             var rlp = RLP.decode(hexRLP);
-            var tx = Transaction.from(0, rlp);
+            var tx = Transaction.from(rlp);
             // to inspect
             // DebugUtils.dump(tx);
 

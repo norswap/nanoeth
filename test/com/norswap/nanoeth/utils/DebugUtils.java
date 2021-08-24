@@ -51,7 +51,7 @@ public final class DebugUtils {
     /** Loads a transaction from an official transaction test case, given its file path.
      * <p>Does not touch {@link Context#blockHeight}.
      */
-    public static Transaction txFromJson (int transactionEnvelopeType, String path) {
+    public static Transaction txFromJson (String path) {
         System.out.println(path);
         var string = IO.slurp(path);
         var json = new JSONObject(string);
@@ -59,7 +59,7 @@ public final class DebugUtils {
         var data = json.getJSONObject(name);
         var hex = data.getString("rlp");
         var rlp = RLP.decode(hex);
-        return Exceptions.suppress(() -> Transaction.from(transactionEnvelopeType, rlp));
+        return Exceptions.suppress(() -> Transaction.from(rlp));
     }
 
     // ---------------------------------------------------------------------------------------------
