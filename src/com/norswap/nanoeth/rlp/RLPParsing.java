@@ -28,14 +28,18 @@ public final class RLPParsing {
                     "Natural should not be more than 32 bytes long.");
         return new Natural(bytes);
     }
-    
+
     // ---------------------------------------------------------------------------------------------
 
-    /** Parses the i-th item of the sequence, which should be a byte array, into a 32-bit integer. */
-    public static int getInt (RLP seq, int i)
+    /** Parses the i-th item of the sequence, which should be a byte array of size 1, into a unsigned byte. */
+    public static int getByte (RLP seq, int i)
             throws RLPParsingException {
 
-        return ByteUtils.toInt(getBytes(seq, i));
+        var bytes = getBytes(seq, i);
+        if (bytes.length != 1)
+            throw new RLPParsingException("expected a single byte but got "
+                + bytes.length + " bytes instead");
+        return ByteUtils.uint(bytes[0]);
     }
     
     // ---------------------------------------------------------------------------------------------
@@ -48,7 +52,6 @@ public final class RLPParsing {
         if (bytes.length != 8)
             throw new RLPParsingException("expected an 8-bytes (64-bit) integer but got "
                 + bytes.length + " bytes instead");
-
         return ByteUtils.toLong(bytes);
     }
 

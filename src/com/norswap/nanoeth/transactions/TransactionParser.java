@@ -7,10 +7,7 @@ import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.versions.EthereumVersion;
 
-import static com.norswap.nanoeth.rlp.RLPParsing.getNatural;
-import static com.norswap.nanoeth.rlp.RLPParsing.getAddress;
-import static com.norswap.nanoeth.rlp.RLPParsing.getInt;
-import static com.norswap.nanoeth.rlp.RLPParsing.getBytes;
+import static com.norswap.nanoeth.rlp.RLPParsing.*;
 import static com.norswap.nanoeth.transactions.TransactionFormat.*;
 import static com.norswap.nanoeth.transactions.TransactionEnvelopeType.*;
 
@@ -62,18 +59,18 @@ final class TransactionParser {
         // See signature package README.
         TransactionFormat format;
         Natural chainId;
-        int yParity;
+        Natural yParity;
         var v = getNatural(seq, 6);
         if (v.same(27) || v.same(28)) {
             format     = TX_LEGACY;
             chainId    = new Natural(1);
-            yParity    = v.intValue() - 27;
+            yParity    = v.subtract(27);
         } else if (v.greaterSame(37)) {
             if (EthereumVersion.SPURIOUS_DRAGON.isFuture())
                 throw new IllegalTransactionFormatException("EIP-155 transaction before Spurious Dragon");
 
             format     = TX_EIP_155;
-            yParity    = v.subtract(35).mod(2).intValue();
+            yParity    = v.subtract(35).mod(2);
             chainId    = v.subtract(35).divide(2);
         } else {
             throw new IllegalTransactionFormatException("invalid v signature value");
@@ -103,7 +100,7 @@ final class TransactionParser {
         var value       = getNatural(seq, 5);
         var payload     = getBytes(seq, 6);
         var accessList  = getAccessList(seq, 7);
-        var yParity     = getInt(seq, 8);
+        var yParity     = getNatural(seq, 8);
         var r           = getNatural(seq, 9);
         var s           = getNatural(seq, 10);
         var signature   = makeSignature(yParity, r, s); // legal, but unverified!
@@ -129,7 +126,7 @@ final class TransactionParser {
         var value                   = getNatural(seq, 6);
         var payload                 = getBytes(seq, 7);
         var accessList              = getAccessList(seq, 8);
-        int yParity                 = getInt(seq, 9);
+        var yParity                 = getNatural(seq, 9);
         var r                       = getNatural(seq, 10);
         var s                       = getNatural(seq, 11);
         var signature               = makeSignature(yParity, r, s); // legal, but unverified!
@@ -140,12 +137,15 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Signature makeSignature (int yParity, Natural r, Natural s)
+    private static Signature makeSignature (Natural yParity, Natural r, Natural s)
             throws IllegalTransactionFormatException {
         try {
-            return new Signature(yParity, r, s);
+            return new Signature(yParity.intValueExact(), r, s);
         } catch (IllegalSignature e) {
             throw new IllegalTransactionFormatException("illegal signature", e);
+        } catch (ArithmeticException e) {
+            throw new IllegalTransactionFormatException(
+                "y Parity value does not fit in integer: " + yParity);
         }
     }
 
