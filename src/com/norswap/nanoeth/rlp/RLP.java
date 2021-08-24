@@ -10,6 +10,7 @@ import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.data.StorageKey;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.utils.ByteUtils;
+import com.norswap.nanoeth.utils.Hashing;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -213,6 +214,16 @@ public final class RLP {
         return bytes == null
             ? RLPEncoding.encode(items)
             : RLPEncoding.encode(bytes);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the {@link Hashing#keccak Keccak} hash of the the {@link #encode() encoding} of this
+     * object.
+     */
+    public Hash hash() {
+        return Hashing.keccak(encode());
     }
 
     // ---------------------------------------------------------------------------------------------
