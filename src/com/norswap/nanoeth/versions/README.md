@@ -73,7 +73,7 @@ Also check the [similar page on the ethereum/execution-specs repo](https://githu
     [EIP-1283](https://eips.ethereum.org/EIPS/eip-1283)
   - mainnet: 28 February 2019
 
-- [St-Petersburg](https://blog.ethereum.org/2019/02/22/ethereum-constantinople-st-petersburg-upgrade-announcement/)
+- [Petersburg](https://blog.ethereum.org/2019/02/22/ethereum-constantinople-st-petersburg-upgrade-announcement/)
   - [Meta (EIP-1716)](https://eips.ethereum.org/EIPS/eip-1716),
     REMOVED [EIP-1283](https://eips.ethereum.org/EIPS/eip-1283)
   - Note: on same height as Constantinople on mainnet, leading to EIP-1283 never hitting mainnet.

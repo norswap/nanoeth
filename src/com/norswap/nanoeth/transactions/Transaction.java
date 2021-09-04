@@ -114,8 +114,7 @@ public final class Transaction extends UnsignedTransaction {
      * <p>For those who have an envelope type, the encoding is a RLP byte array comprising one byte
      * for the type, followed by the plain RLP encoding for the transaction.
      *
-     * <p>Note that the above is not super clear from EIP-2718, but the implementation of other
-     * clients confirms it.
+     * <p>Note that the above is not super clear from EIP-2718, but is clarified in EIP-2976.
      */
     public RLP rlp() {
         var plain = plainRLP();
