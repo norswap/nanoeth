@@ -1,5 +1,6 @@
 package com.norswap.nanoeth.data;
 
+import com.norswap.nanoeth.Config;
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.blocks.BlockHeader;
@@ -28,7 +29,7 @@ public final class Address {
     /**
      * An address composed of 20 zero bytes.
      * <p>Not to be confused with {@link #EMPTY}.
-     * <p>Used as coinbase for the {@link BlockHeader#GENESIS_HEADER genesis block}.
+     * <p>Used as coinbase for the {@link Config#GENESIS genesis block}.
      */
     public static Address ZERO = new Address(new byte[20]);
 
