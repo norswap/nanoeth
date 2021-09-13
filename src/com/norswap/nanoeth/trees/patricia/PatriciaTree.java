@@ -3,7 +3,10 @@ package com.norswap.nanoeth.trees.patricia;
 import com.norswap.nanoeth.annotations.Nullable;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.data.MerkleRoot;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.trees.patricia.memory.MemPatriciaLeafNode;
+import com.norswap.nanoeth.utils.Hashing;
+import org.bouncycastle.jcajce.provider.digest.Keccak;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +30,12 @@ public class PatriciaTree {
 
     /**
      * Merkle root of an empty tree, which the Keccak hash of an empty byte sequence.
+     * <p>
+     * Namely, this byte sequence is {@code
+     * "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"}
      */
     public final static MerkleRoot EMPTY_TREE_ROOT
-        = new MerkleRoot("0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421");
+        = new MerkleRoot(Hashing.keccak(RLP.bytes(new byte[0]).encode()));
 
     // ---------------------------------------------------------------------------------------------
 
