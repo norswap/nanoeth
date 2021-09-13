@@ -198,7 +198,6 @@ public final class ByteUtils {
 
         byte[] result = new byte[length];
         byte[] unpadded = value.toByteArray();
-        Assert.that(unpadded.length <= length, "Length smaller than unpadded encoding");
         int srcOffset = unpadded[0] == 0 ? 1 : 0; // exlude byte included only for sign bit
         int unpaddedLenth = unpadded.length - srcOffset;
         int dstOffset = length - unpaddedLenth;
