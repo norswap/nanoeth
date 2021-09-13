@@ -105,9 +105,10 @@ public final class ByteUtils {
 
     /**
      * Returns the minimum number of bytes needed to store the integer.
-     * This returns 1 if the value is 0.
+     * This returns 0 if the value is 0.
      */
     public static int byteSize (int value) {
+        if (value == 0)                     return 0;
         if (value == (value & 0xFF))        return 1;
         if (value == (value & 0xFFFF))      return 2;
         if (value == (value & 0xFFFFFF))    return 3;
