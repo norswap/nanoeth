@@ -52,12 +52,16 @@ public enum TransactionFormat {
     /**
      * Determines the transaction format from the envelope type (use {@link
      * TransactionEnvelopeType#ENVELOPE_TYPE_NONE} if there is envelope type) and the signature
+     * {@code v} value.
 
      * @throws IllegalTransactionFormatException if either the envelope type or the {@code v} value
      * are illegal.
      */
     public static TransactionFormat findFormat (int type, Natural v)
             throws IllegalTransactionFormatException {
+
+        // Note: this logic is largely reimplemented in TransactionParser.
+
         switch (type) {
             case ENVELOPE_TYPE_NONE:
                 if (v.same(27) || v.same(28))
