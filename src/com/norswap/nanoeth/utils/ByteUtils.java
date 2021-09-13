@@ -282,6 +282,8 @@ public final class ByteUtils {
      * Converts a hex-string (e.g. "0x123") to a byte array, with the first digits occupying the
      * first array slots. If there is odd number of digit, the first byte matches the first digit
      * (its higher-order nibble (4 bits) will be 0).
+     *
+     * <p>This accepts the empty hex string ("0x"), for which an empty array is returned.
      */
     public static byte[] hexStringToBytes (String hexString) {
         return hexStringToBytes(hexString, 0);
@@ -301,6 +303,7 @@ public final class ByteUtils {
         Assert.arg(hexString.startsWith("0x"), "Hex string does not start with 0x: %s", hexString);
 
         int strLen = hexString.length() - 2; // for "0x"
+        if (strLen == 0) return new byte[0];
         int natLen = (strLen - 1) / 2 + 1; // strLen/2, rounded up
         int len = Math.max(natLen, minLen);
         byte[] array = new byte[len];
