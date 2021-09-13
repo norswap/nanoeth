@@ -117,6 +117,13 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  unlike all other addresses which are 20-bytes long.</div>
 </td>
 </tr>
+<tr class="alt-color">
+<td class="col-first"><code>static <a href="Address.html" title="class in com.norswap.nanoeth.data">Address</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#ZERO">ZERO</a></span></code></th>
+<td class="col-last">
+<div class="block">An address composed of 20 zero bytes.</div>
+</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -210,7 +217,18 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <h3>EMPTY</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Address.html" title="class in com.norswap.nanoeth.data">Address</a></span>&nbsp;<span class="member-name">EMPTY</span></div>
 <div class="block">The address the yellow paper denotes as "∅" and is represent by a zero-length byte sequence,
- unlike all other addresses which are 20-bytes long.</div>
+ unlike all other addresses which are 20-bytes long.
+ <p>Not to be confused with <a href="#ZERO"><code>ZERO</code></a>.
+ <p>Used as destination for contract creation.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="ZERO">
+<h3>ZERO</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Address.html" title="class in com.norswap.nanoeth.data">Address</a></span>&nbsp;<span class="member-name">ZERO</span></div>
+<div class="block">An address composed of 20 zero bytes.
+ <p>Not to be confused with <a href="#EMPTY"><code>EMPTY</code></a>.
+ <p>Used as coinbase for the <a href="../Config.html#GENESIS"><code>genesis block</code></a>.</div>
 </section>
 </li>
 <li>

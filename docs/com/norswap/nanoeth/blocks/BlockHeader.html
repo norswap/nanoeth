@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":9,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":9,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -112,39 +112,31 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#difficulty">difficulty</a></span></code></th>
 <td class="col-last">
 <div class="block">The difficult level of the block, calculated from the previous' block difficulty level and
- the <a href="#timestamp"><code>timestamp</code></a>.</div>
+ the <a href="#timestamp"><code>timestamp</code></a> (cf.</div>
 </td>
 </tr>
 <tr class="alt-color">
-<td class="col-first"><code>static <a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#EMPTY_SEQ_HASH">EMPTY_SEQ_HASH</a></span></code></th>
-<td class="col-last">
-<div class="block">Hash of the empty RLP sequence, which can be compared against the uncle hash to see if the
- block has any uncles.</div>
-</td>
-</tr>
-<tr class="row-color">
 <td class="col-first"><code>byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#extraData">extraData</a></span></code></th>
 <td class="col-last">
 <div class="block">An arbitrary byte array containing data relevant to this block.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <td class="col-first"><code><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#gasLimit">gasLimit</a></span></code></th>
 <td class="col-last">
 <div class="block">Current maximum amount of gas usable per block.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <td class="col-first"><code><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#gasUsed">gasUsed</a></span></code></th>
 <td class="col-last">
 <div class="block">The amount of gas used in this block.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <td class="col-first"><code><a href="../receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#logsBloom">logsBloom</a></span></code></th>
 <td class="col-last">
@@ -152,7 +144,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  contained in each log entry from the receipt of each transaction in the transactions list.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <td class="col-first"><code><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#mixHash">mixHash</a></span></code></th>
 <td class="col-last">
@@ -160,7 +152,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  computation has been carried out on this block.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <td class="col-first"><code>long</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#nonce">nonce</a></span></code></th>
 <td class="col-last">
@@ -168,49 +160,49 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  amount of computation has been carried out on this block.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <td class="col-first"><code><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#number">number</a></span></code></th>
 <td class="col-last">
 <div class="block">The number of ancestor blocks (aka "height").</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <td class="col-first"><code><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#parentHash">parentHash</a></span></code></th>
 <td class="col-last">
 <div class="block">The <code>hash</code> of the parent block.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <td class="col-first"><code><a href="../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#receiptsRoot">receiptsRoot</a></span></code></th>
 <td class="col-last">
 <div class="block">The Merkle root of the receipts list of the block.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <td class="col-first"><code><a href="../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#stateRoot">stateRoot</a></span></code></th>
 <td class="col-last">
 <div class="block">The Merkle root of the state tree.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <td class="col-first"><code><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#timestamp">timestamp</a></span></code></th>
 <td class="col-last">
 <div class="block">A value equal to the reasonable output of Unix’s time() at this block’s inception.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <td class="col-first"><code><a href="../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#transactionsRoot">transactionsRoot</a></span></code></th>
 <td class="col-last">
 <div class="block">The Merkle root of the transactions list of the block.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <td class="col-first"><code><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#uncleHash">uncleHash</a></span></code></th>
 <td class="col-last">
@@ -302,6 +294,13 @@ long&nbsp;nonce)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i4">
+<td class="col-first"><code>boolean</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hasUncles()">hasUncles</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Return true iff the <a href="#uncleHash"><code>uncleHash</code></a> is not the hash of the empty sequence.</div>
+</td>
+</tr>
+<tr class="row-color" id="i5">
 <td class="col-first"><code><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#rlp()">rlp</a></span>()</code></th>
 <td class="col-last">
@@ -309,13 +308,20 @@ long&nbsp;nonce)</code></th>
  RLP-encoded) when circulated over the network.</div>
 </td>
 </tr>
-<tr class="row-color" id="i5">
+<tr class="alt-color" id="i6">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="alt-color" id="i6">
-<td class="col-first"><code><a href="BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></code></td>
+<tr class="row-color" id="i7">
+<td class="col-first"><code><a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#validate()">validate</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Validates the block header against its parent (automatically retrieved from <a href="Blocks.html#DB"><code>Blocks.DB</code></a>).</div>
+</td>
+</tr>
+<tr class="alt-color" id="i8">
+<td class="col-first"><code><a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#validate(com.norswap.nanoeth.blocks.BlockHeader)">validate</a></span>&#8203;(<a href="BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a>&nbsp;parent)</code></th>
 <td class="col-last">
 <div class="block">Validates the block header against its parent.</div>
@@ -339,14 +345,6 @@ long&nbsp;nonce)</code></th>
 <section class="field-details" id="field.detail">
 <h2>Field Details</h2>
 <ul class="member-list">
-<li>
-<section class="detail" id="EMPTY_SEQ_HASH">
-<h3>EMPTY_SEQ_HASH</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></span>&nbsp;<span class="member-name">EMPTY_SEQ_HASH</span></div>
-<div class="block">Hash of the empty RLP sequence, which can be compared against the uncle hash to see if the
- block has any uncles.</div>
-</section>
-</li>
 <li>
 <section class="detail" id="parentHash">
 <h3>parentHash</h3>
@@ -409,7 +407,7 @@ long&nbsp;nonce)</code></th>
 <h3>difficulty</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></span>&nbsp;<span class="member-name">difficulty</span></div>
 <div class="block">The difficult level of the block, calculated from the previous' block difficulty level and
- the <a href="#timestamp"><code>timestamp</code></a>.</div>
+ the <a href="#timestamp"><code>timestamp</code></a> (cf. <a href="Difficulty.html" title="class in com.norswap.nanoeth.blocks"><code>Difficulty</code></a>).</div>
 </section>
 </li>
 <li>
@@ -425,7 +423,9 @@ long&nbsp;nonce)</code></th>
 <h3>gasLimit</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></span>&nbsp;<span class="member-name">gasLimit</span></div>
 <div class="block">Current maximum amount of gas usable per block.
- <p>Yellowpaper notation: Hl</div>
+ <p>Yellowpaper notation: Hl
+ <p>A block's miner can choose to update the gas limit incrementally (up or down) within the
+ limit set by the protocol (cf. <a href="#validate(com.norswap.nanoeth.blocks.BlockHeader)"><code>validate(BlockHeader)</code></a>).</div>
 </section>
 </li>
 <li>
@@ -441,7 +441,8 @@ long&nbsp;nonce)</code></th>
 <h3>timestamp</h3>
 <div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></span>&nbsp;<span class="member-name">timestamp</span></div>
 <div class="block">A value equal to the reasonable output of Unix’s time() at this block’s inception.
- <p>Yellowpaper notation: Hs</div>
+ <p>Yellowpaper notation: Hs
+ <p>The yellowpaper puts a 256 bytes limit on this, but it doesn't seem to affect serialization.</div>
 </section>
 </li>
 <li>
@@ -527,27 +528,49 @@ long&nbsp;nonce)</span></div>
 <section class="detail" id="from(com.norswap.nanoeth.rlp.RLP)">
 <h3>from</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</span>
-                        throws <span class="exceptions"><a href="IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></span></div>
+                        throws <span class="exceptions"><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
 <div class="block">Parses a RLP sequence into a block header.</div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></code> - if the RLP sequence does not properly parse to a block header</dd>
+<dd><code><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code> - if the RLP sequence does not properly parse to a block header</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="validate()">
+<h3>validate</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></span>&nbsp;<span class="member-name">validate</span>()</div>
+<div class="block">Validates the block header against its parent (automatically retrieved from <a href="Blocks.html#DB"><code>Blocks.DB</code></a>).</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd><a href="BlockValidityStatus.html#VAL_VALID"><code>BlockValidityStatus.VAL_VALID</code></a> if the header is valid, or a <a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks"><code>BlockValidityStatus</code></a>
+ value that indicates the reason for the failure.</dd>
+<dt>See Also:</dt>
+<dd><a href="Block.html#validate()"><code>for full block validation, including running the transactions.</code></a></dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="validate(com.norswap.nanoeth.blocks.BlockHeader)">
 <h3>validate</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></span>&nbsp;<span class="member-name">validate</span>&#8203;(<span class="parameters"><a href="BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a>&nbsp;parent)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></span>&nbsp;<span class="member-name">validate</span>&#8203;(<span class="parameters"><a href="../annotations/Nullable.html" title="annotation in com.norswap.nanoeth.annotations">@Nullable</a>
+<a href="BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a>&nbsp;parent)</span></div>
 <div class="block">Validates the block header against its parent. The parent is expected to have been
- retrieve from this header's <a href="#parentHash"><code>parentHash</code></a>.</div>
+ retrieve from this header's <a href="#parentHash"><code>parentHash</code></a> (can be null for the genesis block).</div>
 <dl class="notes">
 <dt>Returns:</dt>
-<dd><a href="BlockValidity.html#VAL_VALID"><code>BlockValidity.VAL_VALID</code></a> if the header is valid, or a <a href="BlockValidity.html" title="enum in com.norswap.nanoeth.blocks"><code>BlockValidity</code></a>
+<dd><a href="BlockValidityStatus.html#VAL_VALID"><code>BlockValidityStatus.VAL_VALID</code></a> if the header is valid, or a <a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks"><code>BlockValidityStatus</code></a>
       value that indicates the reason for the failure.</dd>
 <dt>See Also:</dt>
 <dd><a href="Block.html#validate()"><code>for full block validation, including running the transactions.</code></a></dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="hasUncles()">
+<h3>hasUncles</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">hasUncles</span>()</div>
+<div class="block">Return true iff the <a href="#uncleHash"><code>uncleHash</code></a> is not the hash of the empty sequence.</div>
 </section>
 </li>
 <li>

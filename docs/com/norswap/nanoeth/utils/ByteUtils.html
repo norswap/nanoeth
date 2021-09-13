@@ -458,7 +458,9 @@ int&nbsp;size)</span></div>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">hexStringToBytes</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;hexString)</span></div>
 <div class="block">Converts a hex-string (e.g. "0x123") to a byte array, with the first digits occupying the
  first array slots. If there is odd number of digit, the first byte matches the first digit
- (its higher-order nibble (4 bits) will be 0).</div>
+ (its higher-order nibble (4 bits) will be 0).
+
+ <p>This accepts the empty hex string ("0x"), for which an empty array is returned.</div>
 </section>
 </li>
 <li>

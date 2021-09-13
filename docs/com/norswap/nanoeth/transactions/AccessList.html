@@ -102,7 +102,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <tbody>
 <tr class="alt-color">
 <td class="col-first"><code>static class&nbsp;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="AccessList.AddressKeys.html" title="class in com.norswap.nanoeth.transactions">AccessList.AddressKeys</a></span></code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="AccessList.AccessListItem.html" title="class in com.norswap.nanoeth.transactions">AccessList.AccessListItem</a></span></code></th>
 <td class="col-last">
 <div class="block">Associates an address with a collection of storage key within that account's storage tree.</div>
 </td>
@@ -128,18 +128,18 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </thead>
 <tbody>
 <tr class="alt-color">
-<td class="col-first"><code><a href="AccessList.AddressKeys.html" title="class in com.norswap.nanoeth.transactions">AccessList.AddressKeys</a>[]</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#addressKeys">addressKeys</a></span></code></th>
-<td class="col-last">
-<div class="block">A collection of addresses along with associated storage keys within that account's storage
- tree.</div>
-</td>
-</tr>
-<tr class="row-color">
 <td class="col-first"><code>static <a href="AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#EMPTY">EMPTY</a></span></code></th>
 <td class="col-last">
 <div class="block">An empty access list.</div>
+</td>
+</tr>
+<tr class="row-color">
+<td class="col-first"><code><a href="AccessList.AccessListItem.html" title="class in com.norswap.nanoeth.transactions">AccessList.AccessListItem</a>[]</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#items">items</a></span></code></th>
+<td class="col-last">
+<div class="block">A collection of addresses along with associated storage keys within that account's storage
+ tree.</div>
 </td>
 </tr>
 </tbody>
@@ -162,7 +162,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.norswap.nanoeth.transactions.AccessList.AddressKeys...)">AccessList</a></span>&#8203;(<a href="AccessList.AddressKeys.html" title="class in com.norswap.nanoeth.transactions">AccessList.AddressKeys</a>...&nbsp;addressKeys)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.norswap.nanoeth.transactions.AccessList.AccessListItem...)">AccessList</a></span>&#8203;(<a href="AccessList.AccessListItem.html" title="class in com.norswap.nanoeth.transactions">AccessList.AccessListItem</a>...&nbsp;items)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 </tbody>
@@ -241,9 +241,9 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </section>
 </li>
 <li>
-<section class="detail" id="addressKeys">
-<h3>addressKeys</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="AccessList.AddressKeys.html" title="class in com.norswap.nanoeth.transactions">AccessList.AddressKeys</a>[]</span>&nbsp;<span class="member-name">addressKeys</span></div>
+<section class="detail" id="items">
+<h3>items</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="AccessList.AccessListItem.html" title="class in com.norswap.nanoeth.transactions">AccessList.AccessListItem</a>[]</span>&nbsp;<span class="member-name">items</span></div>
 <div class="block">A collection of addresses along with associated storage keys within that account's storage
  tree.</div>
 </section>
@@ -257,9 +257,9 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.transactions.AccessList.AddressKeys...)">
+<section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.transactions.AccessList.AccessListItem...)">
 <h3>AccessList</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">AccessList</span>&#8203;(<span class="parameters"><a href="AccessList.AddressKeys.html" title="class in com.norswap.nanoeth.transactions">AccessList.AddressKeys</a>...&nbsp;addressKeys)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">AccessList</span>&#8203;(<span class="parameters"><a href="AccessList.AccessListItem.html" title="class in com.norswap.nanoeth.transactions">AccessList.AccessListItem</a>...&nbsp;items)</span></div>
 </section>
 </li>
 </ul>
@@ -274,11 +274,11 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <section class="detail" id="from(com.norswap.nanoeth.rlp.RLP)">
 <h3>from</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq)</span>
-                       throws <span class="exceptions"><a href="IllegalTransactionFormatException.html" title="class in com.norswap.nanoeth.transactions">IllegalTransactionFormatException</a></span></div>
+                       throws <span class="exceptions"><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
 <div class="block">Parses the given RLP sequence into the access list.</div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="IllegalTransactionFormatException.html" title="class in com.norswap.nanoeth.transactions">IllegalTransactionFormatException</a></code> - if the RLP sequence does not properly encode an
+<dd><code><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code> - if the RLP sequence does not properly encode an
  access list</dd>
 </dl>
 </section>

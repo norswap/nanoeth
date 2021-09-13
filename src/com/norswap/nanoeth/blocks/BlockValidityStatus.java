@@ -48,7 +48,7 @@ public enum BlockValidityStatus {
     VAL_DUPLICATE_UNCLE,
     /** An uncle has already appeared *as* an ancestor. */
     VAL_UNCLE_IS_ANCESTOR,
-    /** An included uncle isn't really an uncle (the sibling of an ancestor of degree <= 6. */
+    /** An included uncle isn't really an uncle (the sibling of an ancestor of degree {@code <= 6}. */
     VAL_UNRELATED_UNCLE;
 
     // ---------------------------------------------------------------------------------------------

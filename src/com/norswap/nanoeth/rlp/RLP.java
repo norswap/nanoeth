@@ -57,7 +57,7 @@ public final class RLP {
      * <ul>
      * <li>{@code byte[]}</li>
      * <li>{@link RLP}</li>
-     * <li>{@link Byte] (can pass a {@code byte}</li>
+     * <li>{@link Byte} (can pass a {@code byte})</li>
      * <li>{@link Integer} (encoded on 4 bytes, can pass an {@code int}</li>
      * <li>{@link Long} (encoded on 8 bytes, can pass a {@code long}</li>
      * <li>{@link Natural} (encoded using only as many bytes as necessary, no leading 0)</li>

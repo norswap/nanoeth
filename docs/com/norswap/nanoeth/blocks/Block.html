@@ -108,17 +108,25 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </tr>
 <tr class="row-color">
 <td class="col-first"><code>static int</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#MAX_UNCLES">MAX_UNCLES</a></span></code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#MAX_UNCLE_DEGREE">MAX_UNCLE_DEGREE</a></span></code></th>
 <td class="col-last">
-<div class="block">Maximum number of uncle that can be included in the block.</div>
+<div class="block">Maximum uncle degree (e.g.</div>
 </td>
 </tr>
 <tr class="alt-color">
+<td class="col-first"><code>static int</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#MAX_UNCLES">MAX_UNCLES</a></span></code></th>
+<td class="col-last">
+<div class="block">Maximum number of uncle that can be included in the block, which is 2, as per section 11.1
+ of the yellowpaper.</div>
+</td>
+</tr>
+<tr class="row-color">
 <td class="col-first"><code><a href="../transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a>[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#transactions">transactions</a></span></code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <td class="col-first"><code><a href="BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a>[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#uncles">uncles</a></span></code></th>
 <td class="col-last">
@@ -203,10 +211,11 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i5">
-<td class="col-first"><code><a href="BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></code></td>
+<td class="col-first"><code><a href="BlockValidity.html" title="class in com.norswap.nanoeth.blocks">BlockValidity</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#validate()">validate</a></span>()</code></th>
 <td class="col-last">
-<div class="block">Validates the block.</div>
+<div class="block">Validates the block, returning a <a href="BlockValidity.html" title="class in com.norswap.nanoeth.blocks"><code>BlockValidity</code></a> object to indicate if the block
+ valid or invalid (and why).</div>
 </td>
 </tr>
 </tbody>
@@ -231,11 +240,22 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <section class="detail" id="MAX_UNCLES">
 <h3>MAX_UNCLES</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">MAX_UNCLES</span></div>
-<div class="block">Maximum number of uncle that can be included in the block.
- TODO: specified where?</div>
+<div class="block">Maximum number of uncle that can be included in the block, which is 2, as per section 11.1
+ of the yellowpaper.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd><a href="../../../../constant-values.html#com.norswap.nanoeth.blocks.Block.MAX_UNCLES">Constant Field Values</a></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="MAX_UNCLE_DEGREE">
+<h3>MAX_UNCLE_DEGREE</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">MAX_UNCLE_DEGREE</span></div>
+<div class="block">Maximum uncle degree (e.g. degree 1 = sibling of parent, degree 2 = sibling of grandparent).</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd><a href="../../../../constant-values.html#com.norswap.nanoeth.blocks.Block.MAX_UNCLE_DEGREE">Constant Field Values</a></dd>
 </dl>
 </section>
 </li>
@@ -278,7 +298,9 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.blocks.BlockHeader,com.norswap.nanoeth.transactions.Transaction[],com.norswap.nanoeth.blocks.BlockHeader[])">
 <h3>Block</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">Block</span>&#8203;(<span class="parameters"><a href="BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a>&nbsp;header,
+<a href="../annotations/Retained.html" title="annotation in com.norswap.nanoeth.annotations">@Retained</a>
 <a href="../transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a>[]&nbsp;transactions,
+<a href="../annotations/Retained.html" title="annotation in com.norswap.nanoeth.annotations">@Retained</a>
 <a href="BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a>[]&nbsp;uncles)</span></div>
 </section>
 </li>
@@ -294,24 +316,20 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <section class="detail" id="from(com.norswap.nanoeth.rlp.RLP)">
 <h3>from</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</span>
-                  throws <span class="exceptions"><a href="IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></span></div>
+                  throws <span class="exceptions"><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
 <div class="block">Parses a RLP sequence into a block.</div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></code> - if the RLP sequence does not properly parse to a block</dd>
+<dd><code><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code> - if the RLP sequence does not properly parse to a block</dd>
 </dl>
 </section>
 </li>
 <li>
 <section class="detail" id="validate()">
 <h3>validate</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></span>&nbsp;<span class="member-name">validate</span>()</div>
-<div class="block">Validates the block.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd><a href="BlockValidity.html#VAL_VALID"><code>BlockValidity.VAL_VALID</code></a> if the block is valid, or a <a href="BlockValidity.html" title="enum in com.norswap.nanoeth.blocks"><code>BlockValidity</code></a>
-      value that indicates the reason for the failure.</dd>
-</dl>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BlockValidity.html" title="class in com.norswap.nanoeth.blocks">BlockValidity</a></span>&nbsp;<span class="member-name">validate</span>()</div>
+<div class="block">Validates the block, returning a <a href="BlockValidity.html" title="class in com.norswap.nanoeth.blocks"><code>BlockValidity</code></a> object to indicate if the block
+ valid or invalid (and why).</div>
 </section>
 </li>
 <li>

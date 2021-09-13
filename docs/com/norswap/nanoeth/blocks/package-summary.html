@@ -82,10 +82,17 @@ loadScripts(document, 'script');</script>
 </td>
 </tr>
 <tr class="row-color">
+<th class="col-first" scope="row"><a href="BlockValidity.html" title="class in com.norswap.nanoeth.blocks">BlockValidity</a></th>
+<td class="col-last">
+<div class="block">The block validity is a wrapper for <a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks"><code>BlockValidityStatus</code></a> which includes additional
+ information if the block is invalid.</div>
+</td>
+</tr>
+<tr class="alt-color">
 <th class="col-first" scope="row"><a href="Difficulty.html" title="class in com.norswap.nanoeth.blocks">Difficulty</a></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><a href="ProofOfWork.html" title="class in com.norswap.nanoeth.blocks">ProofOfWork</a></th>
 <td class="col-last">&nbsp;</td>
 </tr>
@@ -105,31 +112,10 @@ loadScripts(document, 'script');</script>
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-first" scope="row"><a href="BlockValidity.html" title="enum in com.norswap.nanoeth.blocks">BlockValidity</a></th>
+<th class="col-first" scope="row"><a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></th>
 <td class="col-last">
-<div class="block">TODO</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</li>
-<li>
-<div class="type-summary">
-<table class="summary-table">
-<caption><span>Exception Summary</span></caption>
-<thead>
-<tr>
-<th class="col-first" scope="col">Exception</th>
-<th class="col-last" scope="col">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="alt-color">
-<th class="col-first" scope="row"><a href="IllegalBlockFormatException.html" title="class in com.norswap.nanoeth.blocks">IllegalBlockFormatException</a></th>
-<td class="col-last">
-<div class="block">Thrown when attempting to parse a RLP sequence into a block (or one of its components), but
- the format of the sequence does not match what is expected.</div>
+<div class="block">The validity status of a block, which is either valid (<a href="BlockValidityStatus.html#VAL_VALID"><code>BlockValidityStatus.VAL_VALID</code></a>), or another status
+ indicating why the block is invalid.</div>
 </td>
 </tr>
 </tbody>

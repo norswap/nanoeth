@@ -195,7 +195,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#findFormat(int,com.norswap.nanoeth.data.Natural)">findFormat</a></span>&#8203;(int&nbsp;type,
 <a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a>&nbsp;v)</code></th>
 <td class="col-last">
-<div class="block">Determines the transaction format from the envelope type (use <a href="TransactionEnvelopeType.html#ENVELOPE_TYPE_NONE"><code>TransactionEnvelopeType.ENVELOPE_TYPE_NONE</code></a> if there is envelope type) and the signature</div>
+<div class="block">Determines the transaction format from the envelope type (use <a href="TransactionEnvelopeType.html#ENVELOPE_TYPE_NONE"><code>TransactionEnvelopeType.ENVELOPE_TYPE_NONE</code></a> if there is envelope type) and the signature
+ <code>v</code> value.</div>
 </td>
 </tr>
 <tr class="row-color" id="i1">
@@ -326,11 +327,12 @@ not permitted.)</div>
 <h3>findFormat</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="TransactionFormat.html" title="enum in com.norswap.nanoeth.transactions">TransactionFormat</a></span>&nbsp;<span class="member-name">findFormat</span>&#8203;(<span class="parameters">int&nbsp;type,
 <a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a>&nbsp;v)</span>
-                                    throws <span class="exceptions"><a href="IllegalTransactionFormatException.html" title="class in com.norswap.nanoeth.transactions">IllegalTransactionFormatException</a></span></div>
-<div class="block">Determines the transaction format from the envelope type (use <a href="TransactionEnvelopeType.html#ENVELOPE_TYPE_NONE"><code>TransactionEnvelopeType.ENVELOPE_TYPE_NONE</code></a> if there is envelope type) and the signature</div>
+                                    throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></span></div>
+<div class="block">Determines the transaction format from the envelope type (use <a href="TransactionEnvelopeType.html#ENVELOPE_TYPE_NONE"><code>TransactionEnvelopeType.ENVELOPE_TYPE_NONE</code></a> if there is envelope type) and the signature
+ <code>v</code> value.</div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="IllegalTransactionFormatException.html" title="class in com.norswap.nanoeth.transactions">IllegalTransactionFormatException</a></code> - if either the envelope type or the <code>v</code> value
+<dd><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if either the envelope type or the <code>v</code> value
  are illegal.</dd>
 </dl>
 </section>

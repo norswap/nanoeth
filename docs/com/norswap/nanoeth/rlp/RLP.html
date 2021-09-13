@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":9,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":9,"i13":9,"i14":10,"i15":10,"i16":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":9,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":9,"i14":9,"i15":10,"i16":10,"i17":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -152,46 +152,54 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i7">
+<td class="col-first"><code><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hash()">hash</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Returns the <a href="../utils/Hashing.html#keccak(byte%5B%5D)"><code>Keccak</code></a> hash of the the <a href="#encode()"><code>encoding</code></a> of this
+ object.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i8">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="alt-color" id="i8">
+<tr class="row-color" id="i9">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#isBytes()">isBytes</a></span>()</code></th>
 <td class="col-last">
 <div class="block">True iff this object represents a byte array.</div>
 </td>
 </tr>
-<tr class="row-color" id="i9">
+<tr class="alt-color" id="i10">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#isSequence()">isSequence</a></span>()</code></th>
 <td class="col-last">
 <div class="block">True iff this object represents a sequence of sub-items.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i10">
+<tr class="row-color" id="i11">
 <td class="col-first"><code><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#itemAt(int)">itemAt</a></span>&#8203;(int&nbsp;i)</code></th>
 <td class="col-last">
 <div class="block">Returns the sub-item at the given index.</div>
 </td>
 </tr>
-<tr class="row-color" id="i11">
+<tr class="alt-color" id="i12">
 <td class="col-first"><code><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#items()">items</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns an array containing the sub-items that this object represents.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i12">
+<tr class="row-color" id="i13">
 <td class="col-first"><code>static <a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#sequence(com.norswap.nanoeth.rlp.RLP...)">sequence</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>...&nbsp;items)</code></th>
 <td class="col-last">
 <div class="block">Creates a new RLP object representing a sequence of the given sub-items.</div>
 </td>
 </tr>
-<tr class="row-color" id="i13">
+<tr class="alt-color" id="i14">
 <td class="col-first"><code>static <a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#sequence(java.lang.Object...)">sequence</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>...&nbsp;items)</code></th>
 <td class="col-last">
@@ -199,14 +207,14 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  types.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i14">
+<tr class="row-color" id="i15">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/stream/Stream.html" title="class or interface in java.util.stream" class="external-link">Stream</a>&lt;<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&gt;</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#stream()">stream</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns a stream over the sequence of sub-items.</div>
 </td>
 </tr>
-<tr class="row-color" id="i15">
+<tr class="alt-color" id="i16">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toHexString()">toHexString</a></span>()</code></th>
 <td class="col-last">
@@ -214,7 +222,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  any, as per <a href="../utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i16">
+<tr class="row-color" id="i17">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
@@ -260,7 +268,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
  <ul>
  <li><code>byte[]</code></li>
  <li><a href="RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a></li>
- <li>{@link Byte] (can pass a <code>byte</code></li>
+ <li><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Byte.html" title="class or interface in java.lang" class="external-link"><code>Byte</code></a> (can pass a <code>byte</code>)</li>
  <li><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link"><code>Integer</code></a> (encoded on 4 bytes, can pass an <code>int</code></li>
  <li><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Long.html" title="class or interface in java.lang" class="external-link"><code>Long</code></a> (encoded on 8 bytes, can pass a <code>long</code></li>
  <li><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data"><code>Natural</code></a> (encoded using only as many bytes as necessary, no leading 0)</li>
@@ -361,6 +369,14 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <h3>encode</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">encode</span>()</div>
 <div class="block">Returns the binary RLP encoding of this object.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="hash()">
+<h3>hash</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></span>&nbsp;<span class="member-name">hash</span>()</div>
+<div class="block">Returns the <a href="../utils/Hashing.html#keccak(byte%5B%5D)"><code>Keccak</code></a> hash of the the <a href="#encode()"><code>encoding</code></a> of this
+ object.</div>
 </section>
 </li>
 <li>

@@ -15,7 +15,13 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var pathtoroot = "../../../../";
+<script type="text/javascript">var data = {"i0":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "alt-color";
+var rowColor = "row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "../../../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -41,15 +47,15 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <div class="nav-list-search"><label for="search">SEARCH:</label>
@@ -84,6 +90,15 @@ loadScripts(document, 'script');</script>
 <hr>
 <pre>public final class <span class="type-name-label">RLPParsingException</span>
 extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Exception.html" title="class or interface in java.lang" class="external-link">Exception</a></pre>
+<div class="block">Signals a problem while parsing some data from RLP format.
+ <p>
+ Receiving this exception means that the binary data has already successfully been decoded to a
+ <a href="RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> structure — failure to do so results in a <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link"><code>IllegalArgumentException</code></a> being
+ thrown from <a href="RLP.html#decode(byte%5B%5D)"><code>RLP.decode(byte[])</code></a>. Therefore this exception means the RLP structure does not
+ conform to some domain logic requirements.
+ <p>
+ The exception is enriched with a stack of string (<a href="#trace"><code>trace</code></a>) used to precisely pinpoint
+ where the parsing problem occured.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd><a href="../../../../serialized-form.html#com.norswap.nanoeth.rlp.RLPParsingException">Serialized Form</a></dd>
@@ -91,6 +106,31 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field.summary">
+<h2>Field Summary</h2>
+<div class="member-summary">
+<table class="summary-table">
+<caption><span>Fields</span></caption>
+<thead>
+<tr>
+<th class="col-first" scope="col">Modifier and Type</th>
+<th class="col-second" scope="col">Field</th>
+<th class="col-last" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="alt-color">
+<td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/ArrayDeque.html" title="class or interface in java.util" class="external-link">ArrayDeque</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#trace">trace</a></span></code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor.summary">
@@ -109,6 +149,11 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.lang.String)">RLPParsingException</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
+<tr class="row-color">
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(java.lang.String,java.lang.Throwable)">RLPParsingException</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
+<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">Throwable</a>&nbsp;cause)</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -118,6 +163,30 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <li>
 <section class="method-summary" id="method.summary">
 <h2>Method Summary</h2>
+<div class="member-summary" id="method-summary-table">
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="active-table-tab">All Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="table-tab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="table-tab" onclick="show(8);">Concrete Methods</button></div>
+<div id="method-summary-table.tabpanel" role="tabpanel">
+<table class="summary-table" aria-labelledby="t0">
+<thead>
+<tr>
+<th class="col-first" scope="col">Modifier and Type</th>
+<th class="col-second" scope="col">Method</th>
+<th class="col-last" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="alt-color" id="i0">
+<td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#trace()">trace</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Returns a string containing the initial message, then all the messages in <a href="#trace"><code>trace</code></a>, in
+ insertion order, separated by newlines.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.java.lang.Throwable">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">Throwable</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#addSuppressed(java.lang.Throwable)" title="class or interface in java.lang" class="external-link">addSuppressed</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#fillInStackTrace()" title="class or interface in java.lang" class="external-link">fillInStackTrace</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#getCause()" title="class or interface in java.lang" class="external-link">getCause</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#getLocalizedMessage()" title="class or interface in java.lang" class="external-link">getLocalizedMessage</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#getMessage()" title="class or interface in java.lang" class="external-link">getMessage</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#getStackTrace()" title="class or interface in java.lang" class="external-link">getStackTrace</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#getSuppressed()" title="class or interface in java.lang" class="external-link">getSuppressed</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#initCause(java.lang.Throwable)" title="class or interface in java.lang" class="external-link">initCause</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#printStackTrace()" title="class or interface in java.lang" class="external-link">printStackTrace</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#printStackTrace(java.io.PrintStream)" title="class or interface in java.lang" class="external-link">printStackTrace</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#printStackTrace(java.io.PrintWriter)" title="class or interface in java.lang" class="external-link">printStackTrace</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#setStackTrace(java.lang.StackTraceElement%5B%5D)" title="class or interface in java.lang" class="external-link">setStackTrace</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html#toString()" title="class or interface in java.lang" class="external-link">toString</a></code></div>
@@ -130,6 +199,20 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field.detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="trace">
+<h3>trace</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/ArrayDeque.html" title="class or interface in java.util" class="external-link">ArrayDeque</a>&lt;<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;</span>&nbsp;<span class="member-name">trace</span></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor.detail">
@@ -139,6 +222,29 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <section class="detail" id="&lt;init&gt;(java.lang.String)">
 <h3>RLPParsingException</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">RLPParsingException</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="&lt;init&gt;(java.lang.String,java.lang.Throwable)">
+<h3>RLPParsingException</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">RLPParsingException</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;message,
+<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Throwable.html" title="class or interface in java.lang" class="external-link">Throwable</a>&nbsp;cause)</span></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<!-- ============ METHOD DETAIL ========== -->
+<li>
+<section class="method-details" id="method.detail">
+<h2>Method Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="trace()">
+<h3>trace</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="member-name">trace</span>()</div>
+<div class="block">Returns a string containing the initial message, then all the messages in <a href="#trace"><code>trace</code></a>, in
+ insertion order, separated by newlines.</div>
 </section>
 </li>
 </ul>
@@ -168,15 +274,15 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 </div>

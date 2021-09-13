@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -185,8 +185,7 @@ byte[]&nbsp;payload,
 </tr>
 <tr class="alt-color" id="i2">
 <td class="col-first"><code>static <a href="Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(int,com.norswap.nanoeth.rlp.RLP)">from</a></span>&#8203;(int&nbsp;type,
-<a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(com.norswap.nanoeth.rlp.RLP)">from</a></span>&#8203;(<a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</code></th>
 <td class="col-last">
 <div class="block">Parses a RLP sequence into a transaction.</div>
 </td>
@@ -204,41 +203,46 @@ byte[]&nbsp;payload,
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i5">
+<td class="col-first"><code><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#plainRLP()">plainRLP</a></span>()</code></th>
+<td class="col-last">
+<div class="block">Returns the RLP encoding of this transaction, <b>without</b> the <a href="TransactionEnvelopeType.html" title="class in com.norswap.nanoeth.transactions"><code>TransactionEnvelopeType</code></a> (if any).</div>
+</td>
+</tr>
+<tr class="alt-color" id="i6">
 <td class="col-first"><code><a href="../data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#recoverSender()">recoverSender</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns the address of the transaction sender.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i6">
+<tr class="row-color" id="i7">
 <td class="col-first"><code><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#rlp()">rlp</a></span>()</code></th>
 <td class="col-last">
-<div class="block">Returns the RLP representation of this transaction, the encoding of which is what is stored
- in the blocks, potentially prefixed by a one-byte <a href="TransactionFormat.html#type"><code>type
- identifier</code></a>.</div>
+<div class="block">Returns the RLP-encoding of this transaction for inclusion in a block.</div>
 </td>
 </tr>
-<tr class="row-color" id="i7">
+<tr class="alt-color" id="i8">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toHexString()">toHexString</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns an hex string (e.g.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i8">
+<tr class="row-color" id="i9">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i9">
+<tr class="alt-color" id="i10">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#verifySignature()">verifySignature</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns true if the transaction's signature is valid.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i10">
+<tr class="row-color" id="i11">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#verifySignature(byte%5B%5D)">verifySignature</a></span>&#8203;(byte[]&nbsp;encodedUnsignedTransaction)</code></th>
 <td class="col-last">
@@ -308,17 +312,14 @@ byte[]&nbsp;payload,
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="from(int,com.norswap.nanoeth.rlp.RLP)">
+<section class="detail" id="from(com.norswap.nanoeth.rlp.RLP)">
 <h3>from</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters">int&nbsp;type,
-<a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq)</span>
-                        throws <span class="exceptions"><a href="IllegalTransactionFormatException.html" title="class in com.norswap.nanoeth.transactions">IllegalTransactionFormatException</a></span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</span>
+                        throws <span class="exceptions"><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
 <div class="block">Parses a RLP sequence into a transaction.</div>
 <dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>type</code> - the EIP-2718 transaction envelope type (0 if not type). See <a href="TransactionFormat.html" title="enum in com.norswap.nanoeth.transactions"><code>TransactionFormat</code></a> for more information.</dd>
 <dt>Throws:</dt>
-<dd><code><a href="IllegalTransactionFormatException.html" title="class in com.norswap.nanoeth.transactions">IllegalTransactionFormatException</a></code> - if the RLP sequence does not properly parse to a transaction</dd>
+<dd><code><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code> - if the RLP object does not properly parse to a transaction</dd>
 </dl>
 </section>
 </li>
@@ -332,12 +333,29 @@ byte[]&nbsp;payload,
 </section>
 </li>
 <li>
+<section class="detail" id="plainRLP()">
+<h3>plainRLP</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></span>&nbsp;<span class="member-name">plainRLP</span>()</div>
+<div class="block">Returns the RLP encoding of this transaction, <b>without</b> the <a href="TransactionEnvelopeType.html" title="class in com.norswap.nanoeth.transactions"><code>TransactionEnvelopeType</code></a> (if any). This is a sequence of transaction fields.</div>
+<dl class="notes">
+<dt>See Also:</dt>
+<dd><a href="#rlp()"><code>rlp()</code></a></dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="rlp()">
 <h3>rlp</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></span>&nbsp;<span class="member-name">rlp</span>()</div>
-<div class="block">Returns the RLP representation of this transaction, the encoding of which is what is stored
- in the blocks, potentially prefixed by a one-byte <a href="TransactionFormat.html#type"><code>type
- identifier</code></a>.</div>
+<div class="block">Returns the RLP-encoding of this transaction for inclusion in a block.
+
+ <p>This is identical from the plain encoding generated by <a href="#plainRLP()"><code>plainRLP()</code></a>} for
+ transactions that do not have a <a href="TransactionEnvelopeType.html" title="class in com.norswap.nanoeth.transactions"><code>TransactionEnvelopeType</code></a>.
+
+ <p>For those who have an envelope type, the encoding is a RLP byte array comprising one byte
+ for the type, followed by the plain RLP encoding for the transaction.
+
+ <p>Note that the above is not super clear from EIP-2718, but is clarified in EIP-2976.</div>
 </section>
 </li>
 <li>

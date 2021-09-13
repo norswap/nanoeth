@@ -119,6 +119,14 @@ int&nbsp;i)</code></th>
 </td>
 </tr>
 <tr class="alt-color" id="i2">
+<td class="col-first"><code>static int</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getByte(com.norswap.nanoeth.rlp.RLP,int)">getByte</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
+int&nbsp;i)</code></th>
+<td class="col-last">
+<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a unsigned byte.</div>
+</td>
+</tr>
+<tr class="row-color" id="i3">
 <td class="col-first"><code>static byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getBytes(com.norswap.nanoeth.rlp.RLP,int)">getBytes</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</code></th>
@@ -127,20 +135,12 @@ int&nbsp;i)</code></th>
  size.</div>
 </td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="alt-color" id="i4">
 <td class="col-first"><code>static <a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getHash(com.norswap.nanoeth.rlp.RLP,int)">getHash</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</code></th>
 <td class="col-last">
 <div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
-</td>
-</tr>
-<tr class="alt-color" id="i4">
-<td class="col-first"><code>static int</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getInt(com.norswap.nanoeth.rlp.RLP,int)">getInt</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</code></th>
-<td class="col-last">
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a 32-bit integer.</div>
 </td>
 </tr>
 <tr class="row-color" id="i5">
@@ -201,12 +201,12 @@ int&nbsp;i)</span>
 </section>
 </li>
 <li>
-<section class="detail" id="getInt(com.norswap.nanoeth.rlp.RLP,int)">
-<h3>getInt</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">getInt</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
+<section class="detail" id="getByte(com.norswap.nanoeth.rlp.RLP,int)">
+<h3>getByte</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">getByte</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</span>
-                  throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a 32-bit integer.</div>
+                   throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a unsigned byte.</div>
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
