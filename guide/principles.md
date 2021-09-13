@@ -4,8 +4,6 @@ This document outlines a few design principles for nanoeth.
 
 ## Goals / Trade-offs
 
-(copied from the top-level main README)
-
 **Goals**
 - specify Ethereum behaviour in terms code and unit tests
 - enable playing with example data interactively

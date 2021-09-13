@@ -1,33 +1,37 @@
 # nanoeth
 
-nanoeth is a small code model for Ethereum. You could describe it as:
+nanoeth is a simple implementation of Ethereum's execution layer (it is concerned with processing
+and validating transactions and blocks, as originally specified in the Yellowpaper).
+
+You could describe nanoeth as:
 - an executable specification for the Ethereum Yellowpaper
 - a toy Ethereum client without networking capabilities
 
-**Links**
+nanoeth is meant to be simple, clear, well-documented, and interactive. See the [Design
+Principles](guide/principles.md) page for more information.
+
+**General Links**
 - [Javadoc](http://norswap.com/nanoeth/)
-- [Versions Package](/src/com/norswap/nanoeth/versions/) (includes a list of EIPs)
-- [RLP Package](/src/com/norswap/nanoeth/rlp/)
-- [Signature Package](/src/com/norswap/nanoeth/signature/)
-- [Transaction Package](/src/com/norswap/nanoeth/transactions/)
-- [Receipts Package](/src/com/norswap/nanoeth/receipts/) (including logs & bloom filters)
 
-[Javadoc]: https://javadoc.io/doc/com.norswap/nanoeth/
-[Mirror]: https://jitpack.io/com/github/norswap/nanoeth/-SNAPSHOT/javadoc/
+**Components**
+- [Versions](/src/com/norswap/nanoeth/versions/) (includes a list of EIPs)
+- [RLP](/src/com/norswap/nanoeth/rlp/)
+- [Signatures](/src/com/norswap/nanoeth/signature/)
+- [Transactions](/src/com/norswap/nanoeth/transactions/)
+- [Receipts](/src/com/norswap/nanoeth/receipts/) (including logs & bloom filters)
+- [Merkle Patrica Tree](/src/com/norswap/nanoeth/trees/patricia)
 
-**Goals**
-- specify Ethereum behaviour in terms code and unit tests
-- enable playing with example data interactively
-- clear mapping with the Yellowpaper
-- simplicity & clarity
-- using a wealth of (wrapper) types to achieve the above objectives and make the codebase easy to
-  navigate
+**Running Tests**
 
-**Non-Goals**
-- efficiency
+To run nanoeth, you will need Java 15 or more. I recommend installing through [sdkman].
 
-**Limitations**
-- Limited to handling byte sequences of less than `2^31 - 8` (a conservative approximation of the
-  max Java array size). In theory, Ethereum should handle byte arrays up to size 2^64. In pratice,
-  real clients don't do much better, and it would be too costly to pay for storage greater than the
-  max Java array size.
+nanoeth tests depend on the [ethereum/tests][tests] repository. Please clone this repository, then
+do `echo ethereumTests=PATH_TO_REPO >> gradle.properties` (substituting `PATH_TO_REPO` for the
+actual local path where you cloned the repository).
+
+You can then run the tests with `./gradlew test` (`gradlew.bat test` on Windows). This will run
+the Gradle wrapper that will fetch the appropriate version of Gradle to run the test, so the first
+run might have some extra delays.
+
+[tests]: https://github.com/ethereum/tests
+[sdkman]: https://sdkman.io/install
