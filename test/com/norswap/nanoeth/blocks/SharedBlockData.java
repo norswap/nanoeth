@@ -9,7 +9,7 @@ import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.transactions.AccessList;
-import com.norswap.nanoeth.transactions.AccessList.AddressKeys;
+import com.norswap.nanoeth.transactions.AccessList.AccessListItem;
 import com.norswap.nanoeth.transactions.IllegalTransactionFormatException;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.transactions.TransactionFormat;
@@ -202,14 +202,13 @@ public final class SharedBlockData {
         if (itemsJson.length() == 0)
             return AccessList.EMPTY;
 
-        // TODO rename addresskeys to AccessListItem
-        var items = mapJsonObjects(itemsJson, AddressKeys[]::new,
+        var items = mapJsonObjects(itemsJson, AccessListItem[]::new,
             item -> {
                 var address = new Address(item.getString("address"));
                 var keysJson = item.getJSONArray("storageKeys");
                 var keys = Vanilla.map(keysJson.toList(), key -> new StorageKey(((String) key)))
                     .toArray(StorageKey[]::new);
-                return new AddressKeys(address, keys);
+                return new AccessListItem(address, keys);
         });
 
         return new AccessList(items);

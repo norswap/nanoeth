@@ -19,11 +19,11 @@ public final class AccessList {
     /**
      * Associates an address with a collection of storage key within that account's storage tree.
      */
-    public static final class AddressKeys {
+    public static final class AccessListItem {
         public final Address address;
         public final StorageKey[] keys;
 
-        public AddressKeys (Address address, StorageKey[] keys) {
+        public AccessListItem (Address address, StorageKey[] keys) {
             this.address = address;
             this.keys = keys;
         }
@@ -35,12 +35,12 @@ public final class AccessList {
      * A collection of addresses along with associated storage keys within that account's storage
      * tree.
      */
-    public final AddressKeys[] addressKeys;
+    public final AccessListItem[] items;
 
     // ---------------------------------------------------------------------------------------------
 
-    public AccessList (AddressKeys... addressKeys) {
-        this.addressKeys = addressKeys;
+    public AccessList (AccessListItem... items) {
+        this.items = items;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -58,12 +58,12 @@ public final class AccessList {
 
         try {
             return new AccessList(seq.stream()
-                .map(it -> new AddressKeys(
+                .map(it -> new AccessListItem(
                     new Address(it.itemAt(0).bytes()),
                     it.itemAt(1).stream()
                         .map(k -> new StorageKey(k.bytes()))
                         .toArray(StorageKey[]::new)))
-                .toArray(AddressKeys[]::new));
+                .toArray(AccessListItem[]::new));
         } catch (ArrayIndexOutOfBoundsException | IllegalRLPAccess e) {
             throw new IllegalTransactionFormatException(
                 "Access list items must have format [address, [key, ...]]");
@@ -74,7 +74,7 @@ public final class AccessList {
 
     /** Returns the RLP representation of this access list. */
     public RLP rlp() {
-        return RLP.sequence((Object[]) Arrays.stream(addressKeys)
+        return RLP.sequence((Object[]) Arrays.stream(items)
             .map(it ->
                 RLP.sequence(
                     RLP.bytes(it.address.bytes),
@@ -90,7 +90,7 @@ public final class AccessList {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccessList that = (AccessList) o;
-        for (var pair: NArrays.zip(addressKeys, that.addressKeys)) {
+        for (var pair: NArrays.zip(items, that.items)) {
             if (!pair.a.address.equals(pair.b.address))
                 return false;
             for (var keysPair: NArrays.zip(pair.a.keys, pair.b.keys))
@@ -101,7 +101,7 @@ public final class AccessList {
     }
 
     @Override public int hashCode () {
-        var hashes = Arrays.stream(addressKeys)
+        var hashes = Arrays.stream(items)
             .mapToInt(it -> 31 * it.address.hashCode() + Arrays.hashCode(it.keys))
             .toArray();
         return Arrays.hashCode(hashes);
@@ -109,7 +109,7 @@ public final class AccessList {
 
     @Override public String toString () {
         return Arrays.toString(
-            Arrays.stream(addressKeys)
+            Arrays.stream(items)
                 .map(it -> it.address.toString() + " :: " + Arrays.toString(it.keys))
                 .toArray(String[]::new));
     }
