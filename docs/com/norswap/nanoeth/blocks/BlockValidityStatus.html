@@ -133,108 +133,114 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </td>
 </tr>
 <tr class="alt-color">
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_BAD_TX_ROOT">VAL_BAD_TX_ROOT</a></span></code></th>
+<td class="col-last">
+<div class="block">The Merkle root for transactions does not match the transactions included in the block.</div>
+</td>
+</tr>
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_BAD_UNCLE">VAL_BAD_UNCLE</a></span></code></th>
 <td class="col-last">
 <div class="block">One of the uncle header is invalid.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_BAD_UNCLE_HASH">VAL_BAD_UNCLE_HASH</a></span></code></th>
 <td class="col-last">
 <div class="block">The uncle hash does not match the uncle headers.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_DUPLICATE_UNCLE">VAL_DUPLICATE_UNCLE</a></span></code></th>
 <td class="col-last">
 <div class="block">One or multiple uncles appear multiple time in the block.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_EXTRA_DATA_TOO_LONG">VAL_EXTRA_DATA_TOO_LONG</a></span></code></th>
 <td class="col-last">
 <div class="block">The extra data section is longer than 32 bytes.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_FUTURE_UNCLE">VAL_FUTURE_UNCLE</a></span></code></th>
 <td class="col-last">
 <div class="block">The uncle's number is the same or greater than the block's number.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_GAS_LIMIT_TOO_HIGH">VAL_GAS_LIMIT_TOO_HIGH</a></span></code></th>
 <td class="col-last">
 <div class="block">The gas limit is too high compared to the parent.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_GAS_LIMIT_TOO_LOW">VAL_GAS_LIMIT_TOO_LOW</a></span></code></th>
 <td class="col-last">
 <div class="block">The gas limit is too low compared to the parent, or under the minimum.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_GAS_USED_TOO_HIGH">VAL_GAS_USED_TOO_HIGH</a></span></code></th>
 <td class="col-last">
 <div class="block">The gas usage is higher than the gas limit.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_INVALID_POW">VAL_INVALID_POW</a></span></code></th>
 <td class="col-last">
 <div class="block">The nonce and the mix hash are not consistent with regard to the proof of work calculation.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_NONCE_TOO_HIGH">VAL_NONCE_TOO_HIGH</a></span></code></th>
 <td class="col-last">
 <div class="block">The nonce does not match the difficulty.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_OUTDATED_TIMESTAMP">VAL_OUTDATED_TIMESTAMP</a></span></code></th>
 <td class="col-last">
 <div class="block">The timestamp is older than the parent's timestamp.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_TOO_MANY_UNCLES">VAL_TOO_MANY_UNCLES</a></span></code></th>
 <td class="col-last">
 <div class="block">Too many uncles were included.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_UNCLE_ALREADY_INCLUDED">VAL_UNCLE_ALREADY_INCLUDED</a></span></code></th>
 <td class="col-last">
 <div class="block">An uncle has already appeared in an ancestor.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_UNCLE_IS_ANCESTOR">VAL_UNCLE_IS_ANCESTOR</a></span></code></th>
 <td class="col-last">
 <div class="block">An uncle has already appeared *as* an ancestor.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_UNCLE_TOO_OLD">VAL_UNCLE_TOO_OLD</a></span></code></th>
 <td class="col-last">
 <div class="block">One of the uncle headers' number is too old (> 6 back).</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_UNKNOWN_PARENT">VAL_UNKNOWN_PARENT</a></span></code></th>
 <td class="col-last">
 <div class="block">We don't know of a block with the given parent hash.</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_UNRELATED_UNCLE">VAL_UNRELATED_UNCLE</a></span></code></th>
 <td class="col-last">
 <div class="block">An included uncle isn't really an uncle (the sibling of an ancestor of degree <code>&lt;= 6</code>.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#VAL_VALID">VAL_VALID</a></span></code></th>
 <td class="col-last">
 <div class="block">The block is valid.</div>
@@ -440,6 +446,13 @@ the order they are declared.</div>
 <h3>VAL_UNRELATED_UNCLE</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></span>&nbsp;<span class="member-name">VAL_UNRELATED_UNCLE</span></div>
 <div class="block">An included uncle isn't really an uncle (the sibling of an ancestor of degree <code>&lt;= 6</code>.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="VAL_BAD_TX_ROOT">
+<h3>VAL_BAD_TX_ROOT</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></span>&nbsp;<span class="member-name">VAL_BAD_TX_ROOT</span></div>
+<div class="block">The Merkle root for transactions does not match the transactions included in the block.</div>
 </section>
 </li>
 </ul>

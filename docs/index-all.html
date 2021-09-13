@@ -138,7 +138,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/Transaction.html#binary()">binary()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></dt>
 <dd>
-<div class="block">Returns the RLP encoding of the transaction (which is binary encoding of its <a href="com/norswap/nanoeth/transactions/Transaction.html#rlp()"><code>RLP representation</code></a>).</div>
+<div class="block">Returns the binary encoding of this transaction, for construction of the transaction trie, or
+ transmission over the network.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#bits">bits</a></span> - Variable in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
 <dd>
@@ -1477,6 +1478,10 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html#VAL_BAD_NUMBER">VAL_BAD_NUMBER</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></dt>
 <dd>
 <div class="block">The number is not the parent number + 1.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html#VAL_BAD_TX_ROOT">VAL_BAD_TX_ROOT</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></dt>
+<dd>
+<div class="block">The Merkle root for transactions does not match the transactions included in the block.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html#VAL_BAD_UNCLE">VAL_BAD_UNCLE</a></span> - com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></dt>
 <dd>
