@@ -51,7 +51,6 @@ public class Hash {
      * with zeroes at the start so that it is 32 bytes long.
      */
     public Hash (String hexString) {
-        // TODO test more to determine if this padding behaviour is needed
         this(ByteUtils.hexStringToBytes(hexString, 32));
     }
 

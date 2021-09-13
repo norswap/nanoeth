@@ -9,7 +9,8 @@ public final class TransactionTestCase {
     /** The test case's name. */
     public final String name;
 
-    /** The block height at which to evaluate the transaction.
+    /**
+     * The block height at which to evaluate the transaction.
      * Realistically, should always be a value of {@link EthereumVersion#startBlock}.
      */
     public final int blockHeight;
