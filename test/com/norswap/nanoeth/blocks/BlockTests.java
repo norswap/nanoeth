@@ -12,7 +12,7 @@ public final class BlockTests {
     // ---------------------------------------------------------------------------------------------
 
     @DataProvider public static Object[][] blocks () {
-        return OfficialBlockData.TEST_CASES.stream()
+        return SharedBlockData.TEST_CASES.stream()
             .map(t -> new Object[] { t })
             .toArray(Object[][]::new);
     }

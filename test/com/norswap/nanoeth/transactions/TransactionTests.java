@@ -21,7 +21,7 @@ public final class TransactionTests {
     @DataProvider
     public static Object[][] transactions () {
         return Stream.concat(
-            OfficialTransactionData .TEST_CASES.stream().map(t -> new Object[] { t }),
+            SharedTransactionData.TEST_CASES.stream().map(t -> new Object[] { t }),
             OwnTransactionData      .TEST_CASES.stream().map(t -> new Object[] { t })
         ).toArray(Object[][]::new);
     }

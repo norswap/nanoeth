@@ -15,7 +15,6 @@ import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.transactions.TransactionFormat;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
-import com.norswap.nanoeth.versions.EthereumVersion;
 import norswap.utils.IO;
 import norswap.utils.Vanilla;
 import org.json.JSONArray;
@@ -29,7 +28,11 @@ import static com.norswap.nanoeth.transactions.TransactionEnvelopeType.*;
 import static com.norswap.nanoeth.transactions.TransactionFormat.*;
 import static com.norswap.nanoeth.utils.SharedTestsUtils.blockHeight;
 
-public final class OfficialBlockData {
+/**
+ * Block data from the test cases hosted at https://github.com/ethereum/tests.
+ * <p>These are loaded from the {@code testdata/BlockchainTests} directory.
+ */
+public final class SharedBlockData {
 
     // ---------------------------------------------------------------------------------------------
 

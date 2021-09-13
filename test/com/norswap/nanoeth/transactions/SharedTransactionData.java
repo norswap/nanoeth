@@ -8,13 +8,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import static com.norswap.nanoeth.utils.SharedTestsUtils.blockHeight;
-import static com.norswap.nanoeth.versions.EthereumVersion.*;
 
 /**
  * Transaction data from the test cases hosted at https://github.com/ethereum/tests.
  * <p>These are loaded from the {@code testdata/TransactionTests} directory.
  */
-public final class OfficialTransactionData {
+public final class SharedTransactionData {
 
     // ---------------------------------------------------------------------------------------------
 
