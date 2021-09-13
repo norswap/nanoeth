@@ -2,10 +2,9 @@ package com.norswap.nanoeth.utils;
 
 import com.norswap.nanoeth.Context;
 import com.norswap.nanoeth.rlp.RLP;
-import com.norswap.nanoeth.signature.Signature;
-import com.norswap.nanoeth.transactions.IllegalTransactionFormatException;
 import com.norswap.nanoeth.transactions.Transaction;
 import norswap.utils.IO;
+import norswap.utils.Strings;
 import norswap.utils.exceptions.Exceptions;
 import org.json.JSONObject;
 
@@ -60,6 +59,41 @@ public final class DebugUtils {
         var hex = data.getString("rlp");
         var rlp = RLP.decode(hex);
         return Exceptions.suppress(() -> Transaction.from(rlp));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Indents (with guide lines) a string representing a nested data structure, including
+     * delimiters such as {@code {}}, {@code []} and commas. A newline is inserted after each
+     * opening brace and indentation is increased. Each comma also causes a line return.
+     */
+    public static String indentTreeString (Object tree) {
+        var treeString = tree.toString();
+        var b = new StringBuilder();
+        int indent = 0;
+        for (int i = 0; i < treeString.length(); i++) {
+            char c = treeString.charAt(i);
+            switch (c) {
+                case '{', '[' -> {
+                    ++indent;
+                    b.append(c);
+                    b.append("\n");
+                    b.append(Strings.repeat("|-", indent));
+                }
+                case '}', ']' -> {
+                    --indent;
+                    b.append(c);
+                }
+                case ',' -> {
+                    b.append(c).append("\n");
+                    b.append(Strings.repeat("|-", indent));
+                }
+                default ->
+                    b.append(c);
+            }
+        }
+        return b.toString();
     }
 
     // ---------------------------------------------------------------------------------------------
