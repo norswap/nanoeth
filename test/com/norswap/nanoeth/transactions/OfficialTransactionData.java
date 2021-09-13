@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import static com.norswap.nanoeth.utils.SharedTestsUtils.blockHeight;
 import static com.norswap.nanoeth.versions.EthereumVersion.*;
 
 /**
@@ -49,23 +50,6 @@ public final class OfficialTransactionData {
             "Frontier", "Homestead", "EIP150", "EIP158", "Byzantium", "Constantinople",
             "ConstantinopleFix", "Istanbul"
     };
-
-    /** Returns the starting block height for the given version. */
-    private static int blockHeight (String version) {
-        return switch (version) {
-            case "Frontier"             -> FRONTIER.startBlock;
-            case "Homestead"            -> HOMESTEAD.startBlock;
-            case "EIP150"               -> TANGERINE_WHISTLE.startBlock;
-            case "EIP158"               -> SPURIOUS_DRAGON.startBlock; // (*)
-            case "Byzantium"            -> BYZANTIUM.startBlock;
-            case "Constantinople"       -> CONSTANTINOPLE.startBlock;
-            case "ConstantinopleFix"    -> CONSTANTINOPLE.startBlock;
-            case "Istanbul"             -> ISTANBUL.startBlock;
-            default -> throw new AssertionError("unreachable");
-
-            // (*) if interpreted as EIP-161 that supersedes EIP-158
-        };
-    }
 
     static {
         TEST_CASES = loadTestCases();

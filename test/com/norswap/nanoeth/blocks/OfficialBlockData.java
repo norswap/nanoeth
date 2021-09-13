@@ -27,6 +27,7 @@ import java.util.function.IntFunction;
 
 import static com.norswap.nanoeth.transactions.TransactionEnvelopeType.*;
 import static com.norswap.nanoeth.transactions.TransactionFormat.*;
+import static com.norswap.nanoeth.utils.SharedTestsUtils.blockHeight;
 
 public final class OfficialBlockData {
 
@@ -56,29 +57,30 @@ public final class OfficialBlockData {
                 var string = IO.slurp(file.toString());
                 var json = new JSONObject(string);
 
-                String key1 = json.keys().next();
-                String name = key1.split("_")[0];
+                for (var key: json.keySet()) {
+                    // ignore London for now
+                    if (key.endsWith("London")) continue;
+                    var data = json.getJSONObject(key);
+                    var split = key.split("_");
+                    var version = split[split.length - 1];
+                    var genesisRLP = data.getString("genesisRLP");
+                    var genesisHeader = parseBlockHeader(
+                            data.getJSONObject("genesisBlockHeader"));
+                    var genesis = new Block(genesisHeader, new Transaction[0], new BlockHeader[0]);
 
-                // get only Berlin for now
-                if (!json.has(name + "_Berlin")) continue;
-                var berlinData = json.getJSONObject(name + "_Berlin");
+                    var blocksData = data.getJSONArray("blocks");
+                    var blocks = new Block[blocksData.length()];
+                    for (int i = 0; i < blocksData.length(); i++)
+                        blocks[i] = parseBlock(blocksData.getJSONObject(i));
 
-                var genesisRLP = berlinData.getString("genesisRLP");
-                var genesisHeader = parseBlockHeader(berlinData.getJSONObject("genesisBlockHeader"));
-                var genesis = new Block(genesisHeader, new Transaction[0], new BlockHeader[0]);
+                    var sealEngine = data.getString("sealEngine");
+                    var validatePoW = sealEngine.equals("Ethash");
+                    assert validatePoW || sealEngine.equals("NoProof");
 
-                var blocksData = berlinData.getJSONArray("blocks");
-                var blocks = new Block[blocksData.length()];
-                for (int i = 0; i < blocksData.length(); i++)
-                    blocks[i] = parseBlock(blocksData.getJSONObject(i));
-
-                var sealEngine = berlinData.getString("sealEngine");
-                var validatePoW = sealEngine.equals("Ethash");
-                assert validatePoW || sealEngine.equals("NoProof");
-
-                testCases.add(new BlockTestCase(
-                    name, EthereumVersion.BERLIN.startBlock, genesisRLP, genesis, blocks,
-                    validatePoW));
+                    testCases.add(new BlockTestCase(
+                        key, blockHeight(version), genesisRLP, genesis, blocks,
+                        validatePoW));
+                }
             }
         }
         return testCases;
