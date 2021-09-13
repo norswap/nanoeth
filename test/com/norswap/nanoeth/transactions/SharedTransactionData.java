@@ -1,5 +1,6 @@
 package com.norswap.nanoeth.transactions;
 
+import com.norswap.nanoeth.utils.SharedTestsUtils;
 import norswap.utils.IO;
 import org.json.JSONObject;
 import java.io.File;
@@ -33,8 +34,13 @@ public final class SharedTransactionData {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** The prefix (excluding the base name) of the path of the directories in which transaction
-     * test cases are stored. */
+    /**
+     * The prefix (excluding the base name) of the path of the directories in which transaction
+     * test cases are stored.
+     * <p>
+     * We do NOT load from {@link SharedTestsUtils#PATH}, because some existing tests have an
+     * invalid signature, cf. https://github.com/ethereum/tests/issues/912
+     */
     private static final String DIRECTORY_PREFIX = "testdata/TransactionTests/";
 
     /** The basename of the directories in which transaction tests cases are stored.*/

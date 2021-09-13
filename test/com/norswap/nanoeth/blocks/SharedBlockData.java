@@ -15,6 +15,7 @@ import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.transactions.TransactionFormat;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
+import com.norswap.nanoeth.utils.SharedTestsUtils;
 import norswap.utils.IO;
 import norswap.utils.Vanilla;
 import org.json.JSONArray;
@@ -30,7 +31,6 @@ import static com.norswap.nanoeth.utils.SharedTestsUtils.blockHeight;
 
 /**
  * Block data from the test cases hosted at https://github.com/ethereum/tests.
- * <p>These are loaded from the {@code testdata/BlockchainTests} directory.
  */
 public final class SharedBlockData {
 
@@ -43,7 +43,8 @@ public final class SharedBlockData {
 
     /** The prefix (excluding the base name) of the path of the directories in which transaction
      * test cases are stored. */
-    private static final String DIRECTORY_PREFIX = "testdata/BlockchainTests/ValidBlocks";
+    private static final String DIRECTORY_PREFIX
+        = SharedTestsUtils.PATH + "/BlockchainTests/ValidBlocks";
 
     static {
         TEST_CASES = loadTestCases();
@@ -51,6 +52,7 @@ public final class SharedBlockData {
 
     @SuppressWarnings("ConstantConditions") // root.listFiles may return null
     private static ArrayList<BlockTestCase> loadTestCases() {
+        System.out.println();
         var testCases = new ArrayList<BlockTestCase>();
         var root = new File(DIRECTORY_PREFIX);
         for (File dir: root.listFiles()) {

@@ -33,7 +33,15 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
 
-tasks.test.get().useTestNG()
+// There must be an "ethereumTests" property (e.g. in gradle.properties) pointing to a local
+// clone of github.com/ethereum/tests.
+val ethereumTests: String by project
+
+tasks.test {
+    useTestNG()
+    // pass the path to the tests
+    systemProperty("ethereumTests", ethereumTests)
+}
 
 tasks.javadoc.get().options {
     // https://github.com/gradle/gradle/issues/7038

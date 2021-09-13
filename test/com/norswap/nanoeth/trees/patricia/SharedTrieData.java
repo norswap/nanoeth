@@ -1,6 +1,7 @@
 package com.norswap.nanoeth.trees.patricia;
 
 import com.norswap.nanoeth.data.MerkleRoot;
+import com.norswap.nanoeth.utils.SharedTestsUtils;
 import norswap.utils.IO;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -11,7 +12,6 @@ import static com.norswap.nanoeth.utils.ByteUtils.toFullHexString;
 
 /**
  * Trie data from the test cases hosted at https://github.com/ethereum/tests.
- * <p>These are loaded from the {@code testdata/TrieTests} directory.
  */
 public final class SharedTrieData {
     // ---------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ public final class SharedTrieData {
     // ---------------------------------------------------------------------------------------------
 
     /** The directory in which trie test cases are stored. */
-    private static final String DIRECTORY = "testdata/TrieTests/";
+    private static final String DIRECTORY = SharedTestsUtils.PATH + "/TrieTests/";
 
     static {
         TEST_CASES = loadTestCases();

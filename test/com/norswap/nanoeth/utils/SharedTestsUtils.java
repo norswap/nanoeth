@@ -11,6 +11,15 @@ public final class SharedTestsUtils {
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Path to a local clone of the github.com/ethereum/tests repository, passed in as a system
+     * property by the gradle build file, which itselfs reads it from a gradle property (e.g.
+     * specified in "gradle.properties").
+     */
+    public static final String PATH = System.getProperty("ethereumTests");
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
      * Returns the starting block height for the given version string used in the shared tests.
      */
     public static int blockHeight (String version) {
