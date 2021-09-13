@@ -27,8 +27,7 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Implements {@link Transaction#from} */
-    static Transaction parse (RLP rlp)
-            throws IllegalTransactionFormatException {
+    static Transaction parse (RLP rlp) throws RLPParsingException {
 
         // The transaction can either be a RLP-encoded sequence (no envelope type), or a
         // RLP-encoded byte array whose first byte is the type, and the rest is
@@ -38,24 +37,19 @@ final class TransactionParser {
             ? ENVELOPE_TYPE_NONE
             : ByteUtils.uint(rlp.byteAt(0));
 
-        try {
-            return switch (type) {
-                case ENVELOPE_TYPE_NONE     -> parseTransactionWithoutEnvelope(rlp);
-                case ENVELOPE_TYPE_EIP_2930 -> parseEIP2930Transaction(rlp);
-                case ENVELOPE_TYPE_EIP_1559 -> parseEIP1559Transaction(rlp);
-                default -> throw new IllegalTransactionFormatException(
-                        "invalid transaction envelope type: " + type);
-            };
-        } catch (RLPParsingException e) {
-            // TODO is a bit janky -- should unify exceptions? and ensure context is always full?
-            throw new IllegalTransactionFormatException(e.getMessage(), e);
-        }
+        return switch (type) {
+            case ENVELOPE_TYPE_NONE     -> parseTransactionWithoutEnvelope(rlp);
+            case ENVELOPE_TYPE_EIP_2930 -> parseEIP2930Transaction(rlp);
+            case ENVELOPE_TYPE_EIP_1559 -> parseEIP1559Transaction(rlp);
+            default -> throw new RLPParsingException(
+                    "Invalid transaction envelope type: " + type + ".");
+        };
     }
 
     // ---------------------------------------------------------------------------------------------
 
     private static Transaction parseTransactionWithoutEnvelope (RLP seq)
-            throws IllegalTransactionFormatException, RLPParsingException  {
+            throws RLPParsingException {
 
         var nonce       = getNatural(seq, 0);
         var gasPrice    = getNatural(seq, 1);
@@ -75,13 +69,13 @@ final class TransactionParser {
             yParity    = v.subtract(27);
         } else if (v.greaterSame(37)) {
             if (EthereumVersion.SPURIOUS_DRAGON.isFuture())
-                throw new IllegalTransactionFormatException("EIP-155 transaction before Spurious Dragon");
+                throw new RLPParsingException("EIP-155 transaction before Spurious Dragon");
 
             format     = TX_EIP_155;
             yParity    = v.subtract(35).mod(2);
             chainId    = v.subtract(35).divide(2);
         } else {
-            throw new IllegalTransactionFormatException("invalid v signature value");
+            throw new RLPParsingException("invalid v signature value");
         }
 
         var r = getNatural(seq, 7);
@@ -94,11 +88,10 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Transaction parseEIP2930Transaction (RLP rlp)
-            throws IllegalTransactionFormatException, RLPParsingException {
+    private static Transaction parseEIP2930Transaction (RLP rlp) throws RLPParsingException {
 
         if (EthereumVersion.BERLIN.isFuture())
-            throw new IllegalTransactionFormatException("EIP-2930 transaction before Berlin");
+            throw new RLPParsingException("EIP-2930 transaction before Berlin");
 
         // cf. comment in parse(RLP)
         byte[] bytes = rlp.bytes();
@@ -125,11 +118,10 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    private static Transaction parseEIP1559Transaction (RLP rlp)
-            throws IllegalTransactionFormatException, RLPParsingException {
+    private static Transaction parseEIP1559Transaction (RLP rlp) throws RLPParsingException {
 
         if (EthereumVersion.BERLIN.isFuture())
-            throw new IllegalTransactionFormatException("EIP-1559 transaction before London");
+            throw new RLPParsingException("EIP-1559 transaction before London");
 
         // cf. comment in parse(RLP)
         byte[] bytes = rlp.bytes();
@@ -158,13 +150,13 @@ final class TransactionParser {
     // ---------------------------------------------------------------------------------------------
 
     private static Signature makeSignature (Natural yParity, Natural r, Natural s)
-            throws IllegalTransactionFormatException {
+            throws RLPParsingException {
         try {
             return new Signature(yParity.intValueExact(), r, s);
         } catch (IllegalSignature e) {
-            throw new IllegalTransactionFormatException("illegal signature", e);
+            throw new RLPParsingException("Illegal signature", e);
         } catch (ArithmeticException e) {
-            throw new IllegalTransactionFormatException(
+            throw new RLPParsingException(
                 "y Parity value does not fit in integer: " + yParity);
         }
     }
@@ -173,7 +165,7 @@ final class TransactionParser {
 
     /** Parses the i-th item of the sequence, which should be an RLP sequence, into an access list. */
     private static AccessList getAccessList (RLP seq, int i)
-            throws IllegalTransactionFormatException {
+            throws RLPParsingException {
         // all validations are done in the `from` method
         return AccessList.from(seq.itemAt(i));
     }

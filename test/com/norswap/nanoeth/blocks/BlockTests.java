@@ -1,6 +1,7 @@
 package com.norswap.nanoeth.blocks;
 
 import com.norswap.nanoeth.Config;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -20,8 +21,7 @@ public final class BlockTests {
     // ---------------------------------------------------------------------------------------------
 
     @Test(dataProvider = "blocks")
-    public void testBlocks (BlockTestCase testCase)
-            throws IllegalBlockFormatException {
+    public void testBlocks (BlockTestCase testCase) throws RLPParsingException {
 
         Config.VALIDATE_POW = testCase.validatePoW;
         CONTEXT.blockHeight = testCase.blockHeight;
@@ -31,8 +31,7 @@ public final class BlockTests {
 
     // ---------------------------------------------------------------------------------------------
 
-    private void testValidBlocks (BlockTestCase testCase)
-            throws IllegalBlockFormatException {
+    private void testValidBlocks (BlockTestCase testCase) throws RLPParsingException {
 
         assertEquals(testCase.genesis.rlp().toHexString(), testCase.genesisRLP);
         Config.GENESIS = testCase.genesis;

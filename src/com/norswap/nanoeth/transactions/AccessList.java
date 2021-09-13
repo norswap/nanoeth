@@ -4,6 +4,7 @@ import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.StorageKey;
 import com.norswap.nanoeth.rlp.IllegalRLPAccess;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import norswap.utils.NArrays;
 import java.util.Arrays;
 
@@ -48,13 +49,13 @@ public final class AccessList {
     /**
      * Parses the given RLP sequence into the access list.
      *
-     * @throws IllegalTransactionFormatException if the RLP sequence does not properly encode an
+     * @throws RLPParsingException if the RLP sequence does not properly encode an
      * access list
      */
-    public static AccessList from (RLP seq) throws IllegalTransactionFormatException {
+    public static AccessList from (RLP seq) throws RLPParsingException {
 
-        if (!seq.isSequence()) throw new IllegalTransactionFormatException(
-            "access list requires a sequence, but a byte array was provided instead");
+        if (!seq.isSequence()) throw new RLPParsingException(
+            "Access list requires a sequence, but a byte array was provided instead.");
 
         try {
             return new AccessList(seq.stream()
@@ -65,8 +66,8 @@ public final class AccessList {
                         .toArray(StorageKey[]::new)))
                 .toArray(AccessListItem[]::new));
         } catch (ArrayIndexOutOfBoundsException | IllegalRLPAccess e) {
-            throw new IllegalTransactionFormatException(
-                "Access list items must have format [address, [key, ...]]");
+            throw new RLPParsingException(
+                "Access list items must have format [address, [key, ...]].");
         }
     }
 

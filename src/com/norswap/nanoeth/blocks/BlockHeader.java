@@ -8,6 +8,7 @@ import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.utils.Hashing;
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -212,10 +213,10 @@ public final class BlockHeader {
     /**
      * Parses a RLP sequence into a block header.
      *
-     * @throws IllegalBlockFormatException
+     * @throws com.norswap.nanoeth.rlp.RLPParsingException
      * if the RLP sequence does not properly parse to a block header
      */
-    public static BlockHeader from (RLP rlp) throws IllegalBlockFormatException {
+    public static BlockHeader from (RLP rlp) throws RLPParsingException {
         return BlockParser.parseHeader(rlp);
     }
 

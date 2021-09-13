@@ -1,6 +1,7 @@
 package com.norswap.nanoeth.transactions;
 
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.utils.ByteUtils;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -29,8 +30,7 @@ public final class TransactionTests {
     // ---------------------------------------------------------------------------------------------
 
     @Test(dataProvider = "transactions")
-    public void testTransaction (TransactionTestCase testCase)
-            throws IllegalTransactionFormatException {
+    public void testTransaction (TransactionTestCase testCase) throws RLPParsingException {
 
         CONTEXT.blockHeight = testCase.blockHeight;
         if (testCase.valid)
@@ -42,7 +42,7 @@ public final class TransactionTests {
 
     // ---------------------------------------------------------------------------------------------
 
-    private void testValidTransaction (TransactionTestCase testCase) throws IllegalTransactionFormatException {
+    private void testValidTransaction (TransactionTestCase testCase) throws RLPParsingException {
         String hex = testCase.hexRLP;
 
         // extra tests for RLP: encode(decode(bytes)) == bytes

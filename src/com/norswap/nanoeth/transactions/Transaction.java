@@ -3,6 +3,7 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.Natural;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.signature.SignatureUtils;
 import com.norswap.nanoeth.versions.EthereumVersion;
 import com.norswap.nanoeth.rlp.RLP;
@@ -56,11 +57,10 @@ public final class Transaction extends UnsignedTransaction {
     /**
      * Parses a RLP sequence into a transaction.
      *
-     * @throws IllegalTransactionFormatException
+     * @throws RLPParsingException
      * if the RLP object does not properly parse to a transaction
      */
-    public static Transaction from (RLP rlp)
-            throws IllegalTransactionFormatException {
+    public static Transaction from (RLP rlp) throws RLPParsingException {
         return TransactionParser.parse(rlp);
     }
 

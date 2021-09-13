@@ -3,7 +3,6 @@ package com.norswap.nanoeth.blocks;
 import com.norswap.nanoeth.rlp.IllegalRLPAccess;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPParsingException;
-import com.norswap.nanoeth.transactions.IllegalTransactionFormatException;
 import com.norswap.nanoeth.transactions.Transaction;
 import static com.norswap.nanoeth.rlp.RLPParsing.*;
 
@@ -21,8 +20,8 @@ final class BlockParser {
     // ---------------------------------------------------------------------------------------------
 
     /** Implements {@link Block#from} */
-    static Block parseBlock (RLP rlp) throws IllegalBlockFormatException {
-        int i = -1;
+    static Block parseBlock (RLP rlp) throws RLPParsingException {
+        int i = -1, j = -1;
         try {
             var header = parseHeader(rlp.itemAt(0));
 
@@ -33,24 +32,27 @@ final class BlockParser {
 
             var unclesRLP = rlp.itemAt(2).items();
             var uncles = new BlockHeader[unclesRLP.length];
-            for (i = 0; i < uncles.length; i++)
-                uncles[i] = parseHeader(unclesRLP[i]);
+            for (j = 0; j < uncles.length; j++)
+                uncles[j] = parseHeader(unclesRLP[j]);
 
             return new Block(header, transactions, uncles);
 
         } catch (IllegalRLPAccess e) {
-            throw new IllegalBlockFormatException(e);
-        } catch (IllegalTransactionFormatException e) {
-            throw new IllegalBlockFormatException("illegal transaction at index " + i, e);
-        } catch (IllegalBlockFormatException e) {
-            throw new IllegalBlockFormatException(
-                i == -1 ? "illegal header format" : "illegal uncle header at index " + i, e);
+            throw new RLPParsingException(e.getMessage(), e);
+        } catch (RLPParsingException e) {
+            if (i == -1 || j >= 0) // header
+                e.trace.pop();
+
+            if      (i == -1) e.trace.push("Illegal header format.");
+            else if (j == -1) e.trace.push("Illegal transaction at index " + i + ".");
+            else              e.trace.push("Illegal uncle header at index " + j + ".");
+            throw e;
         }
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    static BlockHeader parseHeader (RLP rlp) throws IllegalBlockFormatException {
+    static BlockHeader parseHeader (RLP rlp) throws RLPParsingException {
         try {
             var parentHash          = getHash           (rlp, 0);
             var uncleHash           = getHash           (rlp, 1);
@@ -73,9 +75,10 @@ final class BlockParser {
                 difficulty, number, gasLimit, gasUsed, timestamp, extraData, mixHash, nonce);
 
         } catch (IllegalRLPAccess e) {
-            throw new IllegalBlockFormatException(e);
+            throw new RLPParsingException(e.getMessage(), e);
         } catch (RLPParsingException e) {
-            throw new IllegalBlockFormatException(e.getMessage(), e.getCause());
+            e.trace.push("Illegal header format.");
+            throw e;
         }
     }
 

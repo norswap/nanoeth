@@ -3,6 +3,7 @@ package com.norswap.nanoeth.blocks;
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.utils.Utils;
 import java.util.Arrays;
@@ -70,10 +71,10 @@ public final class Block {
     /**
      * Parses a RLP sequence into a block.
      *
-     * @throws IllegalBlockFormatException
+     * @throws RLPParsingException
      * if the RLP sequence does not properly parse to a block
      */
-    public static Block from (RLP rlp) throws IllegalBlockFormatException {
+    public static Block from (RLP rlp) throws RLPParsingException {
         return BlockParser.parseBlock(rlp);
     }
 

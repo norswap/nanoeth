@@ -54,11 +54,10 @@ public enum TransactionFormat {
      * TransactionEnvelopeType#ENVELOPE_TYPE_NONE} if there is envelope type) and the signature
      * {@code v} value.
 
-     * @throws IllegalTransactionFormatException if either the envelope type or the {@code v} value
+     * @throws IllegalArgumentException if either the envelope type or the {@code v} value
      * are illegal.
      */
-    public static TransactionFormat findFormat (int type, Natural v)
-            throws IllegalTransactionFormatException {
+    public static TransactionFormat findFormat (int type, Natural v) throws IllegalArgumentException {
 
         // Note: this logic is largely reimplemented in TransactionParser.
 
@@ -69,13 +68,13 @@ public enum TransactionFormat {
                 if (v.greaterSame(37))
                     return TX_EIP_155;
                 else
-                    throw new IllegalTransactionFormatException("illegal v value: " + v);
+                    throw new IllegalArgumentException("illegal v value: " + v);
             case ENVELOPE_TYPE_EIP_2930:
                 return TX_EIP_2930;
             case ENVELOPE_TYPE_EIP_1559:
                 return TX_EIP_1559;
             default:
-                throw new IllegalTransactionFormatException("illegal envelope type: " + type);
+                throw new IllegalArgumentException("illegal envelope type: " + type);
         }
     }
 

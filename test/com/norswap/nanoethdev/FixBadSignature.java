@@ -2,15 +2,14 @@ package com.norswap.nanoethdev;
 
 import com.norswap.nanoeth.Context;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.signature.EthKeyPair;
-import com.norswap.nanoeth.transactions.IllegalTransactionFormatException;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ReflectionUtils;
 import com.norswap.nanoeth.versions.EthereumVersion;
 import norswap.utils.IO;
 import org.json.JSONObject;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.file.Path;
 
@@ -44,7 +43,7 @@ public class FixBadSignature {
         "ttData/DataTestNotEnoughGAS",
     };
 
-    public static void main (String[] args) throws IllegalTransactionFormatException {
+    public static void main (String[] args) throws RLPParsingException {
         for (String testPathStr: badSignatureTestsPaths) {
             var testPath
                 = TEST_REPO + "TransactionTests/" + testPathStr + ".json";

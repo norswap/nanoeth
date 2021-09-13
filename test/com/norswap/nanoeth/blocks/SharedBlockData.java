@@ -10,7 +10,6 @@ import com.norswap.nanoeth.signature.IllegalSignature;
 import com.norswap.nanoeth.signature.Signature;
 import com.norswap.nanoeth.transactions.AccessList;
 import com.norswap.nanoeth.transactions.AccessList.AccessListItem;
-import com.norswap.nanoeth.transactions.IllegalTransactionFormatException;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.transactions.TransactionFormat;
 import com.norswap.nanoeth.utils.Assert;
@@ -146,14 +145,7 @@ public final class SharedBlockData {
 
         var v = new Natural(tx.getString("v"));
         int vInt = v.intValue();
-
-        TransactionFormat format;
-        try {
-            format = TransactionFormat.findFormat(type, v);
-        } catch (IllegalTransactionFormatException e) {
-            throw new AssertionError(e);
-        }
-
+        var format = TransactionFormat.findFormat(type, v);
         int yParity;
         Natural chainId;
         switch (format) {
