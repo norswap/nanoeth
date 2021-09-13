@@ -1,7 +1,6 @@
 # TODO
 
 - main roadmap
-  - validate Merkle tree against block tests
   - memoize Merkle trees
   - Merkle proofs
   - create a RLPSerializable interface to replace RLP.sequence(...) kitchen sink

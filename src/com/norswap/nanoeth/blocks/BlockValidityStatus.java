@@ -49,7 +49,9 @@ public enum BlockValidityStatus {
     /** An uncle has already appeared *as* an ancestor. */
     VAL_UNCLE_IS_ANCESTOR,
     /** An included uncle isn't really an uncle (the sibling of an ancestor of degree {@code <= 6}. */
-    VAL_UNRELATED_UNCLE;
+    VAL_UNRELATED_UNCLE,
+    /** The Merkle root for transactions does not match the transactions included in the block. */
+    VAL_BAD_TX_ROOT;
 
     // ---------------------------------------------------------------------------------------------
 

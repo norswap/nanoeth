@@ -5,6 +5,8 @@ import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.transactions.Transaction;
+import com.norswap.nanoeth.trees.patricia.PatriciaTree;
+import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Utils;
 import java.util.Arrays;
 import java.util.Objects;
@@ -90,10 +92,22 @@ public final class Block {
         if (!uncleValidity.valid())
             return uncleValidity;
 
-        return BlockValidity.of(header.validate());
+        var headerValidity = BlockValidity.of(header.validate());
+        if (!headerValidity.valid()) return headerValidity;
+
+        var txTree = new PatriciaTree();
+        for (int i = 0; i < transactions.length; i++) {
+            byte[] key   = RLP.bytes(ByteUtils.bytes(i)).encode();
+            byte[] value = transactions[i].binary();
+            txTree = txTree.add(key, value);
+        }
+
+        if (!txTree.merkleRoot().equals(header.transactionsRoot))
+            return BlockValidity.of(VAL_BAD_TX_ROOT);
+
+        return BLOCK_VALID;
 
         // TODO
-        //   - build transactions Merkle tree and check transactionRoot from header
         //   - run transactions
         //   & check stateRoot from header
         //   & check receiptsRoot from header
