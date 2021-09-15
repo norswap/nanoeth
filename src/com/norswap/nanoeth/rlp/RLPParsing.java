@@ -8,7 +8,7 @@ import com.norswap.nanoeth.receipts.BloomFilter;
 import com.norswap.nanoeth.utils.ByteUtils;
 
 /**
- * Utilities to help parse protocol objects from RLP input.
+ * Utilities to help parse protocol objects from a RLP layout.
  */
 public final class RLPParsing {
     private RLPParsing() {}
@@ -28,7 +28,10 @@ public final class RLPParsing {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Parses the i-th item of the sequence, which should be a byte array of size 1, into a unsigned byte. */
+    /**
+     * Parses the i-th item of the sequence, which should be a byte array of size 1, into a
+     * unsigned byte.
+     */
     public static int getByte (RLP seq, int i) throws RLPParsingException {
         var bytes = getBytes(seq, i);
         if (bytes.length == 1) return ByteUtils.uint(bytes[0]);
@@ -85,8 +88,10 @@ public final class RLPParsing {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Retrieves the i-th item of the sequence, and verifies that it is a byte array with a valid
-     * size. */
+    /**
+     * Retrieves the i-th item of the sequence, and verifies that it is a byte array with a valid
+     * size.
+     */
     public static byte[] getBytes (RLP seq, int i) throws RLPParsingException {
         if (i >= seq.items().length) throw new RLPParsingException("Decoded RLP is too short.");
         var item = seq.itemAt(i);

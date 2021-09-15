@@ -7,11 +7,11 @@ import java.util.Arrays;
 import static java.lang.String.format;
 
 /**
- * Enables encoding and decoding from RLP format, as specified in appendix B of the yellowpaper.
+ * Enables encoding and decoding RLP layouts, as specified in appendix B of the yellowpaper.
  *
  * <p>This implementation only supports byte sequences and item sequences with the maximum length
  * allowed by Java, which is slightly under 2^31. Ethereum allows byte and item sequences of length
- * up to 2^64.
+ * up to 2^64. This should never be an issue in practice.
  */
 final class RLPEncoding {
     private RLPEncoding () {}

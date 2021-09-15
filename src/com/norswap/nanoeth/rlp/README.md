@@ -1,25 +1,44 @@
 # RLP
 
-Implementation of the Recursive Length Prefix (RLP) format, as specified in appendix B of the
+Implementation of the Recursive Length Prefix (RLP) encoding, as specified in appendix B of the
 [Ethereum yellowpaper][yellow].
 
 [yellow]: https://ethereum.github.io/yellowpaper/paper.pdf
 
+Strictly speaking, the specified process allows to construct the "RLP encoding" (a byte array) of a
+structure made of (potentially empty) sequences and byte arrays.
+
+We do not deal in pure nested sequences and byte arrays but in Java object, where we might want to
+store some additional information. So we need an intermediate stage where we construct the "RLP
+layout" of an object. Here is an example for transactions:
+
+```
+Transaction   --[ layout ]-->  RLP Layout   --[ encode ]--> bytes[]
+             <--[ parse  ]--               <--[ decode ]--
+```
+
+Object that have a RLP layout will implement the `RLPLayoutable` class and implement the
+`rlpLayout()` method. Such object can also typically be created from a RLP layout method, often
+using a static factory method (for instance `Transaction#from(RLP)`) — we call this "parsing" the
+RLP layout. The class `RLPParsing` includes utility methods to help parse RLP layouts.
+
+The RLP layout itself is reprsented by a `RLP` object. Each `RLP` object represents a sequence of
+other RLP objects (`RLP[]`), a byte array (`byte[]`), or (as a special case), an encoded RLP item.
+
 Encoding goes from an `RLP` object to a `byte[]` object, and  decoding goes in the reverse direction.
 
-- Encoding is performed via `RLP.encode()`.
+- Encoding is performed via `RLP#encode()`.
 - Decoding is performed via `RLP.decode(byte[])`
 
-The encoding & coding logic proper is in the package-local `RLPEncoding` class.
+The encoding & decoding logic proper is in the package-local `RLPEncoding` class.
 
-An `RLP` object represents either a byte array (`byte[]`) or a sequence of sub-items (`RLP[]`).
+We allow `RLP` to wrap RLP encodings to enable incremental RLP encoding. Because RLP is a recursive
+format, we do not need to know the layout of already-encoded items in order to compute the RLP
+encoding of layouts that include them. This is notably useful to incrementally compute Merkle root
+in the modified Mekle patricia tree (`trees.patricia` package). The encoded bytes can be accessed
+via `RLP#encode()`, while the layout can be retrieved via `RLP#inflate()`.
 
-There are in reality three layers of representations: the actual objects we care about (e.g. a
-transaction, `Transaction` in the `transactions` package), their RLP **representations** (`RLP`)
-and the RLP encoding (`byte[]`). We say that we "parse" an object (e.g. a transaction) from its
-RLP representation, while we "decode" the RLP representation from the RLP-encoded byte array.
-
-## Understanding the value of the first byte of an RLP-encoded item
+## Understanding the value of the first byte of an RLP encoding 
 
 - Single byte encoding (`[0, 127]` aka `[0x0, 0x7f]`): 128 items which are encoded as themselves (
   single byte).
@@ -50,12 +69,12 @@ The values 128, 183, 192 and 247 (note the occasional off-by-one) are similarly 
 they represent a base that is added to a size to encode it. We represent them in the
 implementation as constants whose name ends with `SUMMAND`.
 
-## Zero Length Sequences
+### Zero Length Sequences & Zero Values
 
 Something that might not be immediately obvious from the above is that a zero-length byte sequence
-is encoded as the single byte 128, while a zero-length item sequence aris encoded as the single byte
+is encoded as the single byte 128, while a zero-length item sequence is encoded as the single byte
 192.
 
-Something even less obvious, and not actually related to the RLP format itself, is that Ethereum
+Something even less obvious, and not actually related to the RLP encoding itself, is that Ethereum
 encodes the number 0 as a zero-length byte sequence (instead of encoding it as a single 0 byte
 value). This happens for contract calls with zero transferred value, for instance.

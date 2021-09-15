@@ -18,10 +18,24 @@ import java.util.stream.Stream;
 /**
  * An object that can be {@link #encode() encoded} in RLP format, or {@link RLPEncoding#decode(byte[])
  * decoded} from a byte array in RLP format.
- *
- * <p>This represents either a sequence of sub-items, or a byte array.
+ * <p>
+ * This represents either a sequence of sub-items, a byte array, or a binary-encoded RLP item
+ * (either a sequence or byte array).
+ * <p>
+ * We allow representing already-encoded items in order to enable incremental RLP encoding (see the
+ * README of this package for more information).
  */
 public final class RLP {
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Marker stored in {@link #items} to signify that {@link #bytes} represents an already-encoded
+     * RLP item and not a RLP byte array.
+     * <p>
+     * Using this marker avoids the space overhead of adding a third field to this class.
+     */
+    private static final RLP[] ENCODED_MARKER = new RLP[0];
 
     // ---------------------------------------------------------------------------------------------
 
@@ -47,6 +61,20 @@ public final class RLP {
     /** Creates a new RLP object representing a sequence of the given sub-items. */
     public static RLP sequence (RLP... items) {
         return new RLP(items, null);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Creates a new RLP item holding an already-encoded RLP item (either a sequence or a byte
+     * array). Use {@link RLP#encode()} to access the encoding, and {@link #inflate()} to retrieve
+     * the original layout.
+     */
+    public static RLP encoded (byte[] encoding) {
+        // The condition is bogus, the point of this assertion is to cause an early exception if
+        // the RLP encoding is not valid.
+        assert RLP.decode(encoding) != null;
+        return new RLP(ENCODED_MARKER, encoding);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -108,7 +136,7 @@ public final class RLP {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Decodes the given byte sequence to an {@link RLP} object.
+     * Decodes the given byte sequence to an {@link RLP} layout.
      *
      * @throws IllegalArgumentException if the given byte sequence is not well-formed RLP.
      */
@@ -119,7 +147,7 @@ public final class RLP {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Decodes the given hex string (e.g. 0x123) to an {@link RLP} object.
+     * Decodes the given hex string (e.g. 0x123) to an {@link RLP} layout.
      *
      * @throws IllegalArgumentException if the given hex string is not well-formed RLP.
      */
@@ -131,26 +159,33 @@ public final class RLP {
 
     /** True iff this object represents a byte array. */
     public boolean isBytes() {
-        return bytes != null;
+        return bytes != null && items == null;
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /** True iff this object represents a sequence of sub-items. */
     public boolean isSequence() {
-        return items != null;
+        return items != null && items != ENCODED_MARKER;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** True iff this object represents an already-encoded RLP item. */
+    public boolean isEncoded () {
+        return items == ENCODED_MARKER;
     }
 
     // ---------------------------------------------------------------------------------------------
 
     private void checkBytes() {
-        if (bytes == null) throw new IllegalRLPAccess("RLP object does not represent bytes");
+        if (!isBytes()) throw new IllegalRLPAccess("RLP object does not represent bytes");
     }
 
     // ---------------------------------------------------------------------------------------------
 
     private void checkSequence() {
-        if (items == null) throw new IllegalRLPAccess("RLP object does not represent a sequence");
+        if (!isSequence()) throw new IllegalRLPAccess("RLP object does not represent a sequence");
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -211,9 +246,23 @@ public final class RLP {
 
     /** Returns the binary RLP encoding of this object. */
     public byte[] encode() {
-        return bytes == null
-            ? RLPEncoding.encode(items)
-            : RLPEncoding.encode(bytes);
+        return items == ENCODED_MARKER
+            ? bytes
+            : bytes == null
+                ? RLPEncoding.encode(items)
+                : RLPEncoding.encode(bytes);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * If this object is an encoded RLP item, returns a non-encoded version, otherwise returns
+     * this object.
+     */
+    public RLP inflate() {
+        return items == ENCODED_MARKER
+            ? RLPEncoding.decode(bytes)
+            : this;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -262,9 +311,11 @@ public final class RLP {
     }
 
     @Override public String toString () {
-        return bytes == null
-            ? "RLP (sequence) " + Arrays.toString(items)
-            : "RLP (bytes) " + ByteUtils.toCompressedHexString(bytes);
+        return items == ENCODED_MARKER
+            ? "RLP (encoded)" + ByteUtils.toCompressedHexString(bytes)
+            : bytes == null
+                ? "RLP (sequence) " + Arrays.toString(items)
+                : "RLP (bytes) " + ByteUtils.toCompressedHexString(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------
