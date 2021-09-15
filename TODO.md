@@ -3,11 +3,11 @@
 - main roadmap
   - memoize Merkle trees
   - Merkle proofs
-  - create a RLPSerializable interface to replace RLP.sequence(...) kitchen sink
-  - implement/document EIP-1559 logic & validate London block tests
   - either
     - implement EVM
     - implement Verkle trees
+  - write developper guide detailing the architecture
+  - implement/document EIP-1559 logic & validate London block tests
 
 - more testing
   - transactions: test non-0 & high chain IDs

@@ -1,14 +1,8 @@
 package com.norswap.nanoeth.rlp;
 
 import com.norswap.nanoeth.annotations.Retained;
-import com.norswap.nanoeth.blocks.BlockHeader;
-import com.norswap.nanoeth.receipts.BloomFilter;
-import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Hash;
-import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.data.Natural;
-import com.norswap.nanoeth.data.StorageKey;
-import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Hashing;
 import java.util.ArrayList;
@@ -25,7 +19,7 @@ import java.util.stream.Stream;
  * We allow representing already-encoded items in order to enable incremental RLP encoding (see the
  * README of this package for more information).
  */
-public final class RLP {
+public final class RLP implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -83,48 +77,27 @@ public final class RLP {
      * Creates a sequence from the given items, automatically translating them according to their
      * types. Supported types are:
      * <ul>
-     * <li>{@code byte[]}</li>
-     * <li>{@link RLP}</li>
+     * <li>{@link RLPLayoutable} (including {@link RLP} itself)</li>
      * <li>{@link Byte} (can pass a {@code byte})</li>
      * <li>{@link Integer} (encoded on 4 bytes, can pass an {@code int}</li>
      * <li>{@link Long} (encoded on 8 bytes, can pass a {@code long}</li>
-     * <li>{@link Natural} (encoded using only as many bytes as necessary, no leading 0)</li>
-     * <li>{@link Address}</li>
-     * <li>{@link Hash} (and {@link MerkleRoot})</li>
-     * <li>{@link StorageKey}</li>
-     * <li>{@link BloomFilter}</li>
-     * <li>{@link Transaction}</li>
-     * <li>{@link BlockHeader}</li>
+     * <li>{@code byte[]}</li>
      * <li>{@code Object[]}</li>
      * </ul>
      */
     public static RLP sequence (Object... items) {
         var converted = new ArrayList<RLP>();
         for (var item: items) {
-            if (item instanceof RLP)
-                converted.add((RLP) item);
+            if (item instanceof RLPLayoutable)
+                converted.add(((RLPLayoutable) item).rlpLayout());
             else if (item instanceof Byte)
                 converted.add(RLP.bytes(ByteUtils.bytesWithoutSign(new Natural((byte) item))));
             else if (item instanceof Integer)
                 converted.add(RLP.bytes(ByteUtils.bytesPadded(new Natural((int) item), 4)));
             else if (item instanceof Long)
                 converted.add(RLP.bytes(ByteUtils.bytesPadded(new Natural((long) item), 8)));
-            else if (item instanceof Natural)
-                converted.add(RLP.bytes(ByteUtils.bytesWithoutSign((Natural) item)));
             else if (item instanceof byte[])
                 converted.add(RLP.bytes((byte[]) item));
-            else if (item instanceof Address)
-                converted.add(RLP.bytes(((Address) item).bytes));
-            else if (item instanceof Hash)
-                converted.add(RLP.bytes(((Hash) item).bytes));
-            else if (item instanceof BloomFilter)
-                converted.add(RLP.bytes(((BloomFilter) item).bits));
-            else if (item instanceof StorageKey)
-                converted.add(RLP.bytes(((StorageKey) item).bytes));
-            else if (item instanceof Transaction)
-                converted.add(((Transaction) item).rlp());
-            else if (item instanceof BlockHeader)
-                converted.add(((BlockHeader) item).rlp());
             else if (item instanceof Object[])
                 converted.add(RLP.sequence((Object[]) item)); // cast is crucial here!
             else throw new IllegalArgumentException(
@@ -295,6 +268,12 @@ public final class RLP {
      */
     public String toHexString() {
         return ByteUtils.toFullHexString(encode());
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public RLP rlpLayout() {
+        return this;
     }
 
     // ---------------------------------------------------------------------------------------------

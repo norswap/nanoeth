@@ -3,6 +3,7 @@ package com.norswap.nanoeth.blocks;
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.trees.patricia.PatriciaTree;
@@ -17,7 +18,7 @@ import static com.norswap.nanoeth.blocks.BlockValidityStatus.*;
 /**
  * Where even to begin? The block in blockchain, the one that holds transactions.
  */
-public final class Block {
+public final class Block implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -188,9 +189,9 @@ public final class Block {
      * Returns the RLP representation of this block, whose binary encoding is used to transmit the
      * block over the network.
      */
-    public RLP rlp() {
-        var txs = Arrays.stream(transactions).map(Transaction::rlp).toArray();
-        return RLP.sequence(header.rlp(), txs, uncles);
+    @Override public RLP rlpLayout() {
+        var txs = Arrays.stream(transactions).map(Transaction::rlpLayout).toArray();
+        return RLP.sequence(header.rlpLayout(), txs, uncles);
     }
 
     // ---------------------------------------------------------------------------------------------

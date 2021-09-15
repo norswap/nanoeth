@@ -3,6 +3,7 @@ package com.norswap.nanoeth.transactions;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.Natural;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.signature.SignatureUtils;
 import com.norswap.nanoeth.versions.EthereumVersion;
@@ -26,7 +27,7 @@ import static com.norswap.nanoeth.transactions.TransactionEnvelopeType.ENVELOPE_
  * <p>Creating the transaction does not verify its signature. To do so, call {@link
  * #verifySignature()}.
  */
-public final class Transaction extends UnsignedTransaction {
+public final class Transaction extends UnsignedTransaction implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -84,7 +85,7 @@ public final class Transaction extends UnsignedTransaction {
      * Returns the RLP encoding of this transaction, <b>without</b> the {@link
      * TransactionEnvelopeType} (if any). This is a sequence of transaction fields.
      *
-     * @see #rlp()
+     * @see #rlpLayout()
      */
     public RLP plainRLP() {
         return switch (format) {
@@ -96,10 +97,10 @@ public final class Transaction extends UnsignedTransaction {
                 chainId.multiply(2).add(35).add(signature.yParity), signature.r, signature.s);
             case TX_EIP_2930 -> RLP.sequence(
                 chainId, nonce, maxFeePerGas, gasLimit, to, value, payload,
-                accessList.rlp(), signature.yParity, signature.r, signature.s);
+                accessList, signature.yParity, signature.r, signature.s);
             case TX_EIP_1559 -> RLP.sequence(
                 chainId, nonce, maxPriorityFeePerGas, maxFeePerGas, gasLimit, to, value, payload,
-                accessList.rlp(), signature.yParity, signature.r, signature.s);
+                accessList, signature.yParity, signature.r, signature.s);
         };
     }
 
@@ -117,7 +118,7 @@ public final class Transaction extends UnsignedTransaction {
      * Do not use this to obtain a binary encoding of the transaction, at it wraps typed
      * transactions in an RLP byte array. Use {@link #binary()} instead.
      */
-    public RLP rlp() {
+    @Override public RLP rlpLayout() {
         var plain = plainRLP();
         if (format.type == ENVELOPE_TYPE_NONE) return plain;
 
@@ -134,12 +135,12 @@ public final class Transaction extends UnsignedTransaction {
      * Returns the binary encoding of this transaction, for construction of the transaction trie, or
      * transmission over the network.
      * <p>
-     * The encoding is as described in {@link #rlp()}, with the only difference that for typed
+     * The encoding is as described in {@link #rlpLayout()}, with the only difference that for typed
      * transactions, we just want the transaction type + opaque byte array representing the
      * transaction, but not the RLP size prefix.
      */
-    public byte[] binary () {
-        var rlp = rlp();
+    public byte[] binary() {
+        var rlp = rlpLayout();
         return format.type == ENVELOPE_TYPE_NONE
             ? rlp.encode()
             : rlp.bytes();

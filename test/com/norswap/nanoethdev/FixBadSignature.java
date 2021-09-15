@@ -90,7 +90,7 @@ public class FixBadSignature {
             System.out.println("filledwith: nanoeth+commit.TODO");
             System.out.println("lllcversion: none");
             System.out.println("sourceHash: TODO");
-            System.out.println("rlp: " + fixedTx.rlp().toHexString());
+            System.out.println("rlp: " + fixedTx.rlpHexString());
 
             System.out.println();
             System.out.println("----------------------");

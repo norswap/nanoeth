@@ -1,12 +1,14 @@
 package com.norswap.nanoeth.data;
 
+import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.math.BigInteger;
 
 /**
  * Represents an arbitrary-length natural (positive) integer.
  */
-public final class Natural extends BigInteger
+public final class Natural extends BigInteger implements RLPLayoutable
 {
     // ---------------------------------------------------------------------------------------------
 
@@ -95,6 +97,16 @@ public final class Natural extends BigInteger
 
     public String toHexString() {
         return ByteUtils.toCompressedHexString(ByteUtils.bytesWithoutSign(this));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Natural are encoded in RLP using only as many bytes as necessary, with no leading 0.
+     * <p>Zero itself is represented by an empty byte array.
+     */
+    @Override public RLP rlpLayout() {
+        return RLP.bytes(ByteUtils.bytesWithoutSign(this));
     }
 
     // ---------------------------------------------------------------------------------------------

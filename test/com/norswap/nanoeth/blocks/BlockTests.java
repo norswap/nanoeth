@@ -33,11 +33,11 @@ public final class BlockTests {
 
     private void testValidBlocks (BlockTestCase testCase) throws RLPParsingException {
 
-        assertEquals(testCase.genesis.rlp().toHexString(), testCase.genesisRLP);
+        assertEquals(testCase.genesis.rlpHexString(), testCase.genesisRLP);
         Config.GENESIS = testCase.genesis;
 
         for (var block: testCase.blocks) {
-            assertEquals(Block.from(block.rlp()), block);
+            assertEquals(Block.from(block.rlpLayout()), block);
             Blocks.DB.register(block);
             if (testCase.validatePoW) {
                 var computedDifficulty = Difficulty.computeDifficulty(

@@ -8,6 +8,7 @@ import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.utils.Hashing;
 import java.math.BigInteger;
@@ -16,7 +17,7 @@ import java.util.Objects;
 
 import static com.norswap.nanoeth.blocks.BlockValidityStatus.*;
 
-public final class BlockHeader {
+public final class BlockHeader implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -205,7 +206,7 @@ public final class BlockHeader {
     public Hash hash() {
         return hash != null
             ? hash
-            : (hash = Hashing.keccak(rlp().encode()));
+            : (hash = Hashing.keccak(rlpEncode()));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -307,7 +308,7 @@ public final class BlockHeader {
      * Returns the RLP representation of this block header, which is stored in the block (itself
      * RLP-encoded) when circulated over the network. Uncle block headers are similarly encoded.
      */
-    public RLP rlp() {
+    @Override public RLP rlpLayout() {
         return RLP.sequence(
             parentHash, uncleHash, coinbase, stateRoot, transactionsRoot, receiptsRoot, logsBloom,
             difficulty, number, gasLimit, gasUsed, timestamp, extraData, mixHash, nonce);

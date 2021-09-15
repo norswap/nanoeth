@@ -23,7 +23,6 @@ public final class RLPParsing {
         byte[] bytes = getBytes(seq, i);
         if (bytes.length <= 32) return new Natural(bytes);
         throw new RLPParsingException("Natural should not be more than 32 bytes long.");
-
     }
 
     // ---------------------------------------------------------------------------------------------

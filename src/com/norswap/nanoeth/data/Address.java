@@ -4,6 +4,8 @@ import com.norswap.nanoeth.Config;
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.blocks.BlockHeader;
+import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
@@ -12,7 +14,7 @@ import java.util.Arrays;
  * Represents a 160-bit (20 bytes) Ethereum address.
  */
 @Wrapper
-public final class Address {
+public final class Address implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -78,6 +80,12 @@ public final class Address {
         return hexString.length() == 0 || hexString.equals("0x")
             ? EMPTY
             : new Address(ByteUtils.hexStringToBytes(hexString, 20));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public RLP rlpLayout() {
+        return RLP.bytes(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

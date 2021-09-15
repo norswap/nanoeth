@@ -6,7 +6,6 @@ import com.norswap.nanoeth.versions.EthereumVersion;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.signature.EthKeyPair;
 import com.norswap.nanoeth.utils.Assert;
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -160,9 +159,9 @@ public class UnsignedTransaction {
                 // (inferred from https://github.com/ethereum/EIPs/commit/2cb94cc48b4466497d82f5207c84e05f8e1cf4bd)
                 nonce, maxFeePerGas, gasLimit, to, value, payload, chainId, new byte[0], new byte[0]);
             case TX_EIP_2930 -> RLP.sequence(
-                chainId, nonce, maxFeePerGas, gasLimit, to, value, payload, accessList.rlp());
+                chainId, nonce, maxFeePerGas, gasLimit, to, value, payload, accessList);
             case TX_EIP_1559 -> RLP.sequence(
-                nonce, maxFeePerGas, gasLimit, to, value, payload, accessList.rlp());
+                nonce, maxFeePerGas, gasLimit, to, value, payload, accessList);
         };
     }
 

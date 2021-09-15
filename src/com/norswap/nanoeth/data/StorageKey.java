@@ -2,6 +2,8 @@ package com.norswap.nanoeth.data;
 
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
+import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ import java.util.Arrays;
  * Represents a 256-bit (32 bytes) Ethereum storage key within an account's storage tree.
  */
 @Wrapper
-public final class StorageKey {
+public final class StorageKey implements RLPLayoutable {
     // ---------------------------------------------------------------------------------------------
 
     /** The 32-bytes big-endian representation of the storage key. */
@@ -33,6 +35,12 @@ public final class StorageKey {
      */
     public StorageKey (String hexString) {
         this(ByteUtils.hexStringToBytes(hexString, 32));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public RLP rlpLayout() {
+        return RLP.bytes(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

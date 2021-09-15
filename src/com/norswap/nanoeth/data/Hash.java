@@ -3,6 +3,7 @@ package com.norswap.nanoeth.data;
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Hashing;
@@ -14,7 +15,7 @@ import java.util.Arrays;
  * @see com.norswap.nanoeth.utils.Hashing
  */
 @Wrapper
-public class Hash {
+public class Hash implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -62,6 +63,12 @@ public class Hash {
      */
     public String toFullHexString() {
         return ByteUtils.toFullHexString(bytes);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public RLP rlpLayout() {
+        return RLP.bytes(bytes);
     }
 
     // ---------------------------------------------------------------------------------------------

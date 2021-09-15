@@ -4,11 +4,12 @@ import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.StorageKey;
 import com.norswap.nanoeth.rlp.IllegalRLPAccess;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.rlp.RLPParsingException;
 import norswap.utils.NArrays;
 import java.util.Arrays;
 
-public final class AccessList {
+public final class AccessList implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -73,8 +74,7 @@ public final class AccessList {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Returns the RLP representation of this access list. */
-    public RLP rlp() {
+    @Override public RLP rlpLayout() {
         return RLP.sequence((Object[]) Arrays.stream(items)
             .map(it ->
                 RLP.sequence(

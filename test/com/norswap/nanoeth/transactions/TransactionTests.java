@@ -53,7 +53,7 @@ public final class TransactionTests {
 
         // test transaction parsing + serialization: toRlp(txFromRlp(rlp)) == rlp
         var tx = Transaction.from(rlpFromHex);
-        var rlpFromTx = tx.rlp();
+        var rlpFromTx = tx.rlpLayout();
         assertEquals(rlpFromTx, rlpFromHex);
 
         // test transaction parsing + serialization: txFromRlp(toRlp(tx)) == tx

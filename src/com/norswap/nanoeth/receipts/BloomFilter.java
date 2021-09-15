@@ -4,6 +4,8 @@ import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.blocks.BlockHeader;
 import com.norswap.nanoeth.data.Address;
+import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Hashing;
@@ -18,7 +20,7 @@ import java.util.Arrays;
  * <p>See {@link LogTopic} for an explanation of the usefulness of bloom filters.
  */
 @Wrapper
-public final class BloomFilter {
+public final class BloomFilter implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -114,6 +116,12 @@ public final class BloomFilter {
      */
     public String toFullHexString() {
         return ByteUtils.toFullHexString(bits);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public RLP rlpLayout() {
+        return RLP.bytes(bits);
     }
 
     // ---------------------------------------------------------------------------------------------

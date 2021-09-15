@@ -21,4 +21,14 @@ public interface RLPLayoutable {
     }
 
     // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the hex-string representation of the rlp encoding of the object, including leading 0
+     * if any, as per {@link com.norswap.nanoeth.utils.ByteUtils#toFullHexString(byte[])}.
+     */
+    default String rlpHexString() {
+        return rlpLayout().toHexString();
+    }
+
+    // ---------------------------------------------------------------------------------------------
 }
