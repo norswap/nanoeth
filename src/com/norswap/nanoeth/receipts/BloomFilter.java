@@ -6,6 +6,7 @@ import com.norswap.nanoeth.blocks.BlockHeader;
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPLayoutable;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Hashing;
@@ -51,6 +52,14 @@ public final class BloomFilter implements RLPLayoutable {
      */
     public BloomFilter (String hexString) {
         this(ByteUtils.hexStringToBytes(hexString, 256));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static BloomFilter parse (RLP rlp) throws RLPParsingException {
+        var bytes = rlp.bytes();
+        if (bytes.length == 256) return new BloomFilter(bytes);
+        throw new RLPParsingException("Bloom filter should be 256 bytes long.");
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -114,7 +123,7 @@ public final class BloomFilter implements RLPLayoutable {
      * The hex-string representation of this hash, including leading 0 if any, as per {@link
      * ByteUtils#toFullHexString(byte[])}.
      */
-    public String toFullHexString() {
+    public String toHexString() {
         return ByteUtils.toFullHexString(bits);
     }
 
@@ -135,7 +144,7 @@ public final class BloomFilter implements RLPLayoutable {
     }
 
     @Override public String toString() {
-        return toFullHexString();
+        return toHexString();
     }
 
     // ---------------------------------------------------------------------------------------------

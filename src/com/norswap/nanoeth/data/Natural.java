@@ -2,6 +2,7 @@ package com.norswap.nanoeth.data;
 
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPLayoutable;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.math.BigInteger;
 
@@ -43,6 +44,18 @@ public final class Natural extends BigInteger implements RLPLayoutable
      */
     public Natural (byte[] nat) {
         super(1, nat);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Parses a natural from the given RLP data.
+     * @see #rlpLayout()
+     */
+    public static Natural parse (RLP rlp) throws RLPParsingException {
+        var bytes = rlp.bytes();
+        if (bytes.length <= 32) return new Natural(bytes);
+        throw new RLPParsingException("Natural should not be more than 32 bytes long.");
     }
 
     // ---------------------------------------------------------------------------------------------

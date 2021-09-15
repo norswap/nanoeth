@@ -47,13 +47,7 @@ public final class AccessList implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
-    /**
-     * Parses the given RLP sequence into the access list.
-     *
-     * @throws RLPParsingException if the RLP sequence does not properly encode an
-     * access list
-     */
-    public static AccessList from (RLP seq) throws RLPParsingException {
+    public static AccessList parse (RLP seq) throws RLPParsingException {
 
         if (!seq.isSequence()) throw new RLPParsingException(
             "Access list requires a sequence, but a byte array was provided instead.");

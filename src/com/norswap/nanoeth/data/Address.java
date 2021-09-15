@@ -6,6 +6,7 @@ import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.blocks.BlockHeader;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPLayoutable;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
@@ -80,6 +81,15 @@ public final class Address implements RLPLayoutable {
         return hexString.length() == 0 || hexString.equals("0x")
             ? EMPTY
             : new Address(ByteUtils.hexStringToBytes(hexString, 20));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static Address parse (RLP rlp) throws RLPParsingException {
+        var bytes = rlp.bytes();
+        if (bytes.length == 0)  return Address.EMPTY;
+        if (bytes.length == 20) return new Address(bytes);
+        throw new RLPParsingException("Address should be 20 bytes long.");
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@ package com.norswap.nanoeth.rlp;
 import java.util.ArrayDeque;
 
 /**
- * Signals a problem while parsing some data from RLP format.
+ * Signals a problem while parsing some data from an RLP layout.
  * <p>
  * Receiving this exception means that the binary data has already successfully been decoded to a
  * {@link RLP} structure — failure to do so results in a {@link IllegalArgumentException} being

@@ -1,6 +1,8 @@
 package com.norswap.nanoeth.data;
 
 import com.norswap.nanoeth.annotations.Wrapper;
+import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 
 /**
  * A {@link Hash} that is marked as being a Merkle root.
@@ -31,6 +33,14 @@ public final class MerkleRoot extends Hash {
 
     public MerkleRoot (Hash hash) {
         super(hash.bytes);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static MerkleRoot parse (RLP rlp) throws RLPParsingException {
+        var bytes = rlp.bytes();
+        if (bytes.length == 32) return new MerkleRoot(bytes);
+        throw new RLPParsingException("Merkle root should be 32 bytes long.");
     }
 
     // ---------------------------------------------------------------------------------------------

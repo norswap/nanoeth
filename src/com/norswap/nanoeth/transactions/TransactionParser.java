@@ -1,5 +1,6 @@
 package com.norswap.nanoeth.transactions;
 
+import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Natural;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPParsingException;
@@ -163,11 +164,20 @@ final class TransactionParser {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Parses the i-th item of the sequence, which should be an RLP sequence, into an access list. */
-    private static AccessList getAccessList (RLP seq, int i)
-            throws RLPParsingException {
-        // all validations are done in the `from` method
-        return AccessList.from(seq.itemAt(i));
+    private static Address getAddress(RLP seq, int i) throws RLPParsingException {
+        return Address.parse(seq.itemAt(i));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private static Natural getNatural(RLP seq, int i) throws RLPParsingException {
+        return Natural.parse(seq.itemAt(i));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private static AccessList getAccessList (RLP seq, int i) throws RLPParsingException {
+        return AccessList.parse(seq.itemAt(i));
     }
 
     // ---------------------------------------------------------------------------------------------

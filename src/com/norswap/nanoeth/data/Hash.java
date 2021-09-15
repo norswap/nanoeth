@@ -4,6 +4,7 @@ import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPLayoutable;
+import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.utils.Assert;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Hashing;
@@ -53,6 +54,14 @@ public class Hash implements RLPLayoutable {
      */
     public Hash (String hexString) {
         this(ByteUtils.hexStringToBytes(hexString, 32));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static Hash parse (RLP rlp) throws RLPParsingException{
+        var bytes = rlp.bytes();
+        if (bytes.length == 32) return new Hash(bytes);
+        throw new RLPParsingException("Hash should be 32 bytes long.");
     }
 
     // ---------------------------------------------------------------------------------------------

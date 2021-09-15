@@ -1,5 +1,10 @@
 package com.norswap.nanoeth.blocks;
 
+import com.norswap.nanoeth.data.Address;
+import com.norswap.nanoeth.data.Hash;
+import com.norswap.nanoeth.data.MerkleRoot;
+import com.norswap.nanoeth.data.Natural;
+import com.norswap.nanoeth.receipts.BloomFilter;
 import com.norswap.nanoeth.rlp.IllegalRLPAccess;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPParsingException;
@@ -80,6 +85,36 @@ final class BlockParser {
             e.trace.push("Illegal header format.");
             throw e;
         }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static Hash getHash (RLP seq, int i) throws RLPParsingException {
+        return Hash.parse(seq.itemAt(i));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static MerkleRoot getMerkleRoot (RLP seq, int i) throws RLPParsingException {
+        return MerkleRoot.parse(seq.itemAt(i));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private static Address getAddress(RLP seq, int i) throws RLPParsingException {
+        return Address.parse(seq.itemAt(i));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    private static Natural getNatural(RLP seq, int i) throws RLPParsingException {
+        return Natural.parse(seq.itemAt(i));
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public static BloomFilter getBloomFilter (RLP seq, int i) throws RLPParsingException {
+        return BloomFilter.parse(seq.itemAt(i));
     }
 
     // ---------------------------------------------------------------------------------------------
