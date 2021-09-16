@@ -23,6 +23,32 @@ public final class RLP implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
+    /** Does the given RLP encoding encode a byte array? */
+    public static boolean encodesBytes (byte[] encoding) {
+        return RLPEncoding.isByteSequence(encoding[0]);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Does the given RLP encoding encode an item sequence? */
+    public static boolean encodesSequence (byte[] encoding) {
+        return !RLPEncoding.isByteSequence(encoding[0]);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * If the given encoding encodes a byte array, returns that byte array, otherwise return
+     * the encoding.
+     */
+    public static byte[] unwrap (byte[] encoding) {
+        return encodesBytes(encoding)
+            ? RLP.decode(encoding).bytes
+            : encoding;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /**
      * Marker stored in {@link #items} to signify that {@link #bytes} represents an already-encoded
      * RLP item and not a RLP byte array.

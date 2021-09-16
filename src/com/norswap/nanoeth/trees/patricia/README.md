@@ -89,6 +89,10 @@ even faster way to achieve the same thing is to sort the entries by lexicographi
 the keys. This makes sure that all the descendants of a node (nodes starting with the same prefix)
 are contiguous, and enables efficient recursive insertions in the tree.
 
+It should be noted that the current in-memory implementation does memoize the "Merkle root" (1) of
+every node in the tree. With this crucial optimization, we avoid traversing the whole tree when
+computing the new top-level Merkle root after a change to the tree.
+
 ### Disk Storage
 
 A detailed exploration of disk-friendly implementation will come when I come around to implementing

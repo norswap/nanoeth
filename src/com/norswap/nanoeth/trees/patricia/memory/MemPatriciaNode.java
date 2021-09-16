@@ -13,6 +13,11 @@ public abstract class MemPatriciaNode implements PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
+    /** Memoization for {@link #cap()}. */
+    byte[] digest;
+
+    // ---------------------------------------------------------------------------------------------
+
     // narrow the return type
     @Override public abstract MemPatriciaNode add (Nibbles keySuffix, byte[] data);
 
@@ -22,44 +27,44 @@ public abstract class MemPatriciaNode implements PatriciaNode {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Passed to {@link #encode} so that the caller (the parent node) may track the RLP-encoded
-     * size of its children without actually needing to call {@link RLP#encode()}.
+     * This method implements the structural composition function c (equation 197 and previous in
+     * the yellowpaper). See also {@link #cap()}.
      * <p>
-     * The size needs to be accurate if smaller than 32, but may be off (in practice: lower than the
-     * actual size) if larger than 32. This is because we only really care to know whether the
-     * encoding is smaller than 32 bytes for compression purposes.
+     * This should normally never be called except from {@link #cap()}.
      */
-    public static final class SizeContext {
-        int size = 0;
-    }
+    public abstract RLP compose();
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * The implementation of this method together implement the node cap function n and the
-     * composition function c (equation 197 and previous in the yellowpaper). The return value of
-     * this function is the return of the n function.
+     * This method implements the node cap function n (equation 194 in the yellowpaper).
      * <p>
-     * We implement c and n together, because recursion is always done through n (which then calls
-     * c). The only time we call c directly is when calling TRIE (the function that returns the
-     * Merkle root). In practice this means that this function must keep track of the size of its
-     * RLP encoding and return a RLP-encoded hash instead if the size exceeds 32 bytes. This also
-     * means that {@link #merkleRoot()} (which implements the yellowpaper TRIE function) must unwrap
-     * the hash in those cases (to avoid double hashing).
-     *
-     * @param ctx must be incremented with the size of the binary encoding of the returned RLP
-     * object (see {@link SizeContext} for more details).
+     * This function takes the result of {@link #compose()} and returns its RLP encoding if its
+     * size is less than 32, or a Keccak hash of the RLP encoding otherwise.
+     * <p>
+     * This method differs from the specified function in that, when the size is higher than 32,
+     * it returns the RLP encoding of a byte array holding the hash, instead of the hash directly.
+     * This makes recursion (in implementations of {@link #compose()}) more regular, but means we might
+     * need to unwrap the hash in {@link #merkleRoot()}.
+     * <p>
+     * This method memoizes its result. This is an important optimization which avoids traversing
+     * the whole tree whenever recomputing the Merkle root after a change to the tree.
      */
-    public abstract RLP encode (SizeContext ctx);
+    public final byte[] cap() {
+        if (digest != null) return digest;
+        byte[] encoding = compose().encode();
+        return digest = encoding.length < 32
+            ? encoding
+            : RLP.bytes(Hashing.keccak(encoding).bytes).encode();
+    }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public final MerkleRoot merkleRoot () {
-        var rlp = encode(new SizeContext());
-        // Because encode() is the n function, we need to avoid rehashing a hash.
-        return rlp.isBytes()
-            ? new MerkleRoot(rlp.bytes())
-            : new MerkleRoot(Hashing.keccak(rlp.encode()));
+        byte[] digest = cap();
+        return RLP.encodesBytes(digest)
+            ? new MerkleRoot(RLP.unwrap(digest))
+            : new MerkleRoot(Hashing.keccak(digest));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -87,34 +92,6 @@ public abstract class MemPatriciaNode implements PatriciaNode {
             return new MemPatriciaExtensionNode(nibbles, branchNode);
         }
         throw new Error(); // unreachable
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Implements the node cap function n (equation 196 in the yellowpaper).
-     * <p>
-     * In practice: returns {@code rlp} if its size is less than 32, and its hash otherwise. An
-     * important difference to the yellowpaper is that if a hash is returned, it is wrapped in an
-     * RLP byte sequence.
-     */
-    RLP cap (RLP rlp, int rlpSizeEstimation, SizeContext ctx) {
-        assert rlpSizeEstimationIsCorrect(rlpSizeEstimation, rlp);
-        if (rlpSizeEstimation < 32) {
-            ctx.size += rlpSizeEstimation;
-            return rlp;
-        } else {
-            ctx.size += 32;
-            return RLP.bytes(Hashing.keccak(rlp.encode()).bytes);
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    private boolean rlpSizeEstimationIsCorrect (int size, RLP rlp) {
-        int len = rlp.encode().length;
-        return size < 32  && size == len
-            || size >= 32 && size <= len;
     }
 
     // ---------------------------------------------------------------------------------------------

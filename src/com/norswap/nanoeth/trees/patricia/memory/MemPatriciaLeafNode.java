@@ -72,16 +72,8 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public RLP encode (SizeContext ctx) {
-        // lower bound on RLP length (hex_prefix, data)
-        // (note that single bytes can be encoded without adding a size byte)
-        int dataLength   = data.length + (data.length > 1 ? 1 : 0);
-        int suffixLength = keySuffix.length() / 2 + 1;  // +1 for hex-prefix flags
-        if (suffixLength > 1) ++ suffixLength;          // +1 for suffix size
-        int rlpLength = dataLength + suffixLength + 1;  // +1 for pair size
-
-        var rlp = RLP.sequence(keySuffix.hexPrefix(true), data);
-        return cap(rlp, rlpLength, ctx);
+    @Override public RLP compose () {
+        return RLP.sequence(keySuffix.hexPrefix(true), data);
     }
 
     // ---------------------------------------------------------------------------------------------

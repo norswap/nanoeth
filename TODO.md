@@ -1,7 +1,6 @@
 # TODO
 
 - main roadmap
-  - memoize Merkle trees
   - Merkle proofs
   - either
     - implement EVM

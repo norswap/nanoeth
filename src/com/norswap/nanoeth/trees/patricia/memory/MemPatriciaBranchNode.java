@@ -174,26 +174,15 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
 
     private final static RLP emptyByteSequence = RLP.bytes(new byte[0]);
 
-    @Override public RLP encode (SizeContext ctx) {
-        var ctx2 = new SizeContext();
+    @Override public RLP compose () {
         var sequence = new Object[17];
         for (int i = 0; i < 16; i++) {
-            if (children[i] == null) {
-                ++ ctx2.size; // an empty sequence is encoded as the byte 128
-                sequence[i] = emptyByteSequence;
-            } else {
-                sequence[i] = children[i].encode(ctx2);
-            }
+            sequence[i] = children[i] == null
+                ? emptyByteSequence
+                : RLP.encoded(children[i].cap());
         }
         sequence[16] = data == null ? emptyByteSequence : data;
-        RLP rlp = RLP.sequence(sequence);
-
-        // lower bound on RLP length (children, data)
-        // (note that single bytes can be encoded without adding a size byte)
-        if (data != null) ctx2.size += data.length + (data.length > 1 ? 1 : 0);
-        ++ ctx2.size; // +1 for sequence size
-
-        return cap(rlp, ctx2.size, ctx);
+        return RLP.sequence(sequence);
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -85,17 +85,8 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public RLP encode (SizeContext ctx) {
-        SizeContext ctx2 = new SizeContext();
-        RLP rlp = RLP.sequence(keyFragment.hexPrefix(false), child.encode(ctx2));
-
-        // lower bound on RLP length (hex_prefix_encoding, child)
-        // (note that single bytes can be encoded without adding a size byte)
-        int fragmentLength = keyFragment.length() / 2 + 1;  // +1 for hex-prefix flags
-        if (fragmentLength > 1) ++ fragmentLength;          // +1 for fragment size
-        ctx2.size += fragmentLength + 1;                    // +1 for sequence size
-
-        return cap(rlp, ctx2.size, ctx);
+    @Override public RLP compose () {
+        return RLP.sequence(keyFragment.hexPrefix(false), RLP.encoded(child.cap()));
     }
 
     // ---------------------------------------------------------------------------------------------
