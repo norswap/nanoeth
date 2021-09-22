@@ -75,6 +75,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add(Nibbles, byte[])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add(Nibbles, byte[])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add(Nibbles, byte[])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add(Nibbles, byte[])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></dt>
@@ -85,9 +87,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the transformed node, after associating the given data with the given key suffix.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html#addEndBranchNode(byte%5B%5D,byte%5B%5D%5B%5D)">addEndBranchNode(byte[], byte[][])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a></dt>
+<dd>
+<div class="block">Call this method for branch nodes where <code>data</code> is the value of the entry being proven.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html#addExtensionNode(com.norswap.nanoeth.trees.patricia.Nibbles)">addExtensionNode(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html#addLeafNode(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">addLeafNode(Nibbles, byte[])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#addMod(int,int)">addMod(int, int)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
 <dd>
 <div class="block">Adds two bytes together with wrap-around behaviour (e.g.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html#addPathBranchNode(byte%5B%5D,byte,byte%5B%5D%5B%5D)">addPathBranchNode(byte[], byte, byte[][])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a></dt>
+<dd>
+<div class="block">Call this method for branch nodes where the value for the entry being proven is in one of the
+ children of the nodes with index <code>pivot</code> (i.e.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.AccessListItem.html#address">address</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.AccessListItem.html" title="class in com.norswap.nanoeth.transactions">AccessList.AccessListItem</a></dt>
 <dd>&nbsp;</dd>
@@ -199,6 +214,22 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/Crypto.html#BOUNCY_CASTLE_KEY_PROVIDER">BOUNCY_CASTLE_KEY_PROVIDER</a></span> - Static variable in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/Crypto.html" title="class in com.norswap.nanoeth.utils">Crypto</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html#build()">build()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a></dt>
+<dd>
+<div class="block">Builds and returns the proof, or returns null if there was no entry to prove.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof(Nibbles, MerkleProofBuilder)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof(Nibbles, MerkleProofBuilder)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof(Nibbles, MerkleProofBuilder)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof(Nibbles, MerkleProofBuilder)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/PatriciaNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof(Nibbles, MerkleProofBuilder)</a></span> - Method in interface com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></dt>
+<dd>
+<div class="block">Builds up a proof for the given key suffix.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#byteAt(int)">byteAt(int)</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
 <div class="block">Returns the byte at the given index.</div>
@@ -270,9 +301,17 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Canonicalizes the <code>s</code> signature value if needed.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html#cap()">cap()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></dt>
+<dd>
+<div class="block">This method implements the node cap function n (equation 194 in the yellowpaper).</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#chainId">chainId</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">The ID of the chain on which this transaction was sent (1 for Ethereum mainnet for instance).</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html#check(com.norswap.nanoeth.data.MerkleRoot)">check(MerkleRoot)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></dt>
+<dd>
+<div class="block">Checks that the current proof is valid for the tree with the given Merkle root.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#child">child</a></span> - Variable in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
@@ -289,6 +328,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Address that will receive the block reward (aka "beneficiary", aka "miner's address").</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries(Nibbles, Map&lt;byte[], byte[]&gt;)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries(Nibbles, Map&lt;byte[], byte[]&gt;)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries(Nibbles, Map&lt;byte[], byte[]&gt;)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
@@ -325,6 +366,19 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="com/norswap/nanoeth/versions/package-summary.html">com.norswap.nanoeth.versions</a> - package com.norswap.nanoeth.versions</dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#compose()">compose()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#compose()">compose()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#compose()">compose()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html#compose()">compose()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html#compose()">compose()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></dt>
+<dd>
+<div class="block">This method implements the structural composition function c (equation 197 and previous in
+ the yellowpaper).</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Difficulty.html#computeDifficulty(com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.blocks.BlockHeader)">computeDifficulty(Natural, BlockHeader)</a></span> - Static method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Difficulty.html" title="class in com.norswap.nanoeth.blocks">Difficulty</a></dt>
 <dd>
 <div class="block">Compute the canonical difficulty of a block arriving at the given timestamp, with the given
@@ -400,7 +454,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#decode(byte%5B%5D)">decode(byte[])</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
-<div class="block">Decodes the given byte sequence to an <a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object.</div>
+<div class="block">Decodes the given byte sequence to an <a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> layout.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#decode(java.lang.String)">decode(String)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
@@ -413,8 +467,21 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/norswap/nanoeth/blocks/Difficulty.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">Difficulty</span></a> - Class in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html#digests">digests</a></span> - Variable in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></dt>
+<dd>
+<div class="block">The "digests" for the "children" of all nodes on the Merkle tree branch from the leaf node
+ (or final branch node) containing the value to the root (all inclusive, and in that order).</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#divide(long)">divide(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/Nibbles.html#dropFirst(int)">dropFirst(int)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></dt>
+<dd>
+<div class="block">Return a suffix of this nibble sequence, shaving off the first <code>n</code> nibbles.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/Nibbles.html#dropLast(int)">dropLast(int)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></dt>
+<dd>
+<div class="block">Return a prefix of this nibble sequence, dropping the last <code>n</code> nibbles.</div>
+</dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
 <dl class="index">
@@ -439,16 +506,18 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the binary RLP encoding of this object.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">encode(MemPatriciaNode.SizeContext)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">encode(MemPatriciaNode.SizeContext)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">encode(MemPatriciaNode.SizeContext)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">encode(MemPatriciaNode.SizeContext)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></dt>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#encoded(byte%5B%5D)">encoded(byte[])</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
-<div class="block">The implementation of this method together implement the node cap function n and the
- composition function c (equation 197 and previous in the yellowpaper).</div>
+<div class="block">Creates a new RLP item holding an already-encoded RLP item (either a sequence or a byte
+ array).</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#encodesBytes(byte%5B%5D)">encodesBytes(byte[])</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
+<dd>
+<div class="block">Does the given RLP encoding encode a byte array?</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#encodesSequence(byte%5B%5D)">encodesSequence(byte[])</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
+<dd>
+<div class="block">Does the given RLP encoding encode an item sequence?</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/TransactionEnvelopeType.html#ENVELOPE_TYPE_EIP_1559">ENVELOPE_TYPE_EIP_1559</a></span> - Static variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/TransactionEnvelopeType.html" title="class in com.norswap.nanoeth.transactions">TransactionEnvelopeType</a></dt>
 <dd>
@@ -489,6 +558,8 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#equals(java.lang.Object)">equals(Object)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
@@ -547,10 +618,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Parses a RLP sequence into a block header.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#from(com.norswap.nanoeth.rlp.RLP)">from(RLP)</a></span> - Static method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
-<dd>
-<div class="block">Parses the given RLP sequence into the access list.</div>
-</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/Transaction.html#from(com.norswap.nanoeth.rlp.RLP)">from(RLP)</a></span> - Static method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></dt>
 <dd>
 <div class="block">Parses a RLP sequence into a transaction.</div>
@@ -594,41 +661,21 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Returns the block with the given hash, or null if no such block is known.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getAddress(com.norswap.nanoeth.rlp.RLP,int)">getAddress(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
-<dd>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into an address.</div>
-</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getBloomFilter(com.norswap.nanoeth.rlp.RLP,int)">getBloomFilter(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
-<dd>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a bloom filter.</div>
-</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getByte(com.norswap.nanoeth.rlp.RLP,int)">getByte(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
 <dd>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a unsigned byte.</div>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a
+ unsigned byte.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getBytes(com.norswap.nanoeth.rlp.RLP,int)">getBytes(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
 <dd>
 <div class="block">Retrieves the i-th item of the sequence, and verifies that it is a byte array with a valid
  size.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getHash(com.norswap.nanoeth.rlp.RLP,int)">getHash(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
-<dd>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
-</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Blocks.html#getHeader(com.norswap.nanoeth.data.Hash)">getHeader(Hash)</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Blocks.html" title="class in com.norswap.nanoeth.blocks">Blocks</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getInt64(com.norswap.nanoeth.rlp.RLP,int)">getInt64(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
 <dd>
 <div class="block">Parses the i-th item of the sequence, which should be a 8-byte array, into a 64-bit integer.</div>
-</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getMerkleRoot(com.norswap.nanoeth.rlp.RLP,int)">getMerkleRoot(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
-<dd>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
-</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsing.html#getNatural(com.norswap.nanoeth.rlp.RLP,int)">getNatural(RLP, int)</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></dt>
-<dd>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array of size no greater than
- 32, into a natural number.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#greater(long)">greater(long)</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
@@ -688,6 +735,8 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html#hashCode()">hashCode()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></dt>
@@ -731,9 +780,9 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="com/norswap/nanoeth/rlp/IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp"><span class="type-name-link">IllegalRLPAccess</span></a> - Exception in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
 <dd>
-<div class="block">Indicates an illegal access in an <a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object: either trying to access a sequence when
- the object represents a byte (or vice-versa), or trying to access a byte or sub-sequence item
- that is out of bounds.</div>
+<div class="block">Indicates an illegal access in an <a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object: trying to access a sequence when the object
+ represents a byte array or encoding, trying to access a byte array when the object represents
+ a sequence or encoding, or trying to access a byte or sub-sequence item that is out of bounds.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/IllegalRLPAccess.html#%3Cinit%3E(java.lang.String)">IllegalRLPAccess(String)</a></span> - Constructor for exception com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp">IllegalRLPAccess</a></dt>
 <dd>&nbsp;</dd>
@@ -744,6 +793,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/signature/IllegalSignature.html#%3Cinit%3E(java.lang.String)">IllegalSignature(String)</a></span> - Constructor for exception com.norswap.nanoeth.signature.<a href="com/norswap/nanoeth/signature/IllegalSignature.html" title="class in com.norswap.nanoeth.signature">IllegalSignature</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#inflate()">inflate()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
+<dd>
+<div class="block">If this object is an encoded RLP item, returns a non-encoded version, otherwise returns
+ this object.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/utils/ByteUtils.html#intToHexDigit(int)">intToHexDigit(int)</a></span> - Static method in class com.norswap.nanoeth.utils.<a href="com/norswap/nanoeth/utils/ByteUtils.html" title="class in com.norswap.nanoeth.utils">ByteUtils</a></dt>
 <dd>
 <div class="block">Converts an integer in [0, 15] into an hex digit (0..9 a..f).</div>
@@ -761,6 +815,10 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#isContractCreation()">isContractCreation()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>
 <div class="block">A transaction is a contract creation if its destination address is empty.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#isEncoded()">isEncoded()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
+<dd>
+<div class="block">True iff this object represents an already-encoded RLP item.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#isFuture()">isFuture()</a></span> - Method in enum com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
 <dd>
@@ -800,6 +858,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Return the Keccak (SHA-3 draft) hash of the input, which has a size of 32 bytes.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html#key">key</a></span> - Variable in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#keyFragment">keyFragment</a></span> - Variable in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.AccessListItem.html#keys">keys</a></span> - Variable in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.AccessListItem.html" title="class in com.norswap.nanoeth.transactions">AccessList.AccessListItem</a></dt>
@@ -849,6 +909,8 @@ loadScripts(document, 'script');</script>
 <div class="block">Lookup the data associated with the given key.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
@@ -910,6 +972,15 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#%3Cinit%3E(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode%5B%5D,byte%5B%5D)">MemPatriciaBranchNode(MemPatriciaNode[], byte[])</a></span> - Constructor for class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory"><span class="type-name-link">MemPatriciaDigestNode</span></a> - Class in <a href="com/norswap/nanoeth/trees/patricia/memory/package-summary.html">com.norswap.nanoeth.trees.patricia.memory</a></dt>
+<dd>
+<div class="block">This is a special kind of node that never occurs in a normal patricia trie, but is used to
+ facilitate the verification of <a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia"><code>Merkle proofs</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#%3Cinit%3E(byte%5B%5D)">MemPatriciaDigestNode(byte[])</a></span> - Constructor for class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
+<dd>
+<div class="block">Creates a new node with the given digest (memoized result for the <a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html#cap()"><code>MemPatriciaNode.cap()</code></a> method.</div>
+</dd>
 <dt><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory"><span class="type-name-link">MemPatriciaExtensionNode</span></a> - Class in <a href="com/norswap/nanoeth/trees/patricia/memory/package-summary.html">com.norswap.nanoeth.trees.patricia.memory</a></dt>
 <dd>
 <div class="block">This in-memory patricia tree node represents a shared sequence of nibbles between multiples keys
@@ -929,11 +1000,17 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html#%3Cinit%3E()">MemPatriciaNode()</a></span> - Constructor for class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory"><span class="type-name-link">MemPatriciaNode.SizeContext</span></a> - Class in <a href="com/norswap/nanoeth/trees/patricia/memory/package-summary.html">com.norswap.nanoeth.trees.patricia.memory</a></dt>
+<dt><a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia"><span class="type-name-link">MerkleProof</span></a> - Class in <a href="com/norswap/nanoeth/trees/patricia/package-summary.html">com.norswap.nanoeth.trees.patricia</a></dt>
 <dd>
-<div class="block">Passed to <a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)"><code>MemPatriciaNode.encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)</code></a> so that the caller (the parent node) may track the RLP-encoded
- size of its children without actually needing to call <a href="com/norswap/nanoeth/rlp/RLP.html#encode()"><code>RLP.encode()</code></a>.</div>
+<div class="block">A proof that a key-value pair belongs to a tree.</div>
 </dd>
+<dt><a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia"><span class="type-name-link">MerkleProofBuilder</span></a> - Class in <a href="com/norswap/nanoeth/trees/patricia/package-summary.html">com.norswap.nanoeth.trees.patricia</a></dt>
+<dd>
+<div class="block">Used by <a href="com/norswap/nanoeth/trees/patricia/PatriciaTree.html#prove(byte%5B%5D)"><code>PatriciaTree.prove(byte[])</code></a> and <a href="com/norswap/nanoeth/trees/patricia/PatriciaNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)"><code>PatriciaNode.buildProof(Nibbles,
+ MerkleProofBuilder)</code></a> to build a <a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia"><code>MerkleProof</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html#%3Cinit%3E(byte%5B%5D)">MerkleProofBuilder(byte[])</a></span> - Constructor for class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html#merkleRoot()">merkleRoot()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/PatriciaNode.html#merkleRoot()">merkleRoot()</a></span> - Method in interface com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></dt>
@@ -1034,6 +1111,20 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The <code>BlockHeader.hash</code> of the parent block.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#parse(com.norswap.nanoeth.rlp.RLP)">parse(RLP)</a></span> - Static method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Hash.html#parse(com.norswap.nanoeth.rlp.RLP)">parse(RLP)</a></span> - Static method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/MerkleRoot.html#parse(com.norswap.nanoeth.rlp.RLP)">parse(RLP)</a></span> - Static method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#parse(com.norswap.nanoeth.rlp.RLP)">parse(RLP)</a></span> - Static method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
+<dd>
+<div class="block">Parses a natural from the given RLP data.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#parse(com.norswap.nanoeth.rlp.RLP)">parse(RLP)</a></span> - Static method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#parse(com.norswap.nanoeth.rlp.RLP)">parse(RLP)</a></span> - Static method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="com/norswap/nanoeth/trees/patricia/PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia"><span class="type-name-link">PatriciaNode</span></a> - Interface in <a href="com/norswap/nanoeth/trees/patricia/package-summary.html">com.norswap.nanoeth.trees.patricia</a></dt>
 <dd>
 <div class="block">Interface for Modified Merkle Patricia Tree node, to be compatible with <a href="com/norswap/nanoeth/trees/patricia/PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia"><code>PatriciaTree</code></a>.</div>
@@ -1071,6 +1162,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="com/norswap/nanoeth/blocks/ProofOfWork.html" title="class in com.norswap.nanoeth.blocks"><span class="type-name-link">ProofOfWork</span></a> - Class in <a href="com/norswap/nanoeth/blocks/package-summary.html">com.norswap.nanoeth.blocks</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/PatriciaTree.html#prove(byte%5B%5D)">prove(byte[])</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaTree</a></dt>
+<dd>
+<div class="block">Returns a Merkle proof for the given key, or null if there is no entry for the given key
+ in the tree.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/signature/EthKeyPair.html#publicKey">publicKey</a></span> - Variable in class com.norswap.nanoeth.signature.<a href="com/norswap/nanoeth/signature/EthKeyPair.html" title="class in com.norswap.nanoeth.signature">EthKeyPair</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -1110,6 +1206,8 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove(Nibbles)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></dt>
@@ -1130,35 +1228,64 @@ loadScripts(document, 'script');</script>
 <div class="block">Indicates that the parameter is a mutable object, and that it is potentially stored somewhere as
  a result of calling the function, and that care should thus be taken when mutating that object.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#rlp()">rlp()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
-<dd>
-<div class="block">Returns the RLP representation of this block, whose binary encoding is used to transmit the
- block over the network.</div>
-</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#rlp()">rlp()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
-<dd>
-<div class="block">Returns the RLP representation of this block header, which is stored in the block (itself
- RLP-encoded) when circulated over the network.</div>
-</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#rlp()">rlp()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
-<dd>
-<div class="block">Returns the RLP representation of this access list.</div>
-</dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/Transaction.html#rlp()">rlp()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></dt>
-<dd>
-<div class="block">Returns the RLP-encoding of this transaction for inclusion in a block.</div>
-</dd>
 <dt><a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp"><span class="type-name-link">RLP</span></a> - Class in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
 <dd>
 <div class="block">An object that can be <a href="com/norswap/nanoeth/rlp/RLP.html#encode()"><code>encoded</code></a> in RLP format, or <code>decoded</code> from a byte array in RLP format.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPLayoutable.html#rlpEncode()">rlpEncode()</a></span> - Method in interface com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPLayoutable.html" title="interface in com.norswap.nanoeth.rlp">RLPLayoutable</a></dt>
+<dd>
+<div class="block">Return the RLP encoding of the object, which is <code>rlpLayout().encode()</code>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPLayoutable.html#rlpHexString()">rlpHexString()</a></span> - Method in interface com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPLayoutable.html" title="interface in com.norswap.nanoeth.rlp">RLPLayoutable</a></dt>
+<dd>
+<div class="block">Returns the hex-string representation of the rlp encoding of the object, including leading 0
+ if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/Block.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/Block.html" title="class in com.norswap.nanoeth.blocks">Block</a></dt>
+<dd>
+<div class="block">Returns the RLP representation of this block, whose binary encoding is used to transmit the
+ block over the network.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockHeader.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockHeader.html" title="class in com.norswap.nanoeth.blocks">BlockHeader</a></dt>
+<dd>
+<div class="block">Returns the RLP representation of this block header, which is stored in the block (itself
+ RLP-encoded) when circulated over the network.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Address.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Hash.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
+<dd>
+<div class="block">Natural are encoded in RLP using only as many bytes as necessary, with no leading 0.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/StorageKey.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/StorageKey.html" title="class in com.norswap.nanoeth.data">StorageKey</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPLayoutable.html#rlpLayout()">rlpLayout()</a></span> - Method in interface com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPLayoutable.html" title="interface in com.norswap.nanoeth.rlp">RLPLayoutable</a></dt>
+<dd>
+<div class="block">Returns the RLP layout for the object.</div>
+</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/AccessList.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/AccessList.html" title="class in com.norswap.nanoeth.transactions">AccessList</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/Transaction.html#rlpLayout()">rlpLayout()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/Transaction.html" title="class in com.norswap.nanoeth.transactions">Transaction</a></dt>
+<dd>
+<div class="block">Returns the RLP-encoding of this transaction for inclusion in a block.</div>
+</dd>
+<dt><a href="com/norswap/nanoeth/rlp/RLPLayoutable.html" title="interface in com.norswap.nanoeth.rlp"><span class="type-name-link">RLPLayoutable</span></a> - Interface in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
+<dd>
+<div class="block">Implemented by object that have an RLP layout, i.e.</div>
+</dd>
 <dt><a href="com/norswap/nanoeth/rlp/RLPParsing.html" title="class in com.norswap.nanoeth.rlp"><span class="type-name-link">RLPParsing</span></a> - Class in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
 <dd>
-<div class="block">Utilities to help parse protocol objects from RLP input.</div>
+<div class="block">Utilities to help parse protocol objects from a RLP layout.</div>
 </dd>
 <dt><a href="com/norswap/nanoeth/rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp"><span class="type-name-link">RLPParsingException</span></a> - Exception in <a href="com/norswap/nanoeth/rlp/package-summary.html">com.norswap.nanoeth.rlp</a></dt>
 <dd>
-<div class="block">Signals a problem while parsing some data from RLP format.</div>
+<div class="block">Signals a problem while parsing some data from an RLP layout.</div>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLPParsingException.html#%3Cinit%3E(java.lang.String)">RLPParsingException(String)</a></span> - Constructor for exception com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></dt>
 <dd>&nbsp;</dd>
@@ -1229,8 +1356,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">In Ethereum, the <code>message</code> will always be a hash.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.SizeContext.html#%3Cinit%3E()">SizeContext()</a></span> - Constructor for class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a></dt>
-<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html#sizes">sizes</a></span> - Variable in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></dt>
+<dd>
+<div class="block">The sizes in nibbles of the key fragments for all nodes on the Merkle tree branch from the
+ leaf (or final branch node) node containing the value to the root (all inclusive, and in that
+ order).</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/versions/EthereumVersion.html#SPURIOUS_DRAGON">SPURIOUS_DRAGON</a></span> - com.norswap.nanoeth.versions.<a href="com/norswap/nanoeth/versions/EthereumVersion.html" title="enum in com.norswap.nanoeth.versions">EthereumVersion</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/Config.html#SPURIOUS_DRAGON_START">SPURIOUS_DRAGON_START</a></span> - Static variable in class com.norswap.nanoeth.<a href="com/norswap/nanoeth/Config.html" title="class in com.norswap.nanoeth">Config</a></dt>
@@ -1271,7 +1402,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/Nibbles.html#suffix(int)">suffix(int)</a></span> - Method in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></dt>
 <dd>
-<div class="block">Return a suffix of this nibble sequence, shaving off the first <code>n</code> nibbles.</div>
+<div class="block">Return a suffix of this nibble sequence, keeping the last <code>n</code> nibbles.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
@@ -1299,10 +1430,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The hex-string representation of this hash, including leading 0 if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
 </dd>
-<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#toFullHexString()">toFullHexString()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
-<dd>
-<div class="block">The hex-string representation of this hash, including leading 0 if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
-</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/LogTopic.html#toFullHexString()">toFullHexString()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/LogTopic.html" title="class in com.norswap.nanoeth.receipts">LogTopic</a></dt>
 <dd>
 <div class="block">The hex-string representation of this hash, including leading 0 if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
@@ -1313,6 +1440,10 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/data/Natural.html#toHexString()">toHexString()</a></span> - Method in class com.norswap.nanoeth.data.<a href="com/norswap/nanoeth/data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/receipts/BloomFilter.html#toHexString()">toHexString()</a></span> - Method in class com.norswap.nanoeth.receipts.<a href="com/norswap/nanoeth/receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></dt>
+<dd>
+<div class="block">The hex-string representation of this hash, including leading 0 if any, as per <a href="com/norswap/nanoeth/utils/ByteUtils.html#toFullHexString(byte%5B%5D)"><code>ByteUtils.toFullHexString(byte[])</code></a>.</div>
+</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#toHexString()">toHexString()</a></span> - Method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
 <dd>
 <div class="block">The hex-string representation of the binary encoding of this RLP item, including leading 0 if
@@ -1367,6 +1498,8 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html#toString()">toString()</a></span> - Method in class com.norswap.nanoeth.trees.patricia.memory.<a href="com/norswap/nanoeth/trees/patricia/memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></dt>
 <dd>&nbsp;</dd>
@@ -1460,6 +1593,11 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html#%3Cinit%3E(com.norswap.nanoeth.transactions.TransactionFormat,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Natural,com.norswap.nanoeth.data.Address,com.norswap.nanoeth.data.Natural,byte%5B%5D,com.norswap.nanoeth.transactions.AccessList)">UnsignedTransaction(TransactionFormat, Natural, Natural, Natural, Natural, Natural, Address, Natural, byte[], AccessList)</a></span> - Constructor for class com.norswap.nanoeth.transactions.<a href="com/norswap/nanoeth/transactions/UnsignedTransaction.html" title="class in com.norswap.nanoeth.transactions">UnsignedTransaction</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/rlp/RLP.html#unwrap(byte%5B%5D)">unwrap(byte[])</a></span> - Static method in class com.norswap.nanoeth.rlp.<a href="com/norswap/nanoeth/rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></dt>
+<dd>
+<div class="block">If the given encoding encodes a byte array, returns that byte array, otherwise return
+ the encoding.</div>
+</dd>
 <dt><a href="com/norswap/nanoeth/utils/Utils.html" title="class in com.norswap.nanoeth.utils"><span class="type-name-link">Utils</span></a> - Class in <a href="com/norswap/nanoeth/utils/package-summary.html">com.norswap.nanoeth.utils</a></dt>
 <dd>
 <div class="block">Misc general-purpose utilities that do not have a place in other utility classes.</div>
@@ -1579,6 +1717,8 @@ loadScripts(document, 'script');</script>
 <div class="block">The value in Wei to be transferred to the transaction's recipient, or as an endowment for the
  newly created contract in the case of contract creation.</div>
 </dd>
+<dt><span class="member-name-link"><a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html#value">value</a></span> - Variable in class com.norswap.nanoeth.trees.patricia.<a href="com/norswap/nanoeth/trees/patricia/MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html#valueOf(java.lang.String)">valueOf(String)</a></span> - Static method in enum com.norswap.nanoeth.blocks.<a href="com/norswap/nanoeth/blocks/BlockValidityStatus.html" title="enum in com.norswap.nanoeth.blocks">BlockValidityStatus</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>

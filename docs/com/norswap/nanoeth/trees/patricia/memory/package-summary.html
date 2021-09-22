@@ -72,29 +72,29 @@ loadScripts(document, 'script');</script>
 </td>
 </tr>
 <tr class="row-color">
+<th class="col-first" scope="row"><a href="MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></th>
+<td class="col-last">
+<div class="block">This is a special kind of node that never occurs in a normal patricia trie, but is used to
+ facilitate the verification of <a href="../MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia"><code>Merkle proofs</code></a>.</div>
+</td>
+</tr>
+<tr class="alt-color">
 <th class="col-first" scope="row"><a href="MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></th>
 <td class="col-last">
 <div class="block">This in-memory patricia tree node represents a shared sequence of nibbles between multiples keys
  (a "key fragment").</div>
 </td>
 </tr>
-<tr class="alt-color">
+<tr class="row-color">
 <th class="col-first" scope="row"><a href="MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></th>
 <td class="col-last">
 <div class="block">A leaf in the in-memory patrica tree, which store the suffix of the key and its associated data.</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></th>
 <td class="col-last">
 <div class="block">The common interface for all in-memory patricia tree node implementations.</div>
-</td>
-</tr>
-<tr class="alt-color">
-<th class="col-first" scope="row"><a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a></th>
-<td class="col-last">
-<div class="block">Passed to <a href="MemPatriciaNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)"><code>MemPatriciaNode.encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)</code></a> so that the caller (the parent node) may track the RLP-encoded
- size of its children without actually needing to call <a href="../../../rlp/RLP.html#encode()"><code>RLP.encode()</code></a>.</div>
 </td>
 </tr>
 </tbody>

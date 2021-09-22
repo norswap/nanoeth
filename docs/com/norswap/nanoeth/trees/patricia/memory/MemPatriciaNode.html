@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":10,"i3":6};
+<script type="text/javascript">var data = {"i0":6,"i1":10,"i2":6,"i3":10,"i4":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -46,7 +46,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -85,7 +85,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>Direct Known Subclasses:</dt>
-<dd><code><a href="MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></code>, <code><a href="MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></code>, <code><a href="MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></code></dd>
+<dd><code><a href="MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></code>, <code><a href="MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></code>, <code><a href="MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></code>, <code><a href="MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></code></dd>
 </dl>
 <hr>
 <pre>public abstract class <span class="type-name-label">MemPatriciaNode</span>
@@ -95,34 +95,6 @@ implements <a href="../PatriciaNode.html" title="interface in com.norswap.nanoet
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<li>
-<section class="nested-class-summary" id="nested.class.summary">
-<h2>Nested Class Summary</h2>
-<div class="member-summary">
-<table class="summary-table">
-<caption><span>Nested Classes</span></caption>
-<thead>
-<tr>
-<th class="col-first" scope="col">Modifier and Type</th>
-<th class="col-second" scope="col">Class</th>
-<th class="col-last" scope="col">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="alt-color">
-<td class="col-first"><code>static class&nbsp;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a></span></code></th>
-<td class="col-last">
-<div class="block">Passed to <a href="#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)"><code>encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)</code></a> so that the caller (the parent node) may track the RLP-encoded
- size of its children without actually needing to call <a href="../../../rlp/RLP.html#encode()"><code>RLP.encode()</code></a>.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor.summary">
@@ -171,21 +143,28 @@ byte[]&nbsp;data)</code></th>
 </td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>abstract <a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">encode</a></span>&#8203;(<a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a>&nbsp;ctx)</code></th>
+<td class="col-first"><code>byte[]</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#cap()">cap</a></span>()</code></th>
 <td class="col-last">
-<div class="block">The implementation of this method together implement the node cap function n and the
- composition function c (equation 197 and previous in the yellowpaper).</div>
+<div class="block">This method implements the node cap function n (equation 194 in the yellowpaper).</div>
 </td>
 </tr>
 <tr class="alt-color" id="i2">
+<td class="col-first"><code>abstract <a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#compose()">compose</a></span>()</code></th>
+<td class="col-last">
+<div class="block">This method implements the structural composition function c (equation 197 and previous in
+ the yellowpaper).</div>
+</td>
+</tr>
+<tr class="row-color" id="i3">
 <td class="col-first"><code><a href="../../../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#merkleRoot()">merkleRoot</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns the Merkle root of the Merkle tree rooted at this node.</div>
 </td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="alt-color" id="i4">
 <td class="col-first"><code>abstract <a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</code></th>
 <td class="col-last">
@@ -202,7 +181,7 @@ byte[]&nbsp;data)</code></th>
 <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="class or interface in java.lang" class="external-link">equals</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#hashCode()" title="class or interface in java.lang" class="external-link">hashCode</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#toString()" title="class or interface in java.lang" class="external-link">toString</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.com.norswap.nanoeth.trees.patricia.PatriciaNode">Methods inherited from interface&nbsp;com.norswap.nanoeth.trees.patricia.<a href="../PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></h3>
-<code><a href="../PatriciaNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries</a>, <a href="../PatriciaNode.html#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup</a></code></div>
+<code><a href="../PatriciaNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof</a>, <a href="../PatriciaNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries</a>, <a href="../PatriciaNode.html#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup</a></code></div>
 </section>
 </li>
 </ul>
@@ -259,24 +238,31 @@ byte[]&nbsp;data)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">
-<h3>encode</h3>
-<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type"><a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></span>&nbsp;<span class="member-name">encode</span>&#8203;(<span class="parameters"><a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a>&nbsp;ctx)</span></div>
-<div class="block">The implementation of this method together implement the node cap function n and the
- composition function c (equation 197 and previous in the yellowpaper). The return value of
- this function is the return of the n function.
+<section class="detail" id="compose()">
+<h3>compose</h3>
+<div class="member-signature"><span class="modifiers">public abstract</span>&nbsp;<span class="return-type"><a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></span>&nbsp;<span class="member-name">compose</span>()</div>
+<div class="block">This method implements the structural composition function c (equation 197 and previous in
+ the yellowpaper). See also <a href="#cap()"><code>cap()</code></a>.
  <p>
- We implement c and n together, because recursion is always done through n (which then calls
- c). The only time we call c directly is when calling TRIE (the function that returns the
- Merkle root). In practice this means that this function must keep track of the size of its
- RLP encoding and return a RLP-encoded hash instead if the size exceeds 32 bytes. This also
- means that <a href="#merkleRoot()"><code>merkleRoot()</code></a> (which implements the yellowpaper TRIE function) must unwrap
- the hash in those cases (to avoid double hashing).</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>ctx</code> - must be incremented with the size of the binary encoding of the returned RLP
- object (see <a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory"><code>MemPatriciaNode.SizeContext</code></a> for more details).</dd>
-</dl>
+ This should normally never be called except from <a href="#cap()"><code>cap()</code></a>.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="cap()">
+<h3>cap</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">cap</span>()</div>
+<div class="block">This method implements the node cap function n (equation 194 in the yellowpaper).
+ <p>
+ This function takes the result of <a href="#compose()"><code>compose()</code></a> and returns its RLP encoding if its
+ size is less than 32, or a Keccak hash of the RLP encoding otherwise.
+ <p>
+ This method differs from the specified function in that, when the size is higher than 32,
+ it returns the RLP encoding of a byte array holding the hash, instead of the hash directly.
+ This makes recursion (in implementations of <a href="#compose()"><code>compose()</code></a>) more regular, but means we might
+ need to unwrap the hash in <a href="#merkleRoot()"><code>merkleRoot()</code></a>.
+ <p>
+ This method memoizes its result. This is an important optimization which avoids traversing
+ the whole tree whenever recomputing the Merkle root after a change to the tree.</div>
 </section>
 </li>
 <li>
@@ -318,7 +304,7 @@ byte[]&nbsp;data)</span></div>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

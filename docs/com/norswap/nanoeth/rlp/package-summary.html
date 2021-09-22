@@ -57,6 +57,27 @@ loadScripts(document, 'script');</script>
 <li>
 <div class="type-summary">
 <table class="summary-table">
+<caption><span>Interface Summary</span></caption>
+<thead>
+<tr>
+<th class="col-first" scope="col">Interface</th>
+<th class="col-last" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="alt-color">
+<th class="col-first" scope="row"><a href="RLPLayoutable.html" title="interface in com.norswap.nanoeth.rlp">RLPLayoutable</a></th>
+<td class="col-last">
+<div class="block">Implemented by object that have an RLP layout, i.e.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li>
+<div class="type-summary">
+<table class="summary-table">
 <caption><span>Class Summary</span></caption>
 <thead>
 <tr>
@@ -74,7 +95,7 @@ loadScripts(document, 'script');</script>
 <tr class="row-color">
 <th class="col-first" scope="row"><a href="RLPParsing.html" title="class in com.norswap.nanoeth.rlp">RLPParsing</a></th>
 <td class="col-last">
-<div class="block">Utilities to help parse protocol objects from RLP input.</div>
+<div class="block">Utilities to help parse protocol objects from a RLP layout.</div>
 </td>
 </tr>
 </tbody>
@@ -95,15 +116,15 @@ loadScripts(document, 'script');</script>
 <tr class="alt-color">
 <th class="col-first" scope="row"><a href="IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp">IllegalRLPAccess</a></th>
 <td class="col-last">
-<div class="block">Indicates an illegal access in an <a href="RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object: either trying to access a sequence when
- the object represents a byte (or vice-versa), or trying to access a byte or sub-sequence item
- that is out of bounds.</div>
+<div class="block">Indicates an illegal access in an <a href="RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object: trying to access a sequence when the object
+ represents a byte array or encoding, trying to access a byte array when the object represents
+ a sequence or encoding, or trying to access a byte or sub-sequence item that is out of bounds.</div>
 </td>
 </tr>
 <tr class="row-color">
 <th class="col-first" scope="row"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></th>
 <td class="col-last">
-<div class="block">Signals a problem while parsing some data from RLP format.</div>
+<div class="block">Signals a problem while parsing some data from an RLP layout.</div>
 </td>
 </tr>
 </tbody>

@@ -15,7 +15,13 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var pathtoroot = "../../../../";
+<script type="text/javascript">var data = {"i0":9};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
+var altColor = "alt-color";
+var rowColor = "row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "../../../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -49,7 +55,7 @@ loadScripts(document, 'script');</script>
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <div class="nav-list-search"><label for="search">SEARCH:</label>
@@ -75,6 +81,10 @@ loadScripts(document, 'script');</script>
 </div>
 </div>
 <section class="description">
+<dl class="notes">
+<dt>All Implemented Interfaces:</dt>
+<dd><code><a href="../rlp/RLPLayoutable.html" title="interface in com.norswap.nanoeth.rlp">RLPLayoutable</a></code></dd>
+</dl>
 <hr>
 <pre><a href="../annotations/Wrapper.html" title="annotation in com.norswap.nanoeth.annotations">@Wrapper</a>
 public final class <span class="type-name-label">MerkleRoot</span>
@@ -156,12 +166,36 @@ extends <a href="Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></
 <li>
 <section class="method-summary" id="method.summary">
 <h2>Method Summary</h2>
+<div class="member-summary" id="method-summary-table">
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="active-table-tab">All Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t1" class="table-tab" onclick="show(1);">Static Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="table-tab" onclick="show(8);">Concrete Methods</button></div>
+<div id="method-summary-table.tabpanel" role="tabpanel">
+<table class="summary-table" aria-labelledby="t0">
+<thead>
+<tr>
+<th class="col-first" scope="col">Modifier and Type</th>
+<th class="col-second" scope="col">Method</th>
+<th class="col-last" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="alt-color" id="i0">
+<td class="col-first"><code>static <a href="MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#parse(com.norswap.nanoeth.rlp.RLP)">parse</a></span>&#8203;(<a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.com.norswap.nanoeth.data.Hash">Methods inherited from class&nbsp;com.norswap.nanoeth.data.<a href="Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></h3>
-<code><a href="Hash.html#equals(java.lang.Object)">equals</a>, <a href="Hash.html#hashCode()">hashCode</a>, <a href="Hash.html#toFullHexString()">toFullHexString</a>, <a href="Hash.html#toString()">toString</a></code></div>
+<code><a href="Hash.html#equals(java.lang.Object)">equals</a>, <a href="Hash.html#hashCode()">hashCode</a>, <a href="Hash.html#rlpLayout()">rlpLayout</a>, <a href="Hash.html#toFullHexString()">toFullHexString</a>, <a href="Hash.html#toString()">toString</a></code></div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
+<div class="inherited-list">
+<h3 id="methods.inherited.from.class.com.norswap.nanoeth.rlp.RLPLayoutable">Methods inherited from interface&nbsp;com.norswap.nanoeth.rlp.<a href="../rlp/RLPLayoutable.html" title="interface in com.norswap.nanoeth.rlp">RLPLayoutable</a></h3>
+<code><a href="../rlp/RLPLayoutable.html#rlpEncode()">rlpEncode</a>, <a href="../rlp/RLPLayoutable.html#rlpHexString()">rlpHexString</a></code></div>
 </section>
 </li>
 </ul>
@@ -214,6 +248,25 @@ extends <a href="Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></
 </ul>
 </section>
 </li>
+<!-- ============ METHOD DETAIL ========== -->
+<li>
+<section class="method-details" id="method.detail">
+<h2>Method Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="parse(com.norswap.nanoeth.rlp.RLP)">
+<h3>parse</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></span>&nbsp;<span class="member-name">parse</span>&#8203;(<span class="parameters"><a href="../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</span>
+                        throws <span class="exceptions"><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
+<dl class="notes">
+<dt>Throws:</dt>
+<dd><code><a href="../rlp/RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
 </ul>
 </section>
 <!-- ========= END OF CLASS DATA ========= -->
@@ -246,7 +299,7 @@ extends <a href="Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></
 <li>Detail:&nbsp;</li>
 <li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 </div>

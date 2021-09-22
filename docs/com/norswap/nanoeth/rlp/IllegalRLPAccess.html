@@ -86,9 +86,9 @@ loadScripts(document, 'script');</script>
 <hr>
 <pre>public final class <span class="type-name-label">IllegalRLPAccess</span>
 extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/RuntimeException.html" title="class or interface in java.lang" class="external-link">RuntimeException</a></pre>
-<div class="block">Indicates an illegal access in an <a href="RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object: either trying to access a sequence when
- the object represents a byte (or vice-versa), or trying to access a byte or sub-sequence item
- that is out of bounds.</div>
+<div class="block">Indicates an illegal access in an <a href="RLP.html" title="class in com.norswap.nanoeth.rlp"><code>RLP</code></a> object: trying to access a sequence when the object
+ represents a byte array or encoding, trying to access a byte array when the object represents
+ a sequence or encoding, or trying to access a byte or sub-sequence item that is out of bounds.</div>
 <dl class="notes">
 <dt>See Also:</dt>
 <dd><a href="../../../../serialized-form.html#com.norswap.nanoeth.rlp.IllegalRLPAccess">Serialized Form</a></dd>

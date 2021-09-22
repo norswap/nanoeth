@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -46,7 +46,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -98,15 +98,6 @@ extends <a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees
 </section>
 <section class="summary">
 <ul class="summary-list">
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<li>
-<section class="nested-class-summary" id="nested.class.summary">
-<h2>Nested Class Summary</h2>
-<div class="inherited-list">
-<h2 id="nested.classes.inherited.from.class.com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode">Nested classes/interfaces inherited from class&nbsp;com.norswap.nanoeth.trees.patricia.memory.<a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></h2>
-<code><a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a></code></div>
-</section>
-</li>
 <!-- =========== FIELD SUMMARY =========== -->
 <li>
 <section class="field-summary" id="field.summary">
@@ -187,6 +178,14 @@ byte[]&nbsp;data)</code></th>
 </tr>
 <tr class="row-color" id="i1">
 <td class="col-first"><code>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
+<a href="../MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a>&nbsp;builder)</code></th>
+<td class="col-last">
+<div class="block">Builds up a proof for the given key suffix.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i2">
+<td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;prefix,
 <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;byte[],&#8203;byte[]&gt;&nbsp;map)</code></th>
 <td class="col-last">
@@ -194,25 +193,25 @@ byte[]&nbsp;data)</code></th>
  this node is given by <code>prefix</code>.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i2">
+<tr class="row-color" id="i3">
 <td class="col-first"><code><a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">encode</a></span>&#8203;(<a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a>&nbsp;ctx)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#compose()">compose</a></span>()</code></th>
 <td class="col-last">
-<div class="block">The implementation of this method together implement the node cap function n and the
- composition function c (equation 197 and previous in the yellowpaper).</div>
+<div class="block">This method implements the structural composition function c (equation 197 and previous in
+ the yellowpaper).</div>
 </td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="alt-color" id="i4">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="alt-color" id="i4">
+<tr class="row-color" id="i5">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i5">
+<tr class="alt-color" id="i6">
 <td class="col-first"><code>byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</code></th>
 <td class="col-last">
@@ -220,7 +219,7 @@ byte[]&nbsp;data)</code></th>
  missing prefix was used to reach the present node.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i6">
+<tr class="row-color" id="i7">
 <td class="col-first"><code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</code></th>
 <td class="col-last">
@@ -228,7 +227,7 @@ byte[]&nbsp;data)</code></th>
  returns <code>null</code> if the removal of the key means that the node itself must disappear.</div>
 </td>
 </tr>
-<tr class="row-color" id="i7">
+<tr class="alt-color" id="i8">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
@@ -239,7 +238,7 @@ byte[]&nbsp;data)</code></th>
 </div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode">Methods inherited from class&nbsp;com.norswap.nanoeth.trees.patricia.memory.<a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></h3>
-<code><a href="MemPatriciaNode.html#merkleRoot()">merkleRoot</a></code></div>
+<code><a href="MemPatriciaNode.html#cap()">cap</a>, <a href="MemPatriciaNode.html#merkleRoot()">merkleRoot</a></code></div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -335,26 +334,17 @@ byte[]&nbsp;data)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">
-<h3>encode</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></span>&nbsp;<span class="member-name">encode</span>&#8203;(<span class="parameters"><a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode.SizeContext</a>&nbsp;ctx)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="MemPatriciaNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">MemPatriciaNode</a></code></span></div>
-<div class="block">The implementation of this method together implement the node cap function n and the
- composition function c (equation 197 and previous in the yellowpaper). The return value of
- this function is the return of the n function.
+<section class="detail" id="compose()">
+<h3>compose</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></span>&nbsp;<span class="member-name">compose</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="MemPatriciaNode.html#compose()">MemPatriciaNode</a></code></span></div>
+<div class="block">This method implements the structural composition function c (equation 197 and previous in
+ the yellowpaper). See also <a href="MemPatriciaNode.html#cap()"><code>MemPatriciaNode.cap()</code></a>.
  <p>
- We implement c and n together, because recursion is always done through n (which then calls
- c). The only time we call c directly is when calling TRIE (the function that returns the
- Merkle root). In practice this means that this function must keep track of the size of its
- RLP encoding and return a RLP-encoded hash instead if the size exceeds 32 bytes. This also
- means that <a href="MemPatriciaNode.html#merkleRoot()"><code>MemPatriciaNode.merkleRoot()</code></a> (which implements the yellowpaper TRIE function) must unwrap
- the hash in those cases (to avoid double hashing).</div>
+ This should normally never be called except from <a href="MemPatriciaNode.html#cap()"><code>MemPatriciaNode.cap()</code></a>.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="MemPatriciaNode.html#encode(com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode.SizeContext)">encode</a></code>&nbsp;in class&nbsp;<code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>ctx</code> - must be incremented with the size of the binary encoding of the returned RLP
- object (see <a href="MemPatriciaNode.SizeContext.html" title="class in com.norswap.nanoeth.trees.patricia.memory"><code>MemPatriciaNode.SizeContext</code></a> for more details).</dd>
+<dd><code><a href="MemPatriciaNode.html#compose()">compose</a></code>&nbsp;in class&nbsp;<code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></dd>
 </dl>
 </section>
 </li>
@@ -366,6 +356,17 @@ byte[]&nbsp;data)</span></div>
 <div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../PatriciaNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">PatriciaNode</a></code></span></div>
 <div class="block">Adds all the entries store under this node to <code>map</code>, given that the prefix to reach
  this node is given by <code>prefix</code>.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">
+<h3>buildProof</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">buildProof</span>&#8203;(<span class="parameters"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
+<a href="../MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a>&nbsp;builder)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../PatriciaNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">PatriciaNode</a></code></span></div>
+<div class="block">Builds up a proof for the given key suffix. The node should call one of the <code>add</code>
+ method on <a href="../MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia"><code>{@code builder}</code></a>, then recursively call the method on the
+ next node in the branch from the root to the leaf for the key (if this node exists).</div>
 </section>
 </li>
 <li>
@@ -424,7 +425,7 @@ byte[]&nbsp;data)</span></div>
 <div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>

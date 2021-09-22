@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
+<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 <section class="description">
 <dl class="notes">
 <dt>All Known Implementing Classes:</dt>
-<dd><code><a href="memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></code>, <code><a href="memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></code>, <code><a href="memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></code>, <code><a href="memory/MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></dd>
+<dd><code><a href="memory/MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></code>, <code><a href="memory/MemPatriciaDigestNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaDigestNode</a></code>, <code><a href="memory/MemPatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaExtensionNode</a></code>, <code><a href="memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaLeafNode</a></code>, <code><a href="memory/MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></dd>
 </dl>
 <hr>
 <pre>public interface <span class="type-name-label">PatriciaNode</span></pre>
@@ -117,6 +117,14 @@ byte[]&nbsp;data)</code></th>
 </tr>
 <tr class="row-color" id="i1">
 <td class="col-first"><code>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof</a></span>&#8203;(<a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
+<a href="MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a>&nbsp;builder)</code></th>
+<td class="col-last">
+<div class="block">Builds up a proof for the given key suffix.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i2">
+<td class="col-first"><code>void</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries</a></span>&#8203;(<a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;prefix,
 <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;byte[],&#8203;byte[]&gt;&nbsp;map)</code></th>
 <td class="col-last">
@@ -124,7 +132,7 @@ byte[]&nbsp;data)</code></th>
  this node is given by <code>prefix</code>.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i2">
+<tr class="row-color" id="i3">
 <td class="col-first"><code>byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup</a></span>&#8203;(<a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</code></th>
 <td class="col-last">
@@ -132,14 +140,14 @@ byte[]&nbsp;data)</code></th>
  missing prefix was used to reach the present node.</div>
 </td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="alt-color" id="i4">
 <td class="col-first"><code><a href="../../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#merkleRoot()">merkleRoot</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns the Merkle root of the Merkle tree rooted at this node.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i4">
+<tr class="row-color" id="i5">
 <td class="col-first"><code><a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove</a></span>&#8203;(<a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</code></th>
 <td class="col-last">
@@ -198,6 +206,16 @@ byte[]&nbsp;data)</span></div>
 <div class="member-signature"><span class="return-type"><a href="../../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></span>&nbsp;<span class="member-name">merkleRoot</span>()</div>
 <div class="block">Returns the Merkle root of the Merkle tree rooted at this node. This implements the TRIE
  function in the yellowpaper (equation 195).</div>
+</section>
+</li>
+<li>
+<section class="detail" id="buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">
+<h3>buildProof</h3>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="member-name">buildProof</span>&#8203;(<span class="parameters"><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
+<a href="MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a>&nbsp;builder)</span></div>
+<div class="block">Builds up a proof for the given key suffix. The node should call one of the <code>add</code>
+ method on <a href="MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia"><code>{@code builder}</code></a>, then recursively call the method on the
+ next node in the branch from the root to the leaf for the key (if this node exists).</div>
 </section>
 </li>
 <li>

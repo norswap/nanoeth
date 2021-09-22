@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -157,58 +157,72 @@ int&nbsp;end)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
+<td class="col-first"><code><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#dropFirst(int)">dropFirst</a></span>&#8203;(int&nbsp;n)</code></th>
+<td class="col-last">
+<div class="block">Return a suffix of this nibble sequence, shaving off the first <code>n</code> nibbles.</div>
+</td>
+</tr>
+<tr class="row-color" id="i3">
+<td class="col-first"><code><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#dropLast(int)">dropLast</a></span>&#8203;(int&nbsp;n)</code></th>
+<td class="col-last">
+<div class="block">Return a prefix of this nibble sequence, dropping the last <code>n</code> nibbles.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i4">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="row-color" id="i5">
 <td class="col-first"><code>byte</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#get(int)">get</a></span>&#8203;(int&nbsp;i)</code></th>
 <td class="col-last">
 <div class="block">Returns the nibble at the given index.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i4">
+<tr class="alt-color" id="i6">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i5">
+<tr class="row-color" id="i7">
 <td class="col-first"><code>byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hexPrefix(boolean)">hexPrefix</a></span>&#8203;(boolean&nbsp;leaf)</code></th>
 <td class="col-last">
 <div class="block">Returns the hex-prefix encoding of the nibble sequence, as per appendix C of the yellowpaper.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i6">
+<tr class="alt-color" id="i8">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#length()">length</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Return the number of nibbles represented by this object.</div>
 </td>
 </tr>
-<tr class="row-color" id="i7">
+<tr class="row-color" id="i9">
 <td class="col-first"><code><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#prefix(int)">prefix</a></span>&#8203;(int&nbsp;n)</code></th>
 <td class="col-last">
 <div class="block">Return a prefix of this nibble sequence, keeping the first <code>n</code> nibbles.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i8">
+<tr class="alt-color" id="i10">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#sharedPrefix(com.norswap.nanoeth.trees.patricia.Nibbles)">sharedPrefix</a></span>&#8203;(<a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;o)</code></th>
 <td class="col-last">
 <div class="block">Return the amount of nibbles that this object and <code>o</code> share as prefix.</div>
 </td>
 </tr>
-<tr class="row-color" id="i9">
+<tr class="row-color" id="i11">
 <td class="col-first"><code><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#suffix(int)">suffix</a></span>&#8203;(int&nbsp;n)</code></th>
 <td class="col-last">
-<div class="block">Return a suffix of this nibble sequence, shaving off the first <code>n</code> nibbles.</div>
+<div class="block">Return a suffix of this nibble sequence, keeping the last <code>n</code> nibbles.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i10">
+<tr class="alt-color" id="i12">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">
@@ -293,9 +307,23 @@ int&nbsp;end)</span></div>
 </section>
 </li>
 <li>
+<section class="detail" id="dropLast(int)">
+<h3>dropLast</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></span>&nbsp;<span class="member-name">dropLast</span>&#8203;(<span class="parameters">int&nbsp;n)</span></div>
+<div class="block">Return a prefix of this nibble sequence, dropping the last <code>n</code> nibbles.</div>
+</section>
+</li>
+<li>
 <section class="detail" id="suffix(int)">
 <h3>suffix</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></span>&nbsp;<span class="member-name">suffix</span>&#8203;(<span class="parameters">int&nbsp;n)</span></div>
+<div class="block">Return a suffix of this nibble sequence, keeping the last <code>n</code> nibbles.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="dropFirst(int)">
+<h3>dropFirst</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></span>&nbsp;<span class="member-name">dropFirst</span>&#8203;(<span class="parameters">int&nbsp;n)</span></div>
 <div class="block">Return a suffix of this nibble sequence, shaving off the first <code>n</code> nibbles.</div>
 </section>
 </li>

@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9};
+<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -82,7 +82,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <pre>public final class <span class="type-name-label">RLPParsing</span>
 extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></pre>
-<div class="block">Utilities to help parse protocol objects from RLP input.</div>
+<div class="block">Utilities to help parse protocol objects from a RLP layout.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -103,30 +103,15 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </thead>
 <tbody>
 <tr class="alt-color" id="i0">
-<td class="col-first"><code>static <a href="../data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getAddress(com.norswap.nanoeth.rlp.RLP,int)">getAddress</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</code></th>
-<td class="col-last">
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into an address.</div>
-</td>
-</tr>
-<tr class="row-color" id="i1">
-<td class="col-first"><code>static <a href="../receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getBloomFilter(com.norswap.nanoeth.rlp.RLP,int)">getBloomFilter</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</code></th>
-<td class="col-last">
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a bloom filter.</div>
-</td>
-</tr>
-<tr class="alt-color" id="i2">
 <td class="col-first"><code>static int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getByte(com.norswap.nanoeth.rlp.RLP,int)">getByte</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</code></th>
 <td class="col-last">
-<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a unsigned byte.</div>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a
+ unsigned byte.</div>
 </td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="row-color" id="i1">
 <td class="col-first"><code>static byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getBytes(com.norswap.nanoeth.rlp.RLP,int)">getBytes</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</code></th>
@@ -135,37 +120,12 @@ int&nbsp;i)</code></th>
  size.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i4">
-<td class="col-first"><code>static <a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getHash(com.norswap.nanoeth.rlp.RLP,int)">getHash</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</code></th>
-<td class="col-last">
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
-</td>
-</tr>
-<tr class="row-color" id="i5">
+<tr class="alt-color" id="i2">
 <td class="col-first"><code>static long</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getInt64(com.norswap.nanoeth.rlp.RLP,int)">getInt64</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</code></th>
 <td class="col-last">
 <div class="block">Parses the i-th item of the sequence, which should be a 8-byte array, into a 64-bit integer.</div>
-</td>
-</tr>
-<tr class="alt-color" id="i6">
-<td class="col-first"><code>static <a href="../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getMerkleRoot(com.norswap.nanoeth.rlp.RLP,int)">getMerkleRoot</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</code></th>
-<td class="col-last">
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
-</td>
-</tr>
-<tr class="row-color" id="i7">
-<td class="col-first"><code>static <a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getNatural(com.norswap.nanoeth.rlp.RLP,int)">getNatural</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</code></th>
-<td class="col-last">
-<div class="block">Parses the i-th item of the sequence, which should be a byte array of size no greater than
- 32, into a natural number.</div>
 </td>
 </tr>
 </tbody>
@@ -187,26 +147,13 @@ int&nbsp;i)</code></th>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="getNatural(com.norswap.nanoeth.rlp.RLP,int)">
-<h3>getNatural</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../data/Natural.html" title="class in com.norswap.nanoeth.data">Natural</a></span>&nbsp;<span class="member-name">getNatural</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</span>
-                          throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array of size no greater than
- 32, into a natural number.</div>
-<dl class="notes">
-<dt>Throws:</dt>
-<dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="getByte(com.norswap.nanoeth.rlp.RLP,int)">
 <h3>getByte</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">getByte</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</span>
                    throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a unsigned byte.</div>
+<div class="block">Parses the i-th item of the sequence, which should be a byte array of size 1, into a
+ unsigned byte.</div>
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
@@ -220,58 +167,6 @@ int&nbsp;i)</span>
 int&nbsp;i)</span>
                      throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
 <div class="block">Parses the i-th item of the sequence, which should be a 8-byte array, into a 64-bit integer.</div>
-<dl class="notes">
-<dt>Throws:</dt>
-<dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getAddress(com.norswap.nanoeth.rlp.RLP,int)">
-<h3>getAddress</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../data/Address.html" title="class in com.norswap.nanoeth.data">Address</a></span>&nbsp;<span class="member-name">getAddress</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</span>
-                          throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into an address.</div>
-<dl class="notes">
-<dt>Throws:</dt>
-<dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getHash(com.norswap.nanoeth.rlp.RLP,int)">
-<h3>getHash</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../data/Hash.html" title="class in com.norswap.nanoeth.data">Hash</a></span>&nbsp;<span class="member-name">getHash</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</span>
-                    throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
-<dl class="notes">
-<dt>Throws:</dt>
-<dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getMerkleRoot(com.norswap.nanoeth.rlp.RLP,int)">
-<h3>getMerkleRoot</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></span>&nbsp;<span class="member-name">getMerkleRoot</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</span>
-                                throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a hash.</div>
-<dl class="notes">
-<dt>Throws:</dt>
-<dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="getBloomFilter(com.norswap.nanoeth.rlp.RLP,int)">
-<h3>getBloomFilter</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="../receipts/BloomFilter.html" title="class in com.norswap.nanoeth.receipts">BloomFilter</a></span>&nbsp;<span class="member-name">getBloomFilter</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
-int&nbsp;i)</span>
-                                  throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
-<div class="block">Parses the i-th item of the sequence, which should be a byte array, into a bloom filter.</div>
 <dl class="notes">
 <dt>Throws:</dt>
 <dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
