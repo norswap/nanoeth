@@ -25,14 +25,14 @@ public final class RLP implements RLPLayoutable {
 
     /** Does the given RLP encoding encode a byte array? */
     public static boolean encodesBytes (byte[] encoding) {
-        return RLPEncoding.isByteSequence(encoding[0]);
+        return RLPEncoding.isByteSequence(ByteUtils.uint(encoding[0]));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /** Does the given RLP encoding encode an item sequence? */
     public static boolean encodesSequence (byte[] encoding) {
-        return !RLPEncoding.isByteSequence(encoding[0]);
+        return !encodesBytes(encoding);
     }
 
     // ---------------------------------------------------------------------------------------------

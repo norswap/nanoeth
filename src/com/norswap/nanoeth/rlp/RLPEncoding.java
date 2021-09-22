@@ -149,6 +149,7 @@ final class RLPEncoding {
     // ---------------------------------------------------------------------------------------------
 
     static boolean isByteSequence (int marker) {
+        assert marker >= 0;
         return marker < INDIRECT_BYTES_SIZE_ENCODING_LIMIT;
     }
 
