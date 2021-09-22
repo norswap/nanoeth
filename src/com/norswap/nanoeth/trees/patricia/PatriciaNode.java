@@ -1,7 +1,7 @@
 package com.norswap.nanoeth.trees.patricia;
 
-import com.norswap.nanoeth.data.Hash;
 import com.norswap.nanoeth.data.MerkleRoot;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,6 +49,15 @@ public interface PatriciaNode {
      * function in the yellowpaper (equation 195).
      */
     MerkleRoot merkleRoot();
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Builds up a proof for the given key suffix. The node should call one of the {@code add}
+     * method on {@link MerkleProofBuilder {@code builder}}, then recursively call the method on the
+     * next node in the branch from the root to the leaf for the key (if this node exists).
+     */
+    void buildProof (Nibbles keySuffix, MerkleProofBuilder builder);
 
     // ---------------------------------------------------------------------------------------------
 

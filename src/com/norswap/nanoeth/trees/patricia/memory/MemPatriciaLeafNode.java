@@ -2,6 +2,7 @@ package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.trees.patricia.MerkleProofBuilder;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
@@ -80,6 +81,14 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     @Override public void collectEntries (Nibbles prefix, Map<byte[], byte[]> map) {
         map.put(prefix.concat(keySuffix).bytes(), data);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public void buildProof (Nibbles keySuffix, MerkleProofBuilder builder) {
+        if (!this.keySuffix.equals(keySuffix))
+            return; // key not found
+        builder.addLeafNode(keySuffix, data);
     }
 
     // ---------------------------------------------------------------------------------------------

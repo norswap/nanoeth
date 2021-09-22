@@ -3,6 +3,7 @@ package com.norswap.nanoeth.trees.patricia.memory;
 import com.norswap.nanoeth.annotations.Nullable;
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.trees.patricia.MerkleProofBuilder;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import java.util.Arrays;
 import java.util.Map;
@@ -82,7 +83,7 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
     @Override public byte[] lookup (Nibbles keySuffix) {
         if (keySuffix.length() == 0) return data;
         var child = children[keySuffix.get(0)];
-        return child != null ? child.lookup(keySuffix.suffix(1)) : null;
+        return child != null ? child.lookup(keySuffix.dropFirst(1)) : null;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -96,7 +97,7 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
         var newChildren = children.clone();
         var pivot = keySuffix.get(0);
         var child = newChildren[pivot];
-        var suffix = keySuffix.suffix(1);
+        var suffix = keySuffix.dropFirst(1);
         newChildren[pivot] = child == null
             // no child currently starting with the first nibble of the suffix: create new leaf
             ? new MemPatriciaLeafNode(suffix, data)
@@ -121,7 +122,7 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
 
         // new leaf required for the inserted entry
         var pivot  = keySuffix.get(prefixLen);
-        var suffix = keySuffix.suffix(prefixLen + 1);
+        var suffix = keySuffix.dropFirst(prefixLen + 1);
         children[pivot] = new MemPatriciaLeafNode(suffix, data);
         return this;
     }
@@ -135,7 +136,7 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
                 : new MemPatriciaBranchNode(children, null);
 
         int index  = keySuffix.get(0);
-        var suffix = keySuffix.suffix(1);
+        var suffix = keySuffix.dropFirst(1);
         var newChild = children[index].remove(suffix);
 
         if (newChild == children[index])
@@ -195,6 +196,31 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
             if (children[i] == null) continue;
             children[i].collectEntries(prefix.concat(new Nibbles((byte) i)), map);
         }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public void buildProof (Nibbles keySuffix, MerkleProofBuilder builder) {
+
+        if (keySuffix.length() == 0 && data == null) {
+            return; // key not found
+        }
+
+        var digests = Arrays.stream(children)
+            .map(it -> it == null ? null : it.cap())
+            .toArray(byte[][]::new);
+
+        if (keySuffix.length() == 0) {
+            builder.addEndBranchNode(data, digests);
+            return;
+        }
+
+        byte pivot = keySuffix.get(0);
+        var child = children[pivot];
+        if (child == null)
+            return; // key not found
+        builder.addPathBranchNode(data, pivot, digests);
+        child.buildProof(keySuffix.dropFirst(1), builder);
     }
 
     // ---------------------------------------------------------------------------------------------

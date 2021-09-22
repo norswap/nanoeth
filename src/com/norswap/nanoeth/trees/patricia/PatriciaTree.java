@@ -6,7 +6,7 @@ import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.trees.patricia.memory.MemPatriciaLeafNode;
 import com.norswap.nanoeth.utils.Hashing;
-import org.bouncycastle.jcajce.provider.digest.Keccak;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -87,6 +87,19 @@ public class PatriciaTree {
         return root != null
             ? new PatriciaTree(root.remove(new Nibbles(key)))
             : this;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a Merkle proof for the given key, or null if there is no entry for the given key
+     * in the tree.
+     */
+    public MerkleProof prove (byte[] key) {
+        if (root == null) return null;
+        var builder = new MerkleProofBuilder(key);
+        root.buildProof(new Nibbles(key), builder);
+        return builder.build();
     }
 
     // ---------------------------------------------------------------------------------------------

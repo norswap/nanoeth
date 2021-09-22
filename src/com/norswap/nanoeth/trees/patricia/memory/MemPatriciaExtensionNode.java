@@ -1,6 +1,7 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.trees.patricia.MerkleProofBuilder;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import java.util.Map;
 import java.util.Objects;
@@ -33,7 +34,7 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
     @Override public byte[] lookup (Nibbles keySuffix) {
         int len = keyFragment.length();
         return keyFragment.sharedPrefix(keySuffix) == len
-            ? child.lookup(keySuffix.suffix(len))
+            ? child.lookup(keySuffix.dropFirst(len))
             : null;
     }
 
@@ -46,7 +47,7 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
         // the whole key fragment is shared, merge child
         if (prefixLen == keyFragment.length())
             return new MemPatriciaExtensionNode(
-                keyFragment, child.add(keySuffix.suffix(prefixLen), data));
+                keyFragment, child.add(keySuffix.dropFirst(prefixLen), data));
 
         var branch = new MemPatriciaBranchNode(new MemPatriciaNode[16], null, true);
 
@@ -56,7 +57,7 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
         var ownPivot = keyFragment.get(prefixLen);
         branch.children[ownPivot] = ownSuffixLen == 0
             ? child
-            : new MemPatriciaExtensionNode(keyFragment.suffix(prefixLen + 1), child);
+            : new MemPatriciaExtensionNode(keyFragment.dropFirst(prefixLen + 1), child);
 
         branch = branch.insert(keySuffix, data, prefixLen);
 
@@ -73,7 +74,7 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
         if (prefixLen < keyFragment.length())
             return this; // not found
 
-        var newChild = child.remove(keySuffix.suffix(prefixLen));
+        var newChild = child.remove(keySuffix.dropFirst(prefixLen));
 
         if (newChild == child)
             return this; // no change
@@ -85,7 +86,7 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public RLP compose () {
+    @Override public RLP compose() {
         return RLP.sequence(keyFragment.hexPrefix(false), RLP.encoded(child.cap()));
     }
 
@@ -93,6 +94,16 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     @Override public void collectEntries (Nibbles prefix, Map<byte[], byte[]> map) {
         child.collectEntries(prefix.concat(keyFragment), map);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public void buildProof (Nibbles keySuffix, MerkleProofBuilder builder) {
+        int len = keyFragment.length();
+        if (keyFragment.sharedPrefix(keySuffix) < len)
+            return; // key not found
+        builder.addExtensionNode(keyFragment);
+        child.buildProof(keySuffix.dropFirst(len), builder);
     }
 
     // ---------------------------------------------------------------------------------------------

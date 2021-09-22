@@ -88,9 +88,25 @@ public final class Nibbles {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Return a suffix of this nibble sequence, shaving off the first {@code n} nibbles. */
+    /** Return a prefix of this nibble sequence, dropping the last {@code n} nibbles. */
+    public Nibbles dropLast (int n) {
+        assert n <= length() : "trying to drop more nibbles than available";
+        return new Nibbles(key, start, end - n);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Return a suffix of this nibble sequence, keeping the last {@code n} nibbles. */
     public Nibbles suffix (int n) {
         assert n <= length() : "trying to get a suffix bigger than the sequence";
+        return new Nibbles(key, end - n, end);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /** Return a suffix of this nibble sequence, shaving off the first {@code n} nibbles. */
+    public Nibbles dropFirst (int n) {
+        assert n <= length() : "trying to drop more nibbles than available";
         return new Nibbles(key, start + n, end);
     }
 
