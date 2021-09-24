@@ -60,7 +60,7 @@ public class PatriciaTree {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Lookup the data associated with the given key. */
+    /** Lookup the value associated with the given key. */
     public byte[] lookup (byte[] key) {
         return root != null
             ? root.lookup(new Nibbles(key, 0, key.length * 2))
@@ -70,14 +70,14 @@ public class PatriciaTree {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns the transformed tree, after associating the given data with the given key.
+     * Returns the transformed tree, after associating the given value with the given key.
      * If the key is empty, returns itself.
      */
-    public PatriciaTree add (byte[] key, byte[] data) {
+    public PatriciaTree add (byte[] key, byte[] value) {
         if (key.length == 0) return this;
         return root != null
-            ? new PatriciaTree(root.add(new Nibbles(key), data))
-            : new PatriciaTree(createLeafNode(new Nibbles(key), data));
+            ? new PatriciaTree(root.add(new Nibbles(key), value))
+            : new PatriciaTree(createLeafNode(new Nibbles(key), value));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -93,8 +93,8 @@ public class PatriciaTree {
 
     // ---------------------------------------------------------------------------------------------
 
-    protected PatriciaNode createLeafNode (Nibbles key, byte[] data) {
-        return new MemPatriciaLeafNode(key, data);
+    protected PatriciaNode createLeafNode (Nibbles key, byte[] value) {
+        return new MemPatriciaLeafNode(key, value);
     }
 
     // ---------------------------------------------------------------------------------------------

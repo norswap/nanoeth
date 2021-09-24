@@ -11,7 +11,7 @@ public abstract class MemPatriciaNode extends PatriciaNode {
     // ---------------------------------------------------------------------------------------------
 
     // narrow the return type
-    @Override public abstract MemPatriciaNode add (Nibbles keySuffix, byte[] data);
+    @Override public abstract MemPatriciaNode add (Nibbles keySuffix, byte[] value);
 
     // narrow the return type
     @Override public abstract MemPatriciaNode remove (Nibbles keySuffix);
@@ -34,7 +34,7 @@ public abstract class MemPatriciaNode extends PatriciaNode {
         if (node instanceof MemPatriciaLeafNode) {
             var leafNode = (MemPatriciaLeafNode) node;
             return new MemPatriciaLeafNode(
-                nibbles.concat(leafNode.keySuffix), leafNode.data);
+                nibbles.concat(leafNode.keySuffix), leafNode.value);
         }
         if  (node instanceof MemPatriciaBranchNode) {
             var branchNode = (MemPatriciaBranchNode) node;

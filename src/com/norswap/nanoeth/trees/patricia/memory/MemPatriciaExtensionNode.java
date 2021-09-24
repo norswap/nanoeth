@@ -68,14 +68,14 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] data) {
+    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] value) {
         if (keySuffix.length() == 0) return null;
         int prefixLen = keyFragment.sharedPrefix(keySuffix);
 
         // the whole key fragment is shared, merge child
         if (prefixLen == keyFragment.length())
             return new MemPatriciaExtensionNode(
-                keyFragment, child.add(keySuffix.dropFirst(prefixLen), data));
+                keyFragment, child.add(keySuffix.dropFirst(prefixLen), value));
 
         var branch = new MemPatriciaBranchNode(new MemPatriciaNode[16], null, true);
 
@@ -87,7 +87,7 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
             ? child
             : new MemPatriciaExtensionNode(keyFragment.dropFirst(prefixLen + 1), child);
 
-        branch = branch.insert(keySuffix, data, prefixLen);
+        branch = branch.insert(keySuffix, value, prefixLen);
 
         // if the shared prefix isn't empty, wrap the branch node in an extension node
         return prefixLen == 0

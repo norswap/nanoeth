@@ -82,11 +82,11 @@ public abstract class PatriciaNode {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns the transformed node, after associating the given data with the given key suffix.
+     * Returns the transformed node, after associating the given key with the given key suffix.
      * <p>
      * This must handle empty nibble sequences.
      */
-    public abstract PatriciaNode add (Nibbles keySuffix, byte[] data);
+    public abstract PatriciaNode add (Nibbles keySuffix, byte[] value);
 
     // ---------------------------------------------------------------------------------------------
 

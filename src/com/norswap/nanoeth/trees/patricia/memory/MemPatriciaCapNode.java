@@ -45,7 +45,7 @@ public final class MemPatriciaCapNode extends MemPatriciaNode {
         throw new UnsupportedOperationException();
     }
 
-    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] data) {
+    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] value) {
         throw new UnsupportedOperationException();
     }
 

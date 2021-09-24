@@ -12,7 +12,7 @@ import java.util.Objects;
 import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.LEAF;
 
 /**
- * A leaf in the in-memory patrica tree, which store the suffix of the key and its associated data.
+ * A leaf in the in-memory patrica tree, which store the suffix of the key and its associated value.
  */
 public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
@@ -27,14 +27,14 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** The data held in the leaf. */
-    public final byte[] data;
+    /** The value held in the leaf. */
+    public final byte[] value;
 
     // ---------------------------------------------------------------------------------------------
 
-    public MemPatriciaLeafNode (Nibbles keySuffix, @Retained byte[] data) {
+    public MemPatriciaLeafNode (Nibbles keySuffix, @Retained byte[] value) {
         this.keySuffix = keySuffix;
-        this.data = data;
+        this.value = value;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -54,23 +54,23 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     @Override public byte[] lookup (Nibbles keySuffix) {
         return keySuffix.equals(this.keySuffix)
-            ? data
+            ? value
             : null;
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] data) {
+    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] value) {
         var ownSuffix = this.keySuffix;
         int prefixLen = ownSuffix.sharedPrefix(keySuffix);
 
         if (prefixLen == ownSuffix.length() && prefixLen == keySuffix.length())
             // same suffix, overwrite value
-            return new MemPatriciaLeafNode(keySuffix, data);
+            return new MemPatriciaLeafNode(keySuffix, value);
 
         var branch = new MemPatriciaBranchNode(new MemPatriciaNode[16], null, true);
-        branch = branch.insert(ownSuffix, this.data, prefixLen);
-        branch = branch.insert(keySuffix, data,      prefixLen);
+        branch = branch.insert(ownSuffix, this.value, prefixLen);
+        branch = branch.insert(keySuffix, value,      prefixLen);
 
         // if the shared prefix isn't empty, wrap the branch node in an extension node
         return prefixLen == 0
@@ -89,19 +89,19 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
     // ---------------------------------------------------------------------------------------------
 
     @Override public RLP compose() {
-        return RLP.sequence(keySuffix.hexPrefix(true), data);
+        return RLP.sequence(keySuffix.hexPrefix(true), value);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public AbridgedNode abridged() {
-        return new AbridgedNode(LEAF, keySuffix, data, null, cap());
+        return new AbridgedNode(LEAF, keySuffix, value, null, cap());
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public void collectEntries (Nibbles prefix, Map<byte[], byte[]> map) {
-        map.put(prefix.concat(keySuffix).bytes(), data);
+        map.put(prefix.concat(keySuffix).bytes(), value);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -110,18 +110,18 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
         if (this == o) return true;
         if (!(o instanceof MemPatriciaLeafNode)) return false;
         var that = (MemPatriciaLeafNode) o;
-        return keySuffix.equals(that.keySuffix) && Arrays.equals(data, that.data);
+        return keySuffix.equals(that.keySuffix) && Arrays.equals(value, that.value);
     }
 
     @Override public int hashCode () {
-        return 31 * Objects.hash(keySuffix) + Arrays.hashCode(data);
+        return 31 * Objects.hash(keySuffix) + Arrays.hashCode(value);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public String toString () {
         return String.format("MemPatriciaLeafNode{ %s = %s }",
-            keySuffix, ByteUtils.toFullHexString(data));
+            keySuffix, ByteUtils.toFullHexString(value));
     }
 
     // ---------------------------------------------------------------------------------------------
