@@ -4,6 +4,7 @@ import com.norswap.nanoeth.annotations.Nullable;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.trees.patricia.PatriciaNode.Step;
 import com.norswap.nanoeth.trees.patricia.memory.MemPatriciaLeafNode;
 import com.norswap.nanoeth.utils.Hashing;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * Naive implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.
@@ -91,20 +93,7 @@ public class PatriciaTree {
 
     // ---------------------------------------------------------------------------------------------
 
-    /**
-     * Returns a Merkle proof for the given key, or null if there is no entry for the given key
-     * in the tree.
-     */
-    public MerkleProof prove (byte[] key) {
-        if (root == null) return null;
-        var builder = new MerkleProofBuilder(key);
-        root.buildProof(new Nibbles(key), builder);
-        return builder.build();
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    protected PatriciaNode createLeafNode(Nibbles key, byte[] data) {
+    protected PatriciaNode createLeafNode (Nibbles key, byte[] data) {
         return new MemPatriciaLeafNode(key, data);
     }
 
@@ -128,6 +117,52 @@ public class PatriciaTree {
         return root == null
             ? EMPTY_TREE_ROOT
             : root.merkleRoot();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Calls {@code f} with every node on the branch for {@code keySuffix} (represented by a {@link
+     * PatriciaNode#step step}, where this branch is the node path from this node towards the node
+     * that holds the value associated to the key suffix, or to the deepest node that would have to
+     * be modified in order to associated a value with the key suffix.
+     * <p>
+     * This will always at least call {@code f} with the root, if there is one (i.e. the tree is
+     * not empty).
+     */
+    public final void forBranch (byte[] key, Consumer<Step> f) {
+        if (root == null) return;
+        var keySuffix = new Nibbles(key);
+        var step = root.step(keySuffix);
+        f.accept(step);
+        while (step.child != null) {
+            keySuffix = keySuffix.dropFirst(step.sharedPrefix);
+            step = step.child.step(keySuffix);
+            f.accept(step);
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a Merkle proof for the given key, either proving its association to its value, or
+     * the absence of value.
+     */
+    public MerkleProof prove (byte[] key) {
+        if (root == null)
+            return new MerkleProof(key, null, new AbridgedNode[0]);
+
+        byte[][] value = new byte[1][]; // one more dimension to assign from lambda
+        var nodes = new ArrayList<AbridgedNode>();
+
+        forBranch(key, step -> {
+            var abridged = step.node.abridged();
+            nodes.add(abridged);
+            if (step.nibblesLeft == 0)
+                value[0] = abridged.value;
+        });
+
+        return new MerkleProof(key, value[0], nodes.toArray(AbridgedNode[]::new));
     }
 
     // ---------------------------------------------------------------------------------------------

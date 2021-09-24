@@ -2,12 +2,14 @@ package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.rlp.RLP;
-import com.norswap.nanoeth.trees.patricia.MerkleProofBuilder;
+import com.norswap.nanoeth.trees.patricia.AbridgedNode;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.LEAF;
 
 /**
  * A leaf in the in-memory patrica tree, which store the suffix of the key and its associated data.
@@ -33,6 +35,19 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
     public MemPatriciaLeafNode (Nibbles keySuffix, @Retained byte[] data) {
         this.keySuffix = keySuffix;
         this.data = data;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public Type type () {
+        return LEAF;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public Step step (Nibbles keySuffix) {
+        int sharedPrefix = this.keySuffix.sharedPrefix(keySuffix);
+        return new Step(this, null, sharedPrefix, keySuffix.length() - sharedPrefix);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -73,22 +88,20 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public RLP compose () {
+    @Override public RLP compose() {
         return RLP.sequence(keySuffix.hexPrefix(true), data);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public AbridgedNode abridged() {
+        return new AbridgedNode(LEAF, keySuffix, data, null, cap());
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public void collectEntries (Nibbles prefix, Map<byte[], byte[]> map) {
         map.put(prefix.concat(keySuffix).bytes(), data);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public void buildProof (Nibbles keySuffix, MerkleProofBuilder builder) {
-        if (!this.keySuffix.equals(keySuffix))
-            return; // key not found
-        builder.addLeafNode(keySuffix, data);
     }
 
     // ---------------------------------------------------------------------------------------------

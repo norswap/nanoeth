@@ -4,9 +4,11 @@ import com.norswap.nanoeth.utils.Hashing;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 import static com.norswap.nanoeth.utils.ByteUtils.hexStringToBytes;
 import static com.norswap.nanoeth.utils.ByteUtils.toFullHexString;
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 /** @see TrieTestCase */
 public class PatriciaTreeTests {
@@ -23,17 +25,36 @@ public class PatriciaTreeTests {
     @Test(dataProvider = "trieTestCases")
     public void testTrie (TrieTestCase testCase) {
         var tree = new PatriciaTree();
+        var keys = new ArrayList<String>(testCase.pairs.length);
+
         for (var pair : testCase.pairs) {
-            var key = hexStringToBytes(pair[0]);
+            var key   = hexStringToBytes(pair[0]);
             var value = hexStringToBytes(pair[1]);
+
             if (testCase.isSecureTrie)
                 key = Hashing.keccak(key).bytes;
-            tree = value.length == 0
-                ? tree.remove(key)
-                : tree.add(key, value);
-            assertEquals(tree.lookup(key), value.length == 0 ? null : value);
+            if (value.length == 0) {
+                tree = tree.remove(key);
+                keys.remove(toFullHexString(key));
+                assertNull(tree.lookup(key));
+                var proof = tree.prove(key);
+                assertTrue(proof.verify(tree.merkleRoot()));
+            } else {
+                tree = tree.add(key, value);
+                keys.add(toFullHexString(key));
+                assertEquals(tree.lookup(key), value);
+                var proof = tree.prove(key);
+                assertTrue(proof.verify(tree.merkleRoot()));
+            }
         }
+
         assertEquals(tree.merkleRoot(), testCase.root);
+
+        for (var key: keys) {
+            var proof = tree.prove(hexStringToBytes(key));
+            assertNotNull(proof.value);
+            assertTrue(proof.verify(tree.merkleRoot()));
+        }
     }
 
     // ---------------------------------------------------------------------------------------------

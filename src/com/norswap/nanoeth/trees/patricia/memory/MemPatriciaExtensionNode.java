@@ -1,10 +1,12 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.rlp.RLP;
-import com.norswap.nanoeth.trees.patricia.MerkleProofBuilder;
+import com.norswap.nanoeth.trees.patricia.AbridgedNode;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.EXTENSION;
 
 /**
  * This in-memory patricia tree node represents a shared sequence of nibbles between multiples keys
@@ -13,7 +15,8 @@ import java.util.Objects;
  * nibble-long, since we use extension nodes when there is only one child (as it is more
  * space-efficient than using a branch node — again, is is yellowpaper-mandated).
  * <p>
- * The node holds the key fragment and a child node, which is always a branch node.
+ * The node holds the key fragment and a child node, which is normally always a branch node (but
+ * could be a {@link MemPatriciaCapNode} when constructing a partial tree).
  */
 public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
@@ -21,12 +24,37 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     public final Nibbles keyFragment;
 
-    public final MemPatriciaBranchNode child;
+    public final MemPatriciaNode child;
 
-    public MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaBranchNode child) {
+    // ---------------------------------------------------------------------------------------------
+
+    private MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaNode child) {
         assert keyFragment.length() > 0 : "building extension node with empty key fragment";
         this.keyFragment = keyFragment;
         this.child = child;
+    }
+
+    public MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaBranchNode child) {
+        this(keyFragment, (MemPatriciaNode) child);
+    }
+
+    public MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaCapNode child) {
+        this(keyFragment, (MemPatriciaNode) child);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public Type type () {
+        return EXTENSION;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public Step step (Nibbles keySuffix) {
+        int len = keyFragment.length();
+        int sharedPrefix = keyFragment.sharedPrefix(keySuffix);
+        var node = sharedPrefix == len ? child : null;
+        return new Step(this, node, sharedPrefix, keySuffix.length() - sharedPrefix);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -87,23 +115,19 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
     // ---------------------------------------------------------------------------------------------
 
     @Override public RLP compose() {
-        return RLP.sequence(keyFragment.hexPrefix(false), RLP.encoded(child.cap()));
+        return RLP.sequence(keyFragment.hexPrefix(false), child.rlpCap());
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public AbridgedNode abridged () {
+        return new AbridgedNode(EXTENSION, keyFragment, null, new byte[][]{ child.cap() }, cap());
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public void collectEntries (Nibbles prefix, Map<byte[], byte[]> map) {
         child.collectEntries(prefix.concat(keyFragment), map);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public void buildProof (Nibbles keySuffix, MerkleProofBuilder builder) {
-        int len = keyFragment.length();
-        if (keyFragment.sharedPrefix(keySuffix) < len)
-            return; // key not found
-        builder.addExtensionNode(keyFragment);
-        child.buildProof(keySuffix.dropFirst(len), builder);
     }
 
     // ---------------------------------------------------------------------------------------------

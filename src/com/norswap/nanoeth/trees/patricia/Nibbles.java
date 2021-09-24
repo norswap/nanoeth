@@ -51,6 +51,20 @@ public final class Nibbles {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Returns a {@link Nibbles} object that represent the hex-prefix encoded nibble sequence, as
+     * per appendix C of the yellowpaper. See {@link #hexPrefix(boolean)} for detail on the
+     * encoding.
+     * <p>
+     * The returned object will be backed by the passed array.
+     */
+    public static Nibbles fromHexPrefix (@Retained byte[] hexPrefixEncoded) {
+        var oddSize = (hexPrefixEncoded[0] & 0x10) != 0;
+        return new Nibbles(hexPrefixEncoded, oddSize ? 1 : 2, hexPrefixEncoded.length);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /** Returns the nibble at the given index. */
     public byte get (int i) {
         assert 0 <= i && i < length() : "index out of range";

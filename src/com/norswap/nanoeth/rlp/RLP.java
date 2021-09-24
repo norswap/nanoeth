@@ -23,6 +23,11 @@ public final class RLP implements RLPLayoutable {
 
     // ---------------------------------------------------------------------------------------------
 
+    /** RLP-encoding of an empty RLP byte array, which is sometimes used to represent absent values. */
+    public static final byte[] RLP_EMPTY_BYTE_ARRAY = RLP.bytes(new byte[0]).encode();
+
+    // ---------------------------------------------------------------------------------------------
+
     /** Does the given RLP encoding encode a byte array? */
     public static boolean encodesBytes (byte[] encoding) {
         return RLPEncoding.isByteSequence(ByteUtils.uint(encoding[0]));

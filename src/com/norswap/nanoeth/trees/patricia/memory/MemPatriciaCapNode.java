@@ -1,8 +1,8 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.rlp.RLP;
+import com.norswap.nanoeth.trees.patricia.AbridgedNode;
 import com.norswap.nanoeth.trees.patricia.MerkleProof;
-import com.norswap.nanoeth.trees.patricia.MerkleProofBuilder;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import com.norswap.nanoeth.utils.ByteUtils;
 import java.util.Arrays;
@@ -10,23 +10,32 @@ import java.util.Map;
 
 /**
  * This is a special kind of node that never occurs in a normal patricia trie, but is used to
- * facilitate the verification of {@link MerkleProof Merkle proofs}.
+ * facilitate the construction of partial tree and the verification of {@link MerkleProof Merkle
+ * proofs}.
  * <p>
- * This node has no children, but always has a memoized result for its {@link #cap()} method (which
- * we here call "digest"). All other implemented methods throw exceptions.
+ * This node has no children, but always has a memoized result for its {@link #cap() cap value} All
+ * other implemented methods throw exceptions.
  */
-public final class MemPatriciaDigestNode extends MemPatriciaNode {
+public final class MemPatriciaCapNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Creates a new node with the given digest (memoized result for the {@link #cap()} method.
+     * Creates a new node with the given cap value (memoized result for the {@link #cap()} method).
      */
-    public MemPatriciaDigestNode (byte[] digest) {
-        this.digest = digest;
+    public MemPatriciaCapNode (byte[] cap) {
+        this.cap = cap;
     }
 
     // ---------------------------------------------------------------------------------------------
+
+    @Override public Type type() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override public Step step (Nibbles keySuffix) {
+        throw new UnsupportedOperationException();
+    }
 
     @Override public byte[] lookup (Nibbles keySuffix) {
         throw new UnsupportedOperationException();
@@ -44,29 +53,29 @@ public final class MemPatriciaDigestNode extends MemPatriciaNode {
         throw new UnsupportedOperationException();
     }
 
-    @Override public void buildProof (Nibbles keySuffix, MerkleProofBuilder builder) {
+    @Override public RLP compose() {
         throw new UnsupportedOperationException();
     }
 
-    @Override public RLP compose() {
+    @Override public AbridgedNode abridged () {
         throw new UnsupportedOperationException();
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public boolean equals (Object o) {
-        return this == o || o instanceof MemPatriciaDigestNode
-            && Arrays.equals(this.digest, ((MemPatriciaDigestNode) o).digest);
+        return this == o || o instanceof MemPatriciaCapNode
+            && Arrays.equals(this.cap, ((MemPatriciaCapNode) o).cap);
     }
 
     @Override public int hashCode () {
-        return Arrays.hashCode(digest);
+        return Arrays.hashCode(cap);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Override public String toString () {
-        return String.format("MemPatriciaDigestNode { %s }", ByteUtils.toFullHexString(digest));
+        return String.format("MemPatriciaCapNode { %s }", ByteUtils.toFullHexString(cap));
     }
 
     // ---------------------------------------------------------------------------------------------

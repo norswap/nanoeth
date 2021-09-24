@@ -11,6 +11,36 @@ public final class RLPParsing {
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Same as {@link RLP#bytes()} but converts an (unchecked) {@link IllegalRLPAccess} to a
+     * (checked) {@link RLPParsingException}.
+     */
+    public static byte[] getBytes(RLP rlp) throws RLPParsingException {
+        try {
+            return rlp.bytes();
+        } catch (IllegalRLPAccess e) {
+            throw new RLPParsingException(
+                    "trying to access bytes, but RLP object is a sequence or an encoding", e);
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Same as {@link RLP#items()} but converts an (unchecked) {@link IllegalRLPAccess} to a
+     * (checked) {@link RLPParsingException}.
+     */
+    public static RLP[] getItems(RLP rlp) throws RLPParsingException {
+        try {
+            return rlp.items();
+        } catch (IllegalRLPAccess e) {
+            throw new RLPParsingException(
+                "trying to access sequence items, but RLP object represent bytes or an encoding", e);
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
      * Parses the i-th item of the sequence, which should be a byte array of size 1, into a
      * unsigned byte.
      */

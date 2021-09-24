@@ -89,9 +89,15 @@ even faster way to achieve the same thing is to sort the entries by lexicographi
 the keys. This makes sure that all the descendants of a node (nodes starting with the same prefix)
 are contiguous, and enables efficient recursive insertions in the tree.
 
+(Note we currently do not do these things, since we do not yet build the state tree.)
+
 It should be noted that the current in-memory implementation does memoize the "Merkle root" (1) of
 every node in the tree. With this crucial optimization, we avoid traversing the whole tree when
 computing the new top-level Merkle root after a change to the tree.
+
+(1) Strictly speaking, the result of the yellow paper node composition, as the Merkle root itself
+(TRIE function) can introduce additional hashing when the node composition function does not itself
+output a hash.
 
 ### Disk Storage
 
@@ -100,6 +106,78 @@ it. For now, it suffices to say that existing Ethereum clients typically use a k
 LevelsDB or RocksDB) to associate keys with values, and to associate internal nodes (identified by
 the prefix needed to reach them) to their children their cached Merkle root (1).
 
-(1) Strictly speaking, the result of the yellow paper node composition, as the Merkle root itself
-(TRIE function) can introduce additional hashing when the node composition function does not itself
-output a hash. 
+## Abridged Tree Nodes
+
+Central to our work with Merkle tree are two functions defined in the yellow paper: the structural
+node composition function `n` (equation 197 and previous), and the node cap function `c` (equation
+194). These are, imho pretty terrible names.
+
+The composition function returns an RLP layout for a node. However, this is a not a recursive
+layout. Instead, each child is represented by the result of the node cap function.
+
+What is the result of the node cap function? It's either the RLP encoding of the result of the node
+composition function, if it is small enough (< 32 bytes), or the Keccak hash thereof otherwise.
+I typically call the result of this function "the cap", though I might slip and call it "a digest"
+instead.
+
+So instead of recursively including the RLP for children, we typically include their hash instead.
+The < 32 bytes "optimization" is a design wart, designed to save memory, but saving [meaningless
+amounts of memory in practice][rlp-bad].
+
+These functions are implemented by the methods `PatriciaNode#compose()` and `PatriciaNode#cap()`.
+
+[rlp-bad]: https://medium.com/@gballet/structure-of-a-binary-state-tree-part-1-48c587836d2f#is-rlp-really-needed
+
+This representation doesn't really have a name, but I call it "abridged representation". It has
+three major uses:
+
+1. computing the Merkle root
+2. transmitting nodes over the network
+3. transmitting Merkle proofs
+
+Point 1 is pretty trivial: the Merkle root of a tree is its cap value if it's a hash (i.e. 32
+bytes long), or the hash of its cap value. You can actually compute the "Merkle root" of any node
+in this fashion.
+
+Onwards to point 2. You might wonder why transmit tree nodes over the network and not just value.
+First, this has to do with the naive way to do state synchronization, which was used until recently:
+to sync the current (or a recent) state tree, request the root node, **identified by its Merkle
+root** (people will often just say "its hash"). Get its abridged representation from other nodes on
+the network. This gives you the cap value of its children, from which you can compute their Merkle
+root, which you can then request on the network. Proceed until you have the whole tree.
+
+But wait! This takes time, and meanwhile, the state is evolving! No worries, just restart the
+process from the new state root. If you stored the nodes you got earlier in some kind of key-value
+store, you already have most of the nodes (since each block only touches a very small part of the
+tree). Repeat this process a couple time and you will eventually catch up to the most recent tree
+root.
+
+The process I just described is how "fast" sync works in geth. Fast sync was the default
+until June 2021, where it was replaced by ["snap" sync][snap]. Snap sync mostly gets a bunch of
+key-value pairs in a single go, and builds up the internal node locally. This avoids the latency of
+waiting for each node to get its children, but on the flip side comes with [significant
+implementation complexity][snap-complex].
+
+[snap]: https://github.com/ethereum/devp2p/blob/master/caps/snap.md
+[snap-complex]: https://github.com/ethereum/go-ethereum/pull/20152
+
+Besides sync, the ability to transmit nodes over the network is also useful for stateless
+clients that do not maintain a full view of the state, but get state values from the network
+whenever needed. These clients do also need to get internal nodes from the network in order to be
+able to verify Merkle roots!
+
+And this leads us to point 3. A Merkle proof is a way to prove that a key-value pair belongs to a
+Merkle tree with a given Merkle root. To make the proof, it suffices to supply every node (in
+abridged form) on the **branch** of the key: the path from the root of the tree to the leaf or
+branch node that contains the value. It's also possible to prove the absence of key from a tree — in
+which case the branch stops at the deepest node that would have to be modified to insert a mapping
+for the given key.
+
+To verify the proof, simply check that the first node matches the Merkle root, then that the cap
+value of each node matches its parent, then that the final node matches the proven value.
+
+In contract to abridged nodes, I call a "full tree node" a node that has references to its children.
+
+nanoeth represents abridged nodes by the class `AbridgedNode` and full nodes by the class
+`PatriciaNode`. An `AbridgedNode` can be created from a RLP object received on the network, or via
+`PatriciaNode#abridged()`.

@@ -3,12 +3,13 @@ package com.norswap.nanoeth.trees.patricia.memory;
 import com.norswap.nanoeth.annotations.Nullable;
 import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.rlp.RLP;
-import com.norswap.nanoeth.trees.patricia.MerkleProofBuilder;
+import com.norswap.nanoeth.trees.patricia.AbridgedNode;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.BRANCH;
 import static com.norswap.nanoeth.utils.ByteUtils.toFullHexString;
 
 /**
@@ -67,6 +68,23 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
             boolean marker) {
         this.children = children;
         this.data = data;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public Type type () {
+        return BRANCH;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public Step step (Nibbles keySuffix) {
+        if (keySuffix.length() == 0)
+            return new Step(this, null, 0, 0);
+        var child = children[keySuffix.get(0)];
+        return child == null
+            ? new Step(this, null, 0, keySuffix.length())
+            : new Step(this, child, 1, keySuffix.length() - 1);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -173,17 +191,28 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    private final static RLP emptyByteSequence = RLP.bytes(new byte[0]);
+    private final static RLP EMPTY_BYTE_ARRAY = RLP.bytes(new byte[0]);
+
+    // ---------------------------------------------------------------------------------------------
 
     @Override public RLP compose () {
         var sequence = new Object[17];
         for (int i = 0; i < 16; i++) {
             sequence[i] = children[i] == null
-                ? emptyByteSequence
-                : RLP.encoded(children[i].cap());
+                ? EMPTY_BYTE_ARRAY
+                : children[i].rlpCap();
         }
-        sequence[16] = data == null ? emptyByteSequence : data;
+        sequence[16] = data == null ? EMPTY_BYTE_ARRAY : data;
         return RLP.sequence(sequence);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public AbridgedNode abridged () {
+        var childrenCaps = Arrays.stream(children)
+            .map(it -> it == null ? null : it.cap())
+            .toArray(byte[][]::new);
+        return new AbridgedNode(BRANCH, null, data, childrenCaps, cap());
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -196,31 +225,6 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
             if (children[i] == null) continue;
             children[i].collectEntries(prefix.concat(new Nibbles((byte) i)), map);
         }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public void buildProof (Nibbles keySuffix, MerkleProofBuilder builder) {
-
-        if (keySuffix.length() == 0 && data == null) {
-            return; // key not found
-        }
-
-        var digests = Arrays.stream(children)
-            .map(it -> it == null ? null : it.cap())
-            .toArray(byte[][]::new);
-
-        if (keySuffix.length() == 0) {
-            builder.addEndBranchNode(data, digests);
-            return;
-        }
-
-        byte pivot = keySuffix.get(0);
-        var child = children[pivot];
-        if (child == null)
-            return; // key not found
-        builder.addPathBranchNode(data, pivot, digests);
-        child.buildProof(keySuffix.dropFirst(1), builder);
     }
 
     // ---------------------------------------------------------------------------------------------
