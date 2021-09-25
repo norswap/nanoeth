@@ -167,7 +167,9 @@ public final class AbridgedNode {
     /**
      * Returns the cap of the child node reachable through {@code keySuffix}. The {@code
      * consumablePrefix} parameter is the result of the {@link #consumablePrefix(Nibbles)} function
-     * (passed in to avoid repeat computation). Return null if no such child is reachable.
+     * (passed in to avoid repeat computation).
+     * <p>
+     * Returns null if no such child is reachable.
      */
     public @Nullable byte[] capForSuffix (int consumablePrefix, Nibbles keySuffix) {
         if (keySuffix.length() == 0)

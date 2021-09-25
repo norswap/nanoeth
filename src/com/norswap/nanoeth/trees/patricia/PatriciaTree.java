@@ -60,8 +60,8 @@ public class PatriciaTree {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** Lookup the value associated with the given key. */
-    public byte[] lookup (byte[] key) {
+    /** Lookup the value associated with the given key, or null if no such value exists. */
+    public @Nullable byte[] lookup (byte[] key) {
         return root != null
             ? root.lookup(new Nibbles(key, 0, key.length * 2))
             : null;
