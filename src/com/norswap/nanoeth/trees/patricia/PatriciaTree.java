@@ -5,7 +5,6 @@ import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.trees.patricia.PatriciaNode.Step;
-import com.norswap.nanoeth.trees.patricia.memory.MemPatriciaLeafNode;
 import com.norswap.nanoeth.utils.Hashing;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,15 +14,11 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
- * Naive implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.
+ * Implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.
+ * <p>
+ * A patricia tree is associated with a {@link KVStore key-value store} used to access nodes.
  * <p>
  * See trees.patricia package README for more information on patricia trees.
- * <p>
- * This uses the in-memory implementation (from the {@code memory} sub-package) by default. However
- * the implementation can be changed by sub-classing. In particular, to use a more efficient
- * implementation it is only necessary to implement the {@link PatriciaNode} interface, then
- * subclass the present class, overriding the {@link #createLeafNode(Nibbles, byte[])} method to
- * return an instance of the new node implementation.
  */
 @Wrapper
 public class PatriciaTree {
@@ -46,15 +41,21 @@ public class PatriciaTree {
 
     // ---------------------------------------------------------------------------------------------
 
+    /** The store associated to this tree). */
+    public final KVStore store;
+
+    // ---------------------------------------------------------------------------------------------
+
     /** Creates an empty patricia tree (root = null). */
-    public PatriciaTree () {
-        this(null);
+    public PatriciaTree (KVStore store) {
+        this(store, null);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /** Creates a patricia tree with the given root node. */
-    public PatriciaTree (@Nullable PatriciaNode root) {
+    public PatriciaTree (KVStore store, @Nullable PatriciaNode root) {
+        this.store = store;
         this.root = root;
     }
 
@@ -72,29 +73,27 @@ public class PatriciaTree {
     /**
      * Returns the transformed tree, after associating the given value with the given key.
      * If the key is empty, returns itself.
+     * <p>
+     * The store might be modified as a result, refer to the documentation for the used store.
      */
     public PatriciaTree add (byte[] key, byte[] value) {
         if (key.length == 0) return this;
         return root != null
-            ? new PatriciaTree(root.add(new Nibbles(key), value))
-            : new PatriciaTree(createLeafNode(new Nibbles(key), value));
+            ? new PatriciaTree(store, root.add(store, new Nibbles(key), value))
+            : new PatriciaTree(store, new PatriciaLeafNode(new Nibbles(key), value));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns the transformed tree, after removing the entry for the given key (if any).
+     * <p>
+     * The store might be modified as a result, refer to the documentation for the used store.
      */
     public PatriciaTree remove (byte[] key) {
         return root != null
-            ? new PatriciaTree(root.remove(new Nibbles(key)))
+            ? new PatriciaTree(store, root.remove(store, new Nibbles(key)))
             : this;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    protected PatriciaNode createLeafNode (Nibbles key, byte[] value) {
-        return new MemPatriciaLeafNode(key, value);
     }
 
     // ---------------------------------------------------------------------------------------------

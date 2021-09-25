@@ -1,7 +1,6 @@
 package com.norswap.nanoeth.trees.patricia;
 
 import com.norswap.nanoeth.annotations.Retained;
-import com.norswap.nanoeth.trees.patricia.memory.MemPatriciaLeafNode;
 import com.norswap.nanoeth.utils.ByteUtils;
 
 /**
@@ -15,6 +14,10 @@ import com.norswap.nanoeth.utils.ByteUtils;
  * (i.e. the first nibble in a byte is the high-order nibble).
  */
 public final class Nibbles {
+    // ---------------------------------------------------------------------------------------------
+
+    public static final Nibbles EMPTY = new Nibbles(new byte[0]);
+
     // ---------------------------------------------------------------------------------------------
 
     /** The byte array (typically a whole key, hence the name) backing the nibble sequence. */

@@ -76,7 +76,7 @@ public abstract class PatriciaNode {
      * <p>
      * This must handle empty nibble sequences.
      */
-    public abstract PatriciaNode add (Nibbles keySuffix, byte[] value);
+    public abstract PatriciaNode add (KVStore store, Nibbles keySuffix, byte[] value);
 
     // ---------------------------------------------------------------------------------------------
 
@@ -86,7 +86,7 @@ public abstract class PatriciaNode {
      * <p>
      * This must handle empty nibble sequences.
      */
-    public abstract PatriciaNode remove (Nibbles keySuffix);
+    public abstract PatriciaNode remove (KVStore store, Nibbles keySuffix);
 
     // ---------------------------------------------------------------------------------------------
 

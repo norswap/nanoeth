@@ -1,20 +1,12 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.trees.patricia.Nibbles;
+import com.norswap.nanoeth.trees.patricia.PatriciaLeafNode;
 import com.norswap.nanoeth.trees.patricia.PatriciaNode;
 
-/**
- * The common interface for all in-memory patricia tree node implementations.
- */
-public abstract class MemPatriciaNode extends PatriciaNode {
-
-    // ---------------------------------------------------------------------------------------------
-
-    // narrow the return type
-    @Override public abstract MemPatriciaNode add (Nibbles keySuffix, byte[] value);
-
-    // narrow the return type
-    @Override public abstract MemPatriciaNode remove (Nibbles keySuffix);
+/** Utility methods used in in-memory tree implementation. */
+final class MemPatriciaNodeUtils {
+    private MemPatriciaNodeUtils() {}
 
     // ---------------------------------------------------------------------------------------------
 
@@ -25,15 +17,15 @@ public abstract class MemPatriciaNode extends PatriciaNode {
      * <p>
      * This is used by branch and extension nodes to implement entry deletion.
      */
-    MemPatriciaNode prepend (Nibbles nibbles, MemPatriciaNode node) {
+    static PatriciaNode prepend (Nibbles nibbles, PatriciaNode node) {
         if (node instanceof MemPatriciaExtensionNode) {
             var extNode = (MemPatriciaExtensionNode) node;
             return new MemPatriciaExtensionNode(
-                nibbles.concat(extNode.keyFragment), (MemPatriciaBranchNode) extNode.child);
+                nibbles.concat(extNode.keyFragment), extNode.child);
         }
-        if (node instanceof MemPatriciaLeafNode) {
-            var leafNode = (MemPatriciaLeafNode) node;
-            return new MemPatriciaLeafNode(
+        if (node instanceof PatriciaLeafNode) {
+            var leafNode = (PatriciaLeafNode) node;
+            return new PatriciaLeafNode(
                 nibbles.concat(leafNode.keySuffix), leafNode.value);
         }
         if  (node instanceof MemPatriciaBranchNode) {

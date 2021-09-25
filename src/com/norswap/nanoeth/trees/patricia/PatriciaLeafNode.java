@@ -1,9 +1,8 @@
-package com.norswap.nanoeth.trees.patricia.memory;
+package com.norswap.nanoeth.trees.patricia;
 
 import com.norswap.nanoeth.annotations.Retained;
-import com.norswap.nanoeth.trees.patricia.AbridgedNode;
-import com.norswap.nanoeth.trees.patricia.Nibbles;
 import com.norswap.nanoeth.utils.ByteUtils;
+import com.norswap.nanoeth.utils.Pair;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
@@ -11,27 +10,20 @@ import java.util.Objects;
 import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.LEAF;
 
 /**
- * A leaf in the in-memory patrica tree, which store the suffix of the key and its associated value.
+ * A leaf in the patrica tree, which store the suffix of the key and its associated value.
+ * <p>
+ * Because a leaf node has no children, this implementation can be shared between multiple
+ * implementations.
  */
-public final class MemPatriciaLeafNode extends MemPatriciaNode {
+public final class PatriciaLeafNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    /**
-     * The suffix of the key leading to this node from the root of the Merkle tree, i.e. the part of
-     * the key that wasn't used to reach this leaf node when traversing the Merkle tree from the
-     * root.
-     */
     public final Nibbles keySuffix;
 
-    // ---------------------------------------------------------------------------------------------
-
-    /** The value held in the leaf. */
     public final byte[] value;
 
-    // ---------------------------------------------------------------------------------------------
-
-    public MemPatriciaLeafNode (Nibbles keySuffix, @Retained byte[] value) {
+    public PatriciaLeafNode (Nibbles keySuffix, @Retained byte[] value) {
         this.keySuffix = keySuffix;
         this.value = value;
     }
@@ -47,36 +39,40 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     @Override public byte[] lookup (Nibbles keySuffix) {
         return keySuffix.equals(this.keySuffix)
-            ? value
-            : null;
+                ? value
+                : null;
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] value) {
+    @Override public PatriciaNode add (KVStore store, Nibbles keySuffix, byte[] value) {
+
         var ownSuffix = this.keySuffix;
         int prefixLen = ownSuffix.sharedPrefix(keySuffix);
 
         if (prefixLen == ownSuffix.length() && prefixLen == keySuffix.length())
             // same suffix, overwrite value
-            return new MemPatriciaLeafNode(keySuffix, value);
+            return new PatriciaLeafNode(keySuffix, value);
 
-        var branch = new MemPatriciaBranchNode(new MemPatriciaNode[16], null, true);
-        branch = branch.insert(ownSuffix, this.value, prefixLen);
-        branch = branch.insert(keySuffix, value,      prefixLen);
+        // split into a branch node with two children (or a child and a value)
+        @SuppressWarnings("unchecked")
+        var branch = store.branchNode(
+            Pair.of(ownSuffix.dropFirst(prefixLen), new PatriciaLeafNode(Nibbles.EMPTY, this.value)),
+            Pair.of(keySuffix.dropFirst(prefixLen), new PatriciaLeafNode(Nibbles.EMPTY, value)));
 
         // if the shared prefix isn't empty, wrap the branch node in an extension node
         return prefixLen == 0
-            ? branch
-            : new MemPatriciaExtensionNode(keySuffix.prefix(prefixLen), branch);
+                ? branch
+                : store.extensionNode(keySuffix.prefix(prefixLen), branch);
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public MemPatriciaNode remove (Nibbles keySuffix) {
+    @Override public PatriciaNode remove (KVStore store,
+            Nibbles keySuffix) {
         return this.keySuffix.equals(keySuffix)
-            ? null // delete this leaf
-            : this; // not found
+                ? null // delete this leaf
+                : this; // not found
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -95,8 +91,8 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     @Override public boolean equals (Object o) {
         if (this == o) return true;
-        if (!(o instanceof MemPatriciaLeafNode)) return false;
-        var that = (MemPatriciaLeafNode) o;
+        if (!(o instanceof PatriciaLeafNode)) return false;
+        var that = (PatriciaLeafNode) o;
         return keySuffix.equals(that.keySuffix) && Arrays.equals(value, that.value);
     }
 
@@ -107,8 +103,8 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
     // ---------------------------------------------------------------------------------------------
 
     @Override public String toString () {
-        return String.format("MemPatriciaLeafNode{ %s = %s }",
-            keySuffix, ByteUtils.toFullHexString(value));
+        return String.format("PatriciaLeafNode{ %s = %s }",
+                keySuffix, ByteUtils.toFullHexString(value));
     }
 
     // ---------------------------------------------------------------------------------------------

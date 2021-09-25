@@ -1,5 +1,6 @@
 package com.norswap.nanoeth.trees.patricia;
 
+import com.norswap.nanoeth.trees.patricia.memory.TreeKVStore;
 import com.norswap.nanoeth.utils.Hashing;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -24,7 +25,7 @@ public class PatriciaTreeTests {
 
     @Test(dataProvider = "trieTestCases")
     public void testTrie (TrieTestCase testCase) {
-        var tree = new PatriciaTree();
+        var tree = new PatriciaTree(new TreeKVStore());
         var keys = new ArrayList<String>(testCase.pairs.length);
 
         for (var pair : testCase.pairs) {

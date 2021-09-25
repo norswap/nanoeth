@@ -1,44 +1,34 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
-import com.norswap.nanoeth.trees.patricia.AbridgedNode;
+import com.norswap.nanoeth.trees.patricia.KVStore;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
+import com.norswap.nanoeth.trees.patricia.PatriciaBranchNode;
+import com.norswap.nanoeth.trees.patricia.PatriciaExtensionNode;
+import com.norswap.nanoeth.trees.patricia.PatriciaLeafNode;
+import com.norswap.nanoeth.trees.patricia.PatriciaNode;
+import com.norswap.nanoeth.utils.Pair;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.EXTENSION;
+import static com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNodeUtils.prepend;
 
 /**
- * This in-memory patricia tree node represents a shared sequence of nibbles between multiples keys
- * (a "key fragment"). This is a (yellowpaper-mandated) compression method that avoids having a
- * chain of single-child branch nodes. It can also happen that the key fragment is only a single
- * nibble-long, since we use extension nodes when there is only one child (as it is more
- * space-efficient than using a branch node — again, is is yellowpaper-mandated).
- * <p>
- * The node holds the key fragment and a child node, which is normally always a branch node (but
- * could be a {@link MemPatriciaCapNode} when constructing a partial tree).
+ * An extension node in the in-memory patricia tree.
  */
-public final class MemPatriciaExtensionNode extends MemPatriciaNode {
+public final class MemPatriciaExtensionNode extends PatriciaExtensionNode {
 
     // ---------------------------------------------------------------------------------------------
 
     public final Nibbles keyFragment;
 
-    public final MemPatriciaNode child;
+    public final PatriciaBranchNode child;
 
     // ---------------------------------------------------------------------------------------------
 
-    private MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaNode child) {
+    public MemPatriciaExtensionNode (Nibbles keyFragment, PatriciaBranchNode child) {
         assert keyFragment.length() > 0 : "building extension node with empty key fragment";
         this.keyFragment = keyFragment;
         this.child = child;
-    }
-
-    public MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaBranchNode child) {
-        this(keyFragment, (MemPatriciaNode) child);
-    }
-
-    public MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaCapNode child) {
-        this(keyFragment, (MemPatriciaNode) child);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -61,26 +51,21 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public MemPatriciaNode add (Nibbles keySuffix, byte[] value) {
+    @Override public PatriciaNode add (KVStore store, Nibbles keySuffix, byte[] value) {
+
         if (keySuffix.length() == 0) return null;
         int prefixLen = keyFragment.sharedPrefix(keySuffix);
 
         // the whole key fragment is shared, merge child
         if (prefixLen == keyFragment.length())
             return new MemPatriciaExtensionNode(
-                keyFragment, child.add(keySuffix.dropFirst(prefixLen), value));
+                keyFragment, child.add(store, keySuffix.dropFirst(prefixLen), value));
 
-        var branch = new MemPatriciaBranchNode(new MemPatriciaNode[16], null, true);
-
-        // If the fragment's suffix isn't empty, make an extension node wrapping the current child.
-        // The branch mutation is okay, the branch hasn't escaped.
-        int ownSuffixLen = keyFragment.length() - prefixLen - 1;
-        var ownPivot = keyFragment.get(prefixLen);
-        branch.children[ownPivot] = ownSuffixLen == 0
-            ? child
-            : new MemPatriciaExtensionNode(keyFragment.dropFirst(prefixLen + 1), child);
-
-        branch = branch.insert(keySuffix, value, prefixLen);
+        @SuppressWarnings("unchecked")
+        var branch = store.branchNode(
+            Pair.of(keyFragment.dropFirst(prefixLen), child),
+            Pair.of(keySuffix.dropFirst(prefixLen), new PatriciaLeafNode(Nibbles.EMPTY, value))
+        );
 
         // if the shared prefix isn't empty, wrap the branch node in an extension node
         return prefixLen == 0
@@ -90,12 +75,13 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public MemPatriciaNode remove (Nibbles keySuffix) {
+    @Override public PatriciaNode remove (KVStore store,
+            Nibbles keySuffix) {
         int prefixLen = keyFragment.sharedPrefix(keySuffix);
         if (prefixLen < keyFragment.length())
             return this; // not found
 
-        var newChild = child.remove(keySuffix.dropFirst(prefixLen));
+        var newChild = child.remove(store, keySuffix.dropFirst(prefixLen));
 
         if (newChild == child)
             return this; // no change
@@ -107,8 +93,20 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public AbridgedNode abridged () {
-        return new AbridgedNode(EXTENSION, keyFragment, null, new byte[][]{ child.cap() });
+    @Override public Nibbles keyFragment() {
+        return keyFragment;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public PatriciaBranchNode child() {
+        return child;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public byte[] childCap() {
+        return child.cap();
     }
 
     // ---------------------------------------------------------------------------------------------
