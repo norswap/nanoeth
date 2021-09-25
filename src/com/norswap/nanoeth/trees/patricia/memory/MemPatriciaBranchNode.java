@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.BRANCH;
+import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.BRANCH;
 import static com.norswap.nanoeth.utils.ByteUtils.toFullHexString;
 
 /**
@@ -67,12 +67,6 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
             boolean marker) {
         this.children = children;
         this.value = value;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public Type type () {
-        return BRANCH;
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -18,11 +18,6 @@ public abstract class PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** The three kind of nodes: leaf, extension and branch. */
-    public enum Type { LEAF, EXTENSION, BRANCH }
-
-    // ---------------------------------------------------------------------------------------------
-
     /** See {@link #step(Nibbles)}. */
     public static final class Step {
         public final PatriciaNode node;
@@ -42,11 +37,6 @@ public abstract class PatriciaNode {
 
     /** Memoization for {@link #cap()}. */
     protected byte[] cap;
-
-    // ---------------------------------------------------------------------------------------------
-
-    /** Returns the type of node: leaf, extension or branch. */
-    public abstract Type type();
 
     // ---------------------------------------------------------------------------------------------
 

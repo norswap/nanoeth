@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.LEAF;
+import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.LEAF;
 
 /**
  * A leaf in the in-memory patrica tree, which store the suffix of the key and its associated value.
@@ -34,12 +34,6 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
     public MemPatriciaLeafNode (Nibbles keySuffix, @Retained byte[] value) {
         this.keySuffix = keySuffix;
         this.value = value;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public Type type () {
-        return LEAF;
     }
 
     // ---------------------------------------------------------------------------------------------

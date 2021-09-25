@@ -5,12 +5,11 @@ import com.norswap.nanoeth.annotations.Retained;
 import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.rlp.RLPParsingException;
-import com.norswap.nanoeth.trees.patricia.PatriciaNode.Type;
 import com.norswap.nanoeth.utils.Hashing;
 
 import static com.norswap.nanoeth.rlp.RLPParsing.getBytes;
 import static com.norswap.nanoeth.rlp.RLPParsing.getItems;
-import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.*;
+import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.*;
 
 /**
  * Represents a {@link PatriciaNode} that has been composed via the yellowpaper's structural node
@@ -23,10 +22,15 @@ import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.*;
 public final class AbridgedNode {
 
     // =============================================================================================
+
+    /** The three kind of nodes: leaf, extension and branch. */
+    public enum Type { LEAF, EXTENSION, BRANCH }
+
+    // =============================================================================================
     // region Fields and Constructor
     // =============================================================================================
 
-    public final PatriciaNode.Type type;
+    public final Type type;
 
     // ---------------------------------------------------------------------------------------------
 
@@ -95,7 +99,7 @@ public final class AbridgedNode {
 
     /**
      * Creates an abridged node representation from a RLP object in the format returned by
-     * {@link PatriciaNode#compose()}.
+     * {@link #compose()}.
      */
     public static AbridgedNode parse (RLP rlp) throws RLPParsingException {
         var items = getItems(rlp);

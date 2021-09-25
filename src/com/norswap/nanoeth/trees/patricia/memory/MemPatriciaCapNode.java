@@ -29,10 +29,6 @@ public final class MemPatriciaCapNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public Type type() {
-        throw new UnsupportedOperationException();
-    }
-
     @Override public Step step (Nibbles keySuffix) {
         throw new UnsupportedOperationException();
     }

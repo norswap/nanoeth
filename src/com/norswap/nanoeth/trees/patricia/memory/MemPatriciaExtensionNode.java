@@ -5,7 +5,7 @@ import com.norswap.nanoeth.trees.patricia.Nibbles;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.EXTENSION;
+import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.EXTENSION;
 
 /**
  * This in-memory patricia tree node represents a shared sequence of nibbles between multiples keys
@@ -39,12 +39,6 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     public MemPatriciaExtensionNode (Nibbles keyFragment, MemPatriciaCapNode child) {
         this(keyFragment, (MemPatriciaNode) child);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public Type type () {
-        return EXTENSION;
     }
 
     // ---------------------------------------------------------------------------------------------
