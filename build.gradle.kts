@@ -31,6 +31,7 @@ java {
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
+    options.compilerArgs.add("-Xlint:unchecked")
 }
 
 // There must be an "ethereumTests" property (e.g. in gradle.properties) pointing to a local

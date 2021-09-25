@@ -16,8 +16,16 @@ import com.norswap.nanoeth.utils.Pair;
  * implement.
  */
 public final class TreeKVStore implements KVStore {
+
     // ---------------------------------------------------------------------------------------------
-    
+
+    @Override public PatriciaExtensionNode extensionNode (
+            Nibbles keyFragment, PatriciaBranchNode child) {
+        return new MemPatriciaExtensionNode(keyFragment, child);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     @SafeVarargs
     @Override public final PatriciaBranchNode branchNode (Pair<Nibbles, PatriciaNode>... pairs) {
         var children = new PatriciaNode[16];
@@ -32,28 +40,40 @@ public final class TreeKVStore implements KVStore {
             var child = pair.snd;
             var pivot  = keySuffix.get(0);
             var suffix = keySuffix.dropFirst(1);
-
-            if (suffix.length() == 0) {
-                children[pivot] = child;
-            } else if (child instanceof PatriciaLeafNode) {
-                var leaf = (PatriciaLeafNode) child;
-                children[pivot] = new PatriciaLeafNode(suffix.concat(leaf.keySuffix), leaf.value);
-            } else if (child instanceof PatriciaExtensionNode) {
-                var ext = (PatriciaExtensionNode) child;
-                children[pivot] = extensionNode(suffix.concat(ext.keyFragment()), ext.child());
-            } else {
-                var branch = (PatriciaBranchNode) child;
-                children[pivot] = extensionNode(suffix, branch);
-            }
+            children[pivot] = prepend(suffix, child);
         }
-        return new MemPatriciaBranchNode(children, value);
+        return new MemPatriciaBranchNode(value, children);
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public PatriciaExtensionNode extensionNode (
-                Nibbles keyFragment, PatriciaBranchNode child) {
-        return new MemPatriciaExtensionNode(keyFragment, child);
+    @Override public PatriciaBranchNode withValue (PatriciaBranchNode branch, byte[] value) {
+        assert branch instanceof MemPatriciaBranchNode;
+        return new MemPatriciaBranchNode(value, ((MemPatriciaBranchNode) branch).children);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public PatriciaBranchNode withChild (
+            PatriciaBranchNode branch, int nibble, PatriciaNode child) {
+        assert 0 <= nibble && nibble < 16;
+        assert branch instanceof MemPatriciaBranchNode;
+        var mbranch = (MemPatriciaBranchNode) branch;
+        var newChildren = mbranch.children.clone();
+        newChildren[nibble] = child;
+        return new MemPatriciaBranchNode(mbranch.value(), newChildren);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public PatriciaNode getNode (byte[] cap) {
+        throw new UnsupportedOperationException();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public <T extends PatriciaNode> T addNode (T node) {
+        return node;
     }
 
     // ---------------------------------------------------------------------------------------------
