@@ -1,6 +1,5 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
-import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.trees.patricia.AbridgedNode;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import java.util.Map;
@@ -114,14 +113,8 @@ public final class MemPatriciaExtensionNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public RLP compose() {
-        return RLP.sequence(keyFragment.hexPrefix(false), child.rlpCap());
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
     @Override public AbridgedNode abridged () {
-        return new AbridgedNode(EXTENSION, keyFragment, null, new byte[][]{ child.cap() }, cap());
+        return new AbridgedNode(EXTENSION, keyFragment, null, new byte[][]{ child.cap() });
     }
 
     // ---------------------------------------------------------------------------------------------

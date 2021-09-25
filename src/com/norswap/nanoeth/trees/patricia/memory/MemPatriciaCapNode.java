@@ -53,10 +53,6 @@ public final class MemPatriciaCapNode extends MemPatriciaNode {
         throw new UnsupportedOperationException();
     }
 
-    @Override public RLP compose() {
-        throw new UnsupportedOperationException();
-    }
-
     @Override public AbridgedNode abridged () {
         throw new UnsupportedOperationException();
     }

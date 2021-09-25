@@ -101,50 +101,24 @@ public abstract class PatriciaNode {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * This method implements the structural composition function c (equation 197 and previous in
-     * the yellowpaper). The returned layout contains the information stored in an {@link
-     * AbridgedNode}. See the README of this package for more information.
+     * Returns an {@link AbridgedNode} with the abridged information for the node.
      */
-    public abstract RLP compose();
+    public abstract AbridgedNode abridged();
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * This method implements the node cap function n (equation 194 in the yellowpaper), which
-     * is the RLP encoding of the result of {@link #compose()} if its size is less than 32, or a
-     * Keccak hash thereof otherwise.
+     * This method implements the node cap function n (equation 194 in the yellowpaper). This
+     * is computed via {@link AbridgedNode#computeCap(RLP)}.
      * <p>
      * This method memoizes its result. This is an important optimization which avoids traversing
      * the whole tree whenever recomputing the Merkle root after a change to the tree.     *
      */
     public final byte[] cap() {
-        if (cap != null) return cap;
-        byte[] encoding = compose().encode();
-        return cap = encoding.length < 32
-            ? encoding
-            : Hashing.keccak(encoding).bytes;
+        if (cap == null)
+            cap = abridged().cap();
+        return cap;
     }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Returns a RLP object wrapping the result of {@link #cap()} according to its nature:
-     * an RLP byte array if the cap is a hash, an {@link RLP#encoded(byte[]) encoded} RLP sequence
-     * otherwise. This is useful to implement {@link #compose()}.
-     */
-    public final RLP rlpCap() {
-        var cap = cap();
-        return cap.length == 32
-            ? RLP.bytes(cap)
-            : RLP.encoded(cap);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Returns an {@link AbridgedNode} with the abridged information for the node.
-     */
-    public abstract AbridgedNode abridged();
 
     // ---------------------------------------------------------------------------------------------
 
@@ -153,6 +127,7 @@ public abstract class PatriciaNode {
      * function in the yellowpaper (equation 195).
      */
     public final MerkleRoot merkleRoot() {
+        // The same logic appears in AbridgedNode
         var cap = cap();
         return cap.length == 32
             ? new MerkleRoot(cap)

@@ -22,7 +22,9 @@ import static com.norswap.nanoeth.trees.patricia.PatriciaNode.Type.*;
  */
 public final class AbridgedNode {
 
-    // ---------------------------------------------------------------------------------------------
+    // =============================================================================================
+    // region Fields and Constructor
+    // =============================================================================================
 
     public final PatriciaNode.Type type;
 
@@ -50,7 +52,7 @@ public final class AbridgedNode {
      * The cap values (i.e. result of the yellowpaper's node cap function n - equation 196) of all
      * children of this node, if it is a branch node (size 16) or an extension node (size 1).
      * <p>
-     * For empty slots in branch nodes, an array of size 0 is used.
+     * For empty slots in branch nodes, {@code null} is used.
      */
     public final @Nullable byte[][] childrenCaps;
 
@@ -67,16 +69,29 @@ public final class AbridgedNode {
             Type type,
             @Nullable Nibbles keySegment,
             @Nullable @Retained byte[] value,
+            @Nullable @Retained byte[][] childrenCaps) {
+        this(type, keySegment, value, childrenCaps, null);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    public AbridgedNode (
+            Type type,
+            @Nullable Nibbles keySegment,
+            @Nullable @Retained byte[] value,
             @Nullable @Retained byte[][] childrenCaps,
-            @Retained byte[] cap) {
+            RLP rlp) {
         this.type = type;
         this.keySegment = keySegment;
         this.value = value;
         this.childrenCaps = childrenCaps;
-        this.cap = cap;
+        this.cap = computeCap(rlp != null ? rlp : compose());
     }
 
-    // ---------------------------------------------------------------------------------------------
+    // endregion
+    // =============================================================================================
+    // region Parsing
+    // =============================================================================================
 
     /**
      * Creates an abridged node representation from a RLP object in the format returned by
@@ -89,16 +104,16 @@ public final class AbridgedNode {
             var bytes = getBytes(rlp, 0);
             var nibbles = Nibbles.fromHexPrefix(bytes);
             return ((bytes[0] & 0x20) != 0) // is the node a leaf?
-                ? new AbridgedNode(LEAF, nibbles, getBytes(rlp, 1), null, cap(rlp))
+                ? new AbridgedNode(LEAF, nibbles, getBytes(rlp, 1), null, rlp)
                 : new AbridgedNode(EXTENSION, nibbles, null,
-                    new byte[][] { getChildCap(rlp.itemAt(1)) }, cap(rlp));
+                    new byte[][] { getChildCap(rlp.itemAt(1)) }, rlp);
         }
 
         if (items.length == 17) {
             var children = new byte[16][];
             for (int i = 0; i < 16; ++i)
                 children[i] = getChildCap(rlp.itemAt(i));
-            return new AbridgedNode(BRANCH, null, getBytes(rlp, 16), children, cap(rlp));
+            return new AbridgedNode(BRANCH, null, getBytes(rlp, 16), children, rlp);
         }
 
         throw new RLPParsingException("wrong sequence size for patricia tree node: " + items.length);
@@ -112,16 +127,76 @@ public final class AbridgedNode {
                 : rlp.encode();
     }
 
+    // endregion
+    // =============================================================================================
+
+    private final static RLP EMPTY_BYTE_ARRAY = RLP.bytes(new byte[0]);
+
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Implement the cap function, given the RLP representation of a node.
+     * Packages the given cap as a RLP byte array if it's a hash (length 32) or as an
+     * already-encoded RLP sequence if it's not.
      */
-    private static byte[] cap (RLP rlp) {
+    private static RLP wrappedCap (byte[] cap) {
+        return cap.length == 32
+            ? RLP.bytes(cap)
+            : RLP.encoded(cap);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Implement the node cap function n (equation 194 in the yellowpaper), given the RLP
+     * representation of a node (see {@link #compose()}.
+     * <p>
+     * Access the cap of the abridged node via {@link #cap()}.
+     */
+    public static byte[] computeCap (RLP rlp) {
         byte[] encoding = rlp.encode();
         return encoding.length < 32
-            ? encoding
-            : Hashing.keccak(encoding).bytes;
+                ? encoding
+                : Hashing.keccak(encoding).bytes;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * This method implements the structural composition function c (equation 197 and previous in
+     * the yellowpaper). The returned layout contains the information stored in an {@link
+     * AbridgedNode}. See the README of this package for more information.
+     */
+    public RLP compose() {
+        switch (type) {
+            case LEAF:
+                return RLP.sequence(keySegment.hexPrefix(true), value);
+            case EXTENSION:
+                return RLP.sequence(keySegment.hexPrefix(false), wrappedCap(childrenCaps[0]));
+            case BRANCH:
+                var sequence = new Object[17];
+                for (int i = 0; i < 16; i++) {
+                    sequence[i] = childrenCaps[i] == null
+                        ? EMPTY_BYTE_ARRAY
+                        : wrappedCap(childrenCaps[i]);
+                }
+                sequence[16] = value == null ? EMPTY_BYTE_ARRAY : value;
+                return RLP.sequence(sequence);
+            default:
+                throw new Error("unreachable");
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the result of the node cap function n (equation 194 in the yellowpaper), which is the
+     * RLP encoding of the result of {@link #compose()} if its size is less than 32, or a Keccak
+     * hash thereof otherwise.
+     * <p>
+     * Computed by {@link #computeCap(RLP)}.
+     */
+    public byte[] cap() {
+        return cap;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -131,21 +206,10 @@ public final class AbridgedNode {
      * function in the yellowpaper (equation 195).
      */
     public MerkleRoot merkleRoot() {
-        var cap = cap();
+        // The same logic appears in PatriciaNode
         return cap.length == 32
             ? new MerkleRoot(cap)
             : new MerkleRoot(Hashing.keccak(cap));
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Returns the result of the node cap function n (equation 194 in the yellowpaper), which is the
-     * RLP encoding of the result of {@link PatriciaNode#compose()} if its size is less than 32, or
-     * a Keccak hash thereof otherwise.
-     */
-    public byte[] cap() {
-        return cap;
     }
 
     // ---------------------------------------------------------------------------------------------

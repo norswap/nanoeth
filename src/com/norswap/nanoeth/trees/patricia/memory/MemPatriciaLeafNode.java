@@ -1,7 +1,6 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.annotations.Retained;
-import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.trees.patricia.AbridgedNode;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import com.norswap.nanoeth.utils.ByteUtils;
@@ -88,14 +87,8 @@ public final class MemPatriciaLeafNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public RLP compose() {
-        return RLP.sequence(keySuffix.hexPrefix(true), value);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
     @Override public AbridgedNode abridged() {
-        return new AbridgedNode(LEAF, keySuffix, value, null, cap());
+        return new AbridgedNode(LEAF, keySuffix, value, null);
     }
 
     // ---------------------------------------------------------------------------------------------

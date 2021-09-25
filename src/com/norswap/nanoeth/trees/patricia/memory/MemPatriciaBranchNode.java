@@ -2,7 +2,6 @@ package com.norswap.nanoeth.trees.patricia.memory;
 
 import com.norswap.nanoeth.annotations.Nullable;
 import com.norswap.nanoeth.annotations.Retained;
-import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.trees.patricia.AbridgedNode;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import java.util.Arrays;
@@ -191,28 +190,11 @@ public final class MemPatriciaBranchNode extends MemPatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    private final static RLP EMPTY_BYTE_ARRAY = RLP.bytes(new byte[0]);
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override public RLP compose () {
-        var sequence = new Object[17];
-        for (int i = 0; i < 16; i++) {
-            sequence[i] = children[i] == null
-                ? EMPTY_BYTE_ARRAY
-                : children[i].rlpCap();
-        }
-        sequence[16] = value == null ? EMPTY_BYTE_ARRAY : value;
-        return RLP.sequence(sequence);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
     @Override public AbridgedNode abridged () {
         var childrenCaps = Arrays.stream(children)
             .map(it -> it == null ? null : it.cap())
             .toArray(byte[][]::new);
-        return new AbridgedNode(BRANCH, null, value, childrenCaps, cap());
+        return new AbridgedNode(BRANCH, null, value, childrenCaps);
     }
 
     // ---------------------------------------------------------------------------------------------
