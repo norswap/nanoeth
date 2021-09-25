@@ -1,6 +1,8 @@
 package com.norswap.nanoeth.trees.patricia.memory;
 
-import com.norswap.nanoeth.trees.patricia.KVStore;
+import com.norswap.nanoeth.annotations.Nullable;
+import com.norswap.nanoeth.annotations.Retained;
+import com.norswap.nanoeth.trees.patricia.NodeStore;
 import com.norswap.nanoeth.trees.patricia.Nibbles;
 import com.norswap.nanoeth.trees.patricia.PatriciaBranchNode;
 import com.norswap.nanoeth.trees.patricia.PatriciaExtensionNode;
@@ -9,13 +11,12 @@ import com.norswap.nanoeth.trees.patricia.PatriciaNode;
 import com.norswap.nanoeth.utils.Pair;
 
 /**
- * Key-value store implementation for the in-memory tree.
+ * Node store implementation for the in-memory tree.
  * <p>
- * The in-memory tree does not have "a store", since children are kept directly in the nodes.
- * However, the {@link KVStore} interface also defines some node factory methods that we need to
- * implement.
+ * The in-memory tree does not have "a store", since children are kept directly in the nodes, so
+ * the data access method are no-op, excepted {@link #getNode(byte[])} which throws an exception.
  */
-public final class TreeKVStore implements KVStore {
+public final class TreeNodeStore implements NodeStore {
 
     // ---------------------------------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ public final class TreeKVStore implements KVStore {
 
     @SafeVarargs
     @Override public final PatriciaBranchNode branchNode (Pair<Nibbles, PatriciaNode>... pairs) {
+        // Almost identical to MapNodeStore#branchNode
         var children = new PatriciaNode[16];
         byte[] value = null;
         for (var pair: pairs) {
@@ -47,7 +49,10 @@ public final class TreeKVStore implements KVStore {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public PatriciaBranchNode withValue (PatriciaBranchNode branch, byte[] value) {
+    @Override public PatriciaBranchNode withValue (
+            PatriciaBranchNode branch,
+            @Nullable @Retained byte[] value) {
+
         assert branch instanceof MemPatriciaBranchNode;
         return new MemPatriciaBranchNode(value, ((MemPatriciaBranchNode) branch).children);
     }
@@ -75,6 +80,10 @@ public final class TreeKVStore implements KVStore {
     @Override public <T extends PatriciaNode> T addNode (T node) {
         return node;
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public void removeNode (PatriciaNode node) {}
 
     // ---------------------------------------------------------------------------------------------
 }

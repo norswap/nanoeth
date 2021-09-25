@@ -16,7 +16,7 @@ import java.util.function.Consumer;
 /**
  * Implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.
  * <p>
- * A patricia tree is associated with a {@link KVStore key-value store} used to access nodes.
+ * A patricia tree is associated with a {@link NodeStore key-value store} used to access nodes.
  * <p>
  * See trees.patricia package README for more information on patricia trees.
  */
@@ -42,19 +42,19 @@ public class PatriciaTree {
     // ---------------------------------------------------------------------------------------------
 
     /** The store associated to this tree). */
-    public final KVStore store;
+    public final NodeStore store;
 
     // ---------------------------------------------------------------------------------------------
 
     /** Creates an empty patricia tree (root = null). */
-    public PatriciaTree (KVStore store) {
+    public PatriciaTree (NodeStore store) {
         this(store, null);
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /** Creates a patricia tree with the given root node. */
-    public PatriciaTree (KVStore store, @Nullable PatriciaNode root) {
+    public PatriciaTree (NodeStore store, @Nullable PatriciaNode root) {
         this.store = store;
         this.root = root;
     }
@@ -64,7 +64,7 @@ public class PatriciaTree {
     /** Lookup the value associated with the given key, or null if no such value exists. */
     public @Nullable byte[] lookup (byte[] key) {
         return root != null
-            ? root.lookup(new Nibbles(key, 0, key.length * 2))
+            ? root.lookup(store, new Nibbles(key, 0, key.length * 2))
             : null;
     }
 
@@ -80,7 +80,7 @@ public class PatriciaTree {
         if (key.length == 0) return this;
         return root != null
             ? new PatriciaTree(store, root.add(store, new Nibbles(key), value))
-            : new PatriciaTree(store, new PatriciaLeafNode(new Nibbles(key), value));
+            : new PatriciaTree(store, store.leafNode(new Nibbles(key), value));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -103,7 +103,7 @@ public class PatriciaTree {
         if (root == null)
             return Collections.emptyMap();
         var map = new HashMap<byte[], byte[]>();
-        root.collectEntries(new Nibbles(new byte[0]), map);
+        root.collectEntries(store, new Nibbles(new byte[0]), map);
         return map;
     }
 
@@ -132,11 +132,11 @@ public class PatriciaTree {
     public final void forBranch (byte[] key, Consumer<Step> f) {
         if (root == null) return;
         var keySuffix = new Nibbles(key);
-        var step = root.step(keySuffix);
+        var step = root.step(store, keySuffix);
         f.accept(step);
         while (step.child != null) {
             keySuffix = keySuffix.dropFirst(step.sharedPrefix);
-            step = step.child.step(keySuffix);
+            step = step.child.step(store, keySuffix);
             f.accept(step);
         }
     }

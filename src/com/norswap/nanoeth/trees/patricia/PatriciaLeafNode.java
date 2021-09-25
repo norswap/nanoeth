@@ -30,49 +30,55 @@ public final class PatriciaLeafNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public Step step (Nibbles keySuffix) {
+    @Override public Step step (NodeStore store, Nibbles keySuffix) {
         int sharedPrefix = this.keySuffix.sharedPrefix(keySuffix);
         return new Step(this, null, sharedPrefix, keySuffix.length() - sharedPrefix);
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public byte[] lookup (Nibbles keySuffix) {
+    @Override public byte[] lookup (NodeStore store, Nibbles keySuffix) {
         return keySuffix.equals(this.keySuffix)
-                ? value
-                : null;
+            ? value
+            : null;
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public PatriciaNode add (KVStore store, Nibbles keySuffix, byte[] value) {
+    @Override public PatriciaNode add (NodeStore store, Nibbles keySuffix, byte[] value) {
 
         var ownSuffix = this.keySuffix;
         int prefixLen = ownSuffix.sharedPrefix(keySuffix);
 
         if (prefixLen == ownSuffix.length() && prefixLen == keySuffix.length())
-            // same suffix, overwrite value
-            return new PatriciaLeafNode(keySuffix, value);
+            if (Arrays.equals(value, this.value))
+                return this;
+            else {
+                store.removeNode(this);
+                return store.leafNode(keySuffix, value);
+            }
+
+        store.removeNode(this);
 
         // split into a branch node with two children (or a child and a value)
+        // NOTE: no need to add the leave nodes to the store, they'll be destructured in branchNode
         @SuppressWarnings("unchecked")
         var branch = store.branchNode(
-            Pair.of(ownSuffix.dropFirst(prefixLen), new PatriciaLeafNode(Nibbles.EMPTY, this.value)),
-            Pair.of(keySuffix.dropFirst(prefixLen), new PatriciaLeafNode(Nibbles.EMPTY, value)));
+            Pair.of(ownSuffix.dropFirst(prefixLen), store.leafNode(Nibbles.EMPTY, this.value)),
+            Pair.of(keySuffix.dropFirst(prefixLen), store.leafNode(Nibbles.EMPTY, value)));
 
         // if the shared prefix isn't empty, wrap the branch node in an extension node
-        return prefixLen == 0
-                ? branch
-                : store.extensionNode(keySuffix.prefix(prefixLen), branch);
+        return store.prepend(keySuffix.prefix(prefixLen), branch);
     }
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public PatriciaNode remove (KVStore store,
-            Nibbles keySuffix) {
-        return this.keySuffix.equals(keySuffix)
-                ? null // delete this leaf
-                : this; // not found
+    @Override public PatriciaNode remove (NodeStore store, Nibbles keySuffix) {
+        if (this.keySuffix.equals(keySuffix)) {
+            store.removeNode(this);
+            return null;
+        }
+        return this; // not found
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -83,7 +89,8 @@ public final class PatriciaLeafNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public void collectEntries (Nibbles prefix, Map<byte[], byte[]> map) {
+    @Override public void collectEntries (NodeStore store,
+            Nibbles prefix, Map<byte[], byte[]> map) {
         map.put(prefix.concat(keySuffix).bytes(), value);
     }
 

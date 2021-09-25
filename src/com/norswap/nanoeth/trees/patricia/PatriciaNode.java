@@ -18,7 +18,7 @@ public abstract class PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    /** See {@link #step(Nibbles)}. */
+    /** See {@link #step(NodeStore, Nibbles)}. */
     public static final class Step {
         public final PatriciaNode node;
         public final PatriciaNode child;
@@ -57,7 +57,7 @@ public abstract class PatriciaNode {
      * the number of nibbles left in the key suffix after deducting the shared nibbles.
      * </li></ol>
      */
-    public abstract Step step (Nibbles keySuffix);
+    public abstract Step step (NodeStore store, Nibbles keySuffix);
 
     // ---------------------------------------------------------------------------------------------
 
@@ -67,7 +67,7 @@ public abstract class PatriciaNode {
      * <p>
      * This must handle empty nibble sequences.
      */
-    public abstract byte[] lookup (Nibbles keySuffix);
+    public abstract byte[] lookup (NodeStore store, Nibbles keySuffix);
 
     // ---------------------------------------------------------------------------------------------
 
@@ -75,8 +75,12 @@ public abstract class PatriciaNode {
      * Returns the transformed node, after associating the given key with the given key suffix.
      * <p>
      * This must handle empty nibble sequences.
+     * <p>
+     * The method must add its return value to the store, and remove the current node from the
+     * store. Any other node added/removed from the tree in the process must similarly be
+     * added/removed from the store.
      */
-    public abstract PatriciaNode add (KVStore store, Nibbles keySuffix, byte[] value);
+    public abstract PatriciaNode add (NodeStore store, Nibbles keySuffix, byte[] value);
 
     // ---------------------------------------------------------------------------------------------
 
@@ -85,8 +89,12 @@ public abstract class PatriciaNode {
      * returns {@code null} if the removal of the key means that the node itself must disappear.
      * <p>
      * This must handle empty nibble sequences.
+     * <p>
+     * The method must add its return value to the store, and remove the current node from the
+     * store. Any other node added/removed from the tree in the process must similarly be
+     * added/removed from the store.
      */
-    public abstract PatriciaNode remove (KVStore store, Nibbles keySuffix);
+    public abstract PatriciaNode remove (NodeStore store, Nibbles keySuffix);
 
     // ---------------------------------------------------------------------------------------------
 
@@ -130,7 +138,7 @@ public abstract class PatriciaNode {
      * Adds all the entries store under this node to {@code map}, given that the prefix to reach
      * this node is given by {@code prefix}.
      */
-    public abstract void collectEntries (Nibbles prefix, Map<byte[], byte[]> map);
+    public abstract void collectEntries (NodeStore store, Nibbles prefix, Map<byte[], byte[]> map);
 
     // ---------------------------------------------------------------------------------------------
 }

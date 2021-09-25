@@ -7,7 +7,7 @@ import com.norswap.nanoeth.rlp.RLPLayoutable;
 import com.norswap.nanoeth.rlp.RLPParsingException;
 import com.norswap.nanoeth.transactions.Transaction;
 import com.norswap.nanoeth.trees.patricia.PatriciaTree;
-import com.norswap.nanoeth.trees.patricia.memory.TreeKVStore;
+import com.norswap.nanoeth.trees.patricia.memory.TreeNodeStore;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Utils;
 import java.util.Arrays;
@@ -97,7 +97,7 @@ public final class Block implements RLPLayoutable {
         var headerValidity = BlockValidity.of(header.validate());
         if (!headerValidity.valid()) return headerValidity;
 
-        var txTree = new PatriciaTree(new TreeKVStore());
+        var txTree = new PatriciaTree(new TreeNodeStore());
         for (int i = 0; i < transactions.length; i++) {
             byte[] key   = RLP.bytes(ByteUtils.bytes(i)).encode();
             byte[] value = transactions[i].binary();
