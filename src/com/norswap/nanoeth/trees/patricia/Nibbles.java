@@ -148,7 +148,7 @@ public final class Nibbles {
      * <p>
      * This encoding sets two flags in the first (highest-order) nibble: whether the number of
      * nibble is odd (lowest-order bit), and whether the nibble sequence is the key suffix
-     * associated with a {@link MemPatriciaLeafNode} (indicated by the {@code leaf} parameter, stored in
+     * associated with a {@link PatriciaLeafNode} (indicated by the {@code leaf} parameter, stored in
      * the second lowest-order bit).
      * <p>
      * If the number of nibbles is odd, the second highest-order nibble is the first nibble,

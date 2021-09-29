@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9};
+<script type="text/javascript">var data = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -113,6 +113,14 @@ int&nbsp;i)</code></th>
 </tr>
 <tr class="row-color" id="i1">
 <td class="col-first"><code>static byte[]</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getBytes(com.norswap.nanoeth.rlp.RLP)">getBytes</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</code></th>
+<td class="col-last">
+<div class="block">Same as <a href="RLP.html#bytes()"><code>RLP.bytes()</code></a> but converts an (unchecked) <a href="IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp"><code>IllegalRLPAccess</code></a> to a
+ (checked) <a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp"><code>RLPParsingException</code></a>.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i2">
+<td class="col-first"><code>static byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getBytes(com.norswap.nanoeth.rlp.RLP,int)">getBytes</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</code></th>
 <td class="col-last">
@@ -120,12 +128,20 @@ int&nbsp;i)</code></th>
  size.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i2">
+<tr class="row-color" id="i3">
 <td class="col-first"><code>static long</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getInt64(com.norswap.nanoeth.rlp.RLP,int)">getInt64</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;seq,
 int&nbsp;i)</code></th>
 <td class="col-last">
 <div class="block">Parses the i-th item of the sequence, which should be a 8-byte array, into a 64-bit integer.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i4">
+<td class="col-first"><code>static <a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>[]</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getItems(com.norswap.nanoeth.rlp.RLP)">getItems</a></span>&#8203;(<a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</code></th>
+<td class="col-last">
+<div class="block">Same as <a href="RLP.html#items()"><code>RLP.items()</code></a> but converts an (unchecked) <a href="IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp"><code>IllegalRLPAccess</code></a> to a
+ (checked) <a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp"><code>RLPParsingException</code></a>.</div>
 </td>
 </tr>
 </tbody>
@@ -146,6 +162,32 @@ int&nbsp;i)</code></th>
 <section class="method-details" id="method.detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="getBytes(com.norswap.nanoeth.rlp.RLP)">
+<h3>getBytes</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">getBytes</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</span>
+                       throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
+<div class="block">Same as <a href="RLP.html#bytes()"><code>RLP.bytes()</code></a> but converts an (unchecked) <a href="IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp"><code>IllegalRLPAccess</code></a> to a
+ (checked) <a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp"><code>RLPParsingException</code></a>.</div>
+<dl class="notes">
+<dt>Throws:</dt>
+<dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="getItems(com.norswap.nanoeth.rlp.RLP)">
+<h3>getItems</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>[]</span>&nbsp;<span class="member-name">getItems</span>&#8203;(<span class="parameters"><a href="RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a>&nbsp;rlp)</span>
+                      throws <span class="exceptions"><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></span></div>
+<div class="block">Same as <a href="RLP.html#items()"><code>RLP.items()</code></a> but converts an (unchecked) <a href="IllegalRLPAccess.html" title="class in com.norswap.nanoeth.rlp"><code>IllegalRLPAccess</code></a> to a
+ (checked) <a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp"><code>RLPParsingException</code></a>.</div>
+<dl class="notes">
+<dt>Throws:</dt>
+<dd><code><a href="RLPParsingException.html" title="class in com.norswap.nanoeth.rlp">RLPParsingException</a></code></dd>
+</dl>
+</section>
+</li>
 <li>
 <section class="detail" id="getByte(com.norswap.nanoeth.rlp.RLP,int)">
 <h3>getByte</h3>

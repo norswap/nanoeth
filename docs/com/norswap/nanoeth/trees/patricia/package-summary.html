@@ -66,9 +66,9 @@ loadScripts(document, 'script');</script>
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-first" scope="row"><a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></th>
+<th class="col-first" scope="row"><a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a></th>
 <td class="col-last">
-<div class="block">Interface for Modified Merkle Patricia Tree node, to be compatible with <a href="PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia"><code>PatriciaTree</code></a>.</div>
+<div class="block">Interface for a node store underlying a modified Merkle patricia tree.</div>
 </td>
 </tr>
 </tbody>
@@ -87,16 +87,15 @@ loadScripts(document, 'script');</script>
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-first" scope="row"><a href="MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></th>
+<th class="col-first" scope="row"><a href="BranchStep.html" title="class in com.norswap.nanoeth.trees.patricia">BranchStep</a></th>
 <td class="col-last">
-<div class="block">A proof that a key-value pair belongs to a tree.</div>
+<div class="block">See <a href="PatriciaNode.html#step(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles)"><code>PatriciaNode.step(NodeStore, Nibbles)</code></a>.</div>
 </td>
 </tr>
 <tr class="row-color">
-<th class="col-first" scope="row"><a href="MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a></th>
+<th class="col-first" scope="row"><a href="MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></th>
 <td class="col-last">
-<div class="block">Used by <a href="PatriciaTree.html#prove(byte%5B%5D)"><code>PatriciaTree.prove(byte[])</code></a> and <a href="PatriciaNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)"><code>PatriciaNode.buildProof(Nibbles,
- MerkleProofBuilder)</code></a> to build a <a href="MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia"><code>MerkleProof</code></a>.</div>
+<div class="block">A proof that a key-value pair belongs to a tree.</div>
 </td>
 </tr>
 <tr class="alt-color">
@@ -107,9 +106,34 @@ loadScripts(document, 'script');</script>
 </td>
 </tr>
 <tr class="row-color">
+<th class="col-first" scope="row"><a href="PatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaBranchNode</a></th>
+<td class="col-last">
+<div class="block">Abstract base classes for branch nodes.</div>
+</td>
+</tr>
+<tr class="alt-color">
+<th class="col-first" scope="row"><a href="PatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaExtensionNode</a></th>
+<td class="col-last">
+<div class="block">A an extension node in the patricia tree represents a shared sequence of nibbles between
+ multiples keys (a "key fragment").</div>
+</td>
+</tr>
+<tr class="row-color">
+<th class="col-first" scope="row"><a href="PatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaLeafNode</a></th>
+<td class="col-last">
+<div class="block">A leaf in the patrica tree, which store the suffix of the key and its associated value.</div>
+</td>
+</tr>
+<tr class="alt-color">
+<th class="col-first" scope="row"><a href="PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></th>
+<td class="col-last">
+<div class="block">Abstract base class for Modified Merkle Patricia Tree nodes, to be compatible with <a href="PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia"><code>PatriciaTree</code></a>.</div>
+</td>
+</tr>
+<tr class="row-color">
 <th class="col-first" scope="row"><a href="PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaTree</a></th>
 <td class="col-last">
-<div class="block">Naive implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.</div>
+<div class="block">Implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.</div>
 </td>
 </tr>
 </tbody>

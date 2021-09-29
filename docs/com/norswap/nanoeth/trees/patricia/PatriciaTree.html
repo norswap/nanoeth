@@ -83,15 +83,11 @@ loadScripts(document, 'script');</script>
 <pre><a href="../../annotations/Wrapper.html" title="annotation in com.norswap.nanoeth.annotations">@Wrapper</a>
 public class <span class="type-name-label">PatriciaTree</span>
 extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></pre>
-<div class="block">Naive implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.
+<div class="block">Implementation of the Modified Merkle Patricia Tree, as per appendix D of the yellowpaper.
  <p>
- See trees.patricia package README for more information on patricia trees.
+ A patricia tree is associated with a <a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia"><code>key-value store</code></a> used to access nodes.
  <p>
- This uses the in-memory implementation (from the <code>memory</code> sub-package) by default. However
- the implementation can be changed by sub-classing. In particular, to use a more efficient
- implementation it is only necessary to implement the <a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia"><code>PatriciaNode</code></a> interface, then
- subclass the present class, overriding the <a href="#createLeafNode(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)"><code>createLeafNode(Nibbles, byte[])</code></a> method to
- return an instance of the new node implementation.</div>
+ See trees.patricia package README for more information on patricia trees.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -118,10 +114,17 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </td>
 </tr>
 <tr class="row-color">
-<td class="col-first"><code><a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></code></td>
+<td class="col-first"><code><a href="PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#root">root</a></span></code></th>
 <td class="col-last">
 <div class="block">The root of the tree.</div>
+</td>
+</tr>
+<tr class="alt-color">
+<td class="col-first"><code><a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#store">store</a></span></code></th>
+<td class="col-last">
+<div class="block">The store associated to this tree).</div>
 </td>
 </tr>
 </tbody>
@@ -144,13 +147,14 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E()">PatriciaTree</a></span>()</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.norswap.nanoeth.trees.patricia.NodeStore)">PatriciaTree</a></span>&#8203;(<a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a>&nbsp;store)</code></th>
 <td class="col-last">
 <div class="block">Creates an empty patricia tree (root = null).</div>
 </td>
 </tr>
 <tr class="row-color">
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.norswap.nanoeth.trees.patricia.PatriciaNode)">PatriciaTree</a></span>&#8203;(<a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a>&nbsp;root)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.PatriciaNode)">PatriciaTree</a></span>&#8203;(<a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a>&nbsp;store,
+<a href="PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaNode</a>&nbsp;root)</code></th>
 <td class="col-last">
 <div class="block">Creates a patricia tree with the given root node.</div>
 </td>
@@ -179,21 +183,25 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 <tr class="alt-color" id="i0">
 <td class="col-first"><code><a href="PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaTree</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#add(byte%5B%5D,byte%5B%5D)">add</a></span>&#8203;(byte[]&nbsp;key,
-byte[]&nbsp;data)</code></th>
+byte[]&nbsp;value)</code></th>
 <td class="col-last">
-<div class="block">Returns the transformed tree, after associating the given data with the given key.</div>
+<div class="block">Returns the transformed tree, after associating the given value with the given key.</div>
 </td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>protected <a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createLeafNode(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">createLeafNode</a></span>&#8203;(<a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;key,
-byte[]&nbsp;data)</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
-<tr class="alt-color" id="i2">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></th>
 <td class="col-last">&nbsp;</td>
+</tr>
+<tr class="alt-color" id="i2">
+<td class="col-first"><code>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#forBranch(byte%5B%5D,java.util.function.Consumer)">forBranch</a></span>&#8203;(byte[]&nbsp;key,
+<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="BranchStep.html" title="class in com.norswap.nanoeth.trees.patricia">BranchStep</a>&gt;&nbsp;f)</code></th>
+<td class="col-last">
+<div class="block">Calls <code>f</code> with every node on the branch for <code>keySuffix</code> (represented by a <a href="PatriciaNode.html#step(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles)"><code>step</code></a>, where this branch is the node path from this node towards the node
+ that holds the value associated to the key suffix, or to the deepest node that would have to
+ be modified in order to associated a value with the key suffix.</div>
+</td>
 </tr>
 <tr class="row-color" id="i3">
 <td class="col-first"><code>int</code></td>
@@ -204,7 +212,7 @@ byte[]&nbsp;data)</code></th>
 <td class="col-first"><code>byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#lookup(byte%5B%5D)">lookup</a></span>&#8203;(byte[]&nbsp;key)</code></th>
 <td class="col-last">
-<div class="block">Lookup the data associated with the given key.</div>
+<div class="block">Lookup the value associated with the given key, or null if no such value exists.</div>
 </td>
 </tr>
 <tr class="row-color" id="i5">
@@ -218,8 +226,8 @@ byte[]&nbsp;data)</code></th>
 <td class="col-first"><code><a href="MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#prove(byte%5B%5D)">prove</a></span>&#8203;(byte[]&nbsp;key)</code></th>
 <td class="col-last">
-<div class="block">Returns a Merkle proof for the given key, or null if there is no entry for the given key
- in the tree.</div>
+<div class="block">Returns a Merkle proof for the given key, either proving its association to its value, or
+ the absence of value.</div>
 </td>
 </tr>
 <tr class="row-color" id="i7">
@@ -273,8 +281,15 @@ byte[]&nbsp;data)</code></th>
 <section class="detail" id="root">
 <h3>root</h3>
 <div class="member-signature"><span class="annotations"><a href="../../annotations/Nullable.html" title="annotation in com.norswap.nanoeth.annotations">@Nullable</a>
-</span><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></span>&nbsp;<span class="member-name">root</span></div>
+</span><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></span>&nbsp;<span class="member-name">root</span></div>
 <div class="block">The root of the tree.</div>
+</section>
+</li>
+<li>
+<section class="detail" id="store">
+<h3>store</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a></span>&nbsp;<span class="member-name">store</span></div>
+<div class="block">The store associated to this tree).</div>
 </section>
 </li>
 </ul>
@@ -286,17 +301,18 @@ byte[]&nbsp;data)</code></th>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;()">
+<section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.trees.patricia.NodeStore)">
 <h3>PatriciaTree</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">PatriciaTree</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">PatriciaTree</span>&#8203;(<span class="parameters"><a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a>&nbsp;store)</span></div>
 <div class="block">Creates an empty patricia tree (root = null).</div>
 </section>
 </li>
 <li>
-<section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.trees.patricia.PatriciaNode)">
+<section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.PatriciaNode)">
 <h3>PatriciaTree</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">PatriciaTree</span>&#8203;(<span class="parameters"><a href="../../annotations/Nullable.html" title="annotation in com.norswap.nanoeth.annotations">@Nullable</a>
-<a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a>&nbsp;root)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">PatriciaTree</span>&#8203;(<span class="parameters"><a href="NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a>&nbsp;store,
+<a href="../../annotations/Nullable.html" title="annotation in com.norswap.nanoeth.annotations">@Nullable</a>
+<a href="PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaNode</a>&nbsp;root)</span></div>
 <div class="block">Creates a patricia tree with the given root node.</div>
 </section>
 </li>
@@ -311,39 +327,29 @@ byte[]&nbsp;data)</code></th>
 <li>
 <section class="detail" id="lookup(byte[])">
 <h3>lookup</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">lookup</span>&#8203;(<span class="parameters">byte[]&nbsp;key)</span></div>
-<div class="block">Lookup the data associated with the given key.</div>
+<div class="member-signature"><span class="annotations"><a href="../../annotations/Nullable.html" title="annotation in com.norswap.nanoeth.annotations">@Nullable</a>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">lookup</span>&#8203;(<span class="parameters">byte[]&nbsp;key)</span></div>
+<div class="block">Lookup the value associated with the given key, or null if no such value exists.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="add(byte[],byte[])">
 <h3>add</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaTree</a></span>&nbsp;<span class="member-name">add</span>&#8203;(<span class="parameters">byte[]&nbsp;key,
-byte[]&nbsp;data)</span></div>
-<div class="block">Returns the transformed tree, after associating the given data with the given key.
- If the key is empty, returns itself.</div>
+byte[]&nbsp;value)</span></div>
+<div class="block">Returns the transformed tree, after associating the given value with the given key.
+ If the key is empty, returns itself.
+ <p>
+ The store might be modified as a result, refer to the documentation for the used store.</div>
 </section>
 </li>
 <li>
 <section class="detail" id="remove(byte[])">
 <h3>remove</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="PatriciaTree.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaTree</a></span>&nbsp;<span class="member-name">remove</span>&#8203;(<span class="parameters">byte[]&nbsp;key)</span></div>
-<div class="block">Returns the transformed tree, after removing the entry for the given key (if any).</div>
-</section>
-</li>
-<li>
-<section class="detail" id="prove(byte[])">
-<h3>prove</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></span>&nbsp;<span class="member-name">prove</span>&#8203;(<span class="parameters">byte[]&nbsp;key)</span></div>
-<div class="block">Returns a Merkle proof for the given key, or null if there is no entry for the given key
- in the tree.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="createLeafNode(com.norswap.nanoeth.trees.patricia.Nibbles,byte[])">
-<h3>createLeafNode</h3>
-<div class="member-signature"><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></span>&nbsp;<span class="member-name">createLeafNode</span>&#8203;(<span class="parameters"><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;key,
-byte[]&nbsp;data)</span></div>
+<div class="block">Returns the transformed tree, after removing the entry for the given key (if any).
+ <p>
+ The store might be modified as a result, refer to the documentation for the used store.</div>
 </section>
 </li>
 <li>
@@ -358,6 +364,27 @@ byte[]&nbsp;data)</span></div>
 <h3>merkleRoot</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../data/MerkleRoot.html" title="class in com.norswap.nanoeth.data">MerkleRoot</a></span>&nbsp;<span class="member-name">merkleRoot</span>()</div>
 <div class="block">Returns the Merkle root of the tree, i.e. the TRIE function in the yellowpaper (equation 195).</div>
+</section>
+</li>
+<li>
+<section class="detail" id="forBranch(byte[],java.util.function.Consumer)">
+<h3>forBranch</h3>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">forBranch</span>&#8203;(<span class="parameters">byte[]&nbsp;key,
+<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/function/Consumer.html" title="class or interface in java.util.function" class="external-link">Consumer</a>&lt;<a href="BranchStep.html" title="class in com.norswap.nanoeth.trees.patricia">BranchStep</a>&gt;&nbsp;f)</span></div>
+<div class="block">Calls <code>f</code> with every node on the branch for <code>keySuffix</code> (represented by a <a href="PatriciaNode.html#step(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles)"><code>step</code></a>, where this branch is the node path from this node towards the node
+ that holds the value associated to the key suffix, or to the deepest node that would have to
+ be modified in order to associated a value with the key suffix.
+ <p>
+ This will always at least call <code>f</code> with the root, if there is one (i.e. the tree is
+ not empty).</div>
+</section>
+</li>
+<li>
+<section class="detail" id="prove(byte[])">
+<h3>prove</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MerkleProof.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProof</a></span>&nbsp;<span class="member-name">prove</span>&#8203;(<span class="parameters">byte[]&nbsp;key)</span></div>
+<div class="block">Returns a Merkle proof for the given key, either proving its association to its value, or
+ the absence of value.</div>
 </section>
 </li>
 <li>

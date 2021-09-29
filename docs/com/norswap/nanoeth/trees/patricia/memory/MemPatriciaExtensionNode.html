@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -76,25 +76,17 @@ loadScripts(document, 'script');</script>
 <h1 title="Class MemPatriciaExtensionNode" class="title">Class MemPatriciaExtensionNode</h1>
 </div>
 <div class="inheritance" title="Inheritance Tree"><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode</a>
+<div class="inheritance"><a href="../PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">com.norswap.nanoeth.trees.patricia.PatriciaNode</a>
+<div class="inheritance"><a href="../PatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia">com.norswap.nanoeth.trees.patricia.PatriciaExtensionNode</a>
 <div class="inheritance">com.norswap.nanoeth.trees.patricia.memory.MemPatriciaExtensionNode</div>
 </div>
 </div>
+</div>
 <section class="description">
-<dl class="notes">
-<dt>All Implemented Interfaces:</dt>
-<dd><code><a href="../PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></code></dd>
-</dl>
 <hr>
 <pre>public final class <span class="type-name-label">MemPatriciaExtensionNode</span>
-extends <a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></pre>
-<div class="block">This in-memory patricia tree node represents a shared sequence of nibbles between multiples keys
- (a "key fragment"). This is a (yellowpaper-mandated) compression method that avoids having a
- chain of single-child branch nodes. It can also happen that the key fragment is only a single
- nibble-long, since we use extension nodes when there is only one child (as it is more
- space-efficient than using a branch node — again, is is yellowpaper-mandated).
- <p>
- The node holds the key fragment and a child node, which is always a branch node.</div>
+extends <a href="../PatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaExtensionNode</a></pre>
+<div class="block">An extension node in the in-memory patricia tree.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -114,7 +106,7 @@ extends <a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees
 </thead>
 <tbody>
 <tr class="alt-color">
-<td class="col-first"><code><a href="MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></code></td>
+<td class="col-first"><code><a href="../PatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaBranchNode</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#child">child</a></span></code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
@@ -126,6 +118,9 @@ extends <a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees
 </tbody>
 </table>
 </div>
+<div class="inherited-list">
+<h3 id="fields.inherited.from.class.com.norswap.nanoeth.trees.patricia.PatriciaNode">Fields inherited from class&nbsp;com.norswap.nanoeth.trees.patricia.<a href="../PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></h3>
+<code><a href="../PatriciaNode.html#cap">cap</a></code></div>
 </section>
 </li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -143,8 +138,8 @@ extends <a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees
 </thead>
 <tbody>
 <tr class="alt-color">
-<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.memory.MemPatriciaBranchNode)">MemPatriciaExtensionNode</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keyFragment,
-<a href="MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a>&nbsp;child)</code></th>
+<th class="col-constructor-name" scope="row"><code><span class="member-name-link"><a href="#%3Cinit%3E(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.PatriciaBranchNode)">MemPatriciaExtensionNode</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keyFragment,
+<a href="../PatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaBranchNode</a>&nbsp;child)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 </tbody>
@@ -169,65 +164,37 @@ extends <a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees
 </thead>
 <tbody>
 <tr class="alt-color" id="i0">
-<td class="col-first"><code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
-byte[]&nbsp;data)</code></th>
+<td class="col-first"><code><a href="../PatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaBranchNode</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#child(com.norswap.nanoeth.trees.patricia.NodeStore)">child</a></span>&#8203;(<a href="../NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a>&nbsp;store)</code></th>
 <td class="col-last">
-<div class="block">Returns the transformed node, after associating the given data with the given key suffix.</div>
+<div class="block">Returns the child node of this extension node.</div>
 </td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">buildProof</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
-<a href="../MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a>&nbsp;builder)</code></th>
+<td class="col-first"><code>byte[]</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#childCap()">childCap</a></span>()</code></th>
 <td class="col-last">
-<div class="block">Builds up a proof for the given key suffix.</div>
+<div class="block">Returns the cap value of <a href="../PatriciaExtensionNode.html#child(com.norswap.nanoeth.trees.patricia.NodeStore)"><code>PatriciaExtensionNode.child(NodeStore)</code></a>.</div>
 </td>
 </tr>
 <tr class="alt-color" id="i2">
-<td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;prefix,
-<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;byte[],&#8203;byte[]&gt;&nbsp;map)</code></th>
-<td class="col-last">
-<div class="block">Adds all the entries store under this node to <code>map</code>, given that the prefix to reach
- this node is given by <code>prefix</code>.</div>
-</td>
-</tr>
-<tr class="row-color" id="i3">
-<td class="col-first"><code><a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#compose()">compose</a></span>()</code></th>
-<td class="col-last">
-<div class="block">This method implements the structural composition function c (equation 197 and previous in
- the yellowpaper).</div>
-</td>
-</tr>
-<tr class="alt-color" id="i4">
 <td class="col-first"><code>boolean</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>&nbsp;o)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i5">
+<tr class="row-color" id="i3">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="alt-color" id="i6">
-<td class="col-first"><code>byte[]</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">lookup</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</code></th>
+<tr class="alt-color" id="i4">
+<td class="col-first"><code><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#keyFragment()">keyFragment</a></span>()</code></th>
 <td class="col-last">
-<div class="block">Lookup the entry with the given key suffix, the suffix of a sequence of nibbles, where the
- missing prefix was used to reach the present node.</div>
+<div class="block">Returns the key fragment associated with this node.</div>
 </td>
 </tr>
-<tr class="row-color" id="i7">
-<td class="col-first"><code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove</a></span>&#8203;(<a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</code></th>
-<td class="col-last">
-<div class="block">Returns the transformed node, after removing the entry for the given key suffix (if any), or
- returns <code>null</code> if the removal of the key means that the node itself must disappear.</div>
-</td>
-</tr>
-<tr class="alt-color" id="i8">
+<tr class="row-color" id="i5">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
@@ -237,8 +204,11 @@ byte[]&nbsp;data)</code></th>
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods.inherited.from.class.com.norswap.nanoeth.trees.patricia.memory.MemPatriciaNode">Methods inherited from class&nbsp;com.norswap.nanoeth.trees.patricia.memory.<a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></h3>
-<code><a href="MemPatriciaNode.html#cap()">cap</a>, <a href="MemPatriciaNode.html#merkleRoot()">merkleRoot</a></code></div>
+<h3 id="methods.inherited.from.class.com.norswap.nanoeth.trees.patricia.PatriciaExtensionNode">Methods inherited from class&nbsp;com.norswap.nanoeth.trees.patricia.<a href="../PatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaExtensionNode</a></h3>
+<code><a href="../PatriciaExtensionNode.html#add(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add</a>, <a href="../PatriciaExtensionNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">collectEntries</a>, <a href="../PatriciaExtensionNode.html#compose()">compose</a>, <a href="../PatriciaExtensionNode.html#lookup(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles)">lookup</a>, <a href="../PatriciaExtensionNode.html#remove(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles)">remove</a>, <a href="../PatriciaExtensionNode.html#step(com.norswap.nanoeth.trees.patricia.NodeStore,com.norswap.nanoeth.trees.patricia.Nibbles)">step</a>, <a href="../PatriciaExtensionNode.html#value()">value</a></code></div>
+<div class="inherited-list">
+<h3 id="methods.inherited.from.class.com.norswap.nanoeth.trees.patricia.PatriciaNode">Methods inherited from class&nbsp;com.norswap.nanoeth.trees.patricia.<a href="../PatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></h3>
+<code><a href="../PatriciaNode.html#cap()">cap</a>, <a href="../PatriciaNode.html#merkleRoot()">merkleRoot</a>, <a href="../PatriciaNode.html#parse(com.norswap.nanoeth.rlp.RLP)">parse</a></code></div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.java.lang.Object">Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#clone()" title="class or interface in java.lang" class="external-link">clone</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#finalize()" title="class or interface in java.lang" class="external-link">finalize</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#getClass()" title="class or interface in java.lang" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notify()" title="class or interface in java.lang" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#notifyAll()" title="class or interface in java.lang" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait()" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long)" title="class or interface in java.lang" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="class or interface in java.lang" class="external-link">wait</a></code></div>
@@ -262,7 +232,7 @@ byte[]&nbsp;data)</code></th>
 <li>
 <section class="detail" id="child">
 <h3>child</h3>
-<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a></span>&nbsp;<span class="member-name">child</span></div>
+<div class="member-signature"><span class="modifiers">public final</span>&nbsp;<span class="return-type"><a href="../PatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaBranchNode</a></span>&nbsp;<span class="member-name">child</span></div>
 </section>
 </li>
 </ul>
@@ -274,10 +244,10 @@ byte[]&nbsp;data)</code></th>
 <h2>Constructor Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.memory.MemPatriciaBranchNode)">
+<section class="detail" id="&lt;init&gt;(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.PatriciaBranchNode)">
 <h3>MemPatriciaExtensionNode</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="member-name">MemPatriciaExtensionNode</span>&#8203;(<span class="parameters"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keyFragment,
-<a href="MemPatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaBranchNode</a>&nbsp;child)</span></div>
+<a href="../PatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaBranchNode</a>&nbsp;child)</span></div>
 </section>
 </li>
 </ul>
@@ -289,84 +259,42 @@ byte[]&nbsp;data)</code></th>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">
-<h3>lookup</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">lookup</span>&#8203;(<span class="parameters"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../PatriciaNode.html#lookup(com.norswap.nanoeth.trees.patricia.Nibbles)">PatriciaNode</a></code></span></div>
-<div class="block">Lookup the entry with the given key suffix, the suffix of a sequence of nibbles, where the
- missing prefix was used to reach the present node.
- <p>
- This must handle empty nibble sequences.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="add(com.norswap.nanoeth.trees.patricia.Nibbles,byte[])">
-<h3>add</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></span>&nbsp;<span class="member-name">add</span>&#8203;(<span class="parameters"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
-byte[]&nbsp;data)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../PatriciaNode.html#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">PatriciaNode</a></code></span></div>
-<div class="block">Returns the transformed node, after associating the given data with the given key suffix.
- <p>
- This must handle empty nibble sequences.</div>
+<section class="detail" id="keyFragment()">
+<h3>keyFragment</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></span>&nbsp;<span class="member-name">keyFragment</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../PatriciaExtensionNode.html#keyFragment()">PatriciaExtensionNode</a></code></span></div>
+<div class="block">Returns the key fragment associated with this node.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../PatriciaNode.html#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add</a></code>&nbsp;in interface&nbsp;<code><a href="../PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="MemPatriciaNode.html#add(com.norswap.nanoeth.trees.patricia.Nibbles,byte%5B%5D)">add</a></code>&nbsp;in class&nbsp;<code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></dd>
+<dd><code><a href="../PatriciaExtensionNode.html#keyFragment()">keyFragment</a></code>&nbsp;in class&nbsp;<code><a href="../PatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaExtensionNode</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="remove(com.norswap.nanoeth.trees.patricia.Nibbles)">
-<h3>remove</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></span>&nbsp;<span class="member-name">remove</span>&#8203;(<span class="parameters"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../PatriciaNode.html#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">PatriciaNode</a></code></span></div>
-<div class="block">Returns the transformed node, after removing the entry for the given key suffix (if any), or
- returns <code>null</code> if the removal of the key means that the node itself must disappear.
- <p>
- This must handle empty nibble sequences.</div>
+<section class="detail" id="child(com.norswap.nanoeth.trees.patricia.NodeStore)">
+<h3>child</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../PatriciaBranchNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaBranchNode</a></span>&nbsp;<span class="member-name">child</span>&#8203;(<span class="parameters"><a href="../NodeStore.html" title="interface in com.norswap.nanoeth.trees.patricia">NodeStore</a>&nbsp;store)</span></div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../PatriciaExtensionNode.html#child(com.norswap.nanoeth.trees.patricia.NodeStore)">PatriciaExtensionNode</a></code></span></div>
+<div class="block">Returns the child node of this extension node. This should always be a branch node.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="../PatriciaNode.html#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove</a></code>&nbsp;in interface&nbsp;<code><a href="../PatriciaNode.html" title="interface in com.norswap.nanoeth.trees.patricia">PatriciaNode</a></code></dd>
-<dt>Specified by:</dt>
-<dd><code><a href="MemPatriciaNode.html#remove(com.norswap.nanoeth.trees.patricia.Nibbles)">remove</a></code>&nbsp;in class&nbsp;<code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></dd>
+<dd><code><a href="../PatriciaExtensionNode.html#child(com.norswap.nanoeth.trees.patricia.NodeStore)">child</a></code>&nbsp;in class&nbsp;<code><a href="../PatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaExtensionNode</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="compose()">
-<h3>compose</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../../../rlp/RLP.html" title="class in com.norswap.nanoeth.rlp">RLP</a></span>&nbsp;<span class="member-name">compose</span>()</div>
-<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="MemPatriciaNode.html#compose()">MemPatriciaNode</a></code></span></div>
-<div class="block">This method implements the structural composition function c (equation 197 and previous in
- the yellowpaper). See also <a href="MemPatriciaNode.html#cap()"><code>MemPatriciaNode.cap()</code></a>.
+<section class="detail" id="childCap()">
+<h3>childCap</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">byte[]</span>&nbsp;<span class="member-name">childCap</span>()</div>
+<div class="block"><span class="descfrm-type-label">Description copied from class:&nbsp;<code><a href="../PatriciaExtensionNode.html#childCap()">PatriciaExtensionNode</a></code></span></div>
+<div class="block">Returns the cap value of <a href="../PatriciaExtensionNode.html#child(com.norswap.nanoeth.trees.patricia.NodeStore)"><code>PatriciaExtensionNode.child(NodeStore)</code></a>.
  <p>
- This should normally never be called except from <a href="MemPatriciaNode.html#cap()"><code>MemPatriciaNode.cap()</code></a>.</div>
+ This is a separate method because in the abridged representation, the child's cap value
+ is stored directly, but not the child itself.</div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code><a href="MemPatriciaNode.html#compose()">compose</a></code>&nbsp;in class&nbsp;<code><a href="MemPatriciaNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory">MemPatriciaNode</a></code></dd>
+<dd><code><a href="../PatriciaExtensionNode.html#childCap()">childCap</a></code>&nbsp;in class&nbsp;<code><a href="../PatriciaExtensionNode.html" title="class in com.norswap.nanoeth.trees.patricia">PatriciaExtensionNode</a></code></dd>
 </dl>
-</section>
-</li>
-<li>
-<section class="detail" id="collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">
-<h3>collectEntries</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">collectEntries</span>&#8203;(<span class="parameters"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;prefix,
-<a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/util/Map.html" title="class or interface in java.util" class="external-link">Map</a>&lt;byte[],&#8203;byte[]&gt;&nbsp;map)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../PatriciaNode.html#collectEntries(com.norswap.nanoeth.trees.patricia.Nibbles,java.util.Map)">PatriciaNode</a></code></span></div>
-<div class="block">Adds all the entries store under this node to <code>map</code>, given that the prefix to reach
- this node is given by <code>prefix</code>.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">
-<h3>buildProof</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">buildProof</span>&#8203;(<span class="parameters"><a href="../Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;keySuffix,
-<a href="../MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia">MerkleProofBuilder</a>&nbsp;builder)</span></div>
-<div class="block"><span class="descfrm-type-label">Description copied from interface:&nbsp;<code><a href="../PatriciaNode.html#buildProof(com.norswap.nanoeth.trees.patricia.Nibbles,com.norswap.nanoeth.trees.patricia.MerkleProofBuilder)">PatriciaNode</a></code></span></div>
-<div class="block">Builds up a proof for the given key suffix. The node should call one of the <code>add</code>
- method on <a href="../MerkleProofBuilder.html" title="class in com.norswap.nanoeth.trees.patricia"><code>{@code builder}</code></a>, then recursively call the method on the
- next node in the branch from the root to the leaf for the key (if this node exists).</div>
 </section>
 </li>
 <li>

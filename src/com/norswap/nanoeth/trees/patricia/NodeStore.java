@@ -22,8 +22,8 @@ import com.norswap.nanoeth.utils.Pair;
  * Currently, this is implemented by {@link MapNodeStore}, which uses a in-memory hash map as store,
  * and {@link TreeNodeStore} which represents a tree without store (i.e. each node has direct
  * references to its children), so the data access method are no-ops or throw exceptions (the reason
- * why there is a store at all is that we wish to share logic between tree & store implementations,
- * and implementing a store for store-less trees makes this much easier.
+ * why there is a store at all is that we wish to share logic between tree and store
+ * implementations, and implementing a store for store-less trees makes this much easier.
  */
 public interface NodeStore {
 

@@ -15,8 +15,8 @@
 <script type="text/javascript" src="../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
 var tableTab = "table-tab";
@@ -47,13 +47,13 @@ loadScripts(document, 'script');</script>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -93,6 +93,31 @@ extends <a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/ja
 </section>
 <section class="summary">
 <ul class="summary-list">
+<!-- =========== FIELD SUMMARY =========== -->
+<li>
+<section class="field-summary" id="field.summary">
+<h2>Field Summary</h2>
+<div class="member-summary">
+<table class="summary-table">
+<caption><span>Fields</span></caption>
+<thead>
+<tr>
+<th class="col-first" scope="col">Modifier and Type</th>
+<th class="col-second" scope="col">Field</th>
+<th class="col-last" scope="col">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="alt-color">
+<td class="col-first"><code>static <a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#EMPTY">EMPTY</a></span></code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</li>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
 <li>
 <section class="constructor-summary" id="constructor.summary">
@@ -133,7 +158,7 @@ int&nbsp;end)</code></th>
 <section class="method-summary" id="method.summary">
 <h2>Method Summary</h2>
 <div class="member-summary" id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="active-table-tab">All Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="table-tab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="table-tab" onclick="show(8);">Concrete Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="active-table-tab">All Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t1" class="table-tab" onclick="show(1);">Static Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="table-tab" onclick="show(2);">Instance Methods</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t4" class="table-tab" onclick="show(8);">Concrete Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <table class="summary-table" aria-labelledby="t0">
 <thead>
@@ -176,53 +201,61 @@ int&nbsp;end)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i5">
+<td class="col-first"><code>static <a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#fromHexPrefix(byte%5B%5D)">fromHexPrefix</a></span>&#8203;(byte[]&nbsp;hexPrefixEncoded)</code></th>
+<td class="col-last">
+<div class="block">Returns a <a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia"><code>Nibbles</code></a> object that represent the hex-prefix encoded nibble sequence, as
+ per appendix C of the yellowpaper.</div>
+</td>
+</tr>
+<tr class="alt-color" id="i6">
 <td class="col-first"><code>byte</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#get(int)">get</a></span>&#8203;(int&nbsp;i)</code></th>
 <td class="col-last">
 <div class="block">Returns the nibble at the given index.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i6">
+<tr class="row-color" id="i7">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i7">
+<tr class="alt-color" id="i8">
 <td class="col-first"><code>byte[]</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hexPrefix(boolean)">hexPrefix</a></span>&#8203;(boolean&nbsp;leaf)</code></th>
 <td class="col-last">
 <div class="block">Returns the hex-prefix encoding of the nibble sequence, as per appendix C of the yellowpaper.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i8">
+<tr class="row-color" id="i9">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#length()">length</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Return the number of nibbles represented by this object.</div>
 </td>
 </tr>
-<tr class="row-color" id="i9">
+<tr class="alt-color" id="i10">
 <td class="col-first"><code><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#prefix(int)">prefix</a></span>&#8203;(int&nbsp;n)</code></th>
 <td class="col-last">
 <div class="block">Return a prefix of this nibble sequence, keeping the first <code>n</code> nibbles.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i10">
+<tr class="row-color" id="i11">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#sharedPrefix(com.norswap.nanoeth.trees.patricia.Nibbles)">sharedPrefix</a></span>&#8203;(<a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a>&nbsp;o)</code></th>
 <td class="col-last">
 <div class="block">Return the amount of nibbles that this object and <code>o</code> share as prefix.</div>
 </td>
 </tr>
-<tr class="row-color" id="i11">
+<tr class="alt-color" id="i12">
 <td class="col-first"><code><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#suffix(int)">suffix</a></span>&#8203;(int&nbsp;n)</code></th>
 <td class="col-last">
 <div class="block">Return a suffix of this nibble sequence, keeping the last <code>n</code> nibbles.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i12">
+<tr class="row-color" id="i13">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">
@@ -242,6 +275,20 @@ int&nbsp;end)</code></th>
 </section>
 <section class="details">
 <ul class="details-list">
+<!-- ============ FIELD DETAIL =========== -->
+<li>
+<section class="field-details" id="field.detail">
+<h2>Field Details</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="EMPTY">
+<h3>EMPTY</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></span>&nbsp;<span class="member-name">EMPTY</span></div>
+</section>
+</li>
+</ul>
+</section>
+</li>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <li>
 <section class="constructor-details" id="constructor.detail">
@@ -278,6 +325,18 @@ int&nbsp;end)</span></div>
 <section class="method-details" id="method.detail">
 <h2>Method Details</h2>
 <ul class="member-list">
+<li>
+<section class="detail" id="fromHexPrefix(byte[])">
+<h3>fromHexPrefix</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia">Nibbles</a></span>&nbsp;<span class="member-name">fromHexPrefix</span>&#8203;(<span class="parameters"><a href="../../annotations/Retained.html" title="annotation in com.norswap.nanoeth.annotations">@Retained</a>
+byte[]&nbsp;hexPrefixEncoded)</span></div>
+<div class="block">Returns a <a href="Nibbles.html" title="class in com.norswap.nanoeth.trees.patricia"><code>Nibbles</code></a> object that represent the hex-prefix encoded nibble sequence, as
+ per appendix C of the yellowpaper. See <a href="#hexPrefix(boolean)"><code>hexPrefix(boolean)</code></a> for detail on the
+ encoding.
+ <p>
+ The returned object will be backed by the passed array.</div>
+</section>
+</li>
 <li>
 <section class="detail" id="get(int)">
 <h3>get</h3>
@@ -341,7 +400,7 @@ int&nbsp;end)</span></div>
  <p>
  This encoding sets two flags in the first (highest-order) nibble: whether the number of
  nibble is odd (lowest-order bit), and whether the nibble sequence is the key suffix
- associated with a <a href="memory/MemPatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia.memory"><code>MemPatriciaLeafNode</code></a> (indicated by the <code>leaf</code> parameter, stored in
+ associated with a <a href="PatriciaLeafNode.html" title="class in com.norswap.nanoeth.trees.patricia"><code>PatriciaLeafNode</code></a> (indicated by the <code>leaf</code> parameter, stored in
  the second lowest-order bit).
  <p>
  If the number of nibbles is odd, the second highest-order nibble is the first nibble,
@@ -415,13 +474,13 @@ int&nbsp;end)</span></div>
 <ul class="sub-nav-list">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="sub-nav-list">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

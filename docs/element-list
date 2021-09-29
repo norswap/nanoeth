@@ -9,5 +9,6 @@ com.norswap.nanoeth.signature
 com.norswap.nanoeth.transactions
 com.norswap.nanoeth.trees.patricia
 com.norswap.nanoeth.trees.patricia.memory
+com.norswap.nanoeth.trees.patricia.store
 com.norswap.nanoeth.utils
 com.norswap.nanoeth.versions
