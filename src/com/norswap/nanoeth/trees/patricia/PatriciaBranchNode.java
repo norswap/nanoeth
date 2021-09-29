@@ -1,12 +1,10 @@
 package com.norswap.nanoeth.trees.patricia;
 
 import com.norswap.nanoeth.annotations.Nullable;
+import com.norswap.nanoeth.rlp.RLP;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.IntStream;
-
-import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.BRANCH;
 
 /**
  * Abstract base classes for branch nodes.
@@ -18,6 +16,10 @@ import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.BRANCH;
  * in the nibble that follows the key prefix corresponding to this branch node.
  */
 public abstract class PatriciaBranchNode extends PatriciaNode {
+
+    // ---------------------------------------------------------------------------------------------
+
+    private final static RLP EMPTY_BYTE_ARRAY = RLP.bytes(new byte[0]);
 
     // ---------------------------------------------------------------------------------------------
 
@@ -57,13 +59,13 @@ public abstract class PatriciaBranchNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public final Step step (NodeStore store, Nibbles keySuffix) {
+    @Override public final BranchStep step (NodeStore store, Nibbles keySuffix) {
         if (keySuffix.length() == 0)
-            return new Step(this, null, 0, 0);
+            return new BranchStep(this, null, 0, 0);
         var child = childAt(store, keySuffix.get(0));
         return child == null
-            ? new Step(this, null, 0, keySuffix.length())
-            : new Step(this, child, 1, keySuffix.length() - 1);
+            ? new BranchStep(this, null, 0, keySuffix.length())
+            : new BranchStep(this, child, 1, keySuffix.length() - 1);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -137,11 +139,16 @@ public abstract class PatriciaBranchNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public AbridgedNode abridged () {
-        var childrenCaps = IntStream.range(0, 16)
-            .mapToObj(this::childCapAt)
-            .toArray(byte[][]::new);
-        return new AbridgedNode(BRANCH, null, value(), childrenCaps);
+    @Override public final RLP compose() {
+        var sequence = new Object[17];
+        for (int i = 0; i < 16; i++) {
+            var childCap = childCapAt(i) ;
+            sequence[i] = childCap == null
+                    ? EMPTY_BYTE_ARRAY
+                    : wrappedCap(childCap);
+        }
+        sequence[16] = value() == null ? EMPTY_BYTE_ARRAY : value();
+        return RLP.sequence(sequence);
     }
 
     // ---------------------------------------------------------------------------------------------

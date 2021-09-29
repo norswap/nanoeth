@@ -1,13 +1,10 @@
 package com.norswap.nanoeth.trees.patricia;
 
-import com.norswap.nanoeth.trees.patricia.memory.MemPatriciaExtensionNode;
-import com.norswap.nanoeth.trees.patricia.store.StorePatriciaExtensionNode;
+import com.norswap.nanoeth.annotations.Nullable;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.utils.Pair;
 
 import java.util.Map;
-import java.util.Objects;
-
-import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.EXTENSION;
 
 /**
  * A an extension node in the patricia tree represents a shared sequence of nibbles between
@@ -19,6 +16,13 @@ import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.EXTENSION;
  * The node holds the key fragment and a child node, which is normally always a branch node.
  */
 public abstract class PatriciaExtensionNode extends PatriciaNode {
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public @Nullable byte[] value() {
+        return null;
+    }
+
     // ---------------------------------------------------------------------------------------------
 
     /** Returns the key fragment associated with this node. */
@@ -41,11 +45,11 @@ public abstract class PatriciaExtensionNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public Step step (NodeStore store, Nibbles keySuffix) {
+    @Override public BranchStep step (NodeStore store, Nibbles keySuffix) {
         int len = keyFragment().length();
         int sharedPrefix = keyFragment().sharedPrefix(keySuffix);
         var node = sharedPrefix == len ? child(store) : null;
-        return new Step(this, node, sharedPrefix, keySuffix.length() - sharedPrefix);
+        return new BranchStep(this, node, sharedPrefix, keySuffix.length() - sharedPrefix);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -100,8 +104,8 @@ public abstract class PatriciaExtensionNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public AbridgedNode abridged() {
-        return new AbridgedNode(EXTENSION, keyFragment(), null, new byte[][]{ childCap() });
+    @Override public final RLP compose() {
+        return RLP.sequence(keyFragment().hexPrefix(false), wrappedCap(childCap()));
     }
 
     // ---------------------------------------------------------------------------------------------

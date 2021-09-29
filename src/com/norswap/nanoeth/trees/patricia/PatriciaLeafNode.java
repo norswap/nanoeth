@@ -1,13 +1,12 @@
 package com.norswap.nanoeth.trees.patricia;
 
 import com.norswap.nanoeth.annotations.Retained;
+import com.norswap.nanoeth.rlp.RLP;
 import com.norswap.nanoeth.utils.ByteUtils;
 import com.norswap.nanoeth.utils.Pair;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
-
-import static com.norswap.nanoeth.trees.patricia.AbridgedNode.Type.LEAF;
 
 /**
  * A leaf in the patrica tree, which store the suffix of the key and its associated value.
@@ -30,9 +29,15 @@ public final class PatriciaLeafNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public Step step (NodeStore store, Nibbles keySuffix) {
+    @Override public byte[] value() {
+        return value;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    @Override public BranchStep step (NodeStore store, Nibbles keySuffix) {
         int sharedPrefix = this.keySuffix.sharedPrefix(keySuffix);
-        return new Step(this, null, sharedPrefix, keySuffix.length() - sharedPrefix);
+        return new BranchStep(this, null, sharedPrefix, keySuffix.length() - sharedPrefix);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -83,8 +88,8 @@ public final class PatriciaLeafNode extends PatriciaNode {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override public AbridgedNode abridged() {
-        return new AbridgedNode(LEAF, keySuffix, value, null);
+    @Override public RLP compose() {
+        return RLP.sequence(keySuffix.hexPrefix(true), value);
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -1,6 +1,8 @@
 package com.norswap.nanoeth.trees.patricia;
 
 import com.norswap.nanoeth.data.MerkleRoot;
+import com.norswap.nanoeth.trees.patricia.store.MapNodeStore;
+import com.norswap.nanoeth.trees.patricia.store.MissingNode;
 
 import java.util.Arrays;
 
@@ -28,11 +30,11 @@ public final class MerkleProof {
      * that contains the value associated with the key, <b>or</b> to the deepest node that would
      * have to be modified in order to insert a value for key (if {@link #value} is null).
      */
-    public final AbridgedNode[] branch;
+    public final PatriciaNode[] branch;
 
     // ---------------------------------------------------------------------------------------------
 
-    public MerkleProof (byte[] key, byte[] value, AbridgedNode[] branch) {
+    public MerkleProof (byte[] key, byte[] value, PatriciaNode[] branch) {
         this.key = key;
         this.value = value;
         this.branch = branch;
@@ -45,33 +47,32 @@ public final class MerkleProof {
             // absence of value is trivially correct in an empty tree
             return value == null && root.equals(EMPTY_TREE_ROOT);
 
-        if (!branch[0].merkleRoot().equals(root))
-            return false; // mismatched root
+        var store = new MapNodeStore();
+        var tree = new PatriciaTree(store, branch[0]);
+        for (var node: branch) store.addNode(node);
 
-        // verify that every node is consistent with its parent
-        var keySuffix = new Nibbles(key);
-        var prevNode = branch[0];
-        for (int i = 1; i < branch.length; i++) {
-            var prefix = prevNode.consumablePrefix(keySuffix);
-            if (!Arrays.equals(prevNode.capForSuffix(prefix, keySuffix), branch[i].cap()))
-                return false;
-            keySuffix = keySuffix.dropFirst(prefix);
-            prevNode = branch[i];
+        // using forBranch guarantees that the proof contains a valid branch
+        var finalStep = new BranchStep[1];
+        try {
+            tree.forBranch(key, step -> {
+                if (step.child != null) return;
+                finalStep[0] = step;
+            });
+        } catch (MissingNode e) {
+            // The branch is invalid: a node points to a next branch node that is not in the
+            // supplied branch!
+            return false;
         }
 
-        var prefix = prevNode.consumablePrefix(keySuffix);
-        var childCap = prevNode.capForSuffix(prefix, keySuffix);
-        keySuffix = keySuffix.dropFirst(prefix);
+        var nibblesLeft = finalStep[0].nibblesLeft;
+        var foundValue = finalStep[0].node.value();
 
-        if (childCap != null)
-            // the branch is not complete
-            return false;
-        else if (value != null)
+        if (value != null)
             // key must be fully used and the value must match
-            return keySuffix.length() == 0 && Arrays.equals(prevNode.value, value);
+            return nibblesLeft == 0 && Arrays.equals(value, foundValue);
         else
             // the branch must not prove a value
-            return !(keySuffix.length() == 0 && prevNode.value != null);
+            return !(nibblesLeft == 0 && foundValue != null);
     }
 
     // ---------------------------------------------------------------------------------------------

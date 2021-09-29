@@ -4,7 +4,6 @@ import com.norswap.nanoeth.annotations.Nullable;
 import com.norswap.nanoeth.annotations.Wrapper;
 import com.norswap.nanoeth.data.MerkleRoot;
 import com.norswap.nanoeth.rlp.RLP;
-import com.norswap.nanoeth.trees.patricia.PatriciaNode.Step;
 import com.norswap.nanoeth.utils.Hashing;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,7 +128,7 @@ public class PatriciaTree {
      * This will always at least call {@code f} with the root, if there is one (i.e. the tree is
      * not empty).
      */
-    public final void forBranch (byte[] key, Consumer<Step> f) {
+    public final void forBranch (byte[] key, Consumer<BranchStep> f) {
         if (root == null) return;
         var keySuffix = new Nibbles(key);
         var step = root.step(store, keySuffix);
@@ -141,28 +140,27 @@ public class PatriciaTree {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------
+        // ---------------------------------------------------------------------------------------------
 
-    /**
-     * Returns a Merkle proof for the given key, either proving its association to its value, or
-     * the absence of value.
-     */
-    public MerkleProof prove (byte[] key) {
-        if (root == null)
-            return new MerkleProof(key, null, new AbridgedNode[0]);
+        /**
+         * Returns a Merkle proof for the given key, either proving its association to its value, or
+         * the absence of value.
+         */
+        public MerkleProof prove (byte[] key) {
+            if (root == null)
+                return new MerkleProof(key, null, new PatriciaNode[0]);
 
-        byte[][] value = new byte[1][]; // one more dimension to assign from lambda
-        var nodes = new ArrayList<AbridgedNode>();
+            byte[][] value = new byte[1][]; // one more dimension to assign from lambda
+            var nodes = new ArrayList<PatriciaNode>();
 
-        forBranch(key, step -> {
-            var abridged = step.node.abridged();
-            nodes.add(abridged);
-            if (step.nibblesLeft == 0)
-                value[0] = abridged.value;
-        });
+            forBranch(key, step -> {
+                nodes.add(step.node);
+                if (step.nibblesLeft == 0)
+                    value[0] = step.node.value();
+            });
 
-        return new MerkleProof(key, value[0], nodes.toArray(AbridgedNode[]::new));
-    }
+            return new MerkleProof(key, value[0], nodes.toArray(PatriciaNode[]::new));
+        }
 
     // ---------------------------------------------------------------------------------------------
 
