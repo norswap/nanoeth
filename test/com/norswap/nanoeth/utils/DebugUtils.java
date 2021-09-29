@@ -51,7 +51,6 @@ public final class DebugUtils {
      * <p>Does not touch {@link Context#blockHeight}.
      */
     public static Transaction txFromJson (String path) {
-        System.out.println(path);
         var string = IO.slurp(path);
         var json = new JSONObject(string);
         var name = json.keys().next();
