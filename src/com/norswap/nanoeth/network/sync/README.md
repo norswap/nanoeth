@@ -18,7 +18,7 @@ Go-ethereum (geth) has [three main sync modes][geth-sync]:
    that the "parent hash" in each header does match the hash of the parent block's header. Once we
    get close to the current block, we switch to full sync, but for that we need to download the
    state. More on how this is done [below](#syncing-an-evolving-chain). In November 2020, it took
-   around 10 hours to sync the state (ignoring blocks!) using snap sync.
+   around 10 hours to sync the state (ignoring blocks!) using fast sync.
 3. **Snap sync**. Using this [protocol][snap], a large range of state addresses can be queried at
    the same time. The internal state tree nodes for that range can then be reconstructed internally.
    In November 2020, it took around 2 hours to sync the state (ignoring blocks!) using snap sync.
@@ -46,12 +46,14 @@ Quick overview of what other clients offer:
 
 ## Do we need all blocks?
 
-A quick remark: geth always fetches all blocks (including block bodies — Nethermind allows just
-getting the headers). This is not strictly necessary.
+Geth always fetches all blocks (including block bodies — Nethermind allows just getting the
+headers). This is not strictly necessary.
 
 Theoretically, you at least need to download all headers to validate the chain. But you don't need
 to keep these headers around in storage. You will need to keep the N most recent blocks to handle
-re-orgs (the bigger N, the bigger the reorg you can handle without resorting to sync).
+re-orgs (the bigger N, the bigger the reorg you can handle without resorting to sync). For geth,
+this value is called `FullImmutabilityThreshold` and has a default value of 90,000 blocks (around
+two weeks).
 
 If you can find a block hash off-chain that you trust, you don't even need to validate the chain —
 you can just start by trusting this block and downloading the state for it.
@@ -63,7 +65,7 @@ even though skipping old blocks makes sync faster and reduces storage requiremen
    sync (i.e. one that at least validates proof-of-work + the chain of hashes).
 2. Starting from a trusted hash is problematic because you need to get this hash from somewhere.
    Inevitably people will trust one or two places to supply this hash, which opens a big centralized
-   attack vector. In practice, it probably won't matter becaue the network is already running.
+   attack vector. In practice, it probably won't matter because the network is already running.
    Still, this is a bad norm to promote for what a trustless decentralized system.
 
 ## Syncing an Evolving Chain

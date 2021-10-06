@@ -66,7 +66,6 @@ public final class PatriciaLeafNode extends PatriciaNode {
         store.removeNode(this);
 
         // split into a branch node with two children (or a child and a value)
-        // NOTE: no need to add the leave nodes to the store, they'll be destructured in branchNode
         @SuppressWarnings("unchecked")
         var branch = store.branchNode(
             Pair.of(ownSuffix.dropFirst(prefixLen), store.leafNode(Nibbles.EMPTY, this.value)),
