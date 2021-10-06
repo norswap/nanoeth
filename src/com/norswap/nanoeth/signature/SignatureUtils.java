@@ -7,7 +7,7 @@ import org.bouncycastle.math.ec.ECPoint;
 import java.math.BigInteger;
 import java.util.Arrays;
 
-import static com.norswap.nanoeth.signature.Curve.SECP256K1;
+import static com.norswap.nanoeth.crypto.Curve.SECP256K1;
 
 /**
  * Signature-related utilities that don't obviously belong in other classes.

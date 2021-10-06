@@ -8,7 +8,7 @@ import java.math.BigInteger;
 import java.util.Objects;
 
 import static com.norswap.nanoeth.versions.EthereumVersion.HOMESTEAD;
-import static com.norswap.nanoeth.signature.Curve.SECP256K1;
+import static com.norswap.nanoeth.crypto.Curve.SECP256K1;
 
 /**
  * An ECDSA signature using the SECP-256k1 curve.

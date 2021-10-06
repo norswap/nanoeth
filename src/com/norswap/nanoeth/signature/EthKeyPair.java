@@ -15,7 +15,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.spec.ECGenParameterSpec;
 
-import static com.norswap.nanoeth.signature.Curve.SECP256K1;
+import static com.norswap.nanoeth.crypto.Curve.SECP256K1;
 import static com.norswap.nanoeth.signature.Signature.recoverPublicKeyWithoutHashing;
 
 /**

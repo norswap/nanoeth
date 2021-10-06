@@ -5,7 +5,7 @@ import org.bouncycastle.math.ec.ECPoint;
 import org.testng.annotations.Test;
 import java.math.BigInteger;
 
-import static com.norswap.nanoeth.signature.Curve.SECP256K1;
+import static com.norswap.nanoeth.crypto.Curve.SECP256K1;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
