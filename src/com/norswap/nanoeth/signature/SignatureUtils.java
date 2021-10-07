@@ -17,8 +17,9 @@ public final class SignatureUtils {
 
     // ---------------------------------------------------------------------------------------------
 
+    /** Note that in SECP256K1, N (curve order) and n (subgroupe order) are identical. */
     static final BigInteger SECP256K1_HALF_N =
-            SECP256K1.n.shiftRight(1); // n/2
+            SECP256K1.n().shiftRight(1); // n/2
 
     // ---------------------------------------------------------------------------------------------
 
@@ -48,7 +49,7 @@ public final class SignatureUtils {
      */
     public static Natural canonicalizeS (Natural s) {
         return s.compareTo(SECP256K1_HALF_N) > 0
-            ? new Natural(SECP256K1.n.subtract(s))
+            ? new Natural(SECP256K1.n().subtract(s))
             : s;
     }
 
