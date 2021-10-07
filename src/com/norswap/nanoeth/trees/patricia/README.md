@@ -55,7 +55,9 @@ The modified Merkle patricia tree is used in a few places in Ethereum:
 - Each block stores the Merkle root of a trie constructed from the block's transaction.
     - The keys are the RLP-encodings of the transaction indices, the values are the RLP-encodings of
       the transactions.
-- Each block stores the Merkle root of a trie constructed from the block's transaction receipts.
+- Each block stores the Merkle root of a trie constructed from the block's transaction receipts
+  (most importantly, the receipts is where logs (the structure underlying Solidity's events) are
+  stored).
     - The keys are the RLP-encoding of the receipts indices, the values are the RLP-encoding of
       the receipts.
 
@@ -97,6 +99,9 @@ More generally, Merkle proofs are used implicitly. Whenever you request a tree n
 [ETH] protocol, you can verify that the answer is correct by checking that the node conforms to
 the constraints of the Merkle tree. This is also how stateless clients use Merkle proofs: as a means
 to check the nodes they request from the network, which they never actually insert into a full tree.
+
+Merkle proofs can also be used to prove receipts (& hence logs) belong to the Merkle tree whose root
+is stored in a block.
 
 [snap sync]: /src/network/sync/README.md
 [LES]: https://github.com/ethereum/devp2p/blob/master/caps/les.md
