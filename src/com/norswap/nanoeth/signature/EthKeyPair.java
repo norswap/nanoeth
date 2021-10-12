@@ -2,7 +2,7 @@ package com.norswap.nanoeth.signature;
 
 import com.norswap.nanoeth.data.Address;
 import com.norswap.nanoeth.data.Natural;
-import com.norswap.nanoeth.utils.Crypto;
+import com.norswap.nanoeth.crypto.Crypto;
 import com.norswap.nanoeth.utils.Hashing;
 import com.norswap.nanoeth.utils.Randomness;
 import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey;

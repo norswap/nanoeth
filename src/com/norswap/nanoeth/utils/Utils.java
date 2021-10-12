@@ -13,6 +13,17 @@ public final class Utils {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Terse way to create arrays: {@code array("a", "b")} instead of {@code new String[]{"a",
+     * "b"}}.
+     */
+    @SafeVarargs
+    public static <T> T[] array (T... items) {
+        return items;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /** Returns true iff all supplies values are distinct. */
     @SafeVarargs
     public static <T> boolean allDistinct (T... values) {
