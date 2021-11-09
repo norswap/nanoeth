@@ -72,9 +72,9 @@ public final class EthKeyPair {
 
     private static ECPoint publicKeyFromPrivateKey (BigInteger privateKey) {
         // FixedPointCombMultiplier currently doesn't support scalars longer than the group order.
-        // Because the subgroup of G has order n, this doesn't change the result.
-        if (privateKey.bitLength() > SECP256K1.n().bitLength())
-            privateKey = privateKey.mod(SECP256K1.n());
+        // Because the subgroup of G has order n == N in SECP256k1, this doesn't change the result.
+        if (privateKey.bitLength() > SECP256K1.N().bitLength())
+            privateKey = privateKey.mod(SECP256K1.N());
         return new FixedPointCombMultiplier().multiply(SECP256K1.G(), privateKey);
     }
 

@@ -32,7 +32,7 @@ public class VectorsProof {
 
     /**
      * A vector sent in response to the challenge, summing over the inner product of [the proven
-     * vectors & the extra vector] with a set of powers of the challenge.
+     * vectors and the extra vector] with a set of powers of the challenge.
      */
     public final BigInteger[] answerVector;
 

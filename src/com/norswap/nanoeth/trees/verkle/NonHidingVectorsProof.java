@@ -48,7 +48,7 @@ public class NonHidingVectorsProof {
         this.vectorSize = vectorSize;
         var challenge = computeChallenge();
 
-        // TL;DR: answerVector[i] = extraVector[i] + sum{v}(challenge.pow(v + 1) * vectors[v][i])
+        // TL;DR: answerVector[i] = sum{v}(challenge.pow(v) * vectors[v][i])
         answerVector = vectors[0].clone();
         assert answerVector.length == vectorSize;
         for (int v = 1; v < vectors.length; ++v) {

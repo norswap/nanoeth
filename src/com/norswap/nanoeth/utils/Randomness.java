@@ -2,6 +2,7 @@ package com.norswap.nanoeth.utils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  * Utilities related to random number generation.
@@ -57,6 +58,31 @@ public final class Randomness {
         for (int i = 0; i < amount; i++)
             out[i] = randomInteger(RANDOM_VALUE_BIT_LENGTH);
         return out;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a random big integer {@code x} such that {@code 0 <= x < max}, guaranteeing
+     * an equal distribution between possible values.
+     */
+    public static BigInteger randomInteger (Random random, BigInteger max) {
+        var bitLength = max.bitLength();
+        BigInteger candidate;
+        do {
+            candidate = new BigInteger(bitLength, random);
+        } while (candidate.compareTo(max) >= 0);
+        return candidate;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a random big integer {@code x} such that {@code 0 <= x < max}, guaranteeing
+     * an equal distribution between possible values.
+     */
+    public static BigInteger randomInteger (BigInteger max) {
+        return randomInteger(SECURE, max);
     }
 
     // ---------------------------------------------------------------------------------------------
