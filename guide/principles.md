@@ -9,8 +9,11 @@ This document outlines a few design principles for nanoeth.
 - enable playing with example data interactively
 - clear mapping with the Yellowpaper
 - simplicity & clarity
+- making the code [habitable]: clear in its motivation, easy to modify, extend or reproduce
 - using a wealth of (wrapper) types to achieve the above objectives and make the codebase easy to
   navigate
+
+[habitable]: http://akkartik.name/post/habitability
 
 **Non-Goals**
 - efficiency
